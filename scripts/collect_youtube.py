@@ -19,6 +19,7 @@ from xml.etree import ElementTree
 DEFAULT_CONFIG = Path("data/sources/youtube_sources.json")
 DEFAULT_OUTPUT_DIR = Path("data/raw/youtube")
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
+VIDEO_DETAIL_RETRIES = 2
 
 ATOM_NS = "{http://www.w3.org/2005/Atom}"
 YT_NS = "{http://www.youtube.com/xml/schemas/2015}"
@@ -222,10 +223,21 @@ def fetch_video_details(url: str) -> dict[str, Any]:
         "youtube:lang=ko",
         url,
     ]
-    completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=45)
-    for line in completed.stdout.splitlines():
-        if line.startswith("{"):
-            return json.loads(line)
+    last_error: Exception | None = None
+    for _attempt in range(VIDEO_DETAIL_RETRIES + 1):
+        try:
+            completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=45)
+        except Exception as error:
+            last_error = error
+            continue
+
+        for line in completed.stdout.splitlines():
+            if line.startswith("{"):
+                return json.loads(line)
+        last_error = RuntimeError("yt-dlp returned no JSON object")
+
+    if last_error:
+        raise last_error
     raise RuntimeError("yt-dlp returned no JSON object")
 
 
