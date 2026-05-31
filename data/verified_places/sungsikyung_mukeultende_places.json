@@ -1,0 +1,57 @@
+{
+  "source": "성시경의 먹을텐데",
+  "verified_at": "2026-05-31",
+  "items": [
+    {
+      "video_id": "d6zoTmkiyf0",
+      "resolved_name": "Tsukiji Sushisei Honten",
+      "display_name": "츠키지 스시세이 츠키지 본점",
+      "local_name": "築地寿司清 築地本店",
+      "country_code": "JP",
+      "region": "Tokyo",
+      "address": "4-13-9 Tsukiji, Chuo-ku, Tokyo",
+      "phone": "03-3541-7720",
+      "category": "sushi",
+      "map_provider": "google_maps",
+      "map_url": "https://www.google.com/maps/search/?api=1&query=Tsukiji%20Sushisei%20Honten%204-13-9%20Tsukiji%20Chuo-ku%20Tokyo",
+      "evidence_url": "https://www.tsukiji.or.jp/english/shoplist/cat-d/cat-12/263/",
+      "confidence": 0.86,
+      "status": "needs_review",
+      "notes": "The title says 도쿄 츠키지 스시세이. Tsukiji has Honten and Shinkan nearby; Honten is selected because the title does not mention Shinkan and official Tsukiji market data lists Honten at this address."
+    },
+    {
+      "video_id": "fPsMKDTzqaI",
+      "resolved_name": "엄마순대",
+      "display_name": "엄마순대",
+      "local_name": "엄마순대",
+      "country_code": "KR",
+      "region": "서울 광진구",
+      "address": "서울특별시 광진구 뚝섬로 472, 1층",
+      "phone": "02-468-5658",
+      "category": "sundae_gukbap",
+      "map_provider": "naver_map",
+      "map_url": "https://map.naver.com/p/search/%EC%9E%90%EC%96%91%EB%8F%99%20%EC%97%84%EB%A7%88%EC%88%9C%EB%8C%80",
+      "evidence_url": "https://www.hotple.com/place/eommasundae-gwangjin-38275908",
+      "confidence": 0.94,
+      "status": "verified",
+      "notes": "Candidate title includes 자양동 엄마순대; place data matches name, district, address, category, and phone."
+    },
+    {
+      "video_id": "bfBmJCPgCmI",
+      "resolved_name": "제주삼다돈",
+      "display_name": "제주삼다돈",
+      "local_name": "제주삼다돈",
+      "country_code": "KR",
+      "region": "서울 마포구",
+      "address": "서울특별시 마포구 양화로11길 66",
+      "phone": "0507-1472-2140",
+      "category": "korean_bbq",
+      "map_provider": "naver_map",
+      "map_url": "https://map.naver.com/p/search/%ED%95%A9%EC%A0%95%EC%97%AD%20%EC%A0%9C%EC%A3%BC%EC%82%BC%EB%8B%A4%EB%8F%88",
+      "evidence_url": "https://www.diningcode.com/profile.php?rid=HKty0ngODvLB",
+      "confidence": 0.96,
+      "status": "verified",
+      "notes": "Candidate title includes 합정역 제주삼다돈; place data matches name, address, phone, and category."
+    }
+  ]
+}
