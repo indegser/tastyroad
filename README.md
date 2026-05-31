@@ -170,6 +170,7 @@ GitHub App에는 이 repository에 대해 최소한 아래 권한이 필요합�
 - Pull requests: Read and write
 
 GitHub App secret이 없으면 workflow는 `GITHUB_TOKEN`으로 fallback합니다. 다만 `GITHUB_TOKEN`은 GitHub Actions 재트리거 정책에 걸릴 수 있으므로, 배포까지 완전 자동으로 이어가려면 GitHub App secret을 넣는 구성이 안전합니다.
+fallback 경로에서도 자동 배포가 끊기지 않도록 `Update Tastyroad Data` workflow는 PR merge 직후 Vercel production 배포를 직접 실행합니다.
 
 Vercel 배포용 repository secrets도 필요합니다.
 
