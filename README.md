@@ -84,11 +84,12 @@ python3 scripts/collect_sungsikyung.py
 
 ## 파이프라인 상태 모델
 
-영상 수집 파이프라인은 `수집 > 검수 > 지도 매핑` 3단계입니다. 웹사이트 빌드/배포는 이 DB를 읽는 별도 소비자이며, 파이프라인 상태를 만들거나 바꾸는 책임을 갖지 않습니다.
+영상 수집 파이프라인은 `수집 > 검수 > 자막/스토리 리뷰 > 지도 매핑` 단계입니다. 웹사이트 빌드/배포는 이 DB를 읽는 별도 소비자이며, 파이프라인 상태를 만들거나 바꾸는 책임을 갖지 않습니다.
 
 1. `수집`: YouTube RSS/yt-dlp 결과를 `mention_candidates`에 저장합니다. 이 단계의 영상은 아직 맛집 영상인지 모릅니다.
 2. `검수`: `agent_video_reviews`에 영상 단위 판정을 저장합니다. `decision`은 `restaurant_intro`, `not_restaurant`, `uncertain` 중 하나이고, `detected_restaurant_count`로 영상 안 식당 수를 명시합니다. 식당명이 추정되면 `restaurant_names`에도 남깁니다.
-3. `지도 매핑`: Google/Naver/Kakao 지도 검색 결과 또는 보조 웹 증거를 `place_resolution_candidates`에 남기고, 확정된 지도 entity는 `restaurants`, `place_links`, `mentions`로 승격합니다. 가능하면 `map_provider`는 `google_maps`, `naver_map`, `kakao_map` 중 하나를 우선 사용합니다.
+3. `자막/스토리 리뷰`: `restaurant_intro` 영상의 YouTube transcript를 `video_transcripts`에 raw segment JSON과 평문으로 저장합니다. Codex가 자막을 읽고 작성한 관계/내력 중심 소개 및 실제 시식 흐름은 `data/story_reviews/video_story_reviews.json`에 남긴 뒤 `video_story_reviews`에 적용합니다.
+4. `지도 매핑`: Google/Naver/Kakao 지도 검색 결과 또는 보조 웹 증거를 `place_resolution_candidates`에 남기고, 확정된 지도 entity는 `restaurants`, `place_links`, `mentions`로 승격합니다. 가능하면 `map_provider`는 `google_maps`, `naver_map`, `kakao_map` 중 하나를 우선 사용합니다.
 
 현재 상태는 DB 뷰로 바로 확인합니다.
 
@@ -127,6 +128,24 @@ python3 scripts/apply_agent_reviews.py --check-coverage
 
 ```bash
 python3 scripts/apply_agent_reviews.py --list-unreviewed
+```
+
+자막 한 건 갱신 후 Codex 작성 리뷰 적용:
+
+```bash
+python3 scripts/process_video_stories.py --video-id bfBmJCPgCmI --refresh
+```
+
+Codex 작성 리뷰 누락 확인:
+
+```bash
+python3 scripts/process_video_stories.py --list-missing
+```
+
+저장 결과 확인:
+
+```bash
+sqlite3 data/tastyroad.sqlite "select story_hook, story_intro, tasting_flow from video_story_reviews where external_id = 'bfBmJCPgCmI';"
 ```
 
 SQLite 확인:
@@ -194,7 +213,7 @@ python3 scripts/update_pipeline.py
 pnpm run update:data
 ```
 
-`update_pipeline.py`는 RSS 수집, 영상 검수 적용, 검증 seed 승격까지만 실행합니다. 사이트 렌더링과 JSON export는 하지 않습니다.
+`update_pipeline.py`는 RSS 수집, 영상 검수 적용, 자막 저장, Codex 작성 스토리 리뷰 적용, 검증 seed 승격까지만 실행합니다. 사이트 렌더링과 JSON export는 하지 않습니다.
 
 Next.js 빌드:
 
