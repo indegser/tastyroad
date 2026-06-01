@@ -15,6 +15,8 @@ from pathlib import Path
 from typing import Any, Iterable
 from xml.etree import ElementTree
 
+from pipeline_schema import ensure_pipeline_schema
+
 
 DEFAULT_CONFIG = Path("data/sources/youtube_sources.json")
 DEFAULT_OUTPUT_DIR = Path("data/raw/youtube")
@@ -525,6 +527,7 @@ def ensure_collection_schema(connection: sqlite3.Connection) -> None:
         connection.execute(
             "alter table mention_candidates add column chapters text not null default '[]'"
         )
+    ensure_pipeline_schema(connection)
 
 
 def upsert_source(connection: sqlite3.Connection, source: YoutubeSource) -> int:

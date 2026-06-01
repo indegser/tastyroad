@@ -80,7 +80,54 @@ python3 scripts/collect_sungsikyung.py
 - `restaurant_name_candidates`: 제목에서 추정한 식당명/지역 후보
 - `collected_at`
 
-이 단계의 데이터는 최종 식당 DB가 아니라 `MentionCandidate`에 가깝습니다. 이후 네이버/카카오 장소 검색, 주소 매칭, 수동 검수를 거쳐 `restaurants`, `mentions`, `sources` 테이블로 정규화하는 흐름을 권장합니다.
+이 단계의 데이터는 최종 식당 DB가 아니라 `MentionCandidate`입니다. 수집된 영상은 검수 여부와 관계없이 모두 DB에 남고, 이후 단계에서 상태만 추가됩니다.
+
+## 파이프라인 상태 모델
+
+영상 수집 파이프라인은 `수집 > 검수 > 지도 매핑` 3단계입니다. 웹사이트 빌드/배포는 이 DB를 읽는 별도 소비자이며, 파이프라인 상태를 만들거나 바꾸는 책임을 갖지 않습니다.
+
+1. `수집`: YouTube RSS/yt-dlp 결과를 `mention_candidates`에 저장합니다. 이 단계의 영상은 아직 맛집 영상인지 모릅니다.
+2. `검수`: `agent_video_reviews`에 영상 단위 판정을 저장합니다. `decision`은 `restaurant_intro`, `not_restaurant`, `uncertain` 중 하나이고, `detected_restaurant_count`로 영상 안 식당 수를 명시합니다. 식당명이 추정되면 `restaurant_names`에도 남깁니다.
+3. `지도 매핑`: Google/Naver/Kakao 지도 검색 결과 또는 보조 웹 증거를 `place_resolution_candidates`에 남기고, 확정된 지도 entity는 `restaurants`, `place_links`, `mentions`로 승격합니다. 가능하면 `map_provider`는 `google_maps`, `naver_map`, `kakao_map` 중 하나를 우선 사용합니다.
+
+현재 상태는 DB 뷰로 바로 확인합니다.
+
+```bash
+python3 scripts/pipeline_status.py
+```
+
+핵심 쿼리:
+
+```sql
+select review_status, mapping_status, count(*)
+from video_pipeline_status
+group by review_status, mapping_status;
+```
+
+```sql
+select video_id, source, title
+from unreviewed_videos
+order by published_at desc;
+```
+
+```sql
+select video_id, title, detected_restaurant_count, mapped_restaurant_count
+from mapping_backlog
+order by published_at desc;
+```
+
+수집된 영상은 모두 영상 단위 검수 대상입니다. 검수 결과가 없거나 `restaurant_intro`로 통과하지 않은 영상은 리스팅 데이터에 포함되지 않습니다. 미검수 백로그는 빌드와 독립적으로 확인합니다.
+
+```bash
+python3 scripts/apply_agent_reviews.py
+python3 scripts/apply_agent_reviews.py --check-coverage
+```
+
+검수 누락 영상 확인:
+
+```bash
+python3 scripts/apply_agent_reviews.py --list-unreviewed
+```
 
 SQLite 확인:
 
@@ -113,6 +160,7 @@ python3 scripts/promote_verified_places.py --input-dir data/verified_places
 - `restaurants`: 정규화된 식당
 - `place_links`: 지도 서비스 링크, 증거 URL, confidence
 - `mentions`: 특정 영상 후보와 식당의 연결
+- `place_resolution_candidates`: 지도 검색 후보, 선택된 결과, 검색 provider, 검색어, 증거 JSON
 
 확인:
 
@@ -138,7 +186,7 @@ python3 scripts/run_e2e.py
 python3 scripts/build_site.py
 ```
 
-`build_site.py`는 RSS 수집, 검증 seed 승격, 정적 페이지 렌더링, 썸네일/업로드일 UI 검증을 순서대로 실행하고 `public/index.html`을 생성합니다.
+`build_site.py`는 RSS 수집, 영상 검수 적용, 검증 seed 승격, 정적 페이지 렌더링, 썸네일/업로드일 UI 검증을 순서대로 실행하고 `public/index.html`을 생성합니다. 미검수 영상이 남아 있어도 빌드는 실패하지 않고, 검수 통과 영상만 리스팅합니다.
 
 수집, 검증 seed 승격, 정적 페이지 렌더링을 순서대로 실행하고 페이지 출력이 바뀐 경우에만 Vercel production으로 재배포:
 

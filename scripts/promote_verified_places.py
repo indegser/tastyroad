@@ -9,6 +9,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from pipeline_schema import ensure_pipeline_schema
+
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 DEFAULT_INPUT = Path("data/verified_places/sungsikyung_mukeultende_places.json")
@@ -16,49 +18,7 @@ DEFAULT_INPUT_DIR = Path("data/verified_places")
 
 
 def ensure_schema(connection: sqlite3.Connection) -> None:
-    connection.execute("pragma foreign_keys = on")
-    connection.executescript(
-        """
-        create table if not exists restaurants (
-          id integer primary key autoincrement,
-          canonical_name text not null,
-          display_name text not null,
-          local_name text,
-          country_code text not null,
-          region text not null,
-          address text not null,
-          phone text,
-          category text,
-          status text not null default 'open',
-          created_at text not null,
-          updated_at text not null,
-          unique(country_code, address, canonical_name)
-        );
-
-        create table if not exists place_links (
-          id integer primary key autoincrement,
-          restaurant_id integer not null references restaurants(id),
-          provider text not null,
-          url text not null,
-          evidence_url text,
-          confidence real not null,
-          status text not null,
-          notes text,
-          verified_at text not null,
-          unique(restaurant_id, provider, url)
-        );
-
-        create table if not exists mentions (
-          id integer primary key autoincrement,
-          restaurant_id integer not null references restaurants(id),
-          mention_candidate_id integer not null references mention_candidates(id),
-          confidence real not null,
-          status text not null,
-          verified_at text not null,
-          unique(restaurant_id, mention_candidate_id)
-        );
-        """
-    )
+    ensure_pipeline_schema(connection)
 
 
 def load_json(path: Path) -> dict[str, Any]:
@@ -188,6 +148,70 @@ def upsert_mention(
     )
 
 
+def upsert_place_resolution_candidate(
+    connection: sqlite3.Connection,
+    mention_candidate_id: int,
+    item: dict[str, Any],
+    searched_at: str,
+) -> None:
+    query = str(
+        item.get("map_query")
+        or f"{item.get('region', '')} {item.get('display_name') or item.get('resolved_name')}"
+    ).strip()
+    connection.execute(
+        """
+        insert into place_resolution_candidates (
+          mention_candidate_id,
+          search_provider,
+          query,
+          result_name,
+          result_address,
+          result_phone,
+          result_category,
+          result_url,
+          result_rank,
+          confidence,
+          status,
+          evidence_json,
+          searched_at
+        )
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        on conflict(mention_candidate_id, search_provider, query, result_url) do update set
+          result_name = excluded.result_name,
+          result_address = excluded.result_address,
+          result_phone = excluded.result_phone,
+          result_category = excluded.result_category,
+          result_rank = excluded.result_rank,
+          confidence = excluded.confidence,
+          status = excluded.status,
+          evidence_json = excluded.evidence_json,
+          searched_at = excluded.searched_at
+        """,
+        (
+            mention_candidate_id,
+            item["map_provider"],
+            query,
+            item.get("display_name") or item["resolved_name"],
+            item["address"],
+            item.get("phone"),
+            item.get("category"),
+            item["map_url"],
+            int(item.get("result_rank", 1)),
+            float(item["confidence"]),
+            "selected",
+            json.dumps(
+                {
+                    "evidence_url": item.get("evidence_url"),
+                    "notes": item.get("notes"),
+                    "country_code": item.get("country_code"),
+                },
+                ensure_ascii=False,
+            ),
+            searched_at,
+        ),
+    )
+
+
 def promote(sqlite_path: Path, input_path: Path) -> int:
     payload = load_json(input_path)
     now = datetime.now(timezone.utc).isoformat()
@@ -197,8 +221,10 @@ def promote(sqlite_path: Path, input_path: Path) -> int:
         for item in payload["items"]:
             mention_candidate_id = get_candidate_id(connection, item["video_id"])
             restaurant_id = upsert_restaurant(connection, item, now)
+            upsert_place_resolution_candidate(connection, mention_candidate_id, item, payload["verified_at"])
             upsert_place_link(connection, restaurant_id, item, payload["verified_at"])
             upsert_mention(connection, restaurant_id, mention_candidate_id, item, payload["verified_at"])
+        ensure_pipeline_schema(connection)
 
     return len(payload["items"])
 
