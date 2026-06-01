@@ -180,6 +180,7 @@ python3 scripts/run_e2e.py
 
 `taste.indegser.com`은 Next.js 정적 export를 Vercel `tastyroad` 프로젝트에 배포합니다.
 Next.js는 빌드 시점에 `data/tastyroad.sqlite`를 직접 읽고, 지도 매핑까지 완료된 영상만 페이지에 렌더링합니다.
+`data/tastyroad.sqlite`가 커밋되는 기준 데이터이며, `data/raw/youtube/*.json`과 `data/agent_reviews/*.json`은 재수집/import용 임시 산출물로 커밋하지 않습니다.
 
 로컬 SQLite DB 갱신:
 
