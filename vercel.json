@@ -1,5 +1,5 @@
 {
-  "buildCommand": "python3 scripts/build_site.py --output public/index.html",
-  "outputDirectory": "public",
+  "buildCommand": "pnpm run build",
+  "outputDirectory": "out",
   "cleanUrls": true
 }

@@ -176,54 +176,35 @@ python3 scripts/run_e2e.py
 
 이 명령은 RSS 수집, SQLite 적재, 검증된 장소 승격, 조인 검증을 한 번에 수행합니다.
 
-## 자동 업데이트, PR, 배포
+## DB 갱신과 배포
 
-`taste.indegser.com`은 `index.html` 정적 페이지를 Vercel `tastyroad` 프로젝트에 배포합니다.
+`taste.indegser.com`은 Next.js 정적 export를 Vercel `tastyroad` 프로젝트에 배포합니다.
+Next.js는 빌드 시점에 `data/tastyroad.sqlite`를 직접 읽고, 지도 매핑까지 완료된 영상만 페이지에 렌더링합니다.
 
-수집 데이터와 검증 seed로 정적 페이지를 다시 생성:
-
-```bash
-python3 scripts/build_site.py
-```
-
-`build_site.py`는 RSS 수집, 영상 검수 적용, 검증 seed 승격, 정적 페이지 렌더링, 썸네일/업로드일 UI 검증을 순서대로 실행하고 `public/index.html`을 생성합니다. 미검수 영상이 남아 있어도 빌드는 실패하지 않고, 검수 통과 영상만 리스팅합니다.
-
-수집, 검증 seed 승격, 정적 페이지 렌더링을 순서대로 실행하고 페이지 출력이 바뀐 경우에만 Vercel production으로 재배포:
+로컬 SQLite DB 갱신:
 
 ```bash
-python3 scripts/deploy_if_changed.py
+python3 scripts/update_pipeline.py
 ```
 
 동일한 명령을 npm script로도 실행할 수 있습니다.
 
 ```bash
-pnpm run deploy:changed
+pnpm run update:data
 ```
 
-GitHub Actions는 두 단계로 동작합니다.
+`update_pipeline.py`는 RSS 수집, 영상 검수 적용, 검증 seed 승격까지만 실행합니다. 사이트 렌더링과 JSON export는 하지 않습니다.
 
-- `Update Tastyroad Data`: 매시간 RSS/YouTube 데이터를 수집하고 `public/index.html`을 빌드합니다. 변경이 있으면 `tastyroad/auto-update` 브랜치로 PR을 만들고 자동으로 squash merge합니다.
-- `Deploy Tastyroad`: `main`에 push가 생기면 HTML을 다시 빌드하고 Vercel production으로 배포합니다.
+Next.js 빌드:
 
-자동 PR/머지는 GitHub App 토큰을 우선 사용합니다. repository secrets에 아래 값을 넣습니다.
-
-```txt
-TASTYROAD_APP_ID
-TASTYROAD_APP_PRIVATE_KEY
+```bash
+pnpm run build
 ```
 
-GitHub App에는 이 repository에 대해 최소한 아래 권한이 필요합니다.
+Vercel production 배포:
 
-- Contents: Read and write
-- Pull requests: Read and write
-
-GitHub App secret이 없으면 workflow는 `GITHUB_TOKEN`으로 fallback합니다. 다만 `GITHUB_TOKEN`은 GitHub Actions 재트리거 정책에 걸릴 수 있으므로, 배포까지 완전 자동으로 이어가려면 GitHub App secret을 넣는 구성이 안전합니다.
-fallback 경로에서도 자동 배포가 끊기지 않도록 `Update Tastyroad Data` workflow는 PR merge 직후 Vercel production 배포를 직접 실행합니다.
-
-Vercel 배포용 repository secrets도 필요합니다.
-
-```txt
-VERCEL_TOKEN
-VERCEL_ORG_ID=team_jyYah1TfVqWBxPRhZRQnTlN7
-VERCEL_PROJECT_ID=prj_xP4QInXXAVeQTPbvBJPKYiijR0SC
+```bash
+pnpm run deploy
 ```
+
+`deploy`는 로컬에서 Vercel build를 실행한 뒤 prebuilt 산출물을 업로드합니다. GitHub Actions 자동 갱신/자동 배포는 사용하지 않습니다. 배포 전에 DB 갱신이 필요하면 수동으로 `pnpm run update:data`를 실행합니다.

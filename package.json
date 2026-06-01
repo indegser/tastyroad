@@ -1,11 +1,24 @@
 {
   "name": "tastyroad",
   "private": true,
+  "engines": {
+    "node": ">=22.5.0"
+  },
   "scripts": {
-    "build": "python3 scripts/build_site.py",
+    "build": "next build",
+    "update:data": "python3 scripts/update_pipeline.py",
     "collect": "python3 scripts/collect_youtube.py",
-    "render": "python3 scripts/render_site.py",
-    "deploy:changed": "python3 scripts/deploy_if_changed.py",
-    "deploy": "pnpm dlx vercel@latest --prod --yes --scope jaekwon-hans-projects"
+    "deploy": "pnpm dlx vercel@latest build --prod && pnpm dlx vercel@latest deploy --prebuilt --prod --yes --scope jaekwon-hans-projects"
+  },
+  "dependencies": {
+    "next": "^16.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "typescript": "^5.0.0"
   }
 }

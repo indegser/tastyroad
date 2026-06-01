@@ -3,3 +3,6 @@ data/*.sqlite-*
 __pycache__/
 *.pyc
 .vercel
+node_modules/
+.next/
+out/
