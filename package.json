@@ -8,7 +8,7 @@
     "build": "next build",
     "update:data": "python3 scripts/update_pipeline.py",
     "collect": "python3 scripts/collect_youtube.py",
-    "deploy": "pnpm dlx vercel@latest build --prod && pnpm dlx vercel@latest deploy --prebuilt --prod --yes --scope jaekwon-hans-projects"
+    "deploy": "pnpm dlx vercel@latest pull --yes --environment=production --scope jaekwon-hans-projects && pnpm dlx vercel@latest build --prod --yes && pnpm dlx vercel@latest deploy --prebuilt --prod --yes --scope jaekwon-hans-projects"
   },
   "dependencies": {
     "next": "^16.0.0",
