@@ -11,7 +11,7 @@ from typing import Any
 
 from collect_youtube import DEFAULT_SQLITE
 from pipeline_schema import ensure_pipeline_schema
-from process_video_stories import TranscriptPayload, upsert_transcript
+from process_video_stories import TranscriptPayload, upsert_transcript, validate_story_review_quality
 from promote_verified_places import (
     get_candidate_id,
     upsert_mention,
@@ -203,6 +203,7 @@ def upsert_story_from_item(connection: sqlite3.Connection, video_id: str, item: 
     evidence = item.get("evidence", {})
     if not isinstance(evidence, dict):
         raise ValueError(f"Story review {video_id} evidence must be an object")
+    validate_story_review_quality({"video_id": video_id, **item}, "story artifact")
     connection.execute(
         """
         insert into video_story_reviews (

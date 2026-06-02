@@ -637,9 +637,17 @@ def restaurant_triage_prompt() -> str:
 
 def story_review_prompt() -> str:
     return (
-        "Write a Korean story review from the transcript. Focus on why this place "
-        "is being introduced, host-restaurant relationship, owner/store context, "
-        "and factual tasting flow. Return only structured JSON matching expected_output."
+        "Write a Korean story review from the transcript. Find the actual story in "
+        "the transcript: why the host chose this place, whether the host had a prior "
+        "memory or relationship with it, what owner/store history is stated, what the "
+        "restaurant is proud of, and the factual order of dishes and reactions. Do not "
+        "write a generic restaurant summary, keyword list, or template text such as "
+        "'자막 기준으로', '한 끼 후보', or '메뉴의 첫인상'. If the transcript does not "
+        "contain store history, say only the concrete context that is present. Remove "
+        "duplicated ideas instead of repeating the same context in hook, intro, and "
+        "tasting flow. Write natural Korean with clear subjects; avoid vague or awkward "
+        "phrases such as '가게 쪽 이야기도 선명하다'. Return only structured JSON "
+        "matching expected_output."
     )
 
 

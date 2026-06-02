@@ -158,13 +158,16 @@ Codex 작성 리뷰 누락 확인:
 python3 scripts/process_video_stories.py --list-missing
 ```
 
-자막과 지도 매핑은 완료됐지만 스토리만 비어 있는 항목은 아래 명령으로 보수적
-스토리 리뷰를 생성해 `data/story_reviews/video_story_reviews.json`에 병합합니다.
-그 뒤 기존 importer로 SQLite에 적용합니다.
+자막과 지도 매핑은 완료됐지만 스토리만 비어 있는 항목은 자동 템플릿으로
+채우지 않습니다. `story_review` 작업이 자막을 읽고 식당을 고른 이유, 진행자와
+가게의 관계, 가게 내력, 실제 시식 순서를 찾아 작성해야 합니다. 작성 결과는
+반복된 문장과 중복된 맥락을 줄이고, 한국어 문장의 주어가 분명해야 하며,
+비문이나 어색한 표현을 남기지 않아야 합니다.
 
 ```bash
-python3 scripts/generate_story_reviews_from_transcripts.py --apply
-python3 scripts/process_video_stories.py --apply-only
+python3 scripts/agent_pipeline.py --stage story_review --format json
+python3 scripts/agent_pipeline.py --stage story_review --run --limit 1
+python3 scripts/reduce_agent_artifacts.py --stage story_review --apply
 ```
 
 ## 멀티에이전트 전환 철학

@@ -20,6 +20,18 @@ DEFAULT_LANGUAGES = ("ko", "en")
 DEFAULT_INPUT = Path("data/story_reviews/video_story_reviews.json")
 DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 15.0
 DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS = 3
+DISALLOWED_STORY_REVIEWER = "codex-generated-from-transcript"
+GENERIC_STORY_PATTERNS = (
+    "자막 기준으로 영상은",
+    "같은 단서를 따라가며",
+    "왜 이 장소가 한 끼 후보가 되는지",
+    "지도에 찍힌 장소 정보뿐 아니라",
+    "시식 흐름은 먼저",
+    "중심으로 메뉴의 첫인상을 잡는 데서 시작한다",
+    "마지막에는 이 식당이 어떤 상황에서 선택할 만한지",
+    "가게 쪽 이야기도 선명하다",
+    "이야기도 선명하다",
+)
 
 
 @dataclass(frozen=True)
@@ -262,7 +274,44 @@ def validate_story_review_item(item: Any, path: Path) -> dict[str, Any]:
     evidence = item.get("evidence", {})
     if not isinstance(evidence, dict):
         raise ValueError(f"{path} review {item['video_id']} evidence must be an object")
+    validate_story_review_quality(item, str(path))
     return item
+
+
+def validate_story_review_quality(item: dict[str, Any], source_label: str) -> None:
+    video_id = str(item.get("video_id") or "<unknown>")
+    reviewer = str(item.get("reviewer") or "")
+    if reviewer == DISALLOWED_STORY_REVIEWER:
+        raise ValueError(f"{source_label} review {video_id} uses disallowed template reviewer")
+
+    combined_text = " ".join(
+        str(item.get(key) or "")
+        for key in ("story_hook", "story_intro", "tasting_flow")
+    )
+    matched_patterns = [pattern for pattern in GENERIC_STORY_PATTERNS if pattern in combined_text]
+    if matched_patterns:
+        raise ValueError(
+            f"{source_label} review {video_id} looks like a generic template: "
+            + ", ".join(matched_patterns)
+        )
+
+    normalized_sentences = [
+        " ".join(sentence.strip().split())
+        for sentence in combined_text.replace("?", ".").replace("!", ".").split(".")
+        if sentence.strip()
+    ]
+    duplicate_sentences = sorted(
+        {
+            sentence
+            for sentence in normalized_sentences
+            if len(sentence) >= 20 and normalized_sentences.count(sentence) > 1
+        }
+    )
+    if duplicate_sentences:
+        raise ValueError(
+            f"{source_label} review {video_id} repeats sentences: "
+            + " / ".join(duplicate_sentences)
+        )
 
 
 def apply_story_reviews(
