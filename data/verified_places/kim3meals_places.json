@@ -1,0 +1,23 @@
+{
+  "source": "김사원세끼",
+  "verified_at": "2026-06-03T00:00:00+09:00",
+  "items": [
+    {
+      "video_id": "D2_svTA-GAE",
+      "resolved_name": "터프네이모",
+      "display_name": "터프네이모",
+      "local_name": "터프네이모",
+      "country_code": "KR",
+      "region": "서울 구로구",
+      "address": "서울 구로구 온수동 55-4",
+      "phone": null,
+      "category": "포장마차",
+      "map_provider": "naver_map",
+      "map_url": "https://naver.me/FEUssJcA",
+      "evidence_url": "https://www.youtube.com/watch?v=D2_svTA-GAE",
+      "confidence": 0.95,
+      "status": "metadata_verified",
+      "notes": "김사원세끼 영상 설명란 [식당정보]에 상호, 주소, 네이버 지도 링크가 직접 제공된다."
+    }
+  ]
+}

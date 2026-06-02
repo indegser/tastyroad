@@ -1,0 +1,139 @@
+{
+  "reviews": [
+    {
+      "video_id": "D2_svTA-GAE",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["터프네이모"],
+      "detected_restaurant_count": 1,
+      "reason": "김사원세끼 설명란 [식당정보]에 상호, 주소, 네이버 링크가 있고 영상 제목도 특정 식당 방문 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "3hMtERZkjsU",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["몽돌이네"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "lPNNQU8GNAI",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["지하식당"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "Gha_sBcaQyI",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["오천냥포차", "실내포장마차"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에 번호가 붙은 두 식당 정보가 있으며 1, 2차 코스형 맛집 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "ViLVmEdaKBc",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["대광어횟집"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "6ruCleoeM2E",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["호랑실비"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "EOzXdC-nggs",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["애국집", "서울식당"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에 두 식당 정보가 있으며 제목도 여러 식당을 묶은 코스형 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "O0V5OATA71c",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["세모시"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "_NQtmgwAAlo",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["동화포차식당", "해오름감자탕"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에 두 식당 정보가 있으며 제목도 1, 2차 코스형 맛집 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "Zse2y5FVTiI",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["초록달야식당"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "J-SqZlnzhT8",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["신진원"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "6ZsjYVAeW4w",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["토리냥"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "-9eTIYOfwiw",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["왕도매회어시장", "꿈꾸는다락방"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에 두 식당 정보가 있으며 제목도 1, 2차 코스형 맛집 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "_VvyeK7rDQU",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["목포회센타"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "E_7rsis2lUs",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["청량리조개구이찜", "영심이네"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에는 식당X 표시된 장소를 제외하고 두 식당 정보가 남으며 제목도 1, 2, 3차 코스형 소개다.",
+      "reviewer": "codex"
+    }
+  ]
+}
