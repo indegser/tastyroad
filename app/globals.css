@@ -96,18 +96,6 @@ p {
   padding: 0 0 28px;
 }
 
-.index {
-  display: block;
-  width: 34px;
-  flex: 0 0 34px;
-  padding-top: 5px;
-  color: var(--text-tertiary);
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0;
-}
-
 a {
   color: inherit;
   text-decoration: none;
@@ -133,39 +121,39 @@ h2 {
 }
 
 .video-info {
-  display: flex;
-  gap: 12px;
+  min-width: 0;
 }
 
-.meta,
-.channel,
+.source-line,
 .video-link,
-.hook,
 .story-section,
 .tasting-flow {
   font-size: 0.9125rem;
 }
 
-.channel {
-  margin-bottom: 9px;
+.source-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 6px;
+  margin: 5px 0 8px;
   color: var(--text-secondary);
   font-weight: 450;
-  line-height: 1.35;
+  line-height: 1.5;
 }
 
-.hook {
-  max-width: 35rem;
-  margin: 4px 0 7px;
+.source-hook {
   color: var(--story);
   font-weight: 500;
-  line-height: 1.55;
-  overflow-wrap: anywhere;
+}
+
+.separator {
+  color: var(--text-tertiary);
 }
 
 .video-link {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: start;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   max-width: 100%;
   gap: 6px;
   color: var(--text-secondary);
@@ -175,6 +163,17 @@ h2 {
   text-decoration: none;
 }
 
+.video-link span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.video-date {
+  color: var(--text-tertiary);
+  font-size: 0.92em;
+  white-space: nowrap;
+}
+
 .video-link:hover {
   color: var(--link-hover);
 }
@@ -182,23 +181,7 @@ h2 {
 .video-link span:last-child {
   color: var(--link);
   font-size: 0.82em;
-  line-height: 1.8;
-}
-
-.video-link span:first-child {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow-wrap: anywhere;
-}
-
-.meta {
-  margin-top: 5px;
-  color: var(--text-tertiary);
-  font-size: 0.75rem;
-  font-variant-numeric: tabular-nums;
-  line-height: 1.45;
+  line-height: 1;
 }
 
 .story-section,
@@ -262,13 +245,12 @@ h2 {
     font-size: 0.875rem;
   }
 
-  .hook,
+  .source-line,
   .story-section,
   .tasting-flow {
     font-size: 0.96rem;
   }
 
-  .hook,
   .story-section p,
   .tasting-flow p {
     line-height: 1.72;

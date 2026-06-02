@@ -6,6 +6,7 @@ type PlaceCandidate = {
   title: string;
   publishedAt: string;
   publishedAtLabel: string;
+  publishedDateLabel: string;
   url: string;
   storyHook: string;
   storyIntro: string;
@@ -98,6 +99,7 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
       title: row.title,
       publishedAt: row.published_at,
       publishedAtLabel: formatDateTime(row.published_at),
+      publishedDateLabel: formatDate(row.published_at),
       url: row.url,
       storyHook: row.story_hook.trim(),
       storyIntro: row.story_intro.trim(),
@@ -133,6 +135,19 @@ function formatDateTime(value: string | null) {
   }).format(new Date(value));
 }
 
+function formatDate(value: string | null) {
+  if (!value) {
+    return "알 수 없음";
+  }
+
+  return new Intl.DateTimeFormat("ko-KR", {
+    timeZone: "Asia/Seoul",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }).format(new Date(value));
+}
+
 export default function Home() {
   const items = loadCandidates();
   const latestPublishedAt = items[0]?.publishedAtLabel ?? "알 수 없음";
@@ -152,31 +167,38 @@ export default function Home() {
           <li key={`${candidate.url}-${index}`}>
             <article className="video-card">
               <div className="video-info">
-                <span className="index">{String(index + 1).padStart(2, "0")}</span>
-                <div>
-                  <h2>{candidate.name}</h2>
+                <h2>{candidate.name}</h2>
+                <p className="source-line">
+                  <span>{candidate.source}</span>
                   {candidate.storyHook ? (
-                    <p className="hook">{candidate.storyHook}</p>
+                    <>
+                      <span className="separator" aria-hidden="true">
+                        -
+                      </span>
+                      <span className="source-hook">{candidate.storyHook}</span>
+                    </>
                   ) : null}
-                  <p className="channel muted">{candidate.source}</p>
-                  <a className="video-link" href={candidate.url}>
-                    <span>{candidate.title}</span>
-                    <span aria-hidden="true">↗</span>
-                  </a>
-                  <p className="meta muted">업로드 {candidate.publishedAtLabel}</p>
-                  {candidate.storyIntro ? (
-                    <section className="story-section" aria-label="이야기">
-                      <h3>이야기</h3>
-                      <p>{candidate.storyIntro}</p>
-                    </section>
-                  ) : null}
-                  {candidate.tastingFlow ? (
-                    <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
-                      <h3>시식 메뉴 및 순서</h3>
-                      <p>{candidate.tastingFlow}</p>
-                    </section>
-                  ) : null}
-                </div>
+                </p>
+                <a className="video-link" href={candidate.url}>
+                  <span>{candidate.title}</span>
+                  <span className="separator" aria-hidden="true">
+                    -
+                  </span>
+                  <span className="video-date">{candidate.publishedDateLabel}</span>
+                  <span aria-hidden="true">↗</span>
+                </a>
+                {candidate.storyIntro ? (
+                  <section className="story-section" aria-label="이야기">
+                    <h3>이야기</h3>
+                    <p>{candidate.storyIntro}</p>
+                  </section>
+                ) : null}
+                {candidate.tastingFlow ? (
+                  <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
+                    <h3>시식 메뉴 및 순서</h3>
+                    <p>{candidate.tastingFlow}</p>
+                  </section>
+                ) : null}
               </div>
             </article>
           </li>
