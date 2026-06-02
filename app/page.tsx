@@ -7,8 +7,7 @@ type PlaceCandidate = {
   publishedAt: string;
   publishedAtLabel: string;
   url: string;
-  status: string;
-  confidence: number;
+  story: string;
 };
 
 type CandidateRow = {
@@ -19,8 +18,8 @@ type CandidateRow = {
   raw_restaurant_name_candidates: string;
   display_name: string;
   agent_restaurant_names: string;
-  status: string;
-  confidence: number;
+  story_hook: string;
+  story_intro: string;
 };
 
 export const dynamic = "force-static";
@@ -67,8 +66,8 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
           c.raw_restaurant_name_candidates,
           coalesce(restaurants.display_name, '') as display_name,
           coalesce(reviewed.restaurant_names, '[]') as agent_restaurant_names,
-          mentions.status,
-          coalesce(mentions.confidence, reviewed.confidence, 0) as confidence
+          coalesce(story.story_hook, '') as story_hook,
+          coalesce(story.story_intro, '') as story_intro
         from mention_candidates c
         join sources s on s.id = c.source_id
         join reviewed on reviewed.external_id = c.external_id
@@ -76,6 +75,7 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
         left join picked_mention on picked_mention.mention_candidate_id = c.id
         left join mentions on mentions.id = picked_mention.id
         left join restaurants on restaurants.id = mentions.restaurant_id
+        left join video_story_reviews story on story.external_id = c.external_id
         where reviewed.decision = 'restaurant_intro'
           and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
         order by c.published_at desc, c.id desc
@@ -94,8 +94,7 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
       publishedAt: row.published_at,
       publishedAtLabel: formatDateTime(row.published_at),
       url: row.url,
-      status: row.status || "mapping_verified",
-      confidence: Number(row.confidence),
+      story: joinStory(row.story_hook, row.story_intro),
     }));
   } finally {
     db.close();
@@ -109,6 +108,10 @@ function firstNameCandidate(rawValue: string) {
   } catch {
     return "";
   }
+}
+
+function joinStory(...parts: string[]) {
+  return parts.map((part) => part.trim()).filter(Boolean).join(" ");
 }
 
 function formatDateTime(value: string | null) {
@@ -125,13 +128,6 @@ function formatDateTime(value: string | null) {
     minute: "2-digit",
     hour12: true,
   }).format(new Date(value));
-}
-
-function restaurantMeta(candidate: PlaceCandidate) {
-  if (candidate.confidence > 0) {
-    return `${candidate.name} · ${candidate.status} ${candidate.confidence.toFixed(2)}`;
-  }
-  return `${candidate.name} · ${candidate.status}`;
 }
 
 export default function Home() {
@@ -151,18 +147,21 @@ export default function Home() {
       <ol className="video-list">
         {items.map((candidate, index) => (
           <li key={`${candidate.url}-${index}`}>
-            <a className="video-card" href={candidate.url}>
+            <article className="video-card">
               <div className="video-info">
                 <span className="index">{String(index + 1).padStart(2, "0")}</span>
                 <div>
-                  <h2>{candidate.title}</h2>
-                  <p className="meta muted">
-                    {candidate.source} · 업로드 {candidate.publishedAtLabel}
-                  </p>
-                  <p className="restaurant">{restaurantMeta(candidate)}</p>
+                  <h2>{candidate.name}</h2>
+                  <p className="channel muted">{candidate.source}</p>
+                  <a className="video-link" href={candidate.url}>
+                    <span>{candidate.title}</span>
+                    <span aria-hidden="true">↗</span>
+                  </a>
+                  <p className="meta muted">업로드 {candidate.publishedAtLabel}</p>
+                  {candidate.story ? <p className="story">{candidate.story}</p> : null}
                 </div>
               </div>
-            </a>
+            </article>
           </li>
         ))}
       </ol>

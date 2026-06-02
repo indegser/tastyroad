@@ -82,25 +82,20 @@ p {
 }
 
 a {
-  display: block;
   color: inherit;
   text-decoration: none;
 }
 
-a:hover h2 {
+a:hover {
   color: var(--link);
   text-decoration: underline;
 }
 
 h2 {
-  display: -webkit-box;
-  margin: 0 0 5px;
-  overflow: hidden;
+  margin: 0 0 2px;
   overflow-wrap: anywhere;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  font-size: 1.04rem;
-  line-height: 1.34;
+  font-size: 1.3rem;
+  line-height: 1.25;
   letter-spacing: 0;
 }
 
@@ -115,13 +110,43 @@ h2 {
 }
 
 .meta,
-.restaurant {
+.channel,
+.video-link,
+.story {
   font-size: 0.91rem;
   line-height: 1.42;
 }
 
-.restaurant {
-  margin-top: 2px;
+.channel {
+  margin-bottom: 8px;
+}
+
+.video-link {
+  display: inline-flex;
+  align-items: baseline;
+  max-width: 100%;
+  gap: 4px;
+  color: var(--link);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.video-link span:first-child {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow-wrap: anywhere;
+}
+
+.meta {
+  margin-top: 4px;
+}
+
+.story {
+  margin-top: 12px;
+  color: var(--fg);
   overflow-wrap: anywhere;
 }
 
