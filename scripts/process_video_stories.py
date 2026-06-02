@@ -31,7 +31,21 @@ GENERIC_STORY_PATTERNS = (
     "마지막에는 이 식당이 어떤 상황에서 선택할 만한지",
     "가게 쪽 이야기도 선명하다",
     "이야기도 선명하다",
+    "쪽에 가깝다",
+    "매력으로 남는다",
+    "성격을 비교한다",
 )
+REQUIRED_CRITIC_CHECKS = (
+    "tasting_order_present",
+    "tasting_order_matches_transcript",
+    "host_reason_specific",
+    "store_context_specific",
+    "plain_korean",
+    "clear_subjects",
+    "no_duplicate_context",
+    "no_generic_phrasing",
+)
+MIN_STORY_CRITIC_ROUNDS = 3
 
 
 @dataclass(frozen=True)
@@ -313,6 +327,68 @@ def validate_story_review_quality(item: dict[str, Any], source_label: str) -> No
             + " / ".join(duplicate_sentences)
         )
 
+    evidence = item.get("evidence", {})
+    tasting_order = evidence.get("tasting_order") if isinstance(evidence, dict) else None
+    if not isinstance(tasting_order, list) or len([value for value in tasting_order if str(value).strip()]) < 3:
+        raise ValueError(f"{source_label} review {video_id} must include evidence.tasting_order with at least 3 items")
+
+    critic_rounds = item.get("critic_rounds")
+    if not isinstance(critic_rounds, list) or len(critic_rounds) < MIN_STORY_CRITIC_ROUNDS:
+        raise ValueError(
+            f"{source_label} review {video_id} must include at least "
+            f"{MIN_STORY_CRITIC_ROUNDS} critic_rounds"
+        )
+
+    for index, round_item in enumerate(critic_rounds, start=1):
+        if not isinstance(round_item, dict):
+            raise ValueError(f"{source_label} review {video_id} critic round {index} must be an object")
+        if int(round_item.get("round") or index) != index:
+            raise ValueError(f"{source_label} review {video_id} critic round {index} has wrong round number")
+        decision = str(round_item.get("decision") or "")
+        if decision not in {"revise", "reject", "pass"}:
+            raise ValueError(f"{source_label} review {video_id} critic round {index} has invalid decision")
+        writer_response = str(round_item.get("writer_response") or "").strip()
+        if not writer_response:
+            raise ValueError(f"{source_label} review {video_id} critic round {index} needs writer_response")
+        required_changes = round_item.get("required_changes", [])
+        if not isinstance(required_changes, list):
+            raise ValueError(f"{source_label} review {video_id} critic round {index} required_changes must be a list")
+        if index < MIN_STORY_CRITIC_ROUNDS and decision != "revise":
+            raise ValueError(f"{source_label} review {video_id} critic round {index} must be revise")
+        if index < MIN_STORY_CRITIC_ROUNDS and not required_changes:
+            raise ValueError(f"{source_label} review {video_id} critic round {index} must require concrete changes")
+
+    final_round = critic_rounds[-1]
+    if str(final_round.get("decision") or "") != "pass":
+        raise ValueError(f"{source_label} review {video_id} final critic decision must be pass")
+    issues = final_round.get("issues", [])
+    if issues:
+        raise ValueError(f"{source_label} review {video_id} final critic issues must be empty on pass")
+    checks = final_round.get("checks")
+    if not isinstance(checks, dict):
+        raise ValueError(f"{source_label} review {video_id} final critic checks must be an object")
+    failed_checks = [name for name in REQUIRED_CRITIC_CHECKS if checks.get(name) is not True]
+    if failed_checks:
+        raise ValueError(f"{source_label} review {video_id} failed critic checks: {', '.join(failed_checks)}")
+
+    revision_history = item.get("revision_history")
+    if not isinstance(revision_history, list) or len(revision_history) < MIN_STORY_CRITIC_ROUNDS + 1:
+        raise ValueError(
+            f"{source_label} review {video_id} must include writer/critic revision_history "
+            f"with at least {MIN_STORY_CRITIC_ROUNDS + 1} entries"
+        )
+
+
+def story_review_evidence(item: dict[str, Any]) -> dict[str, Any]:
+    evidence = item.get("evidence", {})
+    if not isinstance(evidence, dict):
+        evidence = {}
+    return {
+        **evidence,
+        "critic_rounds": item.get("critic_rounds", []),
+        "revision_history": item.get("revision_history", []),
+    }
+
 
 def apply_story_reviews(
     connection: sqlite3.Connection,
@@ -359,7 +435,7 @@ def apply_story_reviews(
                 str(item["tasting_flow"]).strip(),
                 str(item["story_hook"]).strip(),
                 str(item.get("reviewer") or "codex"),
-                json.dumps(item.get("evidence", {}), ensure_ascii=False),
+                json.dumps(story_review_evidence(item), ensure_ascii=False),
                 str(item.get("generated_at") or now_iso()),
             ),
         )

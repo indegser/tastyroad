@@ -164,6 +164,20 @@ python3 scripts/process_video_stories.py --list-missing
 반복된 문장과 중복된 맥락을 줄이고, 한국어 문장의 주어가 분명해야 하며,
 비문이나 어색한 표현을 남기지 않아야 합니다.
 
+스토리 작업은 Writer와 Critic의 왕복을 산출물에 남겨야 합니다.
+
+- Writer는 먼저 `evidence.tasting_order`에 실제로 먹은 순서를 뽑고, 그 순서를
+  `tasting_flow`에 문장으로 반영합니다.
+- Critic은 최소 3차례 closed loop로 돌아야 합니다. 1차와 2차는 `revise`와
+  구체적인 `required_changes`를 남겨야 하며, Writer는 각 라운드에
+  `writer_response`로 어떻게 고쳤는지 답해야 합니다.
+- 마지막 Critic 라운드는 `pass`여야 하고, `critic_rounds[-1].checks`의 모든
+  항목을 통과해야 합니다. 식사 순서, 진행자가 이 집을 고른 이유, 가게 맥락,
+  담백한 한국어, 명확한 주어, 중복 제거, 템플릿 문구 부재를 각각 확인합니다.
+- `revision_history`에는 초안, 1차 비판, 1차 수정, 2차 비판, 2차 수정 이후
+  최종 확인 기록이 남아야 합니다. 이 조건을 만족하지 않은 결과는 importer와
+  reducer가 DB에 넣지 않습니다.
+
 ```bash
 python3 scripts/agent_pipeline.py --stage story_review --format json
 python3 scripts/agent_pipeline.py --stage story_review --run --limit 1

@@ -2,48 +2,286 @@
   "reviews": [
     {
       "video_id": "bfBmJCPgCmI",
-      "story_hook": "공연 뒤풀이에서 좋은 기억으로 남아, 다시 사람을 데려와 먹인 합정의 제주 돼지고기집.",
-      "story_intro": "제주삼다돈은 성시경이 한 번 먹어본 뒤 임지연을 데려와 다시 소개한 합정의 제주 돼지고기집이다. 그는 촬영용으로 급히 고른 식당이 아니라, 공연 뒤풀이에서 맛있게 먹었던 기억 때문에 이 집을 선택했다고 설명한다. 사장님은 돼지고기 생갈비를 하루 10~15인분 정도만 낸다고 말하며 고기 자체에 대한 자부심을 드러낸다. 영상에는 가족이 운영을 이어받은 맥락도 나온다. 한때 잘되지 않아 문을 닫을 뻔했던 가게를 다시 맡아 이어가는 흐름이 있어, 이 집은 단순한 제주 고깃집보다 고기 하나에 집중해 다시 살아난 동네 고깃집처럼 보인다.",
-      "tasting_flow": "성시경과 임지연은 먼저 생갈비와 오겹살로 식사를 시작한다. 이후 가브리살, 갈매기살, 껍데기로 부위를 바꿔 가며 맛을 보고, 소금장에 찍거나 쌈으로 싸 먹는 방식도 확인한다. 식사 중간에 가장 인상적인 부위를 다시 묻고 갈매기살 두 개, 가브리살 하나, 껍데기 하나를 추가 주문한다. 마지막에는 호박찌개와 계란찜까지 더해 고기 중심의 식사를 찌개 쪽으로 이어 간다.",
+      "story_hook": "성시경이 뒤풀이에서 먹어 본 뒤, 임지연을 데려와 다시 먹인 합정의 제주 돼지고기집.",
+      "story_intro": "제주삼다돈은 성시경이 공연 뒤풀이에서 처음 먹어 본 집이다. 그는 그때의 좋은 기억 때문에 임지연과 함께 다시 왔다. 사장님은 돼지고기 생갈비를 하루 10~15인분 정도만 낸다고 말한다. 많이 파는 것보다 고기 상태를 지키는 쪽을 택한 셈이다. 영상에는 가족이 가게를 이어받은 이야기도 나온다. 한때 문을 닫을 뻔했던 집을 다시 맡아 운영하고 있다. 이 집의 이야기는 화려하지 않다. 좋은 고기를 적게 내고, 손님이 다시 사람을 데려오게 만드는 힘이 중심에 있다.",
+      "tasting_flow": "두 사람은 생갈비와 오겹살로 시작한다. 생갈비를 먼저 맛본 뒤 오겹살을 먹으며 고기 질을 이야기한다. 다음에는 가브리살, 갈매기살, 껍데기를 차례로 먹는다. 갈매기살은 소금장에 찍고, 껍데기는 그냥 먹거나 쌈으로 싸 먹는다. 성시경은 임지연에게 가장 인상적인 부위를 묻고, 갈매기살 두 개와 가브리살 하나, 껍데기 하나를 더 주문한다. 뒤에는 호박찌개와 계란찜을 곁들인다. 식사는 고기 맛을 확인하는 흐름에서 찌개와 계란찜으로 마무리된다.",
       "reviewer": "codex",
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "[sub] 성시경의 먹을텐데 l 합정역 제주삼다돈 (with.임지연)",
-        "restaurant_names": [
-          "제주삼다돈"
-        ],
-        "notes": "Rewritten from stored transcript. Keeps one clear host-memory thread, owner/store context, and factual tasting order."
-      }
+        "restaurant_names": ["제주삼다돈"],
+        "host_reason": "성시경이 공연 뒤풀이에서 먹어 보고 맛있어서 임지연과 다시 방문했다.",
+        "store_context": "사장님은 생갈비를 하루 10~15인분 정도만 내고, 가족이 문 닫을 뻔했던 가게를 이어받아 운영한다.",
+        "tasting_order": ["생갈비", "오겹살", "가브리살", "갈매기살", "껍데기", "호박찌개", "계란찜"],
+        "transcript_support": [
+          "공연 뒤풀이에서 먹고 맛있었다고 설명한다.",
+          "사장님이 생갈비 물량과 가게 운영 이야기를 말한다.",
+          "갈매기살, 가브리살, 껍데기를 추가 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "뒤풀이 맥락이 hook과 intro에서 반복된다.",
+            "오겹살 이후 부위별 식사 순서가 충분히 또렷하지 않다.",
+            "문장 일부가 설명조로 길다."
+          ],
+          "required_changes": [
+            "뒤풀이 맥락은 hook과 첫 문단에만 남기고 반복을 줄일 것.",
+            "생갈비, 오겹살, 가브리살, 갈매기살, 껍데기, 찌개 순서를 tasting_flow에 직접 쓸 것.",
+            "문장을 짧게 나눌 것."
+          ],
+          "writer_response": "뒤풀이 설명을 줄이고, 부위별 식사 순서를 tasting_flow에 다시 넣었다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "가게를 설명하는 문장이 아직 추상적이다.",
+            "추가 주문 장면이 식사 흐름 안에서 더 분명해야 한다."
+          ],
+          "required_changes": [
+            "가게 평가는 줄이고 생갈비 물량과 가족 운영 사실을 중심에 둘 것.",
+            "갈매기살, 가브리살, 껍데기 추가 주문을 명확히 쓸 것."
+          ],
+          "writer_response": "가게 평가는 줄이고, 추가 주문과 찌개 마무리를 순서대로 다시 썼다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 반복을 줄이고 생갈비부터 계란찜까지 실제 순서를 담았다."
+        }
+      ],
+      "revision_history": [
+        {"role": "writer", "summary": "뒤풀이 기억, 생갈비 물량, 가족 운영 맥락, 부위별 식사 순서를 초안으로 정리했다."},
+        {"role": "critic", "summary": "1차 비판: 반복과 식사 순서 부족을 지적했다."},
+        {"role": "writer", "summary": "1차 수정: 뒤풀이 반복을 줄이고 부위별 순서를 넣었다."},
+        {"role": "critic", "summary": "2차 비판: 추상적 평가와 추가 주문 장면 보강을 요구했다."},
+        {"role": "writer", "summary": "2차 수정: 추가 주문과 찌개 마무리를 분명히 했다."}
+      ]
     },
     {
       "video_id": "d6zoTmkiyf0",
-      "story_hook": "20년 넘게 사람들을 데려간 츠키지의 스시집을, 성시경이 자기 기준의 기본 스시로 꺼내 보인 영상.",
-      "story_intro": "츠키지 스시세이는 성시경이 일본 활동을 하며 20년 넘게 다닌 스시집으로 소개된다. 그는 원래 본관에 가려 했지만 촬영일이 수요일이라 츠키지 시장이 쉬었고, 저녁에 문을 여는 신관에서 식사를 시작한다. 이 집을 처음 데려온 사람은 일본 촬영 때 자주 등장하는 가까운 형이다. 그 형은 비싸고 화려한 스시보다 시끄럽게 떠들며 먹을 수 있는 서민 음식으로서의 스시를 알려줬고, 성시경은 그 경험을 자기 안의 스시 기준으로 삼아 왔다고 말한다. 그래서 이 영상은 고급 오마카세를 평가하는 장면이 아니라, 영어 메뉴가 있고 바가지를 씌우지 않으며 원하는 것을 추가해 먹을 수 있는 시장 스시집을 오래 다닌 사람의 믿음으로 소개하는 쪽에 가깝다.",
-      "tasting_flow": "성시경은 먼저 4만 2천 원 정도의 오마카세를 기본으로 시키고, 맛있었던 것을 기억해 뒀다가 추가 주문하는 방식을 설명한다. 초반에는 광어와 참치 계열 스시를 먹고, 이어 사와라, 전갱이 같은 등푸른 생선 쪽의 매력을 짚는다. 중간에는 가게에만 있다는 가벼운 사케를 곁들이고, 오늘 좋은 재료로 적힌 메뉴를 보고 추가 주문을 이어 간다. 이후 생새우를 먹고 머리는 구워 달라고 부탁하며, 이쿠라와 네기도로처럼 김이 눅눅해지기 전에 먹어야 하는 메뉴도 소개한다. 마지막에는 제첩 된장국과 새우 머리 구이를 먹으며, 처음 방문하는 사람에게는 오마카세로 한 번 훑고 마음에 드는 것을 추가하는 방식이 가장 경제적이라고 정리한다.",
+      "story_hook": "성시경이 20년 넘게 사람들을 데려갔다는 츠키지의 시장 스시집.",
+      "story_intro": "츠키지 스시세이는 성시경이 일본 활동을 하며 오래 다닌 집이다. 그는 이곳을 처음 알려 준 사람이 일본 촬영 때 자주 나오는 가까운 형이라고 말한다. 그 형은 스시를 비싸고 조용한 음식으로만 보지 않았다. 떠들며 먹을 수 있는 서민 음식이라고 설명했고, 성시경은 그 말을 오래 기억했다. 촬영일에는 본관이 쉬어서 신관으로 갔다. 성시경은 영어 메뉴가 있고, 가격이 합리적이며, 원하는 메뉴를 더 시킬 수 있다는 점을 소개한다. 이 영상의 핵심은 고급 스시 자랑이 아니다. 성시경이 자기 기준의 기본으로 삼아 온 시장 스시를 보여 주는 데 있다.",
+      "tasting_flow": "성시경은 먼저 4만 2천 원 정도의 오마카세를 시킨다. 기본 구성을 먹어 본 뒤 마음에 드는 메뉴를 더 시키는 방식이 좋다고 설명한다. 처음에는 광어와 참치 계열 스시가 나온다. 이어 사와라와 전갱이 같은 등푸른 생선을 먹으며, 츠키지에서는 이런 생선과 조개류가 좋다고 말한다. 중간에는 이 가게에만 있다는 가벼운 사케를 곁들인다. 그 뒤 오늘 좋은 재료로 적힌 메뉴를 보고 추가 주문을 한다. 생새우를 먹고 머리는 구워 달라고 부탁한다. 이쿠라와 네기도로는 김이 눅눅해지기 전에 바로 먹는다. 마지막에는 제첩 된장국과 새우 머리 구이를 먹고, 처음 온 사람은 오마카세로 시작해 마음에 든 것을 추가하라고 정리한다.",
       "reviewer": "codex",
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "성시경의 먹을텐데 l 도쿄 츠키지 스시세이",
-        "restaurant_names": [
-          "Tsukiji Sushi Sei"
-        ],
-        "notes": "Rewritten from stored transcript. Focuses on the 20-year relationship, the host's sushi philosophy, and the actual ordering flow."
-      }
+        "restaurant_names": ["Tsukiji Sushi Sei"],
+        "host_reason": "성시경이 20년 넘게 다니며 가족과 지인들을 데려간 집이고, 자기 기준의 기본 스시로 소개하고 싶어 했다.",
+        "store_context": "츠키지 시장의 본관과 신관이 있는 스시집이며, 촬영일에는 본관이 쉬어 신관에서 먹었다. 영어 메뉴와 합리적인 가격을 소개했다.",
+        "tasting_order": ["오마카세 기본 주문", "광어", "참치 계열 스시", "사와라", "전갱이", "가게 전용 사케", "생새우", "이쿠라", "네기도로", "제첩 된장국", "새우 머리 구이"],
+        "transcript_support": [
+          "가까운 형이 처음 데려왔고 20년 넘게 다녔다고 말한다.",
+          "오마카세를 기본으로 먹고 추가 주문하는 방식을 설명한다.",
+          "생새우 머리를 구워 달라고 하고 제첩 된장국을 따로 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "20년 단골 맥락과 스시 철학 설명이 길다.",
+            "실제로 먹은 스시와 추가 주문 순서가 약하다.",
+            "몇 문장이 평가문처럼 보인다."
+          ],
+          "required_changes": [
+            "20년 단골 맥락은 짧게 유지할 것.",
+            "오마카세, 광어, 참치, 등푸른 생선, 사케, 생새우, 이쿠라, 네기도로, 된장국 순서를 넣을 것.",
+            "고급 스시와 시장 스시 비교는 필요한 만큼만 쓸 것."
+          ],
+          "writer_response": "철학 설명을 줄이고 오마카세부터 제첩 된장국까지 먹은 순서를 다시 썼다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "문장이 아직 길고, 시장 스시라는 판단이 반복된다.",
+            "추가 주문의 이유가 조금 더 단순해야 한다."
+          ],
+          "required_changes": [
+            "긴 문장을 나눌 것.",
+            "시장 스시라는 판단은 intro 마지막에 한 번만 둘 것.",
+            "추가 주문은 '마음에 드는 메뉴를 더 시킨다'로 간단히 정리할 것."
+          ],
+          "writer_response": "시장 스시 판단을 한 번만 남기고, 추가 주문 설명을 간단히 고쳤다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 오래 다닌 이유와 실제 주문 순서를 분리해서 담았다."
+        }
+      ],
+      "revision_history": [
+        {"role": "writer", "summary": "20년 단골 맥락과 시장 스시 철학을 중심으로 초안을 썼다."},
+        {"role": "critic", "summary": "1차 비판: 식사 순서와 추가 주문 흐름이 약하다고 지적했다."},
+        {"role": "writer", "summary": "1차 수정: 오마카세부터 된장국까지 순서를 넣었다."},
+        {"role": "critic", "summary": "2차 비판: 시장 스시 판단 반복과 긴 문장을 줄이라고 요구했다."},
+        {"role": "writer", "summary": "2차 수정: 판단 반복을 줄이고 문장을 짧게 나눴다."}
+      ]
     },
     {
       "video_id": "fPsMKDTzqaI",
-      "story_hook": "엄마의 순대국과 아들의 회가 한 상에 놓이는, 자양동의 이상하게 잘 맞는 술집.",
-      "story_intro": "엄마순대는 성시경이 '되게 재밌는 집'이라고 부르며 들어간 자양동 식당이다. 이 집의 특이한 점은 순대국밥집과 횟집이 한 공간에 붙어 있다는 것이다. 성시경은 엄마가 순대를 하고, 아들은 노량진에서 오래 회를 하다가 어머니 가게에 함께 들어온 구조라고 설명한다. 그는 예전에 화보 촬영을 마친 뒤 스태프들을 데려와 먹었고, 그때 회와 순대 쪽을 모두 맛있게 먹은 기억 때문에 다시 소개한다. 어머니가 자리에 없으면 맛이 잘 안 난다는 말까지 덧붙여, 이 집은 메뉴 조합의 신기함보다 가족이 각자 잘하는 음식을 한 자리에서 내는 매력으로 남는다.",
-      "tasting_flow": "성시경은 먼저 모둠회 중자를 주문하고, 편육과 머리고기를 추가한다. 회는 광어, 연어, 참돔, 숭어 등을 차례로 먹으며 두께와 숙성감, 술안주로서의 힘을 확인한다. 이어 따뜻하게 나온 머리고기와 편육을 먹고, 이 집에서는 회를 먹다가 자연스럽게 순대국 국물로 넘어갈 수 있다고 말한다. 식사 후반에는 옹기술국을 가장 강하게 추천하고, 순대국과 순대육개장도 주문해 국물의 성격을 비교한다. 그는 순대국을 소금과 새우젓으로 맞춰 먹고, 결국 회만 먹어도 좋고 머리고기만 먹어도 좋지만 술국이 이 집의 추천 메뉴라고 정리한다.",
+      "story_hook": "어머니의 순대국과 아들의 회를 한자리에서 먹는 자양동 술집.",
+      "story_intro": "엄마순대는 순대국밥집과 횟집이 한 공간에 있는 집이다. 성시경은 이 조합을 재미있어한다. 어머니는 순대를 하고, 아들은 노량진에서 오래 회를 하다가 어머니 가게에 들어왔다. 성시경은 예전에 화보 촬영을 마친 뒤 스태프들과 이 집에 왔다. 그때 회도 맛있고 순대 쪽도 맛있어서 다시 소개한다고 말한다. 어머니가 없으면 맛이 잘 안 난다는 말도 나온다. 이 집의 장점은 설명이 복잡하지 않다. 회를 먹다가 편육과 머리고기를 먹고, 나중에는 순대국과 술국으로 넘어갈 수 있다.",
+      "tasting_flow": "성시경은 먼저 모둠회 중자를 주문한다. 회를 먹기 전에 편육도 하나 시킨다. 모둠회는 광어, 연어, 참돔, 숭어 순서로 맛을 본다. 회 두께와 숙성감을 말하며 술안주로 좋다고 설명한다. 다음에는 머리고기를 주문한다. 따뜻하게 나온 머리고기와 편육을 먹으며 소주를 곁들인다. 뒤에는 옹기술국 이야기를 꺼낸다. 이 집에서는 회로 시작해 머리고기와 편육을 먹고, 순대국 국물로 넘어갈 수 있다고 말한다. 마지막에는 순대국과 순대육개장을 주문한다. 순대국에는 소금과 새우젓을 넣는다. 성시경은 여러 메뉴를 먹은 뒤에도 술국을 가장 추천한다고 정리한다.",
       "reviewer": "codex",
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "성시경의 먹을텐데 l 자양동 엄마순대",
-        "restaurant_names": [
-          "엄마순대"
-        ],
-        "notes": "Rewritten from stored transcript. Focuses on the mother-son shop structure, prior staff meal memory, and factual tasting progression."
-      }
+        "restaurant_names": ["엄마순대"],
+        "host_reason": "성시경이 화보 촬영 뒤 스태프들과 먹고 맛있었던 기억 때문에 다시 소개했다.",
+        "store_context": "어머니는 순대를 하고, 노량진에서 회를 오래 한 아들이 같은 공간에서 회를 낸다.",
+        "tasting_order": ["모둠회 중자", "편육", "광어", "연어", "참돔", "숭어", "머리고기", "옹기술국 언급", "순대국", "순대육개장"],
+        "transcript_support": [
+          "엄마는 순대를 하고 아들은 회를 한다고 설명한다.",
+          "화보 촬영 뒤 스태프들과 와서 맛있게 먹었다고 말한다.",
+          "모둠회, 편육, 머리고기, 순대국, 순대육개장을 차례로 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "가족 구조 설명은 좋지만 먹은 순서가 모호하다.",
+            "회와 순대국 사이의 전환이 추상적이다.",
+            "술집이라는 표현이 분위기 설명으로만 남을 위험이 있다."
+          ],
+          "required_changes": [
+            "모둠회 중자, 편육, 회 구성, 머리고기, 순대국, 순대육개장 순서를 직접 쓸 것.",
+            "회에서 순대국 국물로 넘어가는 구조를 실제 주문 흐름으로 설명할 것.",
+            "술집이라는 표현은 메뉴 흐름으로 뒷받침할 것."
+          ],
+          "writer_response": "모둠회부터 순대육개장까지 주문 순서를 tasting_flow에 넣었다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "intro 마지막 문장이 설명조로 느슨하다.",
+            "술국 추천이 마지막에 더 선명해야 한다."
+          ],
+          "required_changes": [
+            "intro 끝은 회, 편육, 머리고기, 순대국으로 넘어가는 장점만 남길 것.",
+            "tasting_flow 마지막에 술국 추천을 분명히 쓸 것."
+          ],
+          "writer_response": "intro 끝을 단순화하고, 마지막 문장에 술국 추천을 명확히 넣었다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 가족 구조, 재방문 이유, 모둠회부터 순대육개장까지의 순서를 담았다."
+        }
+      ],
+      "revision_history": [
+        {"role": "writer", "summary": "어머니의 순대와 아들의 회라는 구조, 스태프 식사 기억, 술안주 흐름을 초안으로 썼다."},
+        {"role": "critic", "summary": "1차 비판: 먹은 순서가 충분히 드러나지 않는다고 지적했다."},
+        {"role": "writer", "summary": "1차 수정: 회, 편육, 머리고기, 순대국, 순대육개장의 순서를 넣었다."},
+        {"role": "critic", "summary": "2차 비판: intro 마지막과 술국 추천을 더 선명하게 하라고 요구했다."},
+        {"role": "writer", "summary": "2차 수정: 술국 추천과 메뉴 전환을 명확히 했다."}
+      ]
     }
   ]
 }

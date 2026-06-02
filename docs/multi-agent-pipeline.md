@@ -188,9 +188,22 @@ Output:
 - story hook
 - story intro
 - tasting flow
-- evidence JSON
+- evidence JSON with `host_reason`, `store_context`, and `tasting_order`
+- at least three `critic_rounds`
+- revision history
 
 Existing importer: `scripts/process_video_stories.py`
+
+Completion gate:
+
+- Writer extracts `evidence.tasting_order` before prose.
+- `tasting_flow` must describe what was eaten in order.
+- Critic runs at least three closed-loop rounds.
+- Round 1 and Round 2 must be `revise` with concrete `required_changes`.
+- The writer must answer each round with `writer_response`.
+- The final round must be `pass`, have empty `issues`, and set every required
+  check to `true`.
+- The reducer rejects story artifacts that do not meet this contract.
 
 ### `place_extraction`
 

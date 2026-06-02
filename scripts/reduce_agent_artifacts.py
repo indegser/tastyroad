@@ -11,7 +11,12 @@ from typing import Any
 
 from collect_youtube import DEFAULT_SQLITE
 from pipeline_schema import ensure_pipeline_schema
-from process_video_stories import TranscriptPayload, upsert_transcript, validate_story_review_quality
+from process_video_stories import (
+    TranscriptPayload,
+    story_review_evidence,
+    upsert_transcript,
+    validate_story_review_quality,
+)
 from promote_verified_places import (
     get_candidate_id,
     upsert_mention,
@@ -230,7 +235,7 @@ def upsert_story_from_item(connection: sqlite3.Connection, video_id: str, item: 
             str(item["tasting_flow"]).strip(),
             str(item["story_hook"]).strip(),
             str(item.get("reviewer") or "codex"),
-            json.dumps(evidence, ensure_ascii=False),
+            json.dumps(story_review_evidence(item), ensure_ascii=False),
             str(item.get("generated_at") or ""),
         ),
     )

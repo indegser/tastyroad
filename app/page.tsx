@@ -7,7 +7,9 @@ type PlaceCandidate = {
   publishedAt: string;
   publishedAtLabel: string;
   url: string;
-  story: string;
+  storyHook: string;
+  storyIntro: string;
+  tastingFlow: string;
 };
 
 type CandidateRow = {
@@ -20,6 +22,7 @@ type CandidateRow = {
   agent_restaurant_names: string;
   story_hook: string;
   story_intro: string;
+  tasting_flow: string;
 };
 
 export const dynamic = "force-static";
@@ -67,7 +70,8 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
           coalesce(restaurants.display_name, '') as display_name,
           coalesce(reviewed.restaurant_names, '[]') as agent_restaurant_names,
           coalesce(story.story_hook, '') as story_hook,
-          coalesce(story.story_intro, '') as story_intro
+          coalesce(story.story_intro, '') as story_intro,
+          coalesce(story.tasting_flow, '') as tasting_flow
         from mention_candidates c
         join sources s on s.id = c.source_id
         join reviewed on reviewed.external_id = c.external_id
@@ -95,7 +99,9 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
       publishedAt: row.published_at,
       publishedAtLabel: formatDateTime(row.published_at),
       url: row.url,
-      story: joinStory(row.story_hook, row.story_intro),
+      storyHook: row.story_hook.trim(),
+      storyIntro: row.story_intro.trim(),
+      tastingFlow: row.tasting_flow.trim(),
     }));
   } finally {
     db.close();
@@ -109,10 +115,6 @@ function firstNameCandidate(rawValue: string) {
   } catch {
     return "";
   }
-}
-
-function joinStory(...parts: string[]) {
-  return parts.map((part) => part.trim()).filter(Boolean).join(" ");
 }
 
 function formatDateTime(value: string | null) {
@@ -159,7 +161,21 @@ export default function Home() {
                     <span aria-hidden="true">↗</span>
                   </a>
                   <p className="meta muted">업로드 {candidate.publishedAtLabel}</p>
-                  {candidate.story ? <p className="story">{candidate.story}</p> : null}
+                  {candidate.storyHook ? (
+                    <p className="story">{candidate.storyHook}</p>
+                  ) : null}
+                  {candidate.storyIntro ? (
+                    <details className="story-details">
+                      <summary>자세히 보기</summary>
+                      <p>{candidate.storyIntro}</p>
+                    </details>
+                  ) : null}
+                  {candidate.tastingFlow ? (
+                    <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
+                      <h3>시식 메뉴 및 순서</h3>
+                      <p>{candidate.tastingFlow}</p>
+                    </section>
+                  ) : null}
                 </div>
               </div>
             </article>

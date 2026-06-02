@@ -637,17 +637,20 @@ def restaurant_triage_prompt() -> str:
 
 def story_review_prompt() -> str:
     return (
-        "Write a Korean story review from the transcript. Find the actual story in "
-        "the transcript: why the host chose this place, whether the host had a prior "
-        "memory or relationship with it, what owner/store history is stated, what the "
-        "restaurant is proud of, and the factual order of dishes and reactions. Do not "
-        "write a generic restaurant summary, keyword list, or template text such as "
-        "'자막 기준으로', '한 끼 후보', or '메뉴의 첫인상'. If the transcript does not "
-        "contain store history, say only the concrete context that is present. Remove "
-        "duplicated ideas instead of repeating the same context in hook, intro, and "
-        "tasting flow. Write natural Korean with clear subjects; avoid vague or awkward "
-        "phrases such as '가게 쪽 이야기도 선명하다'. Return only structured JSON "
-        "matching expected_output."
+        "Run a writer-critic-revision loop for a Korean story review from the transcript. "
+        "Writer: first extract the factual tasting order as a list before writing prose. "
+        "Then find why the host chose this place, prior memories or relationships, stated "
+        "owner/store context, and what the restaurant is proud of. Critic: be strict and "
+        "do not pass quickly. Run at least three closed-loop critic rounds. Rounds 1 and "
+        "2 must be revise rounds with concrete required_changes, and the writer must respond "
+        "to each round before the next critique. The final round may pass only if every check "
+        "is true and issues is empty. Reject if tasting_flow does not say what was eaten in "
+        "order, if the prose repeats the same idea, if subjects are vague, if Korean sentences "
+        "are awkward, or if the writing uses padded phrases. Prefer plain, clear Korean: short "
+        "sentences, concrete nouns, no decoration, no grand claims. Do not imitate any named "
+        "writer; aim for clean civic prose. Never use generic template text such as '자막 기준으로', "
+        "'한 끼 후보', '메뉴의 첫인상', '쪽에 가깝다', or '매력으로 남는다'. Return only "
+        "structured JSON matching expected_output."
     )
 
 
@@ -893,7 +896,87 @@ def run_story_review_task(
                     "story_intro": "",
                     "tasting_flow": "",
                     "reviewer": "agent",
-                    "evidence": {},
+                    "evidence": {
+                        "host_reason": "",
+                        "store_context": "",
+                        "tasting_order": [],
+                        "transcript_support": [],
+                    },
+                    "critic_rounds": [
+                        {
+                            "round": 1,
+                            "decision": "revise",
+                            "checks": {
+                                "tasting_order_present": False,
+                                "tasting_order_matches_transcript": False,
+                                "host_reason_specific": False,
+                                "store_context_specific": False,
+                                "plain_korean": False,
+                                "clear_subjects": False,
+                                "no_duplicate_context": False,
+                                "no_generic_phrasing": False,
+                            },
+                            "issues": [],
+                            "required_changes": [],
+                            "writer_response": "",
+                        },
+                        {
+                            "round": 2,
+                            "decision": "revise",
+                            "checks": {
+                                "tasting_order_present": False,
+                                "tasting_order_matches_transcript": False,
+                                "host_reason_specific": False,
+                                "store_context_specific": False,
+                                "plain_korean": False,
+                                "clear_subjects": False,
+                                "no_duplicate_context": False,
+                                "no_generic_phrasing": False,
+                            },
+                            "issues": [],
+                            "required_changes": [],
+                            "writer_response": "",
+                        },
+                        {
+                            "round": 3,
+                            "decision": "pass | revise | reject",
+                            "checks": {
+                                "tasting_order_present": False,
+                                "tasting_order_matches_transcript": False,
+                                "host_reason_specific": False,
+                                "store_context_specific": False,
+                                "plain_korean": False,
+                                "clear_subjects": False,
+                                "no_duplicate_context": False,
+                                "no_generic_phrasing": False,
+                            },
+                            "issues": [],
+                            "required_changes": [],
+                            "writer_response": "",
+                        },
+                    ],
+                    "revision_history": [
+                        {
+                            "role": "writer",
+                            "summary": "initial draft and extracted tasting order",
+                        },
+                        {
+                            "role": "critic",
+                            "summary": "round 1 critique and required changes",
+                        },
+                        {
+                            "role": "writer",
+                            "summary": "revision after round 1",
+                        },
+                        {
+                            "role": "critic",
+                            "summary": "round 2 critique and required changes",
+                        },
+                        {
+                            "role": "writer",
+                            "summary": "revision after round 2 and final critic response",
+                        },
+                    ],
                     "generated_at": now_iso(),
                 },
                 input_artifacts=[

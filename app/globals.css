@@ -5,6 +5,7 @@
   --text-secondary: #4d4d4d;
   --text-tertiary: #737373;
   --border: #e5e5e5;
+  --soft-border: #eeeeee;
   --link: #0b5cad;
   --link-hover: #003f86;
   --story: #2f2f2f;
@@ -24,6 +25,7 @@
     --text-secondary: #b4b4b4;
     --text-tertiary: #8a8a8a;
     --border: #2a2a2a;
+    --soft-border: #202020;
     --link: #8ab4f8;
     --link-hover: #b8d0ff;
     --story: #d6d6d6;
@@ -138,7 +140,9 @@ h2 {
 .meta,
 .channel,
 .video-link,
-.story {
+.story,
+.story-details,
+.tasting-flow {
   font-size: 0.9125rem;
 }
 
@@ -195,6 +199,68 @@ h2 {
   overflow-wrap: anywhere;
 }
 
+.story-details {
+  margin-top: 8px;
+  color: var(--text-secondary);
+}
+
+.story-details summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--link);
+  font-size: 0.8125rem;
+  font-weight: 520;
+  line-height: 1.5;
+  cursor: pointer;
+  user-select: none;
+}
+
+.story-details summary::marker,
+.story-details summary::-webkit-details-marker {
+  display: none;
+  content: "";
+}
+
+.story-details summary::after {
+  content: "↓";
+  color: var(--text-tertiary);
+  font-size: 0.78em;
+  line-height: 1;
+}
+
+.story-details[open] summary::after {
+  content: "↑";
+}
+
+.story-details p {
+  margin-top: 8px;
+  color: var(--story);
+  line-height: 1.75;
+  overflow-wrap: anywhere;
+}
+
+.tasting-flow {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--soft-border);
+}
+
+.tasting-flow h3 {
+  margin: 0 0 6px;
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 620;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.tasting-flow p {
+  color: var(--text-secondary);
+  line-height: 1.72;
+  overflow-wrap: anywhere;
+}
+
 @media (min-width: 720px) {
   main {
     padding-top: 52px;
@@ -232,8 +298,19 @@ h2 {
     font-size: 0.875rem;
   }
 
-  .story {
+  .story,
+  .story-details,
+  .tasting-flow {
     font-size: 0.96rem;
+  }
+
+  .story,
+  .story-details p {
     line-height: 1.72;
+  }
+
+  .story-details summary,
+  .tasting-flow h3 {
+    font-size: 0.8125rem;
   }
 }
