@@ -142,6 +142,141 @@ Codex 작성 리뷰 누락 확인:
 python3 scripts/process_video_stories.py --list-missing
 ```
 
+## 멀티에이전트 전환 철학
+
+이 파이프라인은 단순한 Python 배치 작업이 아니라 LLM-native 멀티에이전트
+시스템으로 발전시킵니다. 역할은 아래처럼 나눕니다.
+
+```txt
+Markdown task workspace
+  -> 에이전트가 읽고 판단하고 근거를 남기는 작업면
+
+JSON result contract
+  -> reducer가 검증하고 import하는 기계 계약
+
+Python guardrails
+  -> 계획, 상태 전이, claim lock, schema 검증, SQLite single-writer 반영
+```
+
+즉 Python이 에이전트의 머리가 되면 안 됩니다. Python은 안전장치와 상태
+관리를 맡고, 실제 판단이 필요한 `restaurant_triage`, `story_review`,
+`place_extraction`, `place_verification`은 Markdown 지시서와 컨텍스트를
+읽는 서브에이전트가 처리하는 방향입니다.
+
+목표 작업 공간은 영상/단계 단위로 아래 형태입니다.
+
+```txt
+data/work/videos/{video_id}/
+  task.md
+  context.json
+  result.md
+  result.json
+  restaurant_review.json
+  transcript.json
+  story_review.json
+  place_candidates.json
+  place_verification.json
+```
+
+Markdown은 에이전트용 작업 지시서와 감사 가능한 결과 보고서이고, JSON은
+reducer가 SQLite에 반영할 수 있는 구조화 결과입니다. SQLite 반영은 계속
+단일 reducer만 수행합니다.
+
+멀티에이전트 전환용 stage task plan은 SQLite를 변경하지 않고 확인할 수 있습니다.
+
+```bash
+python3 scripts/agent_pipeline.py
+python3 scripts/agent_pipeline.py --stage story_review --format json
+pnpm plan:agents --limit 10
+```
+
+오케스트레이터는 plan, worker 실행, inbox 조회, reducer dry-run/apply를 한 번에 묶습니다.
+기본 실행은 SQLite를 변경하지 않습니다.
+
+```bash
+python3 scripts/orchestrate_agents.py --limit 1
+python3 scripts/orchestrate_agents.py --stage restaurant_triage --video-id 8Mb5_aLiE1g --run-workers --refresh
+python3 scripts/orchestrate_agents.py --reduce
+pnpm orchestrate:agents --limit 1
+```
+
+`--apply`를 줄 때만 reducer가 SQLite에 씁니다.
+
+첫 worker는 SQLite를 변경하지 않는 자막 artifact 수집입니다.
+
+```bash
+python3 scripts/agent_pipeline.py --stage transcript_fetch --run --limit 1
+pnpm run:transcripts --limit 1
+```
+
+성공/실패 결과는 `data/work/videos/{video_id}/transcript.json`에 남습니다.
+다른 stage worker도 동일하게 artifact만 생성합니다.
+
+```bash
+python3 scripts/agent_pipeline.py --stage restaurant_triage --run --limit 1
+python3 scripts/agent_pipeline.py --stage story_review --run --limit 1
+python3 scripts/agent_pipeline.py --stage place_extraction --run --limit 1
+python3 scripts/agent_pipeline.py --stage place_verification --run --limit 1
+```
+
+이미 처리된 영상도 worker 검증용으로 강제 실행할 수 있습니다.
+
+```bash
+python3 scripts/agent_pipeline.py --stage story_review --video-id bfBmJCPgCmI --run --refresh
+python3 scripts/agent_pipeline.py --stage place_verification --video-id d6zoTmkiyf0 --run --refresh
+```
+
+seed가 없는 작업은 `needs_agent` artifact로 남고 inbox에서 확인합니다.
+이때 같은 폴더에 에이전트 작업면도 같이 생성됩니다.
+
+```txt
+task.md
+context.json
+result.md
+result.json
+```
+
+```bash
+python3 scripts/agent_inbox.py
+pnpm agent:inbox
+```
+
+서브에이전트는 `task.md`를 읽고 `result.md`에 근거를, `result.json`에 구조화
+결과를 남깁니다. 작업은 artifact를 claim한 뒤 complete합니다. `--result`를
+생략하면 artifact와 같은 폴더의 `result.json`을 사용합니다.
+
+```bash
+python3 scripts/agent_task.py claim data/work/videos/{video_id}/restaurant_review.json --agent agent-1
+python3 scripts/agent_task.py complete data/work/videos/{video_id}/restaurant_review.json --agent agent-1
+python3 scripts/agent_task.py release data/work/videos/{video_id}/restaurant_review.json --agent agent-1
+```
+
+worker artifact를 SQLite에 반영하는 단계는 별도 reducer가 담당합니다. 기본은 dry-run이며,
+`--apply`를 줄 때만 SQLite를 갱신합니다.
+
+```bash
+python3 scripts/reduce_agent_artifacts.py
+python3 scripts/reduce_agent_artifacts.py --apply
+pnpm reduce:agents
+```
+
+설계 원칙과 migration plan은 [docs/multi-agent-pipeline.md](docs/multi-agent-pipeline.md)에 정리되어 있습니다.
+
+## LLM 중심 디자인 리뷰 루프
+
+사이트 UI 변경은 단순 스크립트 점수보다 실제 화면을 보는 반복 리뷰로 검증합니다.
+기본 방식은 로컬 앱을 띄운 뒤 `agent-browser`로 모바일/데스크톱 캡처를 만들고,
+LLM이 타이포그래피, 위계, 링크 존재감, 본문 밀도, 모바일 가독성을 판단한 다음
+작은 패치를 적용하고 다시 캡처하는 루프입니다.
+
+기본 루프 예:
+
+```txt
+local app -> agent-browser screenshot -> LLM visual review -> targeted code edit -> build/check -> screenshot again
+```
+
+운영 기준과 프롬프트는 [docs/design-review-loop.md](docs/design-review-loop.md)에 정리되어 있습니다.
+
 저장 결과 확인:
 
 ```bash
