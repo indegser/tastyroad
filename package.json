@@ -12,6 +12,7 @@
     "run:transcripts": "python3 scripts/agent_pipeline.py --stage transcript_fetch --run",
     "run:story": "python3 scripts/agent_pipeline.py --stage story_review --run",
     "run:places": "python3 scripts/agent_pipeline.py --stage place_verification --run",
+    "orchestrate:agents": "python3 scripts/orchestrate_agents.py",
     "agent:inbox": "python3 scripts/agent_inbox.py",
     "agent:task": "python3 scripts/agent_task.py",
     "reduce:agents": "python3 scripts/reduce_agent_artifacts.py",

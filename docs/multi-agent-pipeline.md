@@ -227,6 +227,17 @@ Existing promotion path: `scripts/promote_verified_places.py`
 Implemented workers write only work artifacts. They do not write directly to
 SQLite.
 
+The orchestrator ties together planning, optional worker execution, inbox
+inspection, and optional reduction. It defaults to read-only planning/inbox
+reporting unless `--run-workers`, `--reduce`, or `--apply` is passed.
+
+```bash
+python3 scripts/orchestrate_agents.py --limit 1
+python3 scripts/orchestrate_agents.py --stage restaurant_triage --video-id 8Mb5_aLiE1g --run-workers --refresh
+python3 scripts/orchestrate_agents.py --reduce
+pnpm orchestrate:agents --limit 1
+```
+
 ```bash
 python3 scripts/agent_pipeline.py --stage transcript_fetch --limit 5
 python3 scripts/agent_pipeline.py --stage transcript_fetch --run --limit 1

@@ -190,6 +190,18 @@ python3 scripts/agent_pipeline.py --stage story_review --format json
 pnpm plan:agents --limit 10
 ```
 
+오케스트레이터는 plan, worker 실행, inbox 조회, reducer dry-run/apply를 한 번에 묶습니다.
+기본 실행은 SQLite를 변경하지 않습니다.
+
+```bash
+python3 scripts/orchestrate_agents.py --limit 1
+python3 scripts/orchestrate_agents.py --stage restaurant_triage --video-id 8Mb5_aLiE1g --run-workers --refresh
+python3 scripts/orchestrate_agents.py --reduce
+pnpm orchestrate:agents --limit 1
+```
+
+`--apply`를 줄 때만 reducer가 SQLite에 씁니다.
+
 첫 worker는 SQLite를 변경하지 않는 자막 artifact 수집입니다.
 
 ```bash
