@@ -158,6 +158,15 @@ Codex 작성 리뷰 누락 확인:
 python3 scripts/process_video_stories.py --list-missing
 ```
 
+자막과 지도 매핑은 완료됐지만 스토리만 비어 있는 항목은 아래 명령으로 보수적
+스토리 리뷰를 생성해 `data/story_reviews/video_story_reviews.json`에 병합합니다.
+그 뒤 기존 importer로 SQLite에 적용합니다.
+
+```bash
+python3 scripts/generate_story_reviews_from_transcripts.py --apply
+python3 scripts/process_video_stories.py --apply-only
+```
+
 ## 멀티에이전트 전환 철학
 
 이 파이프라인은 단순한 Python 배치 작업이 아니라 LLM-native 멀티에이전트

@@ -9,7 +9,9 @@
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "[sub] 성시경의 먹을텐데 l 합정역 제주삼다돈 (with.임지연)",
-        "restaurant_names": ["제주삼다돈"],
+        "restaurant_names": [
+          "제주삼다돈"
+        ],
         "notes": "Codex-authored from stored transcript. Focuses on host-restaurant relationship, owner/store history, and factual tasting order."
       }
     },
@@ -22,7 +24,9 @@
       "evidence": {
         "source": "맛있는 녀석들",
         "title": "[EP20-1] 16년 노하우로 만든 자가제면 칼국수?!🫢🥢제주도 떠나기 전에 무조건 들러야 하는 맛집💕",
-        "restaurant_names": ["마두천칼국수"],
+        "restaurant_names": [
+          "마두천칼국수"
+        ],
         "notes": "Codex-authored from stored transcript. Focuses on airport-adjacent Jeju travel context, owner technique, and factual tasting order."
       }
     },
@@ -35,9 +39,1631 @@
       "evidence": {
         "source": "맛있는 녀석들",
         "title": "[EP20-3] 도민들은 매일 출첵✔️ 관광객은 오픈런?!🏃🏻🔥제주 자연산 재료만 고집하는 향토 음식 맛집",
-        "restaurant_names": ["와흘새가름 식당"],
+        "restaurant_names": [
+          "와흘새가름 식당"
+        ],
         "notes": "Codex-authored from stored transcript. Focuses on Jeju ingredient provenance, owner/store character, and factual tasting order."
       }
+    },
+    {
+      "video_id": "4xmhipdiafM",
+      "story_hook": "장충동왕족발 광탄점을 중심으로 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개.",
+      "story_intro": "장충동왕족발 광탄점은 맛있는 녀석들 영상에서 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개로 다뤄진다. 자막 기준으로 영상은 족발, 보쌈, 면, 고기, 소주, 고추 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 족발, 보쌈, 면, 고기, 소주, 고추을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP1-3] 메뉴를 추리했더니...🕵️한돈 족발·보쌈 맛집을 찾아버렸습니다🐷✨⎥ 메추리원정대",
+        "restaurant_names": [
+          "장충동왕족발 광탄점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6052,
+        "keywords": [
+          "족발",
+          "보쌈",
+          "면",
+          "고기",
+          "소주",
+          "고추"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "3j9coFSYsEQ",
+      "story_hook": "보야타 상왕십리점을 중심으로 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개.",
+      "story_intro": "보야타 상왕십리점은 맛있는 녀석들 영상에서 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개로 다뤄진다. 자막 기준으로 영상은 면, 고기, 족발, 칼국수, 우족, 육수 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 고기, 족발, 칼국수, 우족, 육수을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP1-1] 소뼈+이것만 만지고 메뉴 맞히라고요?😳 첫 추리부터 멘붕 온 장성규X말왕🔥 ⎥ 메추리원정대",
+        "restaurant_names": [
+          "보야타 상왕십리점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5775,
+        "keywords": [
+          "면",
+          "고기",
+          "족발",
+          "칼국수",
+          "우족",
+          "육수"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "dTH651WWl0k",
+      "story_hook": "멕시카나 시흥장현점을 중심으로 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개.",
+      "story_intro": "멕시카나 시흥장현점은 맛있는 녀석들 영상에서 메뉴를 맞히는 추리 포맷 안에서 맛의 정체를 풀어 가는 소개로 다뤄진다. 자막 기준으로 영상은 치킨, 면, 튀김, 양념, 고추, 맥주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 치킨, 면, 튀김, 양념, 고추, 맥주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP1-2] 🔥화끈하고 바삭한 '화삭한 맛'의 정체는?🍗 장성규X말왕 치킨 추리 대결 ⎥ 메추리원정대",
+        "restaurant_names": [
+          "멕시카나 시흥장현점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5839,
+        "keywords": [
+          "치킨",
+          "면",
+          "튀김",
+          "양념",
+          "고추",
+          "맥주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "fJnTHbfYqEo",
+      "story_hook": "봉자커피을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "봉자커피은 맛있는 녀석들 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 김밥, 밥, 치킨, 양념, 고추 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 김밥, 밥, 치킨, 양념, 고추을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP20-5] 한라산 등산 전에 여기 안들르면 손해!😉 인생 김밥 등극한 도민 PICK 김밥 맛집💖",
+        "restaurant_names": [
+          "봉자커피"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3194,
+        "keywords": [
+          "면",
+          "김밥",
+          "밥",
+          "치킨",
+          "양념",
+          "고추"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "EAccDNv_qLc",
+      "story_hook": "광희문 인덕원 본점을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "광희문 인덕원 본점은 맛있는 녀석들 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 고기, 회, 오겹살, 삼겹살, 면, 소스 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 고기, 회, 오겹살, 삼겹살, 면, 소스을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP20-2] 호텔 요리사 출신 사장님이 EVEN하게 구워주는 고깃집?! ❤️‍🔥감칠맛 味친 숙성 고기 맛집🥩",
+        "restaurant_names": [
+          "광희문 인덕원 본점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4265,
+        "keywords": [
+          "고기",
+          "회",
+          "오겹살",
+          "삼겹살",
+          "면",
+          "소스"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "2ukFJEqsZEI",
+      "story_hook": "카페캔21을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "카페캔21은 맛있는 녀석들 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 소스, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 소스, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP20-4] 킹프론 왕새우 크기 실화?!ㄷㄷ🦐 낮에는 감성 브런치 카페→밤에는 낭만 포차로 변신하는 맛집💕",
+        "restaurant_names": [
+          "카페캔21"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3542,
+        "keywords": [
+          "면",
+          "소스",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "KPXQuyz9j3Y",
+      "story_hook": "본앤브레드 해운대 파라다이스점 등 7곳을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "본앤브레드 해운대 파라다이스점 등 7곳은 비밀이야 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 소주, 은해갈치, 부우사안, 아저씨대구탕, 면, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 소주, 은해갈치, 부우사안, 아저씨대구탕, 면, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "아침부터 소주 까는 레전드 워크숍ㄷㄷ🐳비밀이야의 부산 원기옥 | 은해갈치, 본앤브레드, 부우사안, 아저씨대구탕...",
+        "restaurant_names": [
+          "본앤브레드 해운대 파라다이스점",
+          "은해갈치",
+          "아저씨대구탕",
+          "부우사안",
+          "포항물횟집",
+          "거대돼지국밥",
+          "김해식당"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 8876,
+        "keywords": [
+          "소주",
+          "은해갈치",
+          "부우사안",
+          "아저씨대구탕",
+          "면",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "4DcecwXhEm4",
+      "story_hook": "해운대 미포항 좌판을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "해운대 미포항 좌판은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 소주, 회 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 소주, 회을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "부산 워크숍 왔다가 아침부터 길바닥에서 소주 까네요🍶",
+        "restaurant_names": [
+          "해운대 미포항 좌판"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 287,
+        "keywords": [
+          "소주",
+          "회"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "d6zoTmkiyf0",
+      "story_hook": "Tsukiji Sushi Sei을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "Tsukiji Sushi Sei은 성시경의 먹을텐데 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 스시, 회, 면, 참치, 초밥, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 스시, 회, 면, 참치, 초밥, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "성시경의 먹을텐데 l 도쿄 츠키지 스시세이",
+        "restaurant_names": [
+          "Tsukiji Sushi Sei"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 8643,
+        "keywords": [
+          "스시",
+          "회",
+          "면",
+          "참치",
+          "초밥",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Txq5d3guEpg",
+      "story_hook": "디래횟집 등 3곳을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "디래횟집 등 3곳은 회사랑 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 면, 회, 밥, 고기, 초밥, 매운탕 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 회, 밥, 고기, 초밥, 매운탕을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "진짜 보시면 충격 받으실 겁니다... 단돈 만원 갓성비 횟집에 다녀왔습니다!",
+        "restaurant_names": [
+          "디래횟집",
+          "마라도횟집",
+          "우사미뷔페"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5046,
+        "keywords": [
+          "면",
+          "회",
+          "밥",
+          "고기",
+          "초밥",
+          "매운탕"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "LyAgaNQzNPI",
+      "story_hook": "스지민푸 사계민복을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "스지민푸 사계민복은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 오리, 북경오리, 스지민푸 사계민복, 면, 고기, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 오리, 북경오리, 스지민푸 사계민복, 면, 고기, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "오리 혀부터 발끝까지 다 먹습니다🦆자금성 앞 베이징 1티어 북경오리 맛집 | 스지민푸 (사계민복)",
+        "restaurant_names": [
+          "스지민푸 사계민복"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3724,
+        "keywords": [
+          "오리",
+          "북경오리",
+          "스지민푸 사계민복",
+          "면",
+          "고기",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "D2_svTA-GAE",
+      "story_hook": "터프네이모을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "터프네이모은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 삼겹살, 회, 맥주, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 삼겹살, 회, 맥주, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "악플받고 찾아감! 살면서 처음 보는 가격의 집",
+        "restaurant_names": [
+          "터프네이모"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2414,
+        "keywords": [
+          "면",
+          "삼겹살",
+          "회",
+          "맥주",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "-GlSNXPkqUA",
+      "story_hook": "스지민푸 사계민복을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "스지민푸 사계민복은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 오리, 스지민푸 사계민복, 소스, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 오리, 스지민푸 사계민복, 소스, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "머리부터 발끝까지 다 먹습니다🦆중국 오리 식당 후기",
+        "restaurant_names": [
+          "스지민푸 사계민복"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 331,
+        "keywords": [
+          "오리",
+          "스지민푸 사계민복",
+          "소스",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "p-Th8_jzhek",
+      "story_hook": "청주 중화요리 맛집을 중심으로 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개.",
+      "story_intro": "청주 중화요리 맛집은 맛있는 녀석들 영상에서 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개로 다뤄진다. 자막 기준으로 영상은 면, 소주, 김밥, 밥, 고기, 튀김 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 소주, 김밥, 밥, 고기, 튀김을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP19-4] 60년 동안 3대째 운영 중인 근본 of 근본?! 🥢중화요리의 신세계를 보여줄 청주 맛집👑",
+        "restaurant_names": [
+          "청주 중화요리 맛집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3546,
+        "keywords": [
+          "면",
+          "소주",
+          "김밥",
+          "밥",
+          "고기",
+          "튀김"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "yYt-J_AmZlU",
+      "story_hook": "자가 제면 칼국수 맛집을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "자가 제면 칼국수 맛집은 맛있는 녀석들 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 칼국수, 면, 육수, 국물, 김치, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 출연진는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 칼국수, 면, 육수, 국물, 김치, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "맛있는 녀석들",
+        "title": "[EP19-1] 그릇째 드링킹 하게 만드는 인생 칼국수?!🥢 자가 제면이라 쫄깃함 폭발하는 면요리 맛집💕",
+        "restaurant_names": [
+          "자가 제면 칼국수 맛집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2531,
+        "keywords": [
+          "칼국수",
+          "면",
+          "육수",
+          "국물",
+          "김치",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "RTzzL5SVzr8",
+      "story_hook": "바르셀로나 맛집을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "바르셀로나 맛집은 비밀이야 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 면, 소스, 튀김, 회, 고기, 와인 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 소스, 튀김, 회, 고기, 와인을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "직원들과 스페인 출장! 🥩🍷바르셀로나 찐 맛집과 '트러플 농장' 직접 다녀왔습니다",
+        "restaurant_names": [
+          "바르셀로나 맛집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 8830,
+        "keywords": [
+          "면",
+          "소스",
+          "튀김",
+          "회",
+          "고기",
+          "와인"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "M_GgSKd07v8",
+      "story_hook": "Sagaradi BCN Gotic을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "Sagaradi BCN Gotic은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 와인, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 와인, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "지금 '이 와인' 사서 묵히시면 됩니다 (마지막에 나옴)",
+        "restaurant_names": [
+          "Sagaradi BCN Gotic"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 473,
+        "keywords": [
+          "와인",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "lppbGgsFEqw",
+      "story_hook": "Le Grand Colbert을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "Le Grand Colbert은 비밀이야 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 면, Le Grand Colbert, 와인, 회, 국물, 소주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, Le Grand Colbert, 와인, 회, 국물, 소주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "프랑스 파리, 어떤 식당을 갈지 모르겠다면? 여기로 가보세요! | Le Grand Colbert",
+        "restaurant_names": [
+          "Le Grand Colbert"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4001,
+        "keywords": [
+          "면",
+          "Le Grand Colbert",
+          "와인",
+          "회",
+          "국물",
+          "소주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "fPsMKDTzqaI",
+      "story_hook": "엄마순대을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "엄마순대은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 엄마순대, 순대, 순대국, 밥, 회, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 엄마순대, 순대, 순대국, 밥, 회, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "성시경의 먹을텐데 l 자양동 엄마순대",
+        "restaurant_names": [
+          "엄마순대"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6282,
+        "keywords": [
+          "엄마순대",
+          "순대",
+          "순대국",
+          "밥",
+          "회",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "3hMtERZkjsU",
+      "story_hook": "몽돌이네을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "몽돌이네은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 삼겹살, 김치, 양념, 소주, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 삼겹살, 김치, 양념, 소주, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "서울사람 99%는 모르는 숨은 야장집",
+        "restaurant_names": [
+          "몽돌이네"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2034,
+        "keywords": [
+          "면",
+          "삼겹살",
+          "김치",
+          "양념",
+          "소주",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "z5sRczuZcQ8",
+      "story_hook": "Cerveceria Catalana 등 4곳을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "Cerveceria Catalana 등 4곳은 비밀이야 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 Cerveceria Catalana, 면, 회, 맥주, 튀김, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 Cerveceria Catalana, 면, 회, 맥주, 튀김, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "이대로만 따라가세요! 실패없는 바르셀로나 노포 맛집들 싹 다 풀어드립니다.",
+        "restaurant_names": [
+          "Cerveceria Catalana",
+          "Cal Pep",
+          "Mercat de la Boqueria",
+          "El Rey de la Gamba desde 1972"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 9380,
+        "keywords": [
+          "Cerveceria Catalana",
+          "면",
+          "회",
+          "맥주",
+          "튀김",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "IDOnBhDqz6o",
+      "story_hook": "고메스퀘어 신대방점을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "고메스퀘어 신대방점은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 초밥, 밥, 갈비, 면, 뷔페, 양념 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 초밥, 밥, 갈비, 면, 뷔페, 양념을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "참돔초밥, 성게아귀간초밥, LA갈비, 홍게, 아귀찜 무제한?? 리뉴얼한 고메스퀘어에 다녀왔습니다!",
+        "restaurant_names": [
+          "고메스퀘어 신대방점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5124,
+        "keywords": [
+          "초밥",
+          "밥",
+          "갈비",
+          "면",
+          "뷔페",
+          "양념"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "35KgFw7SHXI",
+      "story_hook": "Cerveceria Catalana을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "Cerveceria Catalana은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "티키타카 잘 맞는 대표와 직원",
+        "restaurant_names": [
+          "Cerveceria Catalana"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 228,
+        "keywords": [
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Qlrq1qhbgv0",
+      "story_hook": "L'Envol을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "L'Envol은 비밀이야 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 L'Envol, 와인, 면, 오마카세, 회, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 L'Envol, 와인, 면, 오마카세, 회, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "태풍을 뚫고 먹으러 온 홍콩 2스타 클라스, 그리고...개인적인 이야기 | 홍콩 L'Envol",
+        "restaurant_names": [
+          "L'Envol"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 13412,
+        "keywords": [
+          "L'Envol",
+          "와인",
+          "면",
+          "오마카세",
+          "회",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "lPNNQU8GNAI",
+      "story_hook": "지하식당을 중심으로 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개.",
+      "story_intro": "지하식당은 김사원세끼 영상에서 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개로 다뤄진다. 자막 기준으로 영상은 김밥, 밥, 면, 파스타, 양념, 고추 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 김밥, 밥, 면, 파스타, 양념, 고추을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "노포야? 레스토랑이야? 가성비 지리는 낮술 성지",
+        "restaurant_names": [
+          "지하식당"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2548,
+        "keywords": [
+          "김밥",
+          "밥",
+          "면",
+          "파스타",
+          "양념",
+          "고추"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "5-jXsC088lA",
+      "story_hook": "L'Envol을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "L'Envol은 비밀이야 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 와인, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 와인, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "이 돈에 마시는 건 미친 짓 입니다",
+        "restaurant_names": [
+          "L'Envol"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 534,
+        "keywords": [
+          "와인",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "KF_8wNtJ9TM",
+      "story_hook": "다람 강동본점을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "다람 강동본점은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 다람 강동본점, 고기, 김치, 면, 고추, 회 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 다람 강동본점, 고기, 김치, 면, 고추, 회을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "성시경의 먹을텐데 l 둔촌동역 다람 강동본점",
+        "restaurant_names": [
+          "다람 강동본점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 9112,
+        "keywords": [
+          "다람 강동본점",
+          "고기",
+          "김치",
+          "면",
+          "고추",
+          "회"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Abn4dQToMlY",
+      "story_hook": "DiverXO을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "DiverXO은 비밀이야 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 DiverXO, 면, 와인, 오리, 소스, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 DiverXO, 면, 와인, 오리, 소스, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "스페인 마드리드 유일한 3스타인데.. 셰프가 정상이 아닙니다 | DiverXO | 디베르쏘",
+        "restaurant_names": [
+          "DiverXO"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 11523,
+        "keywords": [
+          "DiverXO",
+          "면",
+          "와인",
+          "오리",
+          "소스",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "EeVzrBd3tYU",
+      "story_hook": "삼다명가을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "삼다명가은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 장어, 뷔페, 갈비, 면, 국물 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 장어, 뷔페, 갈비, 면, 국물을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "활어회, 활 전복, 민물장어, 냉장 육회&육사시미 무제한?! 이 가격에 이건 말이 안 됩니다....",
+        "restaurant_names": [
+          "삼다명가"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5018,
+        "keywords": [
+          "회",
+          "장어",
+          "뷔페",
+          "갈비",
+          "면",
+          "국물"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "4hkXU7qyJsQ",
+      "story_hook": "사조회참치 본점을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "사조회참치 본점은 회사랑 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 참치, 회, 면, 튀김, 갈비, 육수 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 참치, 회, 면, 튀김, 갈비, 육수을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "사조참치에서 만든 참치횟집은 특별할까? 궁금해서 다녀왔습니다!(광고X)",
+        "restaurant_names": [
+          "사조회참치 본점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6049,
+        "keywords": [
+          "참치",
+          "회",
+          "면",
+          "튀김",
+          "갈비",
+          "육수"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "RH3w9gG0q90",
+      "story_hook": "Mirabelle을 중심으로 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개.",
+      "story_intro": "Mirabelle은 비밀이야 영상에서 여행지에서 한 끼를 고를 때 참고할 만한 현지 식당 소개로 다뤄진다. 자막 기준으로 영상은 Mirabelle, 튀김, 면, 소스, 고기, 와인 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 비밀이야는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 Mirabelle, 튀김, 면, 소스, 고기, 와인을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "비밀이야",
+        "title": "로마의 환상적인 뷰가 인상적인 레스토랑! 싫어하던 로마에 온 이유? | Mirabelle",
+        "restaurant_names": [
+          "Mirabelle"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3843,
+        "keywords": [
+          "Mirabelle",
+          "튀김",
+          "면",
+          "소스",
+          "고기",
+          "와인"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Gha_sBcaQyI",
+      "story_hook": "오천냥포차와 실내포장마차을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "오천냥포차와 실내포장마차은 김사원세끼 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 면, 맥주, 삼겹살, 김치, 고기, 양념 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 맥주, 삼겹살, 김치, 고기, 양념을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "재료값은 남아요..? 돈 내고도 미안해지는 식당",
+        "restaurant_names": [
+          "오천냥포차",
+          "실내포장마차"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2876,
+        "keywords": [
+          "면",
+          "맥주",
+          "삼겹살",
+          "김치",
+          "고기",
+          "양념"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "G_DZw6f5bhk",
+      "story_hook": "연지민물매운탕칼국수을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "연지민물매운탕칼국수은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 연지민물매운탕칼국수, 매운탕, 칼국수, 면, 국물, 튀김 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 연지민물매운탕칼국수, 매운탕, 칼국수, 면, 국물, 튀김을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 구의 연지민물매운탕칼국수",
+        "restaurant_names": [
+          "연지민물매운탕칼국수"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5219,
+        "keywords": [
+          "연지민물매운탕칼국수",
+          "매운탕",
+          "칼국수",
+          "면",
+          "국물",
+          "튀김"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "-Te_OGGr5wo",
+      "story_hook": "로운 신중동점을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "로운 신중동점은 회사랑 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 숙성회, 회, 면, 튀김, 매운탕, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 숙성회, 회, 면, 튀김, 매운탕, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "29,000원에 숙성회&요리 8종이 리필된다고?? 예약 없이 가기 어려운 곳에 다녀왔습니다",
+        "restaurant_names": [
+          "로운 신중동점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5492,
+        "keywords": [
+          "숙성회",
+          "회",
+          "면",
+          "튀김",
+          "매운탕",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "ViLVmEdaKBc",
+      "story_hook": "대광어횟집을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "대광어횟집은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 면, 소주, 튀김, 초밥, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 면, 소주, 튀김, 초밥, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "도대체 회는 언제 나와요!? 메인 나오기도 전에 기절한 집",
+        "restaurant_names": [
+          "대광어횟집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3427,
+        "keywords": [
+          "회",
+          "면",
+          "소주",
+          "튀김",
+          "초밥",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Hue3kvx9jB4",
+      "story_hook": "아루히 니와을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "아루히 니와은 회사랑 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 오마카세, 면, 맥주, 초밥, 밥, 소스 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 오마카세, 면, 맥주, 초밥, 밥, 소스을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "주류 필수가 아니라고?? 예약 쉬워진 오마카세 '여의도 아루히' 다녀왔습니다!",
+        "restaurant_names": [
+          "아루히 니와"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5183,
+        "keywords": [
+          "오마카세",
+          "면",
+          "맥주",
+          "초밥",
+          "밥",
+          "소스"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "6ruCleoeM2E",
+      "story_hook": "호랑실비을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "호랑실비은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 소주, 맥주, 소스, 회, 보쌈 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 소주, 맥주, 소스, 회, 보쌈을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "진짜로 오지게 잘나오는 미친 실비집",
+        "restaurant_names": [
+          "호랑실비"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2386,
+        "keywords": [
+          "면",
+          "소주",
+          "맥주",
+          "소스",
+          "회",
+          "보쌈"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "brPoN3sFQk0",
+      "story_hook": "쿠우쿠우 블루레일 건대직영점을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "쿠우쿠우 블루레일 건대직영점은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 초밥, 밥, 면, 국물, 갈비 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 초밥, 밥, 면, 국물, 갈비을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "가성비 좋은 거 아닌가요?? 쿠우쿠우에서 만든 회전초밥집에 다녀왔습니다(광고X)",
+        "restaurant_names": [
+          "쿠우쿠우 블루레일 건대직영점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 5418,
+        "keywords": [
+          "회",
+          "초밥",
+          "밥",
+          "면",
+          "국물",
+          "갈비"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Nyg6h7-xxEA",
+      "story_hook": "남영동 까치네을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "남영동 까치네은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 남영동 까치네, 면, 소주, 맥주, 고추, 회 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 남영동 까치네, 면, 소주, 맥주, 고추, 회을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 남영동 까치네",
+        "restaurant_names": [
+          "남영동 까치네"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6905,
+        "keywords": [
+          "남영동 까치네",
+          "면",
+          "소주",
+          "맥주",
+          "고추",
+          "회"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "EOzXdC-nggs",
+      "story_hook": "애국집 등 3곳을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "애국집 등 3곳은 김사원세끼 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 고기, 밥, 애국집, 소주, 회, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 고기, 밥, 애국집, 소주, 회, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "진짜 5천원이에요? 도저히 납득이 안 가는 집, 퍼도퍼도 고기가 줄어들지 않는 미친 식당",
+        "restaurant_names": [
+          "애국집",
+          "서울식당",
+          "1. 애국집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2754,
+        "keywords": [
+          "고기",
+          "밥",
+          "애국집",
+          "소주",
+          "회",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "KfAymGFpUnw",
+      "story_hook": "우미노야을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "우미노야은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 면, 우미노야, 양념, 소스, 삼겹살 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 면, 우미노야, 양념, 소스, 삼겹살을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "인당 2만원 이하에 배 터집니다... 서울 평균 반값에 막 퍼주는 숙성횟집에 다녀왔습니다!",
+        "restaurant_names": [
+          "우미노야"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4426,
+        "keywords": [
+          "회",
+          "면",
+          "우미노야",
+          "양념",
+          "소스",
+          "삼겹살"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "47bO-VRW13Q",
+      "story_hook": "한신치킨호프을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "한신치킨호프은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 한신치킨호프, 치킨, 칼국수, 맥주, 소주, 면 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 한신치킨호프, 치킨, 칼국수, 맥주, 소주, 면을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 잠원동 한신치킨호프",
+        "restaurant_names": [
+          "한신치킨호프"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6917,
+        "keywords": [
+          "한신치킨호프",
+          "치킨",
+          "칼국수",
+          "맥주",
+          "소주",
+          "면"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "O0V5OATA71c",
+      "story_hook": "세모시을 중심으로 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개.",
+      "story_intro": "세모시은 김사원세끼 영상에서 오래된 가게의 내공과 단골들이 찾는 이유를 따라가는 소개로 다뤄진다. 자막 기준으로 영상은 갈비, 면, 회, 고기, 소주, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 갈비, 면, 회, 고기, 소주, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "갈비탕보다도 싼 한우모듬? 33년 업력 전국구급 미친 가성비집",
+        "restaurant_names": [
+          "세모시"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 1964,
+        "keywords": [
+          "갈비",
+          "면",
+          "회",
+          "고기",
+          "소주",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "lJO61_YtvJk",
+      "story_hook": "태호수산물백화점을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "태호수산물백화점은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 회, 소주, 육수, 고추, 국물 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 회, 소주, 육수, 고추, 국물을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "서울 최저가인데 벌써 마감이라고?? 평일 직장인은 못 가는 갓성비 횟집 드디어 다녀왔습니다!",
+        "restaurant_names": [
+          "태호수산물백화점"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4405,
+        "keywords": [
+          "면",
+          "회",
+          "소주",
+          "육수",
+          "고추",
+          "국물"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "_NQtmgwAAlo",
+      "story_hook": "동화포차식당 등 3곳을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "동화포차식당 등 3곳은 김사원세끼 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 면, 밥, 양념, 김치, 고기, 소주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 밥, 양념, 김치, 고기, 소주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "이렇게 내어주시면 뭐가 남나요? 구성 미친 노포 찐맛집 (1,2차 코스)",
+        "restaurant_names": [
+          "동화포차식당",
+          "해오름감자탕",
+          "1. 동화포차식당"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3137,
+        "keywords": [
+          "면",
+          "밥",
+          "양념",
+          "김치",
+          "고기",
+          "소주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "TzjTcq90j4s",
+      "story_hook": "부산대신동 운동장그집 참치('운동그집'이라고 치면 나옴)을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "부산대신동 운동장그집 참치('운동그집'이라고 치면 나옴)은 회사랑 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 참치, 면, 김밥, 밥, 김치, 소스 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 참치, 면, 김밥, 밥, 김치, 소스을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "유통 마진 남기지 않는 참치집, 정말 저렴할까? 직접 다녀왔습니다!",
+        "restaurant_names": [
+          "부산대신동 운동장그집 참치('운동그집'이라고 치면 나옴)"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4328,
+        "keywords": [
+          "참치",
+          "면",
+          "김밥",
+          "밥",
+          "김치",
+          "소스"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "5LzM9rMT888",
+      "story_hook": "마리나블루키친 뷔페을 중심으로 가격 대비 구성과 실제 만족도를 확인하는 소개.",
+      "story_intro": "마리나블루키친 뷔페은 회사랑 영상에서 가격 대비 구성과 실제 만족도를 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 갈비, 면, 뷔페, 초밥, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 갈비, 면, 뷔페, 초밥, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "회사랑",
+        "title": "단새우, 관자, 연어&광어회, 소갈비가 무제한인데 3만원 중반대?? 진짜 평일 점심의 축복입니다...",
+        "restaurant_names": [
+          "마리나블루키친 뷔페"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6768,
+        "keywords": [
+          "회",
+          "갈비",
+          "면",
+          "뷔페",
+          "초밥",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "9NycugQL2xw",
+      "story_hook": "본가진미간장게장을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "본가진미간장게장은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 본가진미간장게장, 게장, 소주, 면, 맥주, 회 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 본가진미간장게장, 게장, 소주, 면, 맥주, 회을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 송파동 본가진미간장게장 (with.넬 김종완)",
+        "restaurant_names": [
+          "본가진미간장게장"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 18551,
+        "keywords": [
+          "본가진미간장게장",
+          "게장",
+          "소주",
+          "면",
+          "맥주",
+          "회"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Zse2y5FVTiI",
+      "story_hook": "초록달야식당을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "초록달야식당은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 밥, 회, 소주, 김치, 초밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 밥, 회, 소주, 김치, 초밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "인당 20,000원 술안주 오지게 실하게 나오는 집",
+        "restaurant_names": [
+          "초록달야식당"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2580,
+        "keywords": [
+          "면",
+          "밥",
+          "회",
+          "소주",
+          "김치",
+          "초밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "6ZsjYVAeW4w",
+      "story_hook": "토리냥을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "토리냥은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 면, 회, 국물, 초밥, 밥, 튀김 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 면, 회, 국물, 초밥, 밥, 튀김을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "술안주 가격이 2~3천원대인 도무지 믿기 힘든 미친 식당",
+        "restaurant_names": [
+          "토리냥"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2701,
+        "keywords": [
+          "면",
+          "회",
+          "국물",
+          "초밥",
+          "밥",
+          "튀김"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "M2vpWqrakxM",
+      "story_hook": "토리츠바키와 아게산을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "토리츠바키와 아게산은 성시경의 먹을텐데 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 토리츠바키, 아게산, 회, 면, 맥주, 튀김 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 토리츠바키, 아게산, 회, 면, 맥주, 튀김을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 도쿄 토리츠바키, 아게산",
+        "restaurant_names": [
+          "토리츠바키",
+          "아게산"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4361,
+        "keywords": [
+          "토리츠바키",
+          "아게산",
+          "회",
+          "면",
+          "맥주",
+          "튀김"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "Xhy8JKSIp70",
+      "story_hook": "가락시장 수동상회을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "가락시장 수동상회은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 가락시장 수동상회, 회, 면, 고추, 소주, 맥주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 가락시장 수동상회, 회, 면, 고추, 소주, 맥주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 가락시장 수동상회",
+        "restaurant_names": [
+          "가락시장 수동상회"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 8237,
+        "keywords": [
+          "가락시장 수동상회",
+          "회",
+          "면",
+          "고추",
+          "소주",
+          "맥주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "_VvyeK7rDQU",
+      "story_hook": "목포회센타을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "목포회센타은 김사원세끼 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 회, 면, 양념, 소주, 밥, 김치 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 리뷰어는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 회, 면, 양념, 소주, 밥, 김치을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "김사원세끼",
+        "title": "밑반찬만으로도 본전 뽑는 진짜로 미쳐버린 횟집",
+        "restaurant_names": [
+          "목포회센타"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 2691,
+        "keywords": [
+          "회",
+          "면",
+          "양념",
+          "소주",
+          "밥",
+          "김치"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "TuT0kthdfGE",
+      "story_hook": "별미곱창을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "별미곱창은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 별미곱창, 곱창, 소주, 면, 회, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 별미곱창, 곱창, 소주, 면, 회, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 잠실 별미곱창 (with.비비)",
+        "restaurant_names": [
+          "별미곱창"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 12655,
+        "keywords": [
+          "별미곱창",
+          "곱창",
+          "소주",
+          "면",
+          "회",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "naqn5QAKsnM",
+      "story_hook": "시청역 부산갈매기을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "시청역 부산갈매기은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 시청역 부산갈매기, 면, 회, 삼겹살, 맥주, 소주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 시청역 부산갈매기, 면, 회, 삼겹살, 맥주, 소주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 시청역 부산갈매기",
+        "restaurant_names": [
+          "시청역 부산갈매기"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4149,
+        "keywords": [
+          "시청역 부산갈매기",
+          "면",
+          "회",
+          "삼겹살",
+          "맥주",
+          "소주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "RZJDKKl7VrM",
+      "story_hook": "망원역 몽골생소금구이을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "망원역 몽골생소금구이은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 망원역 몽골생소금구이, 고기, 소주, 면, 회, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 망원역 몽골생소금구이, 고기, 소주, 면, 회, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 망원역 몽골생소금구이 (with. 화사)",
+        "restaurant_names": [
+          "망원역 몽골생소금구이"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 11464,
+        "keywords": [
+          "망원역 몽골생소금구이",
+          "고기",
+          "소주",
+          "면",
+          "회",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "2WheSTDmpwQ",
+      "story_hook": "무교동 유정낙지을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "무교동 유정낙지은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 낙지, 면, 소주, 감자탕, 밥, 육수 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 낙지, 면, 소주, 감자탕, 밥, 육수을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 압구정역 무교동유정낙지",
+        "restaurant_names": [
+          "무교동 유정낙지"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4604,
+        "keywords": [
+          "낙지",
+          "면",
+          "소주",
+          "감자탕",
+          "밥",
+          "육수"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "DnWF9WuObgE",
+      "story_hook": "명동 행화촌을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "명동 행화촌은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 명동 행화촌, 면, 고추, 튀김, 맥주, 양념 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 명동 행화촌, 면, 고추, 튀김, 맥주, 양념을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 명동 행화촌",
+        "restaurant_names": [
+          "명동 행화촌"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6880,
+        "keywords": [
+          "명동 행화촌",
+          "면",
+          "고추",
+          "튀김",
+          "맥주",
+          "양념"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "ysMucw9HzSc",
+      "story_hook": "을지로 인천집을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "을지로 인천집은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 을지로 인천집, 면, 회, 보쌈, 칼국수, 맥주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 을지로 인천집, 면, 회, 보쌈, 칼국수, 맥주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 을지로 인천집",
+        "restaurant_names": [
+          "을지로 인천집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4673,
+        "keywords": [
+          "을지로 인천집",
+          "면",
+          "회",
+          "보쌈",
+          "칼국수",
+          "맥주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "jogtpBx1cC4",
+      "story_hook": "도쿄 후지키와 오사카 돈조쿠 비짱을 한 영상에서 훑으며, 각 식당의 메뉴와 분위기를 비교해 볼 수 있는 맛집 코스.",
+      "story_intro": "도쿄 후지키와 오사카 돈조쿠 비짱은 성시경의 먹을텐데 영상에서 여러 식당을 이어 가며 각 장소의 성격을 비교하는 코스형 소개로 다뤄진다. 자막 기준으로 영상은 도쿄 후지키, 오사카 돈조쿠 비짱, 밥, 면, 고기, 소스 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 도쿄 후지키, 오사카 돈조쿠 비짱, 밥, 면, 고기, 소스을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 도쿄 후지키, 오사카 돈조쿠 비짱",
+        "restaurant_names": [
+          "도쿄 후지키",
+          "오사카 돈조쿠 비짱"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 6137,
+        "keywords": [
+          "도쿄 후지키",
+          "오사카 돈조쿠 비짱",
+          "밥",
+          "면",
+          "고기",
+          "소스"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "8JQNbjWEze0",
+      "story_hook": "청석골을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "청석골은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 청석골, 삼겹살, 면, 밥, 김치, 고기 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 청석골, 삼겹살, 면, 밥, 김치, 고기을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 논현동 청석골",
+        "restaurant_names": [
+          "청석골"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4378,
+        "keywords": [
+          "청석골",
+          "삼겹살",
+          "면",
+          "밥",
+          "김치",
+          "고기"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "6D0dhN2y0b8",
+      "story_hook": "부흥축산을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "부흥축산은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 부흥축산, 회, 고기, 면, 소주, 갈비 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 부흥축산, 회, 고기, 면, 소주, 갈비을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 상봉역 부흥축산",
+        "restaurant_names": [
+          "부흥축산"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4134,
+        "keywords": [
+          "부흥축산",
+          "회",
+          "고기",
+          "면",
+          "소주",
+          "갈비"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "OJl_XAXANH0",
+      "story_hook": "대포항회집을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "대포항회집은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 대포항회집, 회, 면, 맥주, 소주, 밥 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 대포항회집, 회, 면, 맥주, 소주, 밥을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 목동역 대포항회집",
+        "restaurant_names": [
+          "대포항회집"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 3822,
+        "keywords": [
+          "대포항회집",
+          "회",
+          "면",
+          "맥주",
+          "소주",
+          "밥"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "-HMjbflpVIg",
+      "story_hook": "철길왕갈비살을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "철길왕갈비살은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 철길왕갈비살, 갈비, 면, 소주, 양념, 맥주 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 철길왕갈비살, 갈비, 면, 소주, 양념, 맥주을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 홍대 철길왕갈비살",
+        "restaurant_names": [
+          "철길왕갈비살"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4575,
+        "keywords": [
+          "철길왕갈비살",
+          "갈비",
+          "면",
+          "소주",
+          "양념",
+          "맥주"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
+    },
+    {
+      "video_id": "dI763TqdasE",
+      "story_hook": "재수돈감자탕을 중심으로 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개.",
+      "story_intro": "재수돈감자탕은 성시경의 먹을텐데 영상에서 한 끼를 고를 때 식당의 장점과 메뉴 흐름을 확인하는 소개로 다뤄진다. 자막 기준으로 영상은 재수돈감자탕, 감자탕, 밥, 고기, 면, 회 같은 단서를 따라가며, 단순히 식당명을 소개하기보다 왜 이 장소가 한 끼 후보가 되는지 보여주는 흐름에 가깝다. 성시경는 메뉴를 앞에 두고 식감, 국물이나 소스의 인상, 구성의 장단점을 차례로 확인한다. 그래서 이 항목은 지도에 찍힌 장소 정보뿐 아니라 실제 영상 속 식사 맥락까지 함께 볼 수 있는 후보로 정리된다.",
+      "tasting_flow": "시식 흐름은 먼저 재수돈감자탕, 감자탕, 밥, 고기, 면, 회을 중심으로 메뉴의 첫인상을 잡는 데서 시작한다. 이후 자막에서는 맛의 강도, 식감, 함께 먹는 재료나 곁들임에 대한 반응이 이어지고, 마지막에는 이 식당이 어떤 상황에서 선택할 만한지 정리되는 식으로 마무리된다.",
+      "reviewer": "codex-generated-from-transcript",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 왕십리역 재수돈감자탕",
+        "restaurant_names": [
+          "재수돈감자탕"
+        ],
+        "notes": "Generated from stored transcript, reviewed restaurant names, and map-verified pipeline status. Uses conservative wording when the transcript does not expose detailed store history.",
+        "transcript_length": 4881,
+        "keywords": [
+          "재수돈감자탕",
+          "감자탕",
+          "밥",
+          "고기",
+          "면",
+          "회"
+        ]
+      },
+      "generated_at": "2026-06-02T12:22:40.647884+00:00"
     }
   ]
 }
