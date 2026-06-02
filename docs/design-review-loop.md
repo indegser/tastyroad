@@ -75,6 +75,11 @@ Default viewports:
 - narrow mobile: `390 x 844`
 - desktop: `1120 x 900`
 
+Every design review handoff should include at least two screenshots:
+
+- one mobile screenshot
+- one desktop screenshot
+
 Use dark mode only when the change touches color, contrast, or theme behavior.
 
 ## Review Dimensions
@@ -94,11 +99,23 @@ Check Korean readability:
 - font weight contrast
 - title size relative to metadata
 
+Do not treat mobile as a scaled-down desktop. Define mobile-first type sizes,
+line heights, spacing, and card rhythm first, then raise the desktop scale in a
+media query. A single fluid `clamp()` can be useful for narrow ranges, but it is
+not enough when the mobile screen starts feeling like a zoomed-out desktop page.
+
 ### Interaction Cues
 
 Links must look clickable, but not dominate the card unless the link is the
 primary action. For this site, restaurant identity is primary and video link is
 secondary.
+
+For video links, prefer a quiet secondary treatment:
+
+- text color close to secondary text
+- external arrow or small icon in link color
+- underline on hover/focus rather than always visible
+- no bold blue multiline title unless the video itself is the main object
 
 ### Rhythm
 
@@ -113,8 +130,8 @@ without crowding the index column or creating awkward isolated marks.
 ## Per-Loop Procedure
 
 1. Start or reuse the local server.
-2. Capture the relevant viewport with `agent-browser`.
-3. Inspect the screenshot visually.
+2. Capture mobile and desktop screenshots with `agent-browser`.
+3. Inspect both screenshots visually.
 4. Write a concise review:
    - `What works`
    - `Issues`
@@ -181,7 +198,8 @@ is correct.
 Prefer:
 
 - restaurant name as the strongest text
-- channel and upload time combined as subdued metadata
-- video title as a smaller secondary link
+- channel as subdued metadata directly under the restaurant name
+- video title as a quiet secondary link, with the arrow carrying most of the
+  link-color signal
+- mobile-specific type and spacing rather than desktop values scaled down
 - story body with comfortable line height and slightly softened color
-
