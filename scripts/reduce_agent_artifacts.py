@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+from collections import Counter
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
@@ -241,6 +242,23 @@ def upsert_story_from_item(connection: sqlite3.Connection, video_id: str, item: 
     )
 
 
+def story_signature(item: dict[str, Any], key: str) -> str:
+    value = item.get(key)
+    if not value:
+        return ""
+    return json.dumps(value, ensure_ascii=False, sort_keys=True)
+
+
+def duplicate_story_signatures(story_items: list[tuple[Path, dict[str, Any]]]) -> set[str]:
+    signatures = Counter(
+        signature
+        for _path, item in story_items
+        for signature in (story_signature(item, "critic_rounds"), story_signature(item, "revision_history"))
+        if signature
+    )
+    return {signature for signature, count in signatures.items() if count > 1}
+
+
 def reduce_restaurant_review_artifact(
     connection: sqlite3.Connection,
     artifact_path: Path,
@@ -293,11 +311,16 @@ def reduce_story_review_artifact(
     artifact_path: Path,
     *,
     apply: bool,
+    duplicate_signatures: set[str] | None = None,
 ) -> ReductionResult:
     try:
         video_id, item = story_from_artifact(artifact_path)
         if not mention_candidate_exists(connection, video_id):
             return ReductionResult(video_id, str(artifact_path), "skipped", "no matching mention_candidate")
+        for key in ("critic_rounds", "revision_history"):
+            signature = story_signature(item, key)
+            if signature and duplicate_signatures and signature in duplicate_signatures:
+                return ReductionResult(video_id, str(artifact_path), "invalid", f"duplicate {key} block in batch")
         if apply:
             upsert_story_from_item(connection, video_id, item)
         return ReductionResult(video_id, str(artifact_path), "applied" if apply else "planned")
@@ -341,6 +364,19 @@ def reduce_stage(
         "place_verification": reduce_place_verification_artifact,
     }
     results = []
+    duplicate_signatures: set[str] = set()
+    if stage == "story_review":
+        story_items: list[tuple[Path, dict[str, Any]]] = []
+        for artifact_path in discover_artifacts(work_dir, stage):
+            try:
+                payload = load_json(artifact_path)
+                if payload.get("status") != "succeeded":
+                    continue
+                _video_id, item = story_from_artifact(artifact_path)
+                story_items.append((artifact_path, item))
+            except Exception:
+                continue
+        duplicate_signatures = duplicate_story_signatures(story_items)
     for artifact_path in discover_artifacts(work_dir, stage):
         try:
             payload = load_json(artifact_path)
@@ -358,7 +394,17 @@ def reduce_stage(
                 continue
         except Exception:
             pass
-        results.append(reducers[stage](connection, artifact_path, apply=apply))
+        if stage == "story_review":
+            results.append(
+                reduce_story_review_artifact(
+                    connection,
+                    artifact_path,
+                    apply=apply,
+                    duplicate_signatures=duplicate_signatures,
+                )
+            )
+        else:
+            results.append(reducers[stage](connection, artifact_path, apply=apply))
     return results
 
 

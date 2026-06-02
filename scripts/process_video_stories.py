@@ -18,9 +18,14 @@ from pipeline_schema import ensure_pipeline_schema
 
 DEFAULT_LANGUAGES = ("ko", "en")
 DEFAULT_INPUT = Path("data/story_reviews/video_story_reviews.json")
-DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 15.0
+DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 0.0
 DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS = 3
 DISALLOWED_STORY_REVIEWER = "codex-generated-from-transcript"
+STORY_QUALITY_POLICY_VERSION = "story-quality-v2"
+MIN_STORY_INTRO_CHARS = 240
+MIN_TASTING_FLOW_CHARS = 180
+MIN_TASTING_ORDER_ITEMS = 4
+MIN_TRANSCRIPT_SUPPORT_ITEMS = 3
 GENERIC_STORY_PATTERNS = (
     "자막 기준으로 영상은",
     "같은 단서를 따라가며",
@@ -302,6 +307,19 @@ def validate_story_review_quality(item: dict[str, Any], source_label: str) -> No
         str(item.get(key) or "")
         for key in ("story_hook", "story_intro", "tasting_flow")
     )
+    story_intro = str(item.get("story_intro") or "").strip()
+    tasting_flow = str(item.get("tasting_flow") or "").strip()
+    if len(story_intro) < MIN_STORY_INTRO_CHARS:
+        raise ValueError(
+            f"{source_label} review {video_id} story_intro is too short: "
+            f"{len(story_intro)} < {MIN_STORY_INTRO_CHARS}"
+        )
+    if len(tasting_flow) < MIN_TASTING_FLOW_CHARS:
+        raise ValueError(
+            f"{source_label} review {video_id} tasting_flow is too short: "
+            f"{len(tasting_flow)} < {MIN_TASTING_FLOW_CHARS}"
+        )
+
     matched_patterns = [pattern for pattern in GENERIC_STORY_PATTERNS if pattern in combined_text]
     if matched_patterns:
         raise ValueError(
@@ -329,8 +347,30 @@ def validate_story_review_quality(item: dict[str, Any], source_label: str) -> No
 
     evidence = item.get("evidence", {})
     tasting_order = evidence.get("tasting_order") if isinstance(evidence, dict) else None
-    if not isinstance(tasting_order, list) or len([value for value in tasting_order if str(value).strip()]) < 3:
-        raise ValueError(f"{source_label} review {video_id} must include evidence.tasting_order with at least 3 items")
+    if (
+        not isinstance(tasting_order, list)
+        or len([value for value in tasting_order if str(value).strip()]) < MIN_TASTING_ORDER_ITEMS
+    ):
+        raise ValueError(
+            f"{source_label} review {video_id} must include evidence.tasting_order "
+            f"with at least {MIN_TASTING_ORDER_ITEMS} items"
+        )
+    transcript_support = evidence.get("transcript_support") if isinstance(evidence, dict) else None
+    if not isinstance(transcript_support, list):
+        raise ValueError(f"{source_label} review {video_id} must include evidence.transcript_support list")
+    support_items = [str(value).strip() for value in transcript_support if str(value).strip()]
+    if len(support_items) < MIN_TRANSCRIPT_SUPPORT_ITEMS:
+        raise ValueError(
+            f"{source_label} review {video_id} must include at least "
+            f"{MIN_TRANSCRIPT_SUPPORT_ITEMS} transcript support items"
+        )
+    weak_support_markers = ("제목에 나온다", "후보명", "회차다", "흐름이다", "구성이다")
+    weak_support_items = [
+        support for support in support_items
+        if any(marker in support for marker in weak_support_markers)
+    ]
+    if len(weak_support_items) == len(support_items):
+        raise ValueError(f"{source_label} review {video_id} transcript support is too generic")
 
     critic_rounds = item.get("critic_rounds")
     if not isinstance(critic_rounds, list) or len(critic_rounds) < MIN_STORY_CRITIC_ROUNDS:
@@ -377,6 +417,18 @@ def validate_story_review_quality(item: dict[str, Any], source_label: str) -> No
             f"{source_label} review {video_id} must include writer/critic revision_history "
             f"with at least {MIN_STORY_CRITIC_ROUNDS + 1} entries"
         )
+    generic_revision_markers = (
+        "검증 항목을 통과한 최종본이다",
+        "긴 문장과 흐린 주어를 줄이라고 지적했다",
+        "음식 순서와 주인 맥락을 넣었다",
+    )
+    revision_text = " ".join(
+        str(entry.get("summary") or entry.get("note") or "")
+        for entry in revision_history
+        if isinstance(entry, dict)
+    )
+    if any(marker in revision_text for marker in generic_revision_markers):
+        raise ValueError(f"{source_label} review {video_id} uses generic revision history")
 
 
 def story_review_evidence(item: dict[str, Any]) -> dict[str, Any]:
@@ -385,6 +437,7 @@ def story_review_evidence(item: dict[str, Any]) -> dict[str, Any]:
         evidence = {}
     return {
         **evidence,
+        "quality_policy_version": STORY_QUALITY_POLICY_VERSION,
         "critic_rounds": item.get("critic_rounds", []),
         "revision_history": item.get("revision_history", []),
     }
@@ -450,18 +503,35 @@ def missing_story_review_rows(connection: sqlite3.Connection, *, limit: int | No
           v.source,
           v.title,
           v.reviewed_restaurant_names,
-          length(t.transcript_text) as transcript_length
+          length(t.transcript_text) as transcript_length,
+          case
+            when sr.external_id is null then 'missing'
+            when length(trim(sr.story_intro)) < ? then 'story_intro_too_short'
+            when length(trim(sr.tasting_flow)) < ? then 'tasting_flow_too_short'
+            when sr.reviewer = 'codex-story-agent' then 'legacy_story_agent_batch'
+            else 'needs_refresh'
+          end as story_status
         from video_pipeline_status v
         left join video_transcripts t on t.external_id = v.video_id
         left join video_story_reviews sr on sr.external_id = v.video_id
         where v.review_decision = 'restaurant_intro'
-          and sr.external_id is null
+          and (
+            sr.external_id is null
+            or length(trim(sr.story_intro)) < ?
+            or length(trim(sr.tasting_flow)) < ?
+            or sr.reviewer = 'codex-story-agent'
+          )
         order by v.published_at desc, v.mention_candidate_id desc
     """
-    params: tuple[Any, ...] = ()
+    params: tuple[Any, ...] = (
+        MIN_STORY_INTRO_CHARS,
+        MIN_TASTING_FLOW_CHARS,
+        MIN_STORY_INTRO_CHARS,
+        MIN_TASTING_FLOW_CHARS,
+    )
     if limit is not None:
         sql += " limit ?"
-        params = (limit,)
+        params = (*params, limit)
     return list(connection.execute(sql, params).fetchall())
 
 
@@ -544,7 +614,8 @@ def main() -> int:
             for row in missing_story_review_rows(connection, limit=args.limit):
                 print(
                     f"{row['video_id']}\t{row['source']}\t{row['title']}\t"
-                    f"transcript_length={row['transcript_length'] or 0}"
+                    f"transcript_length={row['transcript_length'] or 0}\t"
+                    f"story_status={row['story_status']}"
                 )
             return 0
 

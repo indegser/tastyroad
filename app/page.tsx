@@ -29,6 +29,8 @@ type CandidateRow = {
 export const dynamic = "force-static";
 
 const SQLITE_PATH = "data/tastyroad.sqlite";
+const MIN_STORY_INTRO_CHARS = 240;
+const MIN_TASTING_FLOW_CHARS = 180;
 
 function loadCandidates(limit = 500): PlaceCandidate[] {
   const db = new DatabaseSync(SQLITE_PATH, { readOnly: true });
@@ -84,11 +86,13 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
         where reviewed.decision = 'restaurant_intro'
           and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
           and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
+          and length(trim(story.story_intro)) >= ?
+          and length(trim(story.tasting_flow)) >= ?
         order by c.published_at desc, c.id desc
         limit ?
         `,
       )
-      .all(limit) as CandidateRow[];
+      .all(MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS, limit) as CandidateRow[];
 
     return rows.map((row) => ({
       name:

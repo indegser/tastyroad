@@ -16,8 +16,12 @@ from process_video_stories import (
     DEFAULT_LANGUAGES,
     DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
     DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+    MIN_STORY_INTRO_CHARS,
+    MIN_TASTING_FLOW_CHARS,
+    STORY_QUALITY_POLICY_VERSION,
     fetch_transcript,
     is_youtube_block_error,
+    validate_story_review_quality,
 )
 from process_video_stories import DEFAULT_INPUT as DEFAULT_STORY_REVIEWS
 from promote_verified_places import DEFAULT_INPUT_DIR as DEFAULT_VERIFIED_DIR
@@ -25,6 +29,7 @@ from promote_verified_places import DEFAULT_INPUT_DIR as DEFAULT_VERIFIED_DIR
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 DEFAULT_WORK_DIR = Path("data/work")
+STORY_REVIEW_PROMPT_VERSION = "story-review-v2"
 
 STAGES = {
     "place_extraction",
@@ -155,16 +160,34 @@ def story_review_tasks(
         select
           v.video_id,
           v.source,
-          v.title
+          v.title,
+          case
+            when r.external_id is null then 'transcript exists but video_story_reviews row is missing'
+            when length(trim(r.story_intro)) < ? then 'existing story_intro is below current quality floor'
+            when length(trim(r.tasting_flow)) < ? then 'existing tasting_flow is below current quality floor'
+            when r.reviewer = 'codex-story-agent' then 'existing story came from legacy story agent batch'
+            else 'existing story needs current policy refresh'
+          end as reason
         from video_pipeline_status v
         join video_transcripts t on t.external_id = v.video_id
         left join video_story_reviews r on r.external_id = v.video_id
         where v.review_decision = 'restaurant_intro'
-          and r.external_id is null
+          and (
+            r.external_id is null
+            or length(trim(r.story_intro)) < ?
+            or length(trim(r.tasting_flow)) < ?
+            or r.reviewer = 'codex-story-agent'
+          )
         order by v.published_at desc, v.mention_candidate_id desc
         limit ?
         """,
-        (limit,),
+        (
+            MIN_STORY_INTRO_CHARS,
+            MIN_TASTING_FLOW_CHARS,
+            MIN_STORY_INTRO_CHARS,
+            MIN_TASTING_FLOW_CHARS,
+            limit,
+        ),
     ).fetchall()
     return [
         StageTask(
@@ -172,7 +195,7 @@ def story_review_tasks(
             video_id=str(row["video_id"]),
             source=str(row["source"]),
             title=str(row["title"]),
-            reason="transcript exists but video_story_reviews row is missing",
+            reason=str(row["reason"]),
             input_artifacts=[
                 "data/tastyroad.sqlite:video_pipeline_status",
                 "data/tastyroad.sqlite:video_transcripts",
@@ -654,6 +677,12 @@ def story_review_prompt() -> str:
     )
 
 
+def prompt_version_for_stage(stage: str) -> str | None:
+    if stage == "story_review":
+        return STORY_REVIEW_PROMPT_VERSION
+    return None
+
+
 def place_extraction_prompt() -> str:
     return (
         "Extract candidate places from the video metadata, transcript, and story review. "
@@ -687,7 +716,7 @@ def stage_artifact(
         "worker": {
             "name": task.stage,
             "implementation": "scripts.agent_pipeline",
-            "prompt_version": None,
+            "prompt_version": prompt_version_for_stage(task.stage),
             "model": None,
         },
         "input": {
@@ -876,7 +905,24 @@ def run_story_review_task(
 ) -> WorkerResult:
     output_path = Path(task.output_artifact)
     if output_path.exists() and not refresh:
-        return WorkerResult(task.stage, task.video_id, "skipped_existing", str(output_path))
+        existing = load_json(output_path)
+        worker = existing.get("worker") if isinstance(existing, dict) else {}
+        current_prompt = (
+            isinstance(worker, dict)
+            and worker.get("prompt_version") == STORY_REVIEW_PROMPT_VERSION
+        )
+        if current_prompt:
+            output = existing.get("output") if isinstance(existing, dict) else {}
+            review = output.get("review") if isinstance(output, dict) else None
+            if existing.get("status") == "succeeded" and isinstance(review, dict):
+                try:
+                    validate_story_review_quality(review, str(output_path))
+                except ValueError:
+                    pass
+                else:
+                    return WorkerResult(task.stage, task.video_id, "skipped_existing", str(output_path))
+            elif existing.get("status") in {"needs_agent", "claimed"}:
+                return WorkerResult(task.stage, task.video_id, "skipped_existing", str(output_path))
     items = list_items(load_json(story_input), "reviews")
     item = find_item_by_video_id(items, task.video_id)
     if item is None:
@@ -897,6 +943,7 @@ def run_story_review_task(
                     "tasting_flow": "",
                     "reviewer": "agent",
                     "evidence": {
+                        "quality_policy_version": STORY_QUALITY_POLICY_VERSION,
                         "host_reason": "",
                         "store_context": "",
                         "tasting_order": [],

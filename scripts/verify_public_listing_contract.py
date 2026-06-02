@@ -11,6 +11,8 @@ from urllib.request import urlopen
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 DEFAULT_HTML = Path("out/index.html")
+MIN_STORY_INTRO_CHARS = 240
+MIN_TASTING_FLOW_CHARS = 180
 
 
 def expected_public_count(sqlite_path: Path) -> int:
@@ -45,7 +47,11 @@ def expected_public_count(sqlite_path: Path) -> int:
                 where reviewed.decision = 'restaurant_intro'
                   and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
                   and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
+                  and length(trim(story.story_intro)) >= ?
+                  and length(trim(story.tasting_flow)) >= ?
                 """
+                ,
+                (MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS),
             ).fetchone()[0]
         )
 

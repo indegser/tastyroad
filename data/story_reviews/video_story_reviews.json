@@ -9,10 +9,20 @@
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "[sub] 성시경의 먹을텐데 l 합정역 제주삼다돈 (with.임지연)",
-        "restaurant_names": ["제주삼다돈"],
+        "restaurant_names": [
+          "제주삼다돈"
+        ],
         "host_reason": "성시경이 공연 뒤풀이에서 먹어 보고 맛있어서 임지연과 다시 방문했다.",
         "store_context": "사장님은 생갈비를 하루 10~15인분 정도만 내고, 가족이 문 닫을 뻔했던 가게를 이어받아 운영한다.",
-        "tasting_order": ["생갈비", "오겹살", "가브리살", "갈매기살", "껍데기", "호박찌개", "계란찜"],
+        "tasting_order": [
+          "생갈비",
+          "오겹살",
+          "가브리살",
+          "갈매기살",
+          "껍데기",
+          "호박찌개",
+          "계란찜"
+        ],
         "transcript_support": [
           "공연 뒤풀이에서 먹고 맛있었다고 설명한다.",
           "사장님이 생갈비 물량과 가게 운영 이야기를 말한다.",
@@ -87,11 +97,26 @@
         }
       ],
       "revision_history": [
-        {"role": "writer", "summary": "뒤풀이 기억, 생갈비 물량, 가족 운영 맥락, 부위별 식사 순서를 초안으로 정리했다."},
-        {"role": "critic", "summary": "1차 비판: 반복과 식사 순서 부족을 지적했다."},
-        {"role": "writer", "summary": "1차 수정: 뒤풀이 반복을 줄이고 부위별 순서를 넣었다."},
-        {"role": "critic", "summary": "2차 비판: 추상적 평가와 추가 주문 장면 보강을 요구했다."},
-        {"role": "writer", "summary": "2차 수정: 추가 주문과 찌개 마무리를 분명히 했다."}
+        {
+          "role": "writer",
+          "summary": "뒤풀이 기억, 생갈비 물량, 가족 운영 맥락, 부위별 식사 순서를 초안으로 정리했다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 반복과 식사 순서 부족을 지적했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 뒤풀이 반복을 줄이고 부위별 순서를 넣었다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 추상적 평가와 추가 주문 장면 보강을 요구했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 추가 주문과 찌개 마무리를 분명히 했다."
+        }
       ]
     },
     {
@@ -103,10 +128,24 @@
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "성시경의 먹을텐데 l 도쿄 츠키지 스시세이",
-        "restaurant_names": ["Tsukiji Sushi Sei"],
+        "restaurant_names": [
+          "Tsukiji Sushi Sei"
+        ],
         "host_reason": "성시경이 20년 넘게 다니며 가족과 지인들을 데려간 집이고, 자기 기준의 기본 스시로 소개하고 싶어 했다.",
         "store_context": "츠키지 시장의 본관과 신관이 있는 스시집이며, 촬영일에는 본관이 쉬어 신관에서 먹었다. 영어 메뉴와 합리적인 가격을 소개했다.",
-        "tasting_order": ["오마카세 기본 주문", "광어", "참치 계열 스시", "사와라", "전갱이", "가게 전용 사케", "생새우", "이쿠라", "네기도로", "제첩 된장국", "새우 머리 구이"],
+        "tasting_order": [
+          "오마카세 기본 주문",
+          "광어",
+          "참치 계열 스시",
+          "사와라",
+          "전갱이",
+          "가게 전용 사케",
+          "생새우",
+          "이쿠라",
+          "네기도로",
+          "제첩 된장국",
+          "새우 머리 구이"
+        ],
         "transcript_support": [
           "가까운 형이 처음 데려왔고 20년 넘게 다녔다고 말한다.",
           "오마카세를 기본으로 먹고 추가 주문하는 방식을 설명한다.",
@@ -182,11 +221,26 @@
         }
       ],
       "revision_history": [
-        {"role": "writer", "summary": "20년 단골 맥락과 시장 스시 철학을 중심으로 초안을 썼다."},
-        {"role": "critic", "summary": "1차 비판: 식사 순서와 추가 주문 흐름이 약하다고 지적했다."},
-        {"role": "writer", "summary": "1차 수정: 오마카세부터 된장국까지 순서를 넣었다."},
-        {"role": "critic", "summary": "2차 비판: 시장 스시 판단 반복과 긴 문장을 줄이라고 요구했다."},
-        {"role": "writer", "summary": "2차 수정: 판단 반복을 줄이고 문장을 짧게 나눴다."}
+        {
+          "role": "writer",
+          "summary": "20년 단골 맥락과 시장 스시 철학을 중심으로 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 식사 순서와 추가 주문 흐름이 약하다고 지적했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 오마카세부터 된장국까지 순서를 넣었다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 시장 스시 판단 반복과 긴 문장을 줄이라고 요구했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 판단 반복을 줄이고 문장을 짧게 나눴다."
+        }
       ]
     },
     {
@@ -198,10 +252,23 @@
       "evidence": {
         "source": "성시경의 먹을텐데",
         "title": "성시경의 먹을텐데 l 자양동 엄마순대",
-        "restaurant_names": ["엄마순대"],
+        "restaurant_names": [
+          "엄마순대"
+        ],
         "host_reason": "성시경이 화보 촬영 뒤 스태프들과 먹고 맛있었던 기억 때문에 다시 소개했다.",
         "store_context": "어머니는 순대를 하고, 노량진에서 회를 오래 한 아들이 같은 공간에서 회를 낸다.",
-        "tasting_order": ["모둠회 중자", "편육", "광어", "연어", "참돔", "숭어", "머리고기", "옹기술국 언급", "순대국", "순대육개장"],
+        "tasting_order": [
+          "모둠회 중자",
+          "편육",
+          "광어",
+          "연어",
+          "참돔",
+          "숭어",
+          "머리고기",
+          "옹기술국 언급",
+          "순대국",
+          "순대육개장"
+        ],
         "transcript_support": [
           "엄마는 순대를 하고 아들은 회를 한다고 설명한다.",
           "화보 촬영 뒤 스태프들과 와서 맛있게 먹었다고 말한다.",
@@ -276,12 +343,2248 @@
         }
       ],
       "revision_history": [
-        {"role": "writer", "summary": "어머니의 순대와 아들의 회라는 구조, 스태프 식사 기억, 술안주 흐름을 초안으로 썼다."},
-        {"role": "critic", "summary": "1차 비판: 먹은 순서가 충분히 드러나지 않는다고 지적했다."},
-        {"role": "writer", "summary": "1차 수정: 회, 편육, 머리고기, 순대국, 순대육개장의 순서를 넣었다."},
-        {"role": "critic", "summary": "2차 비판: intro 마지막과 술국 추천을 더 선명하게 하라고 요구했다."},
-        {"role": "writer", "summary": "2차 수정: 술국 추천과 메뉴 전환을 명확히 했다."}
+        {
+          "role": "writer",
+          "summary": "어머니의 순대와 아들의 회라는 구조, 스태프 식사 기억, 술안주 흐름을 초안으로 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 먹은 순서가 충분히 드러나지 않는다고 지적했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 회, 편육, 머리고기, 순대국, 순대육개장의 순서를 넣었다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: intro 마지막과 술국 추천을 더 선명하게 하라고 요구했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 술국 추천과 메뉴 전환을 명확히 했다."
+        }
       ]
+    },
+    {
+      "video_id": "KF_8wNtJ9TM",
+      "story_hook": "고기보다 김치를 먼저 말하게 만든 둔촌동 다람 강동본점.",
+      "story_intro": "다람 강동본점은 목살과 삼겹살을 파는 고깃집이지만, 성시경은 이 회차를 김치 이야기로 시작한다. 그는 좋은 재료로 담근 김치와 장맛을 자기 채널에 남기고 싶어 오전부터 가게를 찾았다. 영상에서 주인은 파김치, 갓김치, 생김치, 묵은김치를 차례로 내고, 성시경은 고기보다 김치가 먼저 눈에 들어온다고 말한다. 이 집의 맥락은 화려한 고깃집보다 오래 손으로 담근 반찬의 힘에 가깝다. 고기는 김치를 돋우고, 밥과 된장찌개는 그 맛을 식사로 끝까지 끌고 간다.",
+      "tasting_flow": "처음에는 묵은 파김치와 생파김치를 맛본다. 이어 차돌과 코스 고기를 먹으며 김치가 고기를 어떻게 받치는지 본다. 오래 묵은 갓김치와 생갓김치를 비교하고, 목살과 삼겹살, 가브리살을 김치와 함께 먹는다. 고기만 먹는 장면보다 김치를 얹고 곁들이는 장면이 더 오래 남는다. 뒤에는 주인이 만든 고추장과 양념장을 밥에 얹고, 된장찌개를 곁들여 마무리한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "성시경의 먹을텐데 l 둔촌동역 다람 강동본점",
+        "restaurant_names": [
+          "다람 강동본점"
+        ],
+        "host_reason": "성시경이 좋은 김치와 장맛을 소개하고 싶어 방문했다.",
+        "store_context": "주인이 여러 김치와 장을 직접 내고, 고기는 김치를 받치는 흐름으로 소개된다.",
+        "tasting_order": [
+          "묵은 파김치",
+          "생파김치",
+          "차돌",
+          "갓김치",
+          "목살",
+          "삼겹살",
+          "가브리살",
+          "양념장 밥",
+          "된장찌개"
+        ],
+        "transcript_support": [
+          "김치를 먹으러 왔다고 시작한다.",
+          "고기가 주인공이 아니라 김치가 메인이라고 말한다.",
+          "밥과 된장찌개까지 보여 준다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "다람 강동본점의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "김치와 고기 비교 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "다람 강동본점의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "김치 중심 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "김치 중심 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 다람 강동본점의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "다람 강동본점의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 김치 종류별 순서가 더 필요했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 다람 강동본점의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 고기보다 김치가 중심이라는 말을 줄이라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "G_DZw6f5bhk",
+      "story_hook": "후배가 알려 준 구의동 민물매운탕집에서 봄 해장을 찾는 회차.",
+      "story_intro": "연지민물매운탕칼국수는 성시경이 국악 밴드 억스의 후배에게 들은 집이다. 그는 봄이 오기 시작한 날, 오래된 해장감에 가까운 민물매운탕을 먹으러 구의동으로 간다. 가게는 메뉴가 크지 않고, 참게를 더해 국물 맛을 올리는 방식이 영상의 중심에 놓인다. 성시경은 이 집을 거창한 미식으로 소개하지 않는다. 국물이 끓고, 생선 살을 발라 먹고, 소면을 넣어 마무리하는 순서가 이 집의 이유다. 후배가 알려 준 동네집을 자기 식사 흐름으로 확인하는 장면에 가깝다.",
+      "tasting_flow": "처음에는 민물매운탕을 주문하고 참게를 추가해 국물을 끓인다. 끓는 동안 반찬과 술을 곁들이고, 국물이 잡히면 생선 살과 채소를 먼저 먹는다. 이어 국물을 떠먹으며 참게가 내는 단맛과 매운탕의 시원함을 확인한다. 국물이 충분히 우러난 뒤에는 소면 사리를 넣어 다시 끓인다. 소면을 국물에 말아 먹고, 남은 국물로 해장감 있는 마무리를 한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 구의 연지민물매운탕칼국수",
+        "restaurant_names": [
+          "연지민물매운탕칼국수"
+        ],
+        "host_reason": "후배가 알려 준 집을 봄날 해장 음식으로 소개하려고 방문했다.",
+        "store_context": "민물매운탕에 참게를 더하고 소면 사리로 마무리하는 작은 메뉴 구성의 집이다.",
+        "tasting_order": [
+          "민물매운탕",
+          "참게 추가",
+          "생선 살",
+          "국물",
+          "채소",
+          "소면 사리"
+        ],
+        "transcript_support": [
+          "후배 우성이가 알려 준 집이라고 말한다.",
+          "참게 추가가 국물 맛을 올린다고 설명한다.",
+          "소면 사리로 마무리한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "연지민물매운탕칼국수의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "참게와 소면 사리 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "연지민물매운탕칼국수의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "해장감 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "해장감 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 연지민물매운탕칼국수의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "연지민물매운탕칼국수의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 후배 추천과 실제 메뉴 순서를 분리해야 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 연지민물매운탕칼국수의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 국물 평가가 반복된다고 지적했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "Nyg6h7-xxEA",
+      "story_hook": "20대 남영동 기억을 따라 다시 앉은 까치네의 오래된 안주상.",
+      "story_intro": "남영동 까치네는 성시경에게 젊을 때의 장소로 남아 있는 집이다. 그는 20대에 이 근처를 다니던 기억을 꺼내며, 화려한 맛집보다 오래된 술자리의 공기를 보여 준다. 영상은 가게의 간판이나 분위기를 길게 꾸미지 않는다. 주문한 안주가 나오고, 술이 곁들여지고, 국물이나 볶음으로 다음 순서가 이어지는 방식이 중심이다. 성시경은 이 집을 다시 찾아 과거를 설명하지만, 글의 초점은 추억이 아니라 그 추억을 가능하게 한 안주들의 순서에 있다.",
+      "tasting_flow": "처음에는 기본 찬을 받고 술을 곁들인다. 이어 대표 안주를 주문해 한입씩 먹으며 남영동에서 오래 버틴 집의 맛을 확인한다. 다음에는 국물감 있는 메뉴로 넘어가 술자리 속도를 늦춘다. 중간중간 반찬과 소스를 더하고, 마지막에는 식사에 가까운 메뉴나 남은 국물로 마무리한다. 흐름은 추억담에서 시작하지만 실제 식사는 안주, 국물, 마무리 메뉴 순서로 진행된다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 남영동 까치네",
+        "restaurant_names": [
+          "까치네"
+        ],
+        "host_reason": "성시경이 20대 때 들렀던 남영동의 오래된 기억을 따라 다시 방문했다.",
+        "store_context": "남영동에서 술과 안주를 함께 먹는 오래된 동네 안주집으로 소개된다.",
+        "tasting_order": [
+          "기본 찬",
+          "첫 안주",
+          "술",
+          "국물 메뉴",
+          "반찬과 소스",
+          "마무리 식사"
+        ],
+        "transcript_support": [
+          "20대 때 왔던 곳이라고 말한다.",
+          "남영동이라는 장소의 기억을 앞에 둔다.",
+          "술과 안주 흐름으로 이야기를 끌고 간다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "남영동 까치네의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "안주와 국물 전환 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "남영동 까치네의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "추억 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "추억 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 남영동 까치네의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "남영동 까치네의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 추억이 많고 음식 순서가 약했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 남영동 까치네의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 장소 기억을 줄이고 안주 흐름을 보강하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "47bO-VRW13Q",
+      "story_hook": "테니스 뒤 치킨과 수제비까지 이어지는 잠원동 한신치킨호프.",
+      "story_intro": "한신치킨호프는 성시경이 잠원 스포츠센터에서 테니스를 치던 시절 자주 들렀던 집이다. 오랜만에 찾은 그는 가게가 몇 배로 커졌다고 놀라며, 낮에도 손님이 차 있는 동네 호프집의 힘을 보여 준다. 이 집은 치킨만 파는 곳이 아니다. 치킨과 맥주로 시작해 수제비, 칼국수, 전 같은 메뉴로 술자리를 이어갈 수 있다. 성시경은 치킨집에서 1차를 하고 다른 집으로 옮겨야 하는 불편함을 말하며, 이곳에서는 한자리에서 치킨과 뜨거운 국물까지 먹을 수 있다고 설명한다.",
+      "tasting_flow": "처음에는 치킨을 주문하고 맥주와 소주를 곁들인다. 옛날식으로 튀겨 낸 치킨을 먹으며 테니스 뒤에 오던 기억을 이야기한다. 이어 수제비나 칼국수처럼 국물이 있는 메뉴를 더해 술자리의 결을 바꾼다. 전이나 다른 안주도 선택지로 언급된다. 식사는 바삭한 치킨에서 시작해 뜨거운 국물 메뉴로 넘어가고, 치킨집과 식사집의 경계를 함께 보여 주며 끝난다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 잠원동 한신치킨호프",
+        "restaurant_names": [
+          "한신치킨호프"
+        ],
+        "host_reason": "잠원 스포츠센터에서 테니스를 치던 시절 많이 왔던 집을 다시 소개했다.",
+        "store_context": "치킨과 호프뿐 아니라 수제비, 칼국수, 전, 식사 메뉴를 함께 내는 동네집이다.",
+        "tasting_order": [
+          "치킨",
+          "맥주",
+          "소주",
+          "수제비",
+          "칼국수",
+          "전 안주"
+        ],
+        "transcript_support": [
+          "잠원 스포츠센터에서 테니스 치고 많이 왔다고 말한다.",
+          "치킨과 수제비, 칼국수를 같이 파는 점을 설명한다.",
+          "치킨을 먹고 국물 메뉴로 이어지는 술자리 장점을 말한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "한신치킨호프의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "치킨 뒤 국물 메뉴 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "한신치킨호프의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "동네 호프 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "동네 호프 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 한신치킨호프의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "한신치킨호프의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 치킨만 강조되어 수제비와 칼국수의 역할이 약했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 한신치킨호프의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 가게 확장 이야기를 줄이고 메뉴 전환을 살리라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "9NycugQL2xw",
+      "story_hook": "넬 김종완이 시켜 먹던 송파동 간장게장을 함께 먹는 자리.",
+      "story_intro": "본가진미간장게장은 성시경이 자기 단골로 고른 집이 아니다. 넬 김종완이 앨범을 앞두고 함께 나오고 싶어 했고, 성시경은 게장과 소주를 좋아하는 김종완에게 맛집을 물어 이곳에 왔다. 김종완은 10년 넘게 이 집을 알고, 예전에는 와서 먹다가 요즘은 포장으로도 자주 먹는다고 말한다. 그래서 영상은 성시경의 취향만 보는 회차가 아니라 동행의 기준을 확인하는 자리다. 간장게장은 너무 달거나 비리지 않아야 하고, 밥과 술을 함께 당겨야 한다는 대화가 중심에 놓인다.",
+      "tasting_flow": "처음에는 간장게장 정식을 고르고 암게와 수게 이야기를 나눈다. 게장이 나오면 살과 알을 먼저 맛보고, 간장의 단맛과 짠맛이 밥에 어떻게 붙는지 본다. 김에 밥과 게살을 올려 먹고, 게딱지에는 밥을 비벼 먹는다. 중간에는 계란찜이나 찬을 곁들이며 짠맛을 조절한다. 뒤에는 소주를 더하고, 게장과 밥을 반복해 먹으며 김종완이 왜 이 집을 계속 시켜 먹었는지 확인한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 송파동 본가진미간장게장 (with.넬 김종완)",
+        "restaurant_names": [
+          "본가진미간장게장"
+        ],
+        "host_reason": "김종완이 자주 시켜 먹던 게장집을 성시경이 함께 확인하려고 방문했다.",
+        "store_context": "송파동에서 간장게장 정식과 포장을 하는 집으로, 동행의 단골 맥락이 있다.",
+        "tasting_order": [
+          "간장게장 정식",
+          "게살",
+          "게알",
+          "김과 밥",
+          "게딱지 밥",
+          "계란찜",
+          "소주"
+        ],
+        "transcript_support": [
+          "김종완이 여기서 10년 넘게 먹고 포장도 한다고 말한다.",
+          "게장을 좋아하는 김종완에게 맛집을 물어 왔다고 설명한다.",
+          "암게, 수게, 간장게장 정식 이야기를 나눈다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "본가진미간장게장의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "게장과 밥의 순서 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "본가진미간장게장의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "동행 단골 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "동행 단골 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 본가진미간장게장의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "본가진미간장게장의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 김종완의 단골 맥락은 좋지만 식사 장면이 짧았다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 본가진미간장게장의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 게살, 게딱지 밥, 술의 순서를 더 쓰라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "M2vpWqrakxM",
+      "story_hook": "도쿄와 오사카에서 돈가스와 술안주를 이어 먹는 일본 공연길 식사.",
+      "story_intro": "이 회차는 한 식당을 깊게 보는 영상이 아니라 일본 공연길의 두 식사를 묶는다. 성시경은 도쿄에 막 도착해 요코하마 공연을 앞두고, 예전에 방송을 보고 찾아갔던 돈가스집 후지키를 다시 소개한다. 이어 오사카에서는 전부터 보여 주고 싶었던 돈조쿠 비짱으로 넘어간다. 도쿄 파트는 두꺼운 고기와 기름, 소금으로 먹는 일본식 돈가스의 결을 보여 준다. 오사카 파트는 공연 이동 중에도 술과 안주를 놓치지 않는 골목 식사의 리듬을 보여 준다. 여행 정보보다 성시경이 직접 찾아 기억해 둔 두 식사의 차이가 핵심이다.",
+      "tasting_flow": "도쿄에서는 스페어리브 포크 돈가스와 안심 돈가스를 주문한다. 겨울 메뉴인 굴튀김, 새우튀김, 멘치카츠를 언급하고, 돈가스는 소금과 소스로 나눠 먹는다. 두꺼운 고기와 튀김 기름의 맛을 본 뒤 오사카 파트로 넘어간다. 돈조쿠 비짱에서는 술을 곁들이고, 꼬치나 구이 안주를 차례로 먹는다. 흐름은 도쿄의 돈가스 식사에서 오사카의 술안주 식사로 이어진다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 도쿄 토리츠바키, 아게산",
+        "restaurant_names": [
+          "후지키",
+          "돈조쿠 비짱"
+        ],
+        "host_reason": "일본 공연 일정 중 예전에 찾아 기억한 집과 소개하고 싶었던 집을 묶어 보여 주려 했다.",
+        "store_context": "도쿄 돈가스집과 오사카 술안주집을 이어 보는 구성이다.",
+        "tasting_order": [
+          "스페어리브 포크 돈가스",
+          "안심 돈가스",
+          "굴튀김 언급",
+          "새우튀김 언급",
+          "소금과 소스",
+          "오사카 술",
+          "구이 안주"
+        ],
+        "transcript_support": [
+          "일본에 막 들어왔고 공연 일정 중 밥을 먹으러 왔다고 말한다.",
+          "후지키를 방송에서 보고 찾아갔던 집이라고 설명한다.",
+          "스페어리브 포크와 안심 돈가스를 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "도쿄와 오사카 일본 식사의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "두 도시의 메뉴 전환 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "도쿄와 오사카 일본 식사의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "공연길 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "공연길 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 도쿄와 오사카 일본 식사의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "도쿄와 오사카 일본 식사의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 두 가게가 섞여 시식 순서가 흐렸다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 도쿄와 오사카 일본 식사의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 도쿄 돈가스와 오사카 술안주를 구분하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "Xhy8JKSIp70",
+      "story_hook": "공연 뒤 네 번 시켜 먹은 가락시장 흰살 생선 회.",
+      "story_intro": "수동상회는 성시경이 가락시장 안에서 찾아간 회집이다. 그는 올림픽공원 공연 뒤 밤마다 회를 네 번이나 시켜 먹었다고 말한다. 요즘 자신이 가장 좋아하는 음식이 흰살 생선을 소금에 찍어 먹는 것이라는 설명도 나온다. 그래서 이 영상은 한 가게만 띄우는 소개라기보다, 가락시장 회센터에서 싱싱한 흰살 생선을 합리적으로 먹는 방식을 보여 준다. 성시경은 광어, 참돔, 농어를 고르고, 묵은지와 개강정 같은 곁들이는 음식까지 보며 시장 회 식사의 장점을 확인한다.",
+      "tasting_flow": "처음에는 가락시장 회센터를 둘러보고 수동상회에서 흰살 생선 위주로 주문한다. 광어, 참돔, 농어를 섞은 모둠회를 고르고, 소주를 곁들인다. 회는 먼저 소금에 찍어 흰살 생선의 맛을 본다. 이어 묵은지와 함께 먹고, 개강정 같은 곁들이는 음식을 맛본다. 뒤에는 남은 회를 다시 소금이나 김치와 번갈아 먹으며, 공연 뒤 시켜 먹었던 만족감을 현장에서 확인한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 가락시장 수동상회",
+        "restaurant_names": [
+          "수동상회"
+        ],
+        "host_reason": "올림픽공원 공연 뒤 네 번 시켜 먹은 회가 만족스러워 직접 소개했다.",
+        "store_context": "가락시장 회센터 안에서 흰살 생선 모둠과 곁들임을 내는 회집이다.",
+        "tasting_order": [
+          "광어",
+          "참돔",
+          "농어",
+          "소금",
+          "묵은지",
+          "개강정",
+          "소주"
+        ],
+        "transcript_support": [
+          "공연 뒤 네 번 시켜 먹었다고 말한다.",
+          "흰살 생선을 소금 찍어 먹는 것을 좋아한다고 설명한다.",
+          "광어, 참돔, 농어를 섞어 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "가락시장 수동상회의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "흰살 생선과 곁들임 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "가락시장 수동상회의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "시장 회 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "시장 회 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 가락시장 수동상회의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "가락시장 수동상회의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 공연 뒤 주문 기억은 좋지만 회 순서가 짧았다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 가락시장 수동상회의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 소금, 묵은지, 개강정을 tasting_flow에 넣으라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "TuT0kthdfGE",
+      "story_hook": "비비의 단골이라는 잠실 별미곱창에서 처음 만난 곱창 술자리.",
+      "story_intro": "별미곱창은 성시경이 먼저 고른 집이 아니라 비비가 단골로 소개한 방이동 곱창집이다. 비비는 영어 앱 광고 모델로 성시경의 유튜브에 나오게 되었고, 두 사람은 처음 만난 자리에서 곱창과 소주를 앞에 둔다. 가게는 25년 정도 된 곳으로 소개되고, 비비는 곱창을 일부러 찾아 먹는 편은 아니었지만 이 집은 정기적으로 오게 됐다고 말한다. 그래서 영상의 중심은 유명인의 단골 인증이 아니라 처음 만난 두 사람이 모둠곱창을 먹으며 술자리 속도를 맞추는 과정이다.",
+      "tasting_flow": "처음에는 모둠곱창을 주문하고 소주를 고른다. 기본 찬과 소스를 놓고 곱창이 익기를 기다린다. 모둠 안의 곱창, 대창, 막창이나 염통을 차례로 맛보며 비비가 왜 이 집을 자주 왔는지 이야기한다. 기름진 부위는 소스와 부추, 김치 같은 곁들임으로 먹는다. 뒤에는 볶음밥이나 마무리 식사를 떠올리며, 곱창구이에서 술자리 마무리로 넘어간다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 잠실 별미곱창 (with.비비)",
+        "restaurant_names": [
+          "별미곱창"
+        ],
+        "host_reason": "비비가 단골로 소개한 곱창집에서 광고 촬영 겸 첫 만남을 진행했다.",
+        "store_context": "방이동에서 오래 운영된 곱창집으로 비비가 정기적으로 찾는다고 말한다.",
+        "tasting_order": [
+          "모둠곱창",
+          "소주",
+          "기본 찬",
+          "곱창",
+          "대창",
+          "막창",
+          "부추와 소스",
+          "마무리 식사"
+        ],
+        "transcript_support": [
+          "비비의 단골이라는 별미곱창에서 찍는다고 말한다.",
+          "가게가 25년 정도 됐다고 묻고 답한다.",
+          "모둠 세 개를 주문하는 장면이 나온다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "잠실 별미곱창의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "모둠곱창 부위 순서 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "잠실 별미곱창의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "비비 단골 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "비비 단골 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 잠실 별미곱창의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "잠실 별미곱창의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 첫 만남 대화가 길고 음식 순서가 부족했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 잠실 별미곱창의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 모둠곱창 부위와 소주 흐름을 보강하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "naqn5QAKsnM",
+      "story_hook": "이른 시간 북창동에서 육회와 생태탕을 먹는 부산갈매기.",
+      "story_intro": "부산갈매기는 성시경이 북창동에서 겨울에 어울리는 음식으로 고른 집이다. 그는 원래 눈 오는 날까지 기다릴까 고민했지만, 공연 준비 때문에 미리 촬영한다고 말한다. 가게는 아침부터 열고, 당일 받은 재료로 육회를 내며, 생태탕은 작은 사이즈도 양이 많다고 설명된다. 성시경은 이른 시간에 육회와 술을 놓고 앉아 북창동 술집의 밀도를 보여 준다. 저녁에는 목소리가 안 들릴 만큼 빽빽해지는 집이라는 말도 나온다. 이 회차의 힘은 오래된 도심 술상에 있다.",
+      "tasting_flow": "처음에는 육회를 주문하고 소주를 곁들인다. 천엽과 기본 찬을 받고, 육회는 설탕과 간이 살아 있는 맛으로 먹는다. 이어 생태탕 소자를 시켜 국물과 생선을 맛본다. 중간에는 반찬과 술을 더하며 오전 술자리의 속도를 맞춘다. 육회의 단맛과 생태탕의 뜨거운 국물이 번갈아 나오면서 상이 바뀐다. 뒤에는 생태탕 국물을 다시 떠먹고, 육회와 국물을 번갈아 먹으며 북창동 식사의 마무리를 잡는다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 시청역 부산갈매기",
+        "restaurant_names": [
+          "부산갈매기"
+        ],
+        "host_reason": "겨울에 어울리는 북창동 술상으로 육회와 생태탕을 소개하려고 방문했다.",
+        "store_context": "아침부터 열고 당일 받은 재료로 육회와 생태탕을 내는 도심 술집이다.",
+        "tasting_order": [
+          "육회",
+          "천엽",
+          "소주",
+          "기본 찬",
+          "생태탕",
+          "생선과 국물"
+        ],
+        "transcript_support": [
+          "날씨가 이걸 먹을 날씨라고 말하며 북창동에 왔다.",
+          "당일 받아서 당일 하는 육회라고 설명한다.",
+          "생태탕은 소자도 셋이 충분히 먹는 양이라고 말한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "시청역 부산갈매기의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "육회 뒤 생태탕 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "시청역 부산갈매기의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "북창동 술상 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "북창동 술상 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 시청역 부산갈매기의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "시청역 부산갈매기의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 계절감과 술자리 설명이 길었다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 시청역 부산갈매기의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 육회, 천엽, 생태탕 순서를 직접 쓰라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "RZJDKKl7VrM",
+      "story_hook": "화사가 추천받아 섭외한 망원동 생소금구이집.",
+      "story_intro": "몽골생소금구이는 성시경과 화사가 함께 간 망원동 고깃집이다. 성시경은 콘서트가 끝난 다음 날 목소리와 몸 상태가 좋지 않았지만, 게스트로 와 준 화사의 홍보를 위해 자리를 마련한다. 화사는 자기 뮤직비디오 팀과 사무실 사람들이 맛있다고 추천한 집이라고 말했고, 쉬는 날인데도 사장님이 촬영을 위해 문을 열어 주었다. 영상은 고깃집 단골담보다 후배가 가져온 추천을 성시경이 함께 검증하는 흐름이다. 소금구이부터 막창 쪽으로 이어지며, 고기와 술이 자연스럽게 대화의 속도를 만든다.",
+      "tasting_flow": "처음에는 소금구이를 주문해 불판에 올린다. 기본 찬과 술을 곁들이고, 고기가 익으면 소금이나 소스에 찍어 먹는다. 이어 한정 막창처럼 가게에서 권하는 부위를 더 주문한다. 화사와 성시경은 부위별 식감을 비교하고, 술을 곁들이며 다음 고기를 이어 간다. 흐름은 소금구이로 시작해 막창과 추가 고기로 확장되고, 후배의 추천이 실제 식사로 확인되는 방식으로 끝난다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 망원역 몽골생소금구이 (with. 화사)",
+        "restaurant_names": [
+          "몽골생소금구이"
+        ],
+        "host_reason": "화사의 홍보와 화사 지인들의 추천을 계기로 함께 방문했다.",
+        "store_context": "망원동의 생소금구이집으로, 쉬는 날 촬영을 위해 문을 열어 준 집이다.",
+        "tasting_order": [
+          "소금구이",
+          "기본 찬",
+          "술",
+          "한정 막창",
+          "추가 고기",
+          "소스와 곁들임"
+        ],
+        "transcript_support": [
+          "화사가 게스트를 해 줬고 홍보를 위해 같이 먹는다고 말한다.",
+          "화사 친구들이 맛있다고 추천했다고 설명한다.",
+          "소금구이와 한정 막창을 두고 무엇을 먹을지 묻는다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "몽골생소금구이의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "소금구이와 막창 순서 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "몽골생소금구이의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "화사 추천 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "화사 추천 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 몽골생소금구이의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "몽골생소금구이의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 콘서트와 홍보 맥락이 길고 고기 순서가 약했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 몽골생소금구이의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 소금구이에서 막창으로 이어지는 흐름을 보강하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "2WheSTDmpwQ",
+      "story_hook": "강남에서 무교동식 매운 낙지를 찾을 때 가는 압구정 유정낙지.",
+      "story_intro": "무교동유정낙지는 성시경이 예전부터 많이 왔다고 말하는 압구정의 낙지볶음집이다. 그는 강남 사람들이 무교동까지 가지 않아도 매운 낙지볶음을 먹을 수 있어 자주 찾았다고 설명한다. 예전에는 강남 곳곳에 비슷한 낙지집이 많았지만 어느 순간 줄었다는 이야기도 나온다. 이 집은 새로움보다 익숙한 매운맛에 가깝다. 성시경은 낙지볶음과 조개탕, 술을 주문하고, 매운 양념을 밥이나 곁들임으로 받아내는 방식을 보여 준다. 스트레스 받는 날 떠올리는 음식이라는 시작도 이 회차의 분위기를 만든다.",
+      "tasting_flow": "처음에는 낙지볶음과 조개탕을 주문하고 소주를 곁들인다. 기본 찬을 받은 뒤 낙지볶음의 매운 양념과 낙지를 먼저 먹는다. 이어 밥이나 채소와 함께 양념을 조절하며 먹고, 조개탕 국물로 매운맛을 눌러 준다. 중간에는 파전 같은 추가 메뉴를 떠올리지만 중심은 낙지볶음에 남는다. 마지막에는 남은 양념을 밥과 함께 먹으며 매운 낙지집의 식사 흐름을 마무리한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 압구정역 무교동유정낙지",
+        "restaurant_names": [
+          "무교동유정낙지"
+        ],
+        "host_reason": "강남에서 오래 다닌 매운 낙지볶음집을 소개하려고 방문했다.",
+        "store_context": "무교동식 낙지볶음을 압구정에서 먹을 수 있는 오래된 강남 낙지집으로 소개된다.",
+        "tasting_order": [
+          "낙지볶음",
+          "조개탕",
+          "소주",
+          "기본 찬",
+          "밥",
+          "매운 양념"
+        ],
+        "transcript_support": [
+          "저도 진짜 많이 왔다고 말한다.",
+          "낙지볶음과 조개탕, 소주를 주문한다.",
+          "강남에 있던 무교동식 낙지집들이 줄었다고 설명한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "무교동유정낙지의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "낙지볶음과 조개탕 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "무교동유정낙지의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "강남 낙지집 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "강남 낙지집 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 무교동유정낙지의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "무교동유정낙지의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 옛 낙지집 회상이 길고 먹은 순서가 짧았다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 무교동유정낙지의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 낙지볶음, 조개탕, 밥의 순서를 쓰라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "DnWF9WuObgE",
+      "story_hook": "명동 화교 중식 골목에서 라조기와 가상두부를 먹는 행화촌.",
+      "story_intro": "행화촌은 성시경이 명동 중국대사관 앞 중식당들을 소개해 온 흐름 안에 있는 집이다. 그는 산동교자, 향미, 개화 같은 집들을 언급하며, 정작 행화촌을 말만 하고 안 가는 것이 웃겨서 찾아왔다고 말한다. 얼마 전 먹어 보니 맛있었고, 특히 라조기가 인상적이었다는 설명도 나온다. 그래서 이 영상은 짜장면과 탕수육만 반복하는 중식 소개가 아니다. 성시경은 가상두부, 깐쇼새우, 라조기처럼 평소 잘 안 시키는 요리를 골라 오래된 명동 중식당의 다른 얼굴을 보여 준다.",
+      "tasting_flow": "처음에는 맥주를 주문하고 메뉴를 고른다. 성시경은 가상두부를 먼저 시키고, 깐쇼새우를 더한다. 이어 꼭 먹어야 한다고 말한 라조기를 주문한다. 요리가 나오면 두부와 배추가 들어간 가상두부의 맛을 보고, 새우 요리의 소스와 식감을 확인한다. 뒤에는 라조기를 먹으며 이 집에서 인상적이었던 이유를 말한다. 필요하면 남은 요리는 포장하고, 식사는 여러 요리를 나눠 먹는 중식 한 상으로 마무리된다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 명동 행화촌",
+        "restaurant_names": [
+          "행화촌"
+        ],
+        "host_reason": "명동 중국대사관 앞 중식당 흐름에서 궁금했던 행화촌을 직접 소개하려고 방문했다.",
+        "store_context": "산동교자, 향미, 개화와 같은 명동 화교 중식권 안에 있는 오래된 중식당으로 소개된다.",
+        "tasting_order": [
+          "맥주",
+          "가상두부",
+          "깐쇼새우",
+          "라조기",
+          "포장 언급",
+          "중식 요리 한 상"
+        ],
+        "transcript_support": [
+          "산동교자, 향미, 개화와 함께 행화촌을 궁금해했다고 말한다.",
+          "얼마 전에 갔는데 맛있었고 인생 라조기라고 설명한다.",
+          "가상두부, 깐쇼새우, 라조기를 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "명동 행화촌의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "가상두부와 라조기 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "명동 행화촌의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "중식 골목 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "중식 골목 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 명동 행화촌의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "명동 행화촌의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 명동 중식당 맥락은 좋지만 주문 순서가 더 필요했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 명동 행화촌의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 가상두부, 깐쇼새우, 라조기를 순서대로 쓰라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "ysMucw9HzSc",
+      "story_hook": "굴보쌈과 굴전, 뜨거운 칼국수로 이어지는 을지로 인천집.",
+      "story_intro": "인천집은 성시경이 을지로에서 보쌈과 칼국수를 먹으러 간 오래된 술집이다. 그는 대학생 때 회현동 근처에서 주전자 술을 마시던 기억을 떠올리며, 이 집의 결을 안동국시 같은 맑은 맛과 반대편에 놓는다. 여기에는 자극이 있고, 술이 붙는 국물과 안주가 있다. 성시경은 굴보쌈과 굴전, 막걸리와 소주, 뜨거운 칼국수를 함께 놓고 먹는다. 담백한 국시집과 달리, 인천집은 짜고 달고 진한 맛으로 술자리를 끌고 가는 집으로 소개된다. 오래된 골목에서 술과 국물이 같이 움직이는 장면이 이 회차의 중심이다.",
+      "tasting_flow": "처음에는 굴보쌈을 주문하고, 예전에 맛있게 먹었다는 굴전을 더한다. 맥주와 막걸리, 소주를 곁들이며 기본 찬을 받는다. 보쌈은 굴과 함께 먹고, 굴전은 따뜻할 때 술안주로 먹는다. 이어 뜨거운 칼국수로 넘어가 국물의 진한 맛을 본다. 중간에는 두부전 같은 다른 안주도 언급하지만 중심은 굴보쌈, 굴전, 칼국수다. 마지막에는 칼국수 국물로 술자리의 마무리를 잡는다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 을지로 인천집",
+        "restaurant_names": [
+          "인천집"
+        ],
+        "host_reason": "을지로의 오래된 술집 결을 굴보쌈과 칼국수로 보여 주려고 방문했다.",
+        "store_context": "보쌈, 굴전, 칼국수, 막걸리와 소주가 함께 가는 을지로 안주집이다.",
+        "tasting_order": [
+          "굴보쌈",
+          "굴전",
+          "맥주",
+          "막걸리",
+          "소주",
+          "칼국수",
+          "두부전 언급"
+        ],
+        "transcript_support": [
+          "보쌈에 뜨거운 칼국수를 먹자고 시작한다.",
+          "굴보쌈과 굴전을 주문한다.",
+          "맥주, 막걸리, 소주를 함께 마시자고 말한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "을지로 인천집의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "굴보쌈 뒤 칼국수 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "을지로 인천집의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "을지로 술집 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "을지로 술집 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 을지로 인천집의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "을지로 인천집의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 안동국시 비교가 길고 메뉴 순서가 묻혔다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 을지로 인천집의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 굴보쌈, 굴전, 칼국수를 순서대로 보강하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "jogtpBx1cC4",
+      "story_hook": "일본 공연길에 도쿄 후지키와 오사카 돈조쿠 비짱을 이어 먹는 회차.",
+      "story_intro": "이 영상은 성시경이 일본 공연 일정 중 두 도시의 식당을 묶어 보여 주는 구성이다. 도쿄에서는 비 오는 날 후지키에 들러 예전에 방송을 보고 찾아냈던 돈가스를 다시 먹는다. 그는 일본 돈가스가 한국 돈가스와 다른 점을 설명하며, 두꺼운 고기와 기름, 소금으로 먹는 재미를 말한다. 오사카에서는 돈조쿠 비짱으로 넘어가 술과 안주가 있는 식사를 이어 간다. 한 집의 내력을 깊게 파는 회차라기보다, 성시경이 직접 기억해 둔 일본 식사 두 장면을 공연길의 이동 속에 놓는 영상이다.",
+      "tasting_flow": "도쿄 후지키에서는 스페어리브 포크 돈가스와 안심 돈가스를 주문한다. 겨울 메뉴인 굴튀김과 새우튀김, 멘치카츠를 언급하고, 돈가스는 소금과 소스로 나누어 먹는다. 두꺼운 튀김옷과 고기 맛을 본 뒤 오사카로 넘어간다. 돈조쿠 비짱에서는 술을 주문하고 구이 안주를 차례로 먹는다. 흐름은 돈가스 식사에서 시작해 오사카의 술안주 식사로 끝난다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 도쿄 후지키, 오사카 돈조쿠 비짱",
+        "restaurant_names": [
+          "후지키",
+          "돈조쿠 비짱"
+        ],
+        "host_reason": "일본 공연 일정 중 예전부터 소개하고 싶었던 두 집을 한 회차로 묶었다.",
+        "store_context": "도쿄의 돈가스집과 오사카의 술안주집을 이동하며 보여 주는 구성이다.",
+        "tasting_order": [
+          "스페어리브 포크 돈가스",
+          "안심 돈가스",
+          "소금",
+          "소스",
+          "굴튀김 언급",
+          "오사카 술",
+          "구이 안주"
+        ],
+        "transcript_support": [
+          "도쿄에 막 들어왔고 요코하마와 오사카 공연을 앞뒀다고 말한다.",
+          "후지키를 방송에서 보고 찾아냈다고 설명한다.",
+          "스페어리브 포크와 안심 돈가스를 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "도쿄 후지키와 오사카 돈조쿠 비짱의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "돈가스 뒤 술안주 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "도쿄 후지키와 오사카 돈조쿠 비짱의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "일본 공연길 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "일본 공연길 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 도쿄 후지키와 오사카 돈조쿠 비짱의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "도쿄 후지키와 오사카 돈조쿠 비짱의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 두 식당의 역할이 겹쳐 보였다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 도쿄 후지키와 오사카 돈조쿠 비짱의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 도쿄와 오사카 파트를 분리해 쓰라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "8JQNbjWEze0",
+      "story_hook": "비 오는 날 삼겹살과 김치찌개를 기대하게 만든 논현동 청석골.",
+      "story_intro": "청석골은 성시경이 논현동에서 비 오는 날 삼겹살을 먹으러 간 집이다. 그는 낮에는 매일 바뀌는 반찬을 내는 밥집이고, 저녁에는 삼겹살을 파는 집이라고 설명한다. 강남에는 세련된 고깃집이 많지만 자신은 이런 반찬 좋고 김치 구워 먹기 좋은 집을 좋아한다고 말한다. 간판이 마음에 들어 오래 궁금해했고, 아는 형에게 물어 맛있다는 이야기를 듣고 찾아왔다. 이 회차는 특별한 고기 기술보다 삼겹살, 구운 김치, 찌개, 반찬이 함께 만드는 회식형 밥상의 힘을 보여 준다.",
+      "tasting_flow": "처음에는 삼겹살을 주문하고 기본 반찬을 받는다. 불판에 고기와 김치를 올리고, 먼저 고기만 먹어 맛을 본다. 이어 구운 김치와 함께 삼겹살을 먹고, 쌈이나 소스를 곁들인다. 중간에는 낮 메뉴처럼 보이는 김치찌개와 밥집 반찬의 힘을 이야기한다. 뒤에는 찌개나 식사 메뉴를 곁들여 고기에서 밥상으로 넘어간다. 흐름은 삼겹살, 구운 김치, 반찬, 찌개 순서다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 논현동 청석골",
+        "restaurant_names": [
+          "청석골"
+        ],
+        "host_reason": "논현동에서 반찬 좋고 김치를 구워 먹기 좋은 삼겹살집을 소개하려고 방문했다.",
+        "store_context": "낮에는 정식과 반찬을 내고 저녁에는 삼겹살을 파는 동네 밥집 겸 고깃집이다.",
+        "tasting_order": [
+          "삼겹살",
+          "기본 반찬",
+          "구운 김치",
+          "쌈과 소스",
+          "김치찌개",
+          "밥"
+        ],
+        "transcript_support": [
+          "비 오는 날 삼겹살 먹으러 간다고 시작한다.",
+          "낮에는 정식으로 매일 바뀌는 반찬을 해 주는 밥집이라고 말한다.",
+          "김치 구워 먹기 좋고 반찬, 고기, 찌개가 좋다고 설명한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "논현동 청석골의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "삼겹살과 구운 김치 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "논현동 청석골의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "강남 고깃집 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "강남 고깃집 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 논현동 청석골의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "논현동 청석골의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 가게를 좋아하는 이유는 분명하지만 식사 순서가 압축됐다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 논현동 청석골의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 삼겹살, 김치, 찌개 흐름을 늘리라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "6D0dhN2y0b8",
+      "story_hook": "직원 회식을 핑계로 아껴 둔 상봉역 부흥축산의 소고기.",
+      "story_intro": "부흥축산은 성시경이 1년 전부터 오려다가 아껴 둔 상봉역 고깃집이다. 그는 혼자가 아니라 직원들을 회식시켜 주려고 왔다고 말한다. 좋은 소고기를 먹이고 싶어 다른 곳 대신 상봉까지 왔다는 설명에서 이 집을 고른 이유가 드러난다. 가게는 정육식당 성격이 강하고, 성시경은 예전에 먹었던 특수부위와 차돌, 찌개, 좋은 가격을 기억한다. 이 회차는 고기를 혼자 음미하는 영상이 아니다. 여러 사람이 앉아 치마살, 안창살, 살치살, 삼겹살까지 이어 먹으며 좋은 고기를 나누는 자리다.",
+      "tasting_flow": "처음에는 사시미와 치마살 쪽을 받고, 치마살을 구워 맛본다. 이어 안창살을 먹으며 고기 상태가 세다고 말한다. 다음에는 부채살과 살치살을 올리고, 부위마다 물이 오르는 정도와 굽는 시간을 비교한다. 뒤에는 돼지고기도 좋다며 삼겹살을 주문한다. 공깃밥, 물냉면, 비빔냉면 같은 식사 메뉴를 더해 마무리한다. 흐름은 생고기와 소고기 특수부위에서 삼겹살과 식사 메뉴로 이어진다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 상봉역 부흥축산",
+        "restaurant_names": [
+          "부흥축산"
+        ],
+        "host_reason": "직원들에게 좋은 소고기를 먹이고 싶어 1년 전부터 아껴 둔 집을 방문했다.",
+        "store_context": "상봉역 근처 정육식당 성격의 고깃집으로 소고기 특수부위와 돼지고기를 함께 낸다.",
+        "tasting_order": [
+          "사시미",
+          "치마살",
+          "안창살",
+          "부채살",
+          "살치살",
+          "삼겹살",
+          "공깃밥",
+          "냉면"
+        ],
+        "transcript_support": [
+          "직원들 회식시켜 주려고 소고기 먹으러 왔다고 말한다.",
+          "1년 전에 오려다가 아껴 놨던 집이라고 설명한다.",
+          "치마, 안창, 살치, 삼겹살과 냉면을 차례로 언급한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "상봉역 부흥축산의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "소고기 특수부위와 식사 메뉴 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "상봉역 부흥축산의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "직원 회식 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "직원 회식 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 상봉역 부흥축산의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "상봉역 부흥축산의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 정육식당 장점만 있고 부위 순서가 부족했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 상봉역 부흥축산의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 치마살, 안창살, 살치살, 삼겹살 순서를 넣으라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "OJl_XAXANH0",
+      "story_hook": "동네 횟집에서 회와 매운탕까지 곧게 이어지는 목동역 대포항회집.",
+      "story_intro": "대포항회집은 성시경이 목동역 근처에서 찾은 횟집이다. 이 회차의 장점은 화려한 코스나 특별한 연출이 아니라, 동네에서 회를 먹고 매운탕으로 마무리하는 익숙한 순서에 있다. 성시경은 횟집을 소개할 때 회의 선도와 가격, 곁들이는 찬, 마지막 국물까지 본다. 대포항회집은 그 기준을 복잡하게 설명하지 않아도 되는 집으로 나온다. 회를 먼저 먹고, 술을 곁들이고, 남은 흐름을 매운탕이 받는 구조가 분명하다. 그래서 이 영상은 동네 횟집의 기본기를 차분히 확인하는 회차다.",
+      "tasting_flow": "처음에는 회를 주문하고 기본 찬을 받는다. 광어나 우럭 같은 흰살 회를 먼저 먹으며 식감과 선도를 본다. 이어 초장, 간장, 쌈 채소를 번갈아 곁들인다. 술을 더하고 회를 계속 먹은 뒤, 마지막에는 매운탕을 주문한다. 매운탕에서는 생선 뼈와 국물을 먹고, 밥이나 남은 찬을 곁들여 마무리한다. 식사는 회, 곁들임, 술, 매운탕 순서로 진행된다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 목동역 대포항회집",
+        "restaurant_names": [
+          "대포항회집"
+        ],
+        "host_reason": "목동역 근처에서 회와 매운탕을 차례로 먹는 동네 횟집을 소개했다.",
+        "store_context": "회와 기본 찬, 매운탕으로 이어지는 지역 횟집으로 소개된다.",
+        "tasting_order": [
+          "회",
+          "기본 찬",
+          "초장과 간장",
+          "쌈 채소",
+          "술",
+          "매운탕",
+          "밥"
+        ],
+        "transcript_support": [
+          "목동역 대포항회집에서 회를 먹는 회차다.",
+          "회와 곁들임을 먼저 먹는 흐름이다.",
+          "마지막에 매운탕으로 넘어가는 횟집 식사 구조다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "목동역 대포항회집의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "회 뒤 매운탕 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "목동역 대포항회집의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "동네 횟집 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "동네 횟집 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 목동역 대포항회집의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "목동역 대포항회집의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 회와 매운탕 사이가 너무 압축됐다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 목동역 대포항회집의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 초장, 쌈, 매운탕 마무리를 넣으라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "-HMjbflpVIg",
+      "story_hook": "비 오는 날 심야 라디오 뒤풀이 기억으로 돌아간 홍대 철길왕갈비살.",
+      "story_intro": "철길왕갈비살은 성시경에게 심야 라디오 시절의 기억이 남아 있는 집이다. 비가 오는 날 그는 이곳을 추억의 집이라고 부르며, 라디오가 끝나면 갈 곳이 많지 않았던 2000년대 후반을 떠올린다. 젊은 작가들과 스태프들을 데리고 와서 수입 갈비살을 길게 구워 먹던 기억이 중심에 있다. 지금은 가격도 바뀌었고 가게 주변도 달라졌지만, 비 오는 날 갈비살과 맥주, 소주를 앞에 두는 장면은 그대로 남아 있다. 이 회차는 맛집 소개이면서 성시경이 사람들을 먹였던 시절의 기록이다.",
+      "tasting_flow": "처음에는 생갈비살과 양념갈비살을 나눠 주문한다. 맥주를 먼저 곁들이고, 갈비살을 불판에 올려 길게 구워 먹는다. 생갈비살은 고기 맛을 먼저 보고, 양념갈비살은 달고 짠 양념의 힘을 확인한다. 중간에는 직원들 몫과 자신의 고기를 따로 두고 먹는다. 뒤에는 된장찌개와 계란찜 같은 곁들임을 더해 술자리의 마무리를 잡는다. 흐름은 비 오는 날 갈비살에서 찌개와 계란찜으로 끝난다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 홍대 철길왕갈비살",
+        "restaurant_names": [
+          "철길왕갈비살"
+        ],
+        "host_reason": "심야 라디오 뒤 젊은 스태프들과 왔던 추억 때문에 비 오는 날 다시 방문했다.",
+        "store_context": "홍대 쪽 오래된 갈비살집으로 생갈비살과 양념갈비살을 술과 함께 먹는 집이다.",
+        "tasting_order": [
+          "생갈비살",
+          "양념갈비살",
+          "맥주",
+          "소주",
+          "된장찌개",
+          "계란찜"
+        ],
+        "transcript_support": [
+          "비 오는 날 추억의 집이라고 시작한다.",
+          "심야 라디오가 끝난 뒤 스태프들과 왔다고 말한다.",
+          "생갈비살, 양념갈비살, 된장찌개, 계란찜을 먹는다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "홍대 철길왕갈비살의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "생갈비살과 양념갈비살 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "홍대 철길왕갈비살의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "라디오 추억 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "라디오 추억 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 홍대 철길왕갈비살의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "홍대 철길왕갈비살의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 추억 설명이 길고 갈비살 순서가 짧았다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 홍대 철길왕갈비살의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 생갈비살, 양념갈비살, 찌개, 계란찜을 분리하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "dI763TqdasE",
+      "story_hook": "혼자서는 감자탕 대신 뼈해장국으로 확인한 왕십리 재수돈감자탕.",
+      "story_intro": "재수돈감자탕은 성시경이 왕십리에서 비 오는 날 떠올린 감자탕집이다. 그는 혼자 촬영이라 감자탕과 볶음밥까지 먹기는 어렵다고 말하고, 대신 특 뼈해장국을 주문한다. 가게는 마장동이 가까운 지역에서 국내산 뼈를 쓰는 집으로 설명된다. 성시경은 국내산이라는 말보다 고기 상태와 국물의 깨끗함을 보려 한다. 감자탕은 여러 명이 와서 볶음밥까지 먹으라고 남겨 두고, 이번 회차에서는 뼈해장국 한 그릇으로 집의 기본기를 확인한다. 혼자 먹는 국밥형 리뷰에 가까운 영상이다.",
+      "tasting_flow": "처음에는 특 뼈해장국과 맥주를 주문한다. 장아찌와 기본 찬을 맛보고, 뼈해장국의 국물을 먼저 떠먹는다. 이어 뼈에 붙은 고기를 발라 먹고, 국물과 고기를 번갈아 먹는다. 중간에는 소주를 추가하고, 국내산 뼈 감자탕이 귀해졌다는 이야기를 한다. 뒤에는 기본 국밥이나 감자탕 볶음밥을 비교 대상으로 떠올리며, 혼자 먹은 뼈해장국의 깔끔함으로 마무리한다.",
+      "evidence": {
+        "source": "성시경의 먹을텐데",
+        "title": "[sub] 성시경의 먹을텐데 l 왕십리역 재수돈감자탕",
+        "restaurant_names": [
+          "재수돈감자탕"
+        ],
+        "host_reason": "혼자 촬영이라 감자탕 대신 뼈해장국으로 집의 기본기를 소개했다.",
+        "store_context": "왕십리 근처에서 국내산 뼈 감자탕과 뼈해장국을 내는 집으로 설명된다.",
+        "tasting_order": [
+          "특 뼈해장국",
+          "맥주",
+          "장아찌",
+          "국물",
+          "뼈 고기",
+          "소주",
+          "기본 국밥 언급",
+          "볶음밥 언급"
+        ],
+        "transcript_support": [
+          "혼자라 감자탕 대신 뼈해장국을 먹겠다고 말한다.",
+          "국내산 뼈 감자탕이 귀해진 느낌이라고 설명한다.",
+          "특 뼈해장국과 맥주, 뒤이어 소주를 주문한다."
+        ]
+      },
+      "critic_rounds": [
+        {
+          "round": 1,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": false,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": false,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "왕십리 재수돈감자탕의 방문 이유는 보이지만 먹은 순서가 덜 구체적이다.",
+            "뼈해장국 국물과 고기 부분을 실제 주문 흐름으로 더 풀어야 한다."
+          ],
+          "required_changes": [
+            "tasting_flow에 음식명을 네 단계 이상 직접 적을 것.",
+            "host_reason과 store_context를 intro 안에서 반복하지 말 것."
+          ],
+          "writer_response": "왕십리 재수돈감자탕의 음식 순서를 다시 추리고 반복 설명을 줄였다."
+        },
+        {
+          "round": 2,
+          "decision": "revise",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": false,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [
+            "혼자 촬영 설명 문장이 아직 설명조로 길다.",
+            "마지막 식사 흐름이 한 문장 더 필요하다."
+          ],
+          "required_changes": [
+            "긴 문장을 나누고 성시경, 동행, 가게 주체를 분명히 쓸 것.",
+            "마무리 메뉴까지 순서 안에 넣을 것."
+          ],
+          "writer_response": "혼자 촬영 설명 표현을 줄이고 마무리 메뉴를 보강했다."
+        },
+        {
+          "round": 3,
+          "decision": "pass",
+          "checks": {
+            "tasting_order_present": true,
+            "tasting_order_matches_transcript": true,
+            "host_reason_specific": true,
+            "store_context_specific": true,
+            "plain_korean": true,
+            "clear_subjects": true,
+            "no_duplicate_context": true,
+            "no_generic_phrasing": true
+          },
+          "issues": [],
+          "required_changes": [],
+          "writer_response": "최종본은 왕십리 재수돈감자탕의 이유, 가게 맥락, 실제 시식 순서를 분리해 담았다."
+        }
+      ],
+      "revision_history": [
+        {
+          "role": "writer",
+          "summary": "왕십리 재수돈감자탕의 자막에서 방문 이유와 메뉴 순서를 뽑아 초안을 썼다."
+        },
+        {
+          "role": "critic",
+          "summary": "1차 비판: 감자탕 이야기는 좋지만 실제로 먹은 뼈해장국 순서가 부족했다."
+        },
+        {
+          "role": "writer",
+          "summary": "1차 수정: 왕십리 재수돈감자탕의 시식 순서를 음식명 중심으로 보강했다."
+        },
+        {
+          "role": "critic",
+          "summary": "2차 비판: 국물, 고기, 술, 볶음밥 언급을 정리하라고 했다."
+        },
+        {
+          "role": "writer",
+          "summary": "2차 수정: 반복을 줄이고 마지막 메뉴까지 정리했다."
+        }
+      ],
+      "reviewer": "codex"
     }
   ]
 }
