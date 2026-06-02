@@ -4,7 +4,9 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import sqlite3
+import time
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -16,6 +18,8 @@ from pipeline_schema import ensure_pipeline_schema
 
 DEFAULT_LANGUAGES = ("ko", "en")
 DEFAULT_INPUT = Path("data/story_reviews/video_story_reviews.json")
+DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 15.0
+DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS = 3
 
 
 @dataclass(frozen=True)
@@ -37,10 +41,51 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def comma_separated_env(name: str) -> list[str] | None:
+    value = os.environ.get(name, "").strip()
+    if not value:
+        return None
+    items = [item.strip() for item in value.split(",") if item.strip()]
+    return items or None
+
+
+def int_env(name: str, default: int) -> int:
+    value = os.environ.get(name, "").strip()
+    if not value:
+        return default
+    return int(value)
+
+
+def transcript_proxy_config() -> Any | None:
+    webshare_username = os.environ.get("WEBSHARE_PROXY_USERNAME", "").strip()
+    webshare_password = os.environ.get("WEBSHARE_PROXY_PASSWORD", "").strip()
+    if webshare_username and webshare_password:
+        from youtube_transcript_api.proxies import WebshareProxyConfig
+
+        return WebshareProxyConfig(
+            proxy_username=webshare_username,
+            proxy_password=webshare_password,
+            filter_ip_locations=comma_separated_env("WEBSHARE_PROXY_LOCATIONS"),
+            retries_when_blocked=int_env("WEBSHARE_PROXY_RETRIES_WHEN_BLOCKED", 10),
+            domain_name=os.environ.get("WEBSHARE_PROXY_DOMAIN", "p.webshare.io").strip()
+            or "p.webshare.io",
+            proxy_port=int_env("WEBSHARE_PROXY_PORT", 80),
+        )
+
+    http_proxy = os.environ.get("YT_TRANSCRIPT_HTTP_PROXY", "").strip()
+    https_proxy = os.environ.get("YT_TRANSCRIPT_HTTPS_PROXY", "").strip()
+    if http_proxy or https_proxy:
+        from youtube_transcript_api.proxies import GenericProxyConfig
+
+        return GenericProxyConfig(http_url=http_proxy or None, https_url=https_proxy or None)
+
+    return None
+
+
 def fetch_transcript(video_id: str, languages: tuple[str, ...]) -> TranscriptPayload:
     from youtube_transcript_api import YouTubeTranscriptApi
 
-    api = YouTubeTranscriptApi()
+    api = YouTubeTranscriptApi(proxy_config=transcript_proxy_config())
     transcript_list = api.list(video_id)
     transcript = transcript_list.find_transcript(list(languages))
     fetched = transcript.fetch()
@@ -53,6 +98,17 @@ def fetch_transcript(video_id: str, languages: tuple[str, ...]) -> TranscriptPay
         segments=segments,
         text=text,
     )
+
+
+def is_youtube_block_error(error: Exception | str) -> bool:
+    message = str(error)
+    block_markers = (
+        "YouTube is blocking requests from your IP",
+        "RequestBlocked",
+        "IpBlocked",
+        "IP block",
+    )
+    return any(marker in message for marker in block_markers)
 
 
 def normalize_segments(fetched: Any) -> list[dict[str, Any]]:
@@ -148,6 +204,8 @@ def fetch_missing_transcripts(
     languages: tuple[str, ...],
     video_id: str | None = None,
     refresh: bool = False,
+    request_delay_seconds: float = DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+    max_consecutive_blocks: int = DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
 ) -> int:
     rows = reviewed_restaurant_rows(
         connection,
@@ -155,15 +213,31 @@ def fetch_missing_transcripts(
         missing_transcript_only=not refresh,
     )
     count = 0
-    for row in rows:
+    consecutive_blocks = 0
+    for index, row in enumerate(rows, start=1):
         current_video_id = str(row["video_id"])
         try:
             transcript = fetch_transcript(current_video_id, languages)
         except Exception as exc:  # noqa: BLE001 - transcript availability varies by video.
             print(f"Skipped transcript {current_video_id}: {exc}")
-            continue
-        upsert_transcript(connection, current_video_id, transcript, now_iso())
-        count += 1
+            if is_youtube_block_error(exc):
+                consecutive_blocks += 1
+                if max_consecutive_blocks > 0 and consecutive_blocks >= max_consecutive_blocks:
+                    print(
+                        f"Stopping transcript fetch after {consecutive_blocks} consecutive YouTube block errors.",
+                        flush=True,
+                    )
+                    break
+            else:
+                consecutive_blocks = 0
+        else:
+            upsert_transcript(connection, current_video_id, transcript, now_iso())
+            connection.commit()
+            count += 1
+            consecutive_blocks = 0
+        if request_delay_seconds > 0 and index < len(rows):
+            print(f"Waiting {request_delay_seconds:g}s before the next transcript request...", flush=True)
+            time.sleep(request_delay_seconds)
     return count
 
 
@@ -275,6 +349,8 @@ def process_stories(
     refresh: bool = False,
     fetch_only: bool = False,
     apply_only: bool = False,
+    request_delay_seconds: float = DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+    max_consecutive_blocks: int = DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
 ) -> StoryProcessResult:
     with sqlite3.connect(sqlite_path) as connection:
         connection.row_factory = sqlite3.Row
@@ -286,6 +362,8 @@ def process_stories(
                 languages=languages,
                 video_id=video_id,
                 refresh=refresh,
+                request_delay_seconds=request_delay_seconds,
+                max_consecutive_blocks=max_consecutive_blocks,
             )
         applied_count = 0
         if not fetch_only:
@@ -308,6 +386,24 @@ def main() -> int:
     parser.add_argument("--apply-only", action="store_true", help="Only apply story reviews; do not fetch transcripts.")
     parser.add_argument("--list-missing", action="store_true", help="List restaurant videos still missing Codex story reviews.")
     parser.add_argument("--limit", type=int, default=20, help="Limit for --list-missing output.")
+    parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+        help=(
+            "Seconds to wait between transcript requests. "
+            f"Default: {DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS:g}"
+        ),
+    )
+    parser.add_argument(
+        "--max-consecutive-blocks",
+        type=int,
+        default=DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
+        help=(
+            "Stop transcript fetching after this many consecutive YouTube block errors. "
+            f"Default: {DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS}"
+        ),
+    )
     parser.add_argument(
         "--languages",
         default="ko,en",
@@ -335,6 +431,8 @@ def main() -> int:
         refresh=args.refresh,
         fetch_only=args.fetch_only,
         apply_only=args.apply_only,
+        request_delay_seconds=args.request_delay,
+        max_consecutive_blocks=args.max_consecutive_blocks,
     )
     print(f"Fetched transcripts: {result.fetched_transcript_count}")
     print(f"Applied Codex story reviews: {result.applied_review_count}")

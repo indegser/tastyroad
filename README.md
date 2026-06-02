@@ -136,6 +136,22 @@ python3 scripts/apply_agent_reviews.py --list-unreviewed
 python3 scripts/process_video_stories.py --video-id bfBmJCPgCmI --refresh
 ```
 
+YouTube transcript 요청은 기본적으로 한 건씩 천천히 실행하고, 연속 IP block이 감지되면 자동 중단합니다. Rotating residential proxy를 쓰려면 자격증명을 환경변수로 설정합니다.
+
+```bash
+export WEBSHARE_PROXY_USERNAME="..."
+export WEBSHARE_PROXY_PASSWORD="..."
+export WEBSHARE_PROXY_LOCATIONS="kr,jp,us" # optional
+python3 scripts/process_video_stories.py --fetch-only
+```
+
+일반 HTTP/SOCKS proxy도 지원합니다.
+
+```bash
+export YT_TRANSCRIPT_HTTP_PROXY="socks5://user:pass@host:1080"
+export YT_TRANSCRIPT_HTTPS_PROXY="socks5://user:pass@host:1080"
+```
+
 Codex 작성 리뷰 누락 확인:
 
 ```bash

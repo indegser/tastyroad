@@ -14,6 +14,8 @@ from agent_pipeline import (
     DEFAULT_WORK_DIR,
     DEFAULT_RESTAURANT_REVIEWS,
     DEFAULT_STORY_REVIEWS,
+    DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
+    DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
     DEFAULT_VERIFIED_DIR,
     DEFAULT_LANGUAGES,
     STAGES,
@@ -73,6 +75,8 @@ def orchestrate(
     reviews_input: Path,
     story_input: Path,
     verified_dir: Path,
+    transcript_request_delay_seconds: float,
+    max_consecutive_transcript_blocks: int,
 ) -> OrchestrationResult:
     stage_runs: list[StageRun] = []
     for current_stage in selected_stages(stage):
@@ -94,6 +98,8 @@ def orchestrate(
                 reviews_input=reviews_input,
                 story_input=story_input,
                 verified_dir=verified_dir,
+                transcript_request_delay_seconds=transcript_request_delay_seconds,
+                max_consecutive_transcript_blocks=max_consecutive_transcript_blocks,
             )
         stage_runs.append(StageRun(current_stage, tasks, worker_results))
 
@@ -171,6 +177,24 @@ def main() -> int:
     parser.add_argument("--story-input", type=Path, default=DEFAULT_STORY_REVIEWS)
     parser.add_argument("--verified-dir", type=Path, default=DEFAULT_VERIFIED_DIR)
     parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+        help=(
+            "Seconds to wait between transcript requests. "
+            f"Default: {DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS:g}"
+        ),
+    )
+    parser.add_argument(
+        "--max-consecutive-blocks",
+        type=int,
+        default=DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
+        help=(
+            "Stop transcript fetching after this many consecutive YouTube block errors. "
+            f"Default: {DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS}"
+        ),
+    )
+    parser.add_argument(
         "--languages",
         default=",".join(DEFAULT_LANGUAGES),
         help="Comma-separated transcript language preference list.",
@@ -196,6 +220,8 @@ def main() -> int:
         reviews_input=args.reviews_input,
         story_input=args.story_input,
         verified_dir=args.verified_dir,
+        transcript_request_delay_seconds=args.request_delay,
+        max_consecutive_transcript_blocks=args.max_consecutive_blocks,
     )
 
     if args.format == "json":

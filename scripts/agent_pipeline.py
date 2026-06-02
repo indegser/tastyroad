@@ -5,13 +5,20 @@ from __future__ import annotations
 import argparse
 import json
 import sqlite3
+import time
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
 from apply_agent_reviews import DEFAULT_INPUT as DEFAULT_RESTAURANT_REVIEWS
-from process_video_stories import DEFAULT_LANGUAGES, fetch_transcript
+from process_video_stories import (
+    DEFAULT_LANGUAGES,
+    DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
+    DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+    fetch_transcript,
+    is_youtube_block_error,
+)
 from process_video_stories import DEFAULT_INPUT as DEFAULT_STORY_REVIEWS
 from promote_verified_places import DEFAULT_INPUT_DIR as DEFAULT_VERIFIED_DIR
 
@@ -1045,9 +1052,12 @@ def run_tasks(
     reviews_input: Path,
     story_input: Path,
     verified_dir: Path,
+    transcript_request_delay_seconds: float = DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+    max_consecutive_transcript_blocks: int = DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
 ) -> list[WorkerResult]:
     results: list[WorkerResult] = []
-    for task in tasks:
+    consecutive_transcript_blocks = 0
+    for index, task in enumerate(tasks, start=1):
         if task.stage == "restaurant_triage":
             results.append(
                 run_restaurant_triage_task(
@@ -1058,7 +1068,31 @@ def run_tasks(
                 )
             )
         elif task.stage == "transcript_fetch":
-            results.append(run_transcript_fetch_task(task, languages=languages, refresh=refresh))
+            result = run_transcript_fetch_task(task, languages=languages, refresh=refresh)
+            results.append(result)
+            if result.error and is_youtube_block_error(result.error):
+                consecutive_transcript_blocks += 1
+                if (
+                    max_consecutive_transcript_blocks > 0
+                    and consecutive_transcript_blocks >= max_consecutive_transcript_blocks
+                ):
+                    print(
+                        "Stopping transcript fetch after "
+                        f"{consecutive_transcript_blocks} consecutive YouTube block errors.",
+                        flush=True,
+                    )
+                    break
+            elif result.status == "succeeded":
+                consecutive_transcript_blocks = 0
+            has_more_transcript_tasks = any(
+                pending_task.stage == "transcript_fetch" for pending_task in tasks[index:]
+            )
+            if transcript_request_delay_seconds > 0 and has_more_transcript_tasks:
+                print(
+                    f"Waiting {transcript_request_delay_seconds:g}s before the next transcript request...",
+                    flush=True,
+                )
+                time.sleep(transcript_request_delay_seconds)
         elif task.stage == "story_review":
             results.append(
                 run_story_review_task(
@@ -1135,6 +1169,24 @@ def main() -> int:
     parser.add_argument("--story-input", type=Path, default=DEFAULT_STORY_REVIEWS)
     parser.add_argument("--verified-dir", type=Path, default=DEFAULT_VERIFIED_DIR)
     parser.add_argument(
+        "--request-delay",
+        type=float,
+        default=DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS,
+        help=(
+            "Seconds to wait between transcript requests. "
+            f"Default: {DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS:g}"
+        ),
+    )
+    parser.add_argument(
+        "--max-consecutive-blocks",
+        type=int,
+        default=DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS,
+        help=(
+            "Stop transcript fetching after this many consecutive YouTube block errors. "
+            f"Default: {DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS}"
+        ),
+    )
+    parser.add_argument(
         "--output",
         type=Path,
         help="Optional path for a run plan JSON file, for example data/work/runs/latest.json.",
@@ -1170,6 +1222,8 @@ def main() -> int:
             reviews_input=args.reviews_input,
             story_input=args.story_input,
             verified_dir=args.verified_dir,
+            transcript_request_delay_seconds=args.request_delay,
+            max_consecutive_transcript_blocks=args.max_consecutive_blocks,
         )
         run_result_payload = {
             **payload,
