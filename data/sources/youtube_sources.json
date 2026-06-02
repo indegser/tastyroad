@@ -15,6 +15,21 @@
         "^성시경의\\s*먹을텐데\\s*[|lㅣ]?\\s*",
         "\\s*\\([^)]*\\)\\s*$"
       ]
+    },
+    {
+      "key": "kim3meals",
+      "name": "김사원세끼",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UC-x55HF1-IilhxZOzwJm7JA",
+      "official_url": "https://www.youtube.com/@kim3meals",
+      "enabled": true,
+      "title_include_any": [],
+      "title_exclude_any": [],
+      "title_cleanup_patterns": [
+        "^\\[[^]]+\\]\\s*",
+        "\\s*#.*$"
+      ]
     }
   ]
 }

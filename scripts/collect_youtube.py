@@ -163,6 +163,13 @@ def make_candidate_from_yt_dlp_item(
     url = str(item.get("webpage_url") or item.get("url") or f"https://www.youtube.com/watch?v={video_id}")
     description = str(item.get("description") or (fallback.description if fallback else ""))
 
+    description_candidates = extract_description_candidates(description)
+    restaurant_name_candidates = (
+        description_candidates
+        if description_candidates
+        else extract_title_candidates(title, source)
+    )
+
     return MentionCandidate(
         source_key=source.key,
         source=source.name,
@@ -183,7 +190,7 @@ def make_candidate_from_yt_dlp_item(
         duration_seconds=extract_duration_seconds(item, fallback),
         tags=extract_string_list(item.get("tags"), fallback.tags if fallback else []),
         chapters=extract_chapters(item.get("chapters"), fallback.chapters if fallback else []),
-        restaurant_name_candidates=extract_title_candidates(title, source),
+        restaurant_name_candidates=restaurant_name_candidates,
         collected_at=collected_at,
     )
 
@@ -382,6 +389,72 @@ def extract_title_candidates(title: str, source: YoutubeSource) -> list[str]:
     ]
 
     return dedupe(parts or [cleaned] if cleaned else [])
+
+
+def extract_description_candidates(description: str) -> list[str]:
+    lines = [line.strip() for line in description.splitlines()]
+    candidates: list[str] = []
+
+    for index, line in enumerate(lines):
+        if not line:
+            continue
+
+        if line in {"[식당정보]", "식당정보", "*식당정보"}:
+            for next_line in lines[index + 1 : index + 5]:
+                value = clean_candidate_restaurant_name(next_line)
+                if is_candidate_restaurant_name(value):
+                    candidates.append(value)
+                    break
+            continue
+
+        bracket_match = re.fullmatch(r"\[([^\]]{2,40})\]", line)
+        if bracket_match:
+            value = clean_candidate_restaurant_name(bracket_match.group(1))
+            if is_candidate_restaurant_name(value):
+                candidates.append(value)
+            continue
+
+        numbered_match = re.match(r"^\d+\.\s*(.{2,40})$", line)
+        if numbered_match:
+            value = clean_candidate_restaurant_name(numbered_match.group(1))
+            if is_candidate_restaurant_name(value):
+                candidates.append(value)
+            continue
+
+        label_match = re.match(r"^(?:상호|식당명)\s*[:：]\s*(.{2,40})$", line)
+        if label_match:
+            value = clean_candidate_restaurant_name(label_match.group(1))
+            if is_candidate_restaurant_name(value):
+                candidates.append(value)
+
+    return dedupe(candidates)
+
+
+def is_candidate_restaurant_name(value: str) -> bool:
+    value = clean_candidate_restaurant_name(value)
+    if not value:
+        return False
+    if len(value) > 40:
+        return False
+    if value.startswith(("http://", "https://", "#")):
+        return False
+    if "식당X" in value or "식당x" in value:
+        return False
+    if re.search(r"(주소|위치|전화|영업|예약|가격|메뉴|문의|메일|BGM|정보)$", value, re.IGNORECASE):
+        return False
+    if re.search(r"(서울|경기|인천|부산|대구|대전|광주|울산|세종|강원|충북|충남|전북|전남|경북|경남|제주).*\d", value):
+        return False
+    ignored = {
+        "식당정보",
+        "BGM 정보",
+        "김사원 유튜브 전자책",
+        "김사원세끼의 노포 투어",
+    }
+    return value not in ignored
+
+
+def clean_candidate_restaurant_name(value: str) -> str:
+    return re.sub(r"^\d+\.\s*", "", value).strip(" -_/.,")
 
 
 def dedupe(values: Iterable[str]) -> list[str]:
