@@ -75,9 +75,10 @@ function loadCandidates(limit = 500): PlaceCandidate[] {
         left join picked_mention on picked_mention.mention_candidate_id = c.id
         left join mentions on mentions.id = picked_mention.id
         left join restaurants on restaurants.id = mentions.restaurant_id
-        left join video_story_reviews story on story.external_id = c.external_id
+        join video_story_reviews story on story.external_id = c.external_id
         where reviewed.decision = 'restaurant_intro'
           and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
+          and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
         order by c.published_at desc, c.id desc
         limit ?
         `,
@@ -140,7 +141,7 @@ export default function Home() {
         <p className="muted">최신 영상: {latestPublishedAt}</p>
         <h1>맛집 최신 크롤링</h1>
         <p className="summary muted">
-          지도 매핑까지 완료된 맛집 영상만 발행일 최신순으로 정리했습니다.
+          스토리와 지도 매핑이 모두 완료된 맛집 영상만 발행일 최신순으로 정리했습니다.
         </p>
       </header>
 
