@@ -51,6 +51,7 @@ REQUIRED_CRITIC_CHECKS = (
     "no_generic_phrasing",
 )
 MIN_STORY_CRITIC_ROUNDS = 3
+LOCAL_ENV_PATH = Path(__file__).resolve().parents[1] / ".env.local"
 
 
 @dataclass(frozen=True)
@@ -72,6 +73,26 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).isoformat()
 
 
+def load_local_env(path: Path = LOCAL_ENV_PATH) -> None:
+    if not path.exists():
+        return
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if not key or key in os.environ:
+            continue
+
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+            value = value[1:-1]
+        os.environ[key] = value
+
+
 def comma_separated_env(name: str) -> list[str] | None:
     value = os.environ.get(name, "").strip()
     if not value:
@@ -88,6 +109,7 @@ def int_env(name: str, default: int) -> int:
 
 
 def transcript_proxy_config() -> Any | None:
+    load_local_env()
     webshare_username = os.environ.get("WEBSHARE_PROXY_USERNAME", "").strip()
     webshare_password = os.environ.get("WEBSHARE_PROXY_PASSWORD", "").strip()
     if webshare_username and webshare_password:

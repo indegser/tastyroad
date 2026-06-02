@@ -136,7 +136,7 @@ python3 scripts/apply_agent_reviews.py --list-unreviewed
 python3 scripts/process_video_stories.py --video-id bfBmJCPgCmI --refresh
 ```
 
-YouTube transcript 요청은 기본적으로 한 건씩 천천히 실행하고, 연속 IP block이 감지되면 자동 중단합니다. Rotating residential proxy를 쓰려면 자격증명을 환경변수로 설정합니다.
+YouTube transcript 요청은 기본적으로 한 건씩 천천히 실행하고, 연속 IP block이 감지되면 자동 중단합니다. Rotating residential proxy를 쓰려면 자격증명을 환경변수로 설정합니다. 로컬에서는 커밋되지 않는 `.env.local`에 같은 키를 저장해도 `scripts/process_video_stories.py`가 자동으로 읽습니다.
 
 ```bash
 export WEBSHARE_PROXY_USERNAME="..."
