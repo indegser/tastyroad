@@ -8,6 +8,13 @@
     "build": "next build",
     "update:data": "python3 scripts/update_pipeline.py",
     "collect": "python3 scripts/collect_youtube.py",
+    "plan:agents": "python3 scripts/agent_pipeline.py",
+    "run:transcripts": "python3 scripts/agent_pipeline.py --stage transcript_fetch --run",
+    "run:story": "python3 scripts/agent_pipeline.py --stage story_review --run",
+    "run:places": "python3 scripts/agent_pipeline.py --stage place_verification --run",
+    "agent:inbox": "python3 scripts/agent_inbox.py",
+    "agent:task": "python3 scripts/agent_task.py",
+    "reduce:agents": "python3 scripts/reduce_agent_artifacts.py",
     "deploy": "pnpm dlx vercel@latest pull --yes --environment=production --scope jaekwon-hans-projects && pnpm dlx vercel@latest build --prod --yes && pnpm dlx vercel@latest deploy --prebuilt --prod --yes --scope jaekwon-hans-projects"
   },
   "dependencies": {

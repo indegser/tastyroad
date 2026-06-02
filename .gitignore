@@ -1,6 +1,8 @@
 data/*.sqlite
 !data/tastyroad.sqlite
 data/*.sqlite-*
+data/work/
+*.claim
 __pycache__/
 *.pyc
 .vercel
