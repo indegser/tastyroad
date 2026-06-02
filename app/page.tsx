@@ -155,20 +155,20 @@ export default function Home() {
                 <span className="index">{String(index + 1).padStart(2, "0")}</span>
                 <div>
                   <h2>{candidate.name}</h2>
+                  {candidate.storyHook ? (
+                    <p className="hook">{candidate.storyHook}</p>
+                  ) : null}
                   <p className="channel muted">{candidate.source}</p>
                   <a className="video-link" href={candidate.url}>
                     <span>{candidate.title}</span>
                     <span aria-hidden="true">↗</span>
                   </a>
                   <p className="meta muted">업로드 {candidate.publishedAtLabel}</p>
-                  {candidate.storyHook ? (
-                    <p className="story">{candidate.storyHook}</p>
-                  ) : null}
                   {candidate.storyIntro ? (
-                    <details className="story-details">
-                      <summary>자세히 보기</summary>
+                    <section className="story-section" aria-label="이야기">
+                      <h3>이야기</h3>
                       <p>{candidate.storyIntro}</p>
-                    </details>
+                    </section>
                   ) : null}
                   {candidate.tastingFlow ? (
                     <section className="tasting-flow" aria-label="시식 메뉴 및 순서">

@@ -63,7 +63,7 @@ def verify(sqlite_path: Path, html_path: Path | None, url: str | None) -> None:
     expected_count = expected_public_count(sqlite_path)
     html = read_html(html_path, url)
     card_count = html.count('class="video-card"')
-    story_count = html.count('class="story"')
+    story_count = html.count('class="story-section"')
 
     if card_count != expected_count:
         raise RuntimeError(
