@@ -188,7 +188,8 @@ Output:
 - story hook
 - story intro
 - tasting flow
-- evidence JSON with `host_reason`, `store_context`, and `tasting_order`
+- evidence JSON with `host_reason`, `store_context`, `tasting_order`, and
+  `provenance`
 - at least three `critic_rounds`
 - revision history
 
@@ -198,6 +199,8 @@ Completion gate:
 
 - Writer extracts `evidence.tasting_order` before prose.
 - `tasting_flow` must describe what was eaten in order.
+- Public story fields must not explain collection, metadata, map, address, link,
+  or verification provenance. Those details belong in `evidence.provenance`.
 - Critic runs at least three closed-loop rounds.
 - Round 1 and Round 2 must be `revise` with concrete `required_changes`.
 - The writer must answer each round with `writer_response`.

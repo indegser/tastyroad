@@ -21,7 +21,7 @@ DEFAULT_INPUT = Path("data/story_reviews/video_story_reviews.json")
 DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 0.0
 DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS = 3
 DISALLOWED_STORY_REVIEWER = "codex-generated-from-transcript"
-STORY_QUALITY_POLICY_VERSION = "story-quality-v2"
+STORY_QUALITY_POLICY_VERSION = "story-quality-v3"
 MIN_STORY_INTRO_CHARS = 240
 MIN_TASTING_FLOW_CHARS = 180
 MIN_TASTING_ORDER_ITEMS = 4
@@ -39,6 +39,20 @@ GENERIC_STORY_PATTERNS = (
     "쪽에 가깝다",
     "매력으로 남는다",
     "성격을 비교한다",
+)
+PUBLIC_STORY_PROVENANCE_PATTERNS = (
+    "설명란",
+    "영상 설명",
+    "메타데이터",
+    "metadata",
+    "상호",
+    "주소",
+    "네이버",
+    "지도 링크",
+    "링크가",
+    "식당정보",
+    "출처",
+    "직접 적혀",
 )
 REQUIRED_CRITIC_CHECKS = (
     "tasting_order_present",
@@ -347,6 +361,14 @@ def validate_story_review_quality(item: dict[str, Any], source_label: str) -> No
         raise ValueError(
             f"{source_label} review {video_id} looks like a generic template: "
             + ", ".join(matched_patterns)
+        )
+    provenance_patterns = [
+        pattern for pattern in PUBLIC_STORY_PROVENANCE_PATTERNS if pattern in combined_text
+    ]
+    if provenance_patterns:
+        raise ValueError(
+            f"{source_label} review {video_id} leaks source/provenance language into public story text: "
+            + ", ".join(provenance_patterns)
         )
 
     normalized_sentences = [

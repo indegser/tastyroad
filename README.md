@@ -168,6 +168,10 @@ python3 scripts/process_video_stories.py --list-missing
 
 - Writer는 먼저 `evidence.tasting_order`에 실제로 먹은 순서를 뽑고, 그 순서를
   `tasting_flow`에 문장으로 반영합니다.
+- 공개 본문인 `story_hook`, `story_intro`, `tasting_flow`는 자막과 영상 속
+  발화/장면을 재료로 쓰는 독자용 서사입니다. 설명란, 지도, 주소, 링크, 수집
+  경로 같은 검증 provenance는 `evidence.provenance`에만 남기고 공개 본문에는
+  쓰지 않습니다.
 - Critic은 최소 3차례 closed loop로 돌아야 합니다. 1차와 2차는 `revise`와
   구체적인 `required_changes`를 남겨야 하며, Writer는 각 라운드에
   `writer_response`로 어떻게 고쳤는지 답해야 합니다.

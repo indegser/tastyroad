@@ -29,7 +29,7 @@ from promote_verified_places import DEFAULT_INPUT_DIR as DEFAULT_VERIFIED_DIR
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 DEFAULT_WORK_DIR = Path("data/work")
-STORY_REVIEW_PROMPT_VERSION = "story-review-v2"
+STORY_REVIEW_PROMPT_VERSION = "story-review-v3"
 
 STAGES = {
     "place_extraction",
@@ -661,6 +661,11 @@ def restaurant_triage_prompt() -> str:
 def story_review_prompt() -> str:
     return (
         "Run a writer-critic-revision loop for a Korean story review from the transcript. "
+        "Treat transcript/video dialogue as the material for public prose. Treat metadata, "
+        "descriptions, map links, addresses, source URLs, and verification notes only as "
+        "private provenance for evidence. Never mention the data source, description field, "
+        "metadata, map provider, address, source link, or verification process in story_hook, "
+        "story_intro, or tasting_flow. Put those details only in evidence.provenance when needed. "
         "Writer: first extract the factual tasting order as a list before writing prose. "
         "Then find why the host chose this place, prior memories or relationships, stated "
         "owner/store context, and what the restaurant is proud of. Critic: be strict and "
@@ -668,10 +673,11 @@ def story_review_prompt() -> str:
         "2 must be revise rounds with concrete required_changes, and the writer must respond "
         "to each round before the next critique. The final round may pass only if every check "
         "is true and issues is empty. Reject if tasting_flow does not say what was eaten in "
-        "order, if the prose repeats the same idea, if subjects are vague, if Korean sentences "
-        "are awkward, or if the writing uses padded phrases. Prefer plain, clear Korean: short "
-        "sentences, concrete nouns, no decoration, no grand claims. Do not imitate any named "
-        "writer; aim for clean civic prose. Never use generic template text such as '자막 기준으로', "
+        "order, if public prose contains provenance/source-tracing language, if the prose repeats "
+        "the same idea, if subjects are vague, if Korean sentences are awkward, or if the writing "
+        "uses padded phrases. Prefer plain, clear Korean: short sentences, concrete nouns, no "
+        "decoration, no grand claims. Do not imitate any named writer; aim for clean civic prose. "
+        "Never use generic template text such as '자막 기준으로', "
         "'한 끼 후보', '메뉴의 첫인상', '쪽에 가깝다', or '매력으로 남는다'. Return only "
         "structured JSON matching expected_output."
     )
@@ -948,6 +954,11 @@ def run_story_review_task(
                         "store_context": "",
                         "tasting_order": [],
                         "transcript_support": [],
+                        "provenance": {
+                            "public_story_sources": ["transcript"],
+                            "private_verification_sources": [],
+                            "notes": "",
+                        },
                     },
                     "critic_rounds": [
                         {
@@ -962,6 +973,7 @@ def run_story_review_task(
                                 "clear_subjects": False,
                                 "no_duplicate_context": False,
                                 "no_generic_phrasing": False,
+                                "no_public_provenance": False,
                             },
                             "issues": [],
                             "required_changes": [],
@@ -979,6 +991,7 @@ def run_story_review_task(
                                 "clear_subjects": False,
                                 "no_duplicate_context": False,
                                 "no_generic_phrasing": False,
+                                "no_public_provenance": False,
                             },
                             "issues": [],
                             "required_changes": [],
@@ -996,6 +1009,7 @@ def run_story_review_task(
                                 "clear_subjects": False,
                                 "no_duplicate_context": False,
                                 "no_generic_phrasing": False,
+                                "no_public_provenance": False,
                             },
                             "issues": [],
                             "required_changes": [],
