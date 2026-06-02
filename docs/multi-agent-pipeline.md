@@ -96,6 +96,25 @@ collection logic at first. The best early agent stages are `restaurant_triage`,
 `story_review`, `place_extraction`, and `place_verification` because their
 inputs and outputs can be isolated by `video_id`.
 
+## Public Site Contract
+
+`site_build` is a read-only consumer of promoted SQLite data, but it has a hard
+public listing contract:
+
+- A public card may be rendered only when the video has both a non-empty
+  `video_story_reviews` row and verified map promotion through
+  `mentions`/`restaurants`/`place_links`.
+- A map-verified item without a story remains valid pipeline data, but it is not
+  public web listing data.
+- Every rendered public card must include a story block. The rendered
+  `video-card` count and `story` count must match.
+- Service refresh, web refresh, build, and deploy tasks must preserve this
+  contract. Do not treat `mapping_verified` alone as enough for the public site.
+
+The contract is enforced by `scripts/verify_public_listing_contract.py`.
+`pnpm run build` verifies local static output, and `pnpm run deploy` verifies
+both the prebuilt output and the deployed production URL.
+
 ## Artifact Layout
 
 The proposed worker output layout is video-scoped:

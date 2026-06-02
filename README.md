@@ -349,8 +349,24 @@ python3 scripts/run_e2e.py
 ## DB 갱신과 배포
 
 `taste.indegser.com`은 Next.js 정적 export를 Vercel `tastyroad` 프로젝트에 배포합니다.
-Next.js는 빌드 시점에 `data/tastyroad.sqlite`를 직접 읽고, 지도 매핑까지 완료된 영상만 페이지에 렌더링합니다.
+Next.js는 빌드 시점에 `data/tastyroad.sqlite`를 직접 읽고, 스토리와 지도 매핑이 모두 완료된 영상만 페이지에 렌더링합니다.
 `data/tastyroad.sqlite`가 커밋되는 기준 데이터이며, `data/raw/youtube/*.json`과 `data/agent_reviews/*.json`은 재수집/import용 임시 산출물로 커밋하지 않습니다.
+
+### 공개 웹 노출 계약
+
+서비스 최신화, 웹 최신화, 빌드, 배포는 항상 아래 기준을 만족해야 합니다.
+
+- 공개 웹 리스트에는 `video_story_reviews`에 스토리가 있고 `mentions`/`restaurants`/`place_links`로 지도 매핑이 검증된 영상만 노출합니다.
+- 지도 매핑만 완료되고 스토리가 없는 항목은 DB에 남아 있어도 공개 웹 리스트에 노출하지 않습니다.
+- 공개 카드마다 스토리 문단이 있어야 합니다. 빌드 산출물의 `video-card` 수와 `story` 수는 같아야 합니다.
+- 이 계약은 `scripts/verify_public_listing_contract.py`로 검증합니다. `pnpm run build`와 `pnpm run deploy`는 이 검증을 포함합니다.
+
+수동 검증:
+
+```bash
+pnpm run verify:public
+pnpm run verify:public:prod
+```
 
 로컬 SQLite DB 갱신:
 
@@ -372,10 +388,12 @@ Next.js 빌드:
 pnpm run build
 ```
 
+`build`는 `next build` 이후 `out/index.html`을 검사해 공개 카드 수와 스토리 수가 SQLite의 `스토리 있음 + 지도 매핑 완료` 건수와 일치하는지 확인합니다.
+
 Vercel production 배포:
 
 ```bash
 pnpm run deploy
 ```
 
-`deploy`는 로컬에서 Vercel build를 실행한 뒤 prebuilt 산출물을 업로드합니다. GitHub Actions 자동 갱신/자동 배포는 사용하지 않습니다. 배포 전에 DB 갱신이 필요하면 수동으로 `pnpm run update:data`를 실행합니다.
+`deploy`는 로컬에서 Vercel build를 실행한 뒤 공개 웹 노출 계약을 검사하고, prebuilt 산출물을 업로드한 뒤 운영 URL도 다시 검사합니다. GitHub Actions 자동 갱신/자동 배포는 사용하지 않습니다. 배포 전에 DB 갱신이 필요하면 수동으로 `pnpm run update:data`를 실행합니다.
