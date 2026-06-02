@@ -168,34 +168,40 @@ export default function Home() {
             <article className="video-card">
               <div className="video-info">
                 <h2>{candidate.name}</h2>
-                <p className="source-line">
-                  <span>{candidate.source}</span>
+                <dl className="info-table">
+                  <div className="info-row">
+                    <dt>채널</dt>
+                    <dd>{candidate.source}</dd>
+                  </div>
+                  <div className="info-row">
+                    <dt>영상</dt>
+                    <dd>
+                      <a className="video-link" href={candidate.url}>
+                        <span>{candidate.title}</span>
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                    </dd>
+                  </div>
+                  <div className="info-row">
+                    <dt>게시일</dt>
+                    <dd>{candidate.publishedDateLabel}</dd>
+                  </div>
                   {candidate.storyHook ? (
-                    <>
-                      <span className="separator" aria-hidden="true">
-                        -
-                      </span>
-                      <span className="source-hook">{candidate.storyHook}</span>
-                    </>
+                    <div className="info-row">
+                      <dt>한줄 요약</dt>
+                      <dd>{candidate.storyHook}</dd>
+                    </div>
                   ) : null}
-                </p>
-                <a className="video-link" href={candidate.url}>
-                  <span>{candidate.title}</span>
-                  <span className="separator" aria-hidden="true">
-                    -
-                  </span>
-                  <span className="video-date">{candidate.publishedDateLabel}</span>
-                  <span aria-hidden="true">↗</span>
-                </a>
+                </dl>
                 {candidate.storyIntro ? (
                   <section className="story-section" aria-label="이야기">
-                    <h3>이야기</h3>
+                    <h3 className="section-label">이야기</h3>
                     <p>{candidate.storyIntro}</p>
                   </section>
                 ) : null}
                 {candidate.tastingFlow ? (
                   <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
-                    <h3>시식 메뉴 및 순서</h3>
+                    <h3 className="section-label">시식 메뉴 및 순서</h3>
                     <p>{candidate.tastingFlow}</p>
                   </section>
                 ) : null}

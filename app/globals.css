@@ -124,54 +124,53 @@ h2 {
   min-width: 0;
 }
 
-.source-line,
+.info-table,
 .video-link,
 .story-section,
 .tasting-flow {
   font-size: 0.9125rem;
 }
 
-.source-line {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0 6px;
-  margin: 5px 0 8px;
+.info-table {
+  display: grid;
+  gap: 5px;
+  margin: 9px 0 0;
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 4.9rem minmax(0, 1fr);
+  column-gap: 10px;
+}
+
+.info-row dt {
   color: var(--text-secondary);
-  font-weight: 450;
-  line-height: 1.5;
+  font-size: 0.8125rem;
+  font-weight: 560;
+  line-height: 1.55;
 }
 
-.source-hook {
+.info-row dd {
+  min-width: 0;
+  margin: 0;
   color: var(--story);
-  font-weight: 500;
-}
-
-.separator {
-  color: var(--text-tertiary);
+  line-height: 1.55;
+  overflow-wrap: anywhere;
 }
 
 .video-link {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: baseline;
+  display: inline-flex;
   max-width: 100%;
-  gap: 6px;
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
+  gap: 5px;
+  color: var(--story);
   font-weight: 450;
-  line-height: 1.48;
+  line-height: inherit;
   text-decoration: none;
 }
 
 .video-link span:first-child {
   min-width: 0;
   overflow-wrap: anywhere;
-}
-
-.video-date {
-  color: var(--text-tertiary);
-  font-size: 0.92em;
-  white-space: nowrap;
 }
 
 .video-link:hover {
@@ -191,12 +190,11 @@ h2 {
   border-top: 1px solid var(--soft-border);
 }
 
-.story-section h3,
-.tasting-flow h3 {
+.section-label {
   margin: 0 0 6px;
-  color: var(--text-tertiary);
-  font-size: 0.75rem;
-  font-weight: 620;
+  color: var(--text-secondary);
+  font-size: 0.8125rem;
+  font-weight: 560;
   line-height: 1.35;
   letter-spacing: 0;
 }
@@ -241,23 +239,28 @@ h2 {
     padding-top: 20px;
   }
 
-  .video-link {
-    font-size: 0.875rem;
-  }
-
-  .source-line,
+  .info-table,
   .story-section,
   .tasting-flow {
     font-size: 0.96rem;
   }
 
+  .info-row {
+    grid-template-columns: 5.35rem minmax(0, 1fr);
+    column-gap: 12px;
+  }
+
+  .info-row dt,
+  .section-label {
+    font-size: 0.875rem;
+  }
+
+  .info-row dd {
+    line-height: 1.6;
+  }
+
   .story-section p,
   .tasting-flow p {
     line-height: 1.72;
-  }
-
-  .story-section h3,
-  .tasting-flow h3 {
-    font-size: 0.8125rem;
   }
 }
