@@ -152,6 +152,17 @@ export YT_TRANSCRIPT_HTTP_PROXY="socks5://user:pass@host:1080"
 export YT_TRANSCRIPT_HTTPS_PROXY="socks5://user:pass@host:1080"
 ```
 
+파이프라인 artifact 기준으로 실패한 자막을 다시 시도할 때는 실패 영상만
+단건으로 `--refresh`를 붙여 실행합니다. 기존 `transcript.json`이 실패 상태로
+남아 있어도 `--refresh`가 없으면 worker가 건너뜁니다. 넓은 `--limit` 재시도는
+다른 소스의 누락 자막까지 계획할 수 있으므로, 소스별 정리 작업에서는 피합니다.
+
+```bash
+python3 scripts/agent_pipeline.py --stage transcript_fetch --run --refresh --video-id VIDEO_ID
+python3 scripts/reduce_agent_artifacts.py --stage transcript_fetch --apply
+python3 scripts/agent_pipeline.py --stage story_review --run --video-id VIDEO_ID
+```
+
 Codex 작성 리뷰 누락 확인:
 
 ```bash

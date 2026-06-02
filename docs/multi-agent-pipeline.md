@@ -175,6 +175,25 @@ Output:
 
 Existing code path: `scripts/process_video_stories.py`
 
+Retry notes:
+
+- Failed transcript artifacts are still artifacts. `scripts/agent_pipeline.py --stage transcript_fetch --run`
+  skips an existing `data/work/videos/{video_id}/transcript.json` unless `--refresh` is
+  passed, even when that artifact has `status: failed`.
+- For source-specific cleanup, retry one failed video at a time with `--video-id VIDEO_ID
+  --refresh`. A broad `--refresh --limit ...` run plans all missing transcripts across
+  sources, which can process unrelated channels before the intended source.
+- Repeated 429 responses can clear on a later immediate single-video retry because the
+  request/proxy path may rotate. Try a few sequential single-video retries before treating
+  a 429 as a persistent block.
+- After a successful retry, import the artifact with
+  `python3 scripts/reduce_agent_artifacts.py --stage transcript_fetch --apply`, then create
+  the downstream story workspace with
+  `python3 scripts/agent_pipeline.py --stage story_review --run --video-id VIDEO_ID`.
+- Verify completion from SQLite/source-specific status, not only from artifact files. A
+  stale failed artifact can coexist with an already imported transcript from a later
+  successful path.
+
 ### `story_review`
 
 Input:
