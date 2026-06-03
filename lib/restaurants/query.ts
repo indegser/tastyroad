@@ -1,4 +1,5 @@
 import { DatabaseSync } from "node:sqlite";
+import path from "node:path";
 import { normalizeRegion } from "./region";
 import type {
   FacetValue,
@@ -8,7 +9,7 @@ import type {
   RestaurantSearchResponse,
 } from "./types";
 
-const SQLITE_PATH = "data/tastyroad.sqlite";
+const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad.sqlite");
 const MIN_STORY_INTRO_CHARS = 240;
 const MIN_TASTING_FLOW_CHARS = 180;
 const DEFAULT_PAGE = 1;
