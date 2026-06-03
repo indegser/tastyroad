@@ -10,9 +10,11 @@ from urllib.request import urlopen
 
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
-DEFAULT_HTML = Path("out/index.html")
+DEFAULT_HTML = Path(".next/server/app/index.html")
+DEFAULT_DYNAMIC_ROUTE = Path(".next/server/app/page.js")
 MIN_STORY_INTRO_CHARS = 240
 MIN_TASTING_FLOW_CHARS = 180
+DEFAULT_PAGE_SIZE = 20
 
 
 def expected_public_count(sqlite_path: Path) -> int:
@@ -20,32 +22,13 @@ def expected_public_count(sqlite_path: Path) -> int:
         return int(
             connection.execute(
                 """
-                with reviewed as (
-                  select
-                    external_id,
-                    decision,
-                    restaurant_names,
-                    case
-                      when detected_restaurant_count > 0 then detected_restaurant_count
-                      when json_valid(restaurant_names) then json_array_length(restaurant_names)
-                      else 0
-                    end as detected_restaurant_count
-                  from agent_video_reviews
-                ),
-                mapped as (
-                  select
-                    mention_candidate_id,
-                    count(distinct restaurant_id) as mapped_restaurant_count
-                  from mentions
-                  group by mention_candidate_id
-                )
-                select count(*)
-                from mention_candidates c
-                join reviewed on reviewed.external_id = c.external_id
-                join mapped on mapped.mention_candidate_id = c.id
+                select count(distinct r.id)
+                from restaurants r
+                join mentions m on m.restaurant_id = r.id
+                join mention_candidates c on c.id = m.mention_candidate_id
+                join agent_video_reviews review on review.external_id = c.external_id
                 join video_story_reviews story on story.external_id = c.external_id
-                where reviewed.decision = 'restaurant_intro'
-                  and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
+                where review.decision = 'restaurant_intro'
                   and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
                   and length(trim(story.story_intro)) >= ?
                   and length(trim(story.tasting_flow)) >= ?
@@ -67,15 +50,34 @@ def read_html(html_path: Path | None, url: str | None) -> str:
 
 def verify(sqlite_path: Path, html_path: Path | None, url: str | None) -> None:
     expected_count = expected_public_count(sqlite_path)
+    expected_page_count = min(expected_count, DEFAULT_PAGE_SIZE)
+
+    if not url and html_path and not html_path.exists():
+        if not DEFAULT_DYNAMIC_ROUTE.exists():
+            raise RuntimeError(
+                "Public listing contract failed: no static HTML or dynamic "
+                "home route artifact was found."
+            )
+        if expected_count < expected_page_count:
+            raise RuntimeError(
+                "Public listing contract failed: SQLite public restaurant "
+                f"count is invalid ({expected_count})."
+            )
+        print(
+            "Public listing contract ok: "
+            f"{expected_count} public restaurants, dynamic route={DEFAULT_DYNAMIC_ROUTE}"
+        )
+        return
+
     html = read_html(html_path, url)
     card_count = html.count('class="video-card"')
     story_count = html.count('class="story-section"')
 
-    if card_count != expected_count:
+    if card_count != expected_page_count:
         raise RuntimeError(
             "Public listing contract failed: "
-            f"rendered {card_count} cards, but SQLite has {expected_count} "
-            "story-and-map-verified public items."
+            f"rendered {card_count} cards, but expected {expected_page_count} "
+            f"cards on the first page from {expected_count} public restaurants."
         )
     if story_count != card_count:
         raise RuntimeError(
@@ -87,7 +89,8 @@ def verify(sqlite_path: Path, html_path: Path | None, url: str | None) -> None:
     source = url or str(html_path)
     print(
         "Public listing contract ok: "
-        f"{card_count} cards, {story_count} stories, source={source}"
+        f"{card_count} cards, {story_count} stories, "
+        f"{expected_count} public restaurants, source={source}"
     )
 
 

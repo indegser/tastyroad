@@ -1,219 +1,268 @@
-import { DatabaseSync } from "node:sqlite";
+import {
+  normalizeRestaurantSearchParams,
+  searchRestaurants,
+} from "../lib/restaurants/query";
+import type { FacetValue } from "../lib/restaurants/types";
 
-type PlaceCandidate = {
-  name: string;
-  source: string;
-  title: string;
-  publishedAt: string;
-  publishedAtLabel: string;
-  publishedDateLabel: string;
-  url: string;
-  storyHook: string;
-  storyIntro: string;
-  tastingFlow: string;
-};
+type PageSearchParams = Record<string, string | string[] | undefined>;
 
-type CandidateRow = {
-  source: string;
-  title: string;
-  published_at: string;
-  url: string;
-  raw_restaurant_name_candidates: string;
-  display_name: string;
-  agent_restaurant_names: string;
-  story_hook: string;
-  story_intro: string;
-  tasting_flow: string;
-};
+export const dynamic = "force-dynamic";
 
-export const dynamic = "force-static";
+const PAGE_SIZE = 20;
 
-const SQLITE_PATH = "data/tastyroad.sqlite";
-const MIN_STORY_INTRO_CHARS = 240;
-const MIN_TASTING_FLOW_CHARS = 180;
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: Promise<PageSearchParams>;
+}) {
+  const rawSearchParams = await searchParams;
+  const urlParams = toUrlSearchParams(rawSearchParams);
+  urlParams.set("includeFacets", "true");
+  urlParams.set("limit", String(PAGE_SIZE));
 
-function loadCandidates(limit = 500): PlaceCandidate[] {
-  const db = new DatabaseSync(SQLITE_PATH, { readOnly: true });
-
-  try {
-    const rows = db
-      .prepare(
-        `
-        with reviewed as (
-          select
-            external_id,
-            decision,
-            confidence,
-            restaurant_names,
-            case
-              when detected_restaurant_count > 0 then detected_restaurant_count
-              when json_valid(restaurant_names) then json_array_length(restaurant_names)
-              else 0
-            end as detected_restaurant_count
-          from agent_video_reviews
-        ),
-        mapped as (
-          select
-            mention_candidate_id,
-            count(distinct restaurant_id) as mapped_restaurant_count
-          from mentions
-          group by mention_candidate_id
-        ),
-        picked_mention as (
-          select mention_candidate_id, min(id) as id
-          from mentions
-          group by mention_candidate_id
-        )
-        select
-          s.name as source,
-          c.title,
-          c.published_at,
-          c.url,
-          c.raw_restaurant_name_candidates,
-          coalesce(restaurants.display_name, '') as display_name,
-          coalesce(reviewed.restaurant_names, '[]') as agent_restaurant_names,
-          coalesce(story.story_hook, '') as story_hook,
-          coalesce(story.story_intro, '') as story_intro,
-          coalesce(story.tasting_flow, '') as tasting_flow
-        from mention_candidates c
-        join sources s on s.id = c.source_id
-        join reviewed on reviewed.external_id = c.external_id
-        join mapped on mapped.mention_candidate_id = c.id
-        left join picked_mention on picked_mention.mention_candidate_id = c.id
-        left join mentions on mentions.id = picked_mention.id
-        left join restaurants on restaurants.id = mentions.restaurant_id
-        join video_story_reviews story on story.external_id = c.external_id
-        where reviewed.decision = 'restaurant_intro'
-          and mapped.mapped_restaurant_count >= max(coalesce(reviewed.detected_restaurant_count, 1), 1)
-          and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
-          and length(trim(story.story_intro)) >= ?
-          and length(trim(story.tasting_flow)) >= ?
-        order by c.published_at desc, c.id desc
-        limit ?
-        `,
-      )
-      .all(MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS, limit) as CandidateRow[];
-
-    return rows.map((row) => ({
-      name:
-        row.display_name ||
-        firstNameCandidate(row.agent_restaurant_names) ||
-        firstNameCandidate(row.raw_restaurant_name_candidates),
-      source: row.source,
-      title: row.title,
-      publishedAt: row.published_at,
-      publishedAtLabel: formatDateTime(row.published_at),
-      publishedDateLabel: formatDate(row.published_at),
-      url: row.url,
-      storyHook: row.story_hook.trim(),
-      storyIntro: row.story_intro.trim(),
-      tastingFlow: row.tasting_flow.trim(),
-    }));
-  } finally {
-    db.close();
-  }
-}
-
-function firstNameCandidate(rawValue: string) {
-  try {
-    const values = JSON.parse(rawValue) as unknown;
-    return Array.isArray(values) && values.length > 0 ? String(values[0]) : "";
-  } catch {
-    return "";
-  }
-}
-
-function formatDateTime(value: string | null) {
-  if (!value) {
-    return "알 수 없음";
-  }
-
-  return new Intl.DateTimeFormat("ko-KR", {
-    timeZone: "Asia/Seoul",
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    hour12: true,
-  }).format(new Date(value));
-}
-
-function formatDate(value: string | null) {
-  if (!value) {
-    return "알 수 없음";
-  }
-
-  return new Intl.DateTimeFormat("ko-KR", {
-    timeZone: "Asia/Seoul",
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }).format(new Date(value));
-}
-
-export default function Home() {
-  const items = loadCandidates();
-  const latestPublishedAt = items[0]?.publishedAtLabel ?? "알 수 없음";
+  const params = normalizeRestaurantSearchParams(urlParams);
+  const result = searchRestaurants(params);
+  const facets = result.facets;
 
   return (
     <main>
       <header>
-        <p className="muted">최신 영상: {latestPublishedAt}</p>
-        <h1>맛집 최신 크롤링</h1>
+        <p className="muted">검증된 맛집 {result.total.toLocaleString("ko-KR")}곳</p>
+        <h1>맛집 탐색</h1>
         <p className="summary muted">
-          스토리와 지도 매핑이 모두 완료된 맛집 영상만 발행일 최신순으로 정리했습니다.
+          스토리와 지도 매핑이 모두 완료된 맛집을 출처와 지역으로 좁혀 볼 수 있습니다.
         </p>
       </header>
 
-      <ol className="video-list">
-        {items.map((candidate, index) => (
-          <li key={`${candidate.url}-${index}`}>
-            <article className="video-card">
-              <div className="video-info">
-                <h2>{candidate.name}</h2>
-                <dl className="info-table">
-                  <div className="info-row">
-                    <dt>채널</dt>
-                    <dd>{candidate.source}</dd>
-                  </div>
-                  <div className="info-row">
-                    <dt>영상</dt>
-                    <dd>
-                      <a className="video-link" href={candidate.url}>
-                        <span>{candidate.title}</span>
-                        <span aria-hidden="true">↗</span>
-                      </a>
-                    </dd>
-                  </div>
-                  <div className="info-row">
-                    <dt>게시일</dt>
-                    <dd>{candidate.publishedDateLabel}</dd>
-                  </div>
-                  {candidate.storyHook ? (
+      {facets ? (
+        <aside className="facet-panel" aria-label="맛집 필터">
+          <div className="facet-header">
+            <strong>필터</strong>
+            {hasActiveFilters(params) ? (
+              <a href="/" className="clear-filters">
+                전체 보기
+              </a>
+            ) : null}
+          </div>
+          <FacetGroup
+            label="지역권"
+            values={facets.regionClusters}
+            activeValue={params.regionCluster}
+            hrefFor={(value) =>
+              hrefWith(rawSearchParams, {
+                regionCluster: value,
+                region: "",
+                page: "",
+              })
+            }
+          />
+          <FacetGroup
+            label="세부 지역"
+            values={facets.regions}
+            activeValue={params.region}
+            hrefFor={(value) => hrefWith(rawSearchParams, { region: value, page: "" })}
+          />
+          <FacetGroup
+            label="출처"
+            values={facets.sources}
+            activeValue={params.source}
+            hrefFor={(value) => hrefWith(rawSearchParams, { source: value, page: "" })}
+          />
+        </aside>
+      ) : null}
+
+      {result.items.length > 0 ? (
+        <ol className="video-list">
+          {result.items.map((restaurant) => (
+            <li key={restaurant.id}>
+              <article className="video-card">
+                <div className="video-info">
+                  <h2>{restaurant.name}</h2>
+                  <dl className="info-table">
                     <div className="info-row">
-                      <dt>한줄 요약</dt>
-                      <dd>{candidate.storyHook}</dd>
+                      <dt>지역</dt>
+                      <dd>
+                        {restaurant.region.region}
+                        <span className="subtle-divider">/</span>
+                        {restaurant.region.cluster}
+                      </dd>
                     </div>
+                    <div className="info-row">
+                      <dt>주소</dt>
+                      <dd>{restaurant.address}</dd>
+                    </div>
+                    <div className="info-row">
+                      <dt>채널</dt>
+                      <dd>{restaurant.source}</dd>
+                    </div>
+                    <div className="info-row">
+                      <dt>영상</dt>
+                      <dd>
+                        <a className="video-link" href={restaurant.sourceUrl}>
+                          <span>{restaurant.sourceTitle}</span>
+                          <span aria-hidden="true">↗</span>
+                        </a>
+                      </dd>
+                    </div>
+                    {restaurant.mapUrl ? (
+                      <div className="info-row">
+                        <dt>지도</dt>
+                        <dd>
+                          <a className="video-link" href={restaurant.mapUrl}>
+                            <span>지도에서 보기</span>
+                            <span aria-hidden="true">↗</span>
+                          </a>
+                        </dd>
+                      </div>
+                    ) : null}
+                    {restaurant.storyHook ? (
+                      <div className="info-row">
+                        <dt>한줄 요약</dt>
+                        <dd>{restaurant.storyHook}</dd>
+                      </div>
+                    ) : null}
+                  </dl>
+                  {restaurant.storyIntro ? (
+                    <section className="story-section" aria-label="이야기">
+                      <h3 className="section-label">이야기</h3>
+                      <p>{restaurant.storyIntro}</p>
+                    </section>
                   ) : null}
-                </dl>
-                {candidate.storyIntro ? (
-                  <section className="story-section" aria-label="이야기">
-                    <h3 className="section-label">이야기</h3>
-                    <p>{candidate.storyIntro}</p>
-                  </section>
-                ) : null}
-                {candidate.tastingFlow ? (
-                  <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
-                    <h3 className="section-label">시식 메뉴 및 순서</h3>
-                    <p>{candidate.tastingFlow}</p>
-                  </section>
-                ) : null}
-              </div>
-            </article>
-          </li>
-        ))}
-      </ol>
+                  {restaurant.tastingFlow ? (
+                    <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
+                      <h3 className="section-label">시식 메뉴 및 순서</h3>
+                      <p>{restaurant.tastingFlow}</p>
+                    </section>
+                  ) : null}
+                </div>
+              </article>
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className="empty-state">조건에 맞는 맛집이 없습니다.</p>
+      )}
+
+      <Pagination
+        page={result.page}
+        totalPages={result.totalPages}
+        searchParams={rawSearchParams}
+      />
     </main>
   );
+}
+
+function FacetGroup({
+  label,
+  values,
+  activeValue,
+  hrefFor,
+}: {
+  label: string;
+  values: FacetValue[];
+  activeValue: string;
+  hrefFor: (value: string) => string;
+}) {
+  if (values.length === 0) {
+    return null;
+  }
+
+  return (
+    <section className="facet-group">
+      <h2>{label}</h2>
+      <div className="facet-options">
+        {values.map((facet) => {
+          const active = facet.value === activeValue;
+
+          return (
+            <a
+              key={facet.value}
+              href={active ? hrefFor("") : hrefFor(facet.value)}
+              className={active ? "is-active" : undefined}
+              aria-current={active ? "true" : undefined}
+            >
+              <span>{facet.value}</span>
+              <small>{facet.count.toLocaleString("ko-KR")}</small>
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Pagination({
+  page,
+  totalPages,
+  searchParams,
+}: {
+  page: number;
+  totalPages: number;
+  searchParams: PageSearchParams | undefined;
+}) {
+  if (totalPages <= 1) {
+    return null;
+  }
+
+  return (
+    <nav className="pagination" aria-label="페이지">
+      {page > 1 ? (
+        <a href={hrefWith(searchParams, { page: String(page - 1) })}>이전</a>
+      ) : (
+        <span>이전</span>
+      )}
+      <strong>
+        {page.toLocaleString("ko-KR")} / {totalPages.toLocaleString("ko-KR")}
+      </strong>
+      {page < totalPages ? (
+        <a href={hrefWith(searchParams, { page: String(page + 1) })}>다음</a>
+      ) : (
+        <span>다음</span>
+      )}
+    </nav>
+  );
+}
+
+function toUrlSearchParams(searchParams: PageSearchParams | undefined) {
+  const urlParams = new URLSearchParams();
+
+  for (const [key, value] of Object.entries(searchParams || {})) {
+    if (Array.isArray(value)) {
+      if (value[0]) {
+        urlParams.set(key, value[0]);
+      }
+      continue;
+    }
+    if (value) {
+      urlParams.set(key, value);
+    }
+  }
+
+  return urlParams;
+}
+
+function hrefWith(
+  searchParams: PageSearchParams | undefined,
+  updates: Record<string, string>,
+) {
+  const urlParams = toUrlSearchParams(searchParams);
+
+  for (const [key, value] of Object.entries(updates)) {
+    if (value) {
+      urlParams.set(key, value);
+    } else {
+      urlParams.delete(key);
+    }
+  }
+
+  const query = urlParams.toString();
+  return query ? `/?${query}` : "/";
+}
+
+function hasActiveFilters(params: {
+  source: string;
+  region: string;
+  regionCluster: string;
+}) {
+  return Boolean(params.source || params.region || params.regionCluster);
 }

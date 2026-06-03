@@ -4,8 +4,8 @@ import { GeistSans } from "geist/font/sans";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "맛집 최신 크롤링",
-  description: "유튜브 RSS에서 수집한 맛집 후보를 최신순으로 보여줍니다.",
+  title: "맛집 탐색 | Tastyroad",
+  description: "검증된 맛집을 출처와 지역 패싯으로 탐색합니다.",
 };
 
 export default function RootLayout({
