@@ -38,7 +38,7 @@ export function normalizeRestaurantSearchParams(
 ): RestaurantSearchParams {
   return {
     q: normalizeText(params.get("q")),
-    source: normalizeText(params.get("source")),
+    sources: normalizeSourceParams(params),
     region: normalizeText(params.get("region")),
     regionCluster: normalizeText(params.get("regionCluster")),
     page: normalizePositiveInteger(params.get("page"), DEFAULT_PAGE),
@@ -64,7 +64,7 @@ export function searchRestaurants(
     limit: params.limit,
     total,
     totalPages,
-    facets: params.includeFacets ? buildFacets(filteredItems) : undefined,
+    facets: params.includeFacets ? buildFacets(allItems, params) : undefined,
   };
 }
 
@@ -174,7 +174,7 @@ function filterRestaurants(
   const query = params.q.toLocaleLowerCase("ko-KR");
 
   return items.filter((item) => {
-    if (params.source && item.source !== params.source) {
+    if (params.sources.length > 0 && !params.sources.includes(item.source)) {
       return false;
     }
     if (params.region && item.region.region !== params.region) {
@@ -205,11 +205,26 @@ function filterRestaurants(
   });
 }
 
-function buildFacets(items: RestaurantItem[]): RestaurantFacets {
+function buildFacets(
+  items: RestaurantItem[],
+  params: RestaurantSearchParams,
+): RestaurantFacets {
   return {
-    sources: countFacet(items.map((item) => item.source)),
-    regionClusters: countFacet(items.map((item) => item.region.cluster)),
-    regions: countFacet(items.map((item) => item.region.region)),
+    sources: countFacet(
+      filterRestaurants(items, { ...params, sources: [] }).map((item) => item.source),
+    ),
+    regionClusters: countFacet(
+      filterRestaurants(items, {
+        ...params,
+        region: "",
+        regionCluster: "",
+      }).map((item) => item.region.cluster),
+    ),
+    regions: countFacet(
+      filterRestaurants(items, { ...params, region: "" }).map(
+        (item) => item.region.region,
+      ),
+    ),
   };
 }
 
@@ -231,6 +246,20 @@ function countFacet(values: string[]): FacetValue[] {
 
 function normalizeText(value: string | null) {
   return (value || "").replace(/\s+/g, " ").trim();
+}
+
+function normalizeSourceParams(params: URLSearchParams) {
+  const values = params.getAll("source").flatMap((value) => value.split(","));
+  const deduped = new Set<string>();
+
+  for (const value of values) {
+    const normalized = normalizeText(value);
+    if (normalized) {
+      deduped.add(normalized);
+    }
+  }
+
+  return Array.from(deduped);
 }
 
 function normalizePositiveInteger(value: string | null, fallback: number) {

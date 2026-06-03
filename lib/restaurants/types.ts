@@ -2,7 +2,7 @@ import type { NormalizedRegion } from "./region";
 
 export type RestaurantSearchParams = {
   q: string;
-  source: string;
+  sources: string[];
   region: string;
   regionCluster: string;
   page: number;

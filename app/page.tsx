@@ -45,7 +45,7 @@ export default async function Home({
             ) : null}
           </div>
           <FacetGroup
-            label="지역권"
+            label="1. 지역권"
             values={facets.regionClusters}
             activeValue={params.regionCluster}
             hrefFor={(value) =>
@@ -56,17 +56,25 @@ export default async function Home({
               })
             }
           />
-          <FacetGroup
-            label="세부 지역"
-            values={facets.regions}
-            activeValue={params.region}
-            hrefFor={(value) => hrefWith(rawSearchParams, { region: value, page: "" })}
-          />
+          {params.regionCluster || params.region ? (
+            <FacetGroup
+              label="2. 세부 지역"
+              values={facets.regions}
+              activeValue={params.region}
+              hrefFor={(value) => hrefWith(rawSearchParams, { region: value, page: "" })}
+            />
+          ) : (
+            <section className="facet-group is-disabled">
+              <h2>2. 세부 지역</h2>
+              <p>지역권을 먼저 선택하면 구/시 단위로 좁힐 수 있습니다.</p>
+            </section>
+          )}
           <FacetGroup
             label="출처"
             values={facets.sources}
-            activeValue={params.source}
-            hrefFor={(value) => hrefWith(rawSearchParams, { source: value, page: "" })}
+            activeValues={params.sources}
+            hrefFor={(value) => hrefWithToggledValue(rawSearchParams, "source", value)}
+            multi
           />
         </aside>
       ) : null}
@@ -156,12 +164,16 @@ function FacetGroup({
   label,
   values,
   activeValue,
+  activeValues,
   hrefFor,
+  multi = false,
 }: {
   label: string;
   values: FacetValue[];
-  activeValue: string;
+  activeValue?: string;
+  activeValues?: string[];
   hrefFor: (value: string) => string;
+  multi?: boolean;
 }) {
   if (values.length === 0) {
     return null;
@@ -172,12 +184,14 @@ function FacetGroup({
       <h2>{label}</h2>
       <div className="facet-options">
         {values.map((facet) => {
-          const active = facet.value === activeValue;
+          const active = activeValues
+            ? activeValues.includes(facet.value)
+            : facet.value === activeValue;
 
           return (
             <a
               key={facet.value}
-              href={active ? hrefFor("") : hrefFor(facet.value)}
+              href={multi || !active ? hrefFor(facet.value) : hrefFor("")}
               className={active ? "is-active" : undefined}
               aria-current={active ? "true" : undefined}
             >
@@ -228,8 +242,10 @@ function toUrlSearchParams(searchParams: PageSearchParams | undefined) {
 
   for (const [key, value] of Object.entries(searchParams || {})) {
     if (Array.isArray(value)) {
-      if (value[0]) {
-        urlParams.set(key, value[0]);
+      for (const item of value) {
+        if (item) {
+          urlParams.append(key, item);
+        }
       }
       continue;
     }
@@ -259,10 +275,37 @@ function hrefWith(
   return query ? `/?${query}` : "/";
 }
 
+function hrefWithToggledValue(
+  searchParams: PageSearchParams | undefined,
+  key: string,
+  value: string,
+) {
+  const urlParams = toUrlSearchParams(searchParams);
+  const values = urlParams.getAll(key);
+  urlParams.delete(key);
+
+  for (const currentValue of values) {
+    if (currentValue !== value) {
+      urlParams.append(key, currentValue);
+    }
+  }
+
+  if (!values.includes(value)) {
+    urlParams.append(key, value);
+  }
+
+  urlParams.delete("page");
+
+  const query = urlParams.toString();
+  return query ? `/?${query}` : "/";
+}
+
 function hasActiveFilters(params: {
-  source: string;
+  sources: string[];
   region: string;
   regionCluster: string;
 }) {
-  return Boolean(params.source || params.region || params.regionCluster);
+  return Boolean(
+    params.sources.length > 0 || params.region || params.regionCluster,
+  );
 }
