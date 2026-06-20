@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tastyroad Site Release"
+  short_description: "Deploy Tastyroad through GitHub and Vercel"
+  default_prompt: "Use $tastyroad-site-release to deploy Tastyroad through GitHub and report the Vercel deployment result."

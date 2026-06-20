@@ -21,7 +21,7 @@
 - `$tastyroad-youtube-channel-collect`: YouTube 소스 수집, full-channel 감사, channel_id 확인
 - `$tastyroad-data-pipeline`: SQLite 데이터 갱신, 자막/스토리/장소 pipeline, agent artifact reducer
 - `$tastyroad-naver-map-sync`: 공개 식당을 Naver Map `Tastyroad` 리스트에 동기화
-- `$tastyroad-site-release`: 공개 노출 계약 검증, Vercel prebuilt packaging, 배포 후 검증
+- `$tastyroad-site-release`: GitHub push 기반 Vercel 배포, 배포 상태/응답 확인, 배포 후 API 검증
 
 ## 에이전트
 
@@ -39,4 +39,4 @@
 pnpm run build
 ```
 
-공개 노출 계약 검증과 배포 준비는 `$tastyroad-site-release` 스킬을 사용합니다.
+GitHub 연동 Vercel 배포와 배포 후 응답 확인은 `$tastyroad-site-release` 스킬을 사용합니다.
