@@ -4,16 +4,15 @@ Use this file for active non-trivial work. Keep entries short and checkable.
 
 ## Current Task - 2026-06-21
 
-- [x] Move Tastyroad skill boundaries to YouTube collection, video restaurant mapping, and site release.
-- [x] Remove the user-facing `tastyroad-data-pipeline` skill surface.
-- [x] Update docs, references, and scripts to use the purpose-specific skill paths.
-- [x] Validate the revised skill metadata and focused Python entry points.
-- [x] Record the skill-boundary lesson.
+- [x] Inspect the latest unmapped/unreviewed `김사원세끼` videos.
+- [x] Verify every listed restaurant against a numeric Naver Map place ID.
+- [x] Promote verified places into `restaurants` and `youtube_video_restaurants`.
+- [x] Verify DB mapping status and required Naver IDs.
+- [x] Run the production build before release.
 - [x] Add the review result.
 
 ### Review
 
-- Removed the user-facing `tastyroad-data-pipeline` skill and moved mapping status/promotion/backlog scripts under `$tastyroad-map-video-restaurants`.
-- Kept YouTube collection under `$tastyroad-youtube-channel-collect` and updated README, AGENTS, references, and e2e imports to use purpose-specific paths.
-- Fixed `process_pipeline_backlog.py --dry-run` so it opens SQLite read-only and does not resolve `naver.me` links.
-- Verified skill metadata with `quick_validate.py`, Python syntax/imports with `py_compile`, read-only backlog dry-run, and `pnpm run build`.
+- Added `김사원세끼` reviews for `jNE63WCLQlk` and `EJ1rPCr0SCQ`.
+- Verified and promoted 별난오리 (`38275504`), 금릉슈퍼 (`18682367`), and 일등집 (`1678099688`) from Naver Map entry URLs.
+- Confirmed both videos are `mapping_verified`, no restaurant row has a blank `naver_map_id`, and `pnpm run build` passes.

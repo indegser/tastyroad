@@ -1,6 +1,24 @@
 {
   "reviews": [
     {
+      "video_id": "jNE63WCLQlk",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["별난오리", "금릉슈퍼"],
+      "detected_restaurant_count": 2,
+      "reason": "설명란에 번호가 붙은 두 식당 정보와 네이버 링크가 있으며 제목도 가맥집 소개다.",
+      "reviewer": "codex"
+    },
+    {
+      "video_id": "EJ1rPCr0SCQ",
+      "decision": "restaurant_intro",
+      "confidence": 0.98,
+      "restaurant_names": ["일등집"],
+      "detected_restaurant_count": 1,
+      "reason": "설명란 [식당정보]에 단일 상호와 주소, 네이버 링크가 있다.",
+      "reviewer": "codex"
+    },
+    {
       "video_id": "D2_svTA-GAE",
       "decision": "restaurant_intro",
       "confidence": 0.98,

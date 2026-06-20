@@ -1,0 +1,60 @@
+{
+  "source": "김사원세끼",
+  "verified_at": "2026-06-21T00:00:00+09:00",
+  "items": [
+    {
+      "video_id": "jNE63WCLQlk",
+      "resolved_name": "별난오리",
+      "display_name": "별난오리",
+      "local_name": "별난오리",
+      "country_code": "KR",
+      "region": "서울 종로구",
+      "address": "서울 종로구 종로46길 12 2층 별난오리",
+      "phone": null,
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "38275504",
+      "map_url": "https://map.naver.com/p/entry/place/38275504?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=jNE63WCLQlk",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "김사원세끼 영상 설명란 [식당정보]의 상호, 주소, 네이버 링크가 이 Naver place ID로 해석된다."
+    },
+    {
+      "video_id": "jNE63WCLQlk",
+      "resolved_name": "금릉슈퍼",
+      "display_name": "금릉슈퍼",
+      "local_name": "금릉슈퍼",
+      "country_code": "KR",
+      "region": "서울 종로구",
+      "address": "서울 종로구 숭인동 96-2",
+      "phone": null,
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "18682367",
+      "map_url": "https://map.naver.com/p/entry/place/18682367?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=jNE63WCLQlk",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "김사원세끼 영상 설명란 [식당정보]의 상호, 주소, 네이버 링크가 이 Naver place ID로 해석된다."
+    },
+    {
+      "video_id": "EJ1rPCr0SCQ",
+      "resolved_name": "일등집",
+      "display_name": "일등집",
+      "local_name": "일등집",
+      "country_code": "KR",
+      "region": "서울 마포구",
+      "address": "서울 마포구 대흥로28길 8",
+      "phone": null,
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "1678099688",
+      "map_url": "https://map.naver.com/p/entry/place/1678099688?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=EJ1rPCr0SCQ",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "김사원세끼 영상 설명란 [식당정보]의 상호, 주소, 네이버 링크가 이 Naver place ID로 해석된다."
+    }
+  ]
+}
