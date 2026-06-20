@@ -6,7 +6,7 @@ import argparse
 import sqlite3
 from pathlib import Path
 
-from collect_youtube import DEFAULT_SQLITE
+DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 
 
 def print_status(sqlite_path: Path, limit: int) -> None:

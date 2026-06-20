@@ -8,7 +8,8 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-sys.path.insert(0, str(ROOT / ".codex/skills/tastyroad-data-pipeline/scripts"))
+sys.path.insert(0, str(ROOT / ".codex/skills/tastyroad-youtube-channel-collect/scripts"))
+sys.path.insert(0, str(ROOT / ".codex/skills/tastyroad-map-video-restaurants/scripts"))
 
 from collect_youtube import DEFAULT_CONFIG, DEFAULT_OUTPUT_DIR, DEFAULT_SQLITE, collect_sources
 from promote_verified_places import DEFAULT_INPUT, promote

@@ -1,4 +1,0 @@
-interface:
-  display_name: "Tastyroad Data Pipeline"
-  short_description: "Run Tastyroad data and agent pipelines"
-  default_prompt: "Use $tastyroad-data-pipeline to refresh Tastyroad data and reduce verified agent artifacts."

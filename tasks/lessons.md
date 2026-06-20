@@ -12,3 +12,5 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Do not add or rely on Claude-specific files; keep persistent agent guidance in `AGENTS.md` and `CODEX.md`.
 - Trigger: The user clarified that public web listing should not depend on story review completion.
   Rule: Treat collected YouTube video plus verified Naver Map restaurant mapping with a non-empty `naver_map_id` as the public listing gate; story fields are optional display content only.
+- Trigger: The agent treated `tastyroad-data-pipeline` as a user-facing workflow because scripts lived there, then changed positions too reactively under user challenge.
+  Rule: Build a working model before planning; separate current implementation facts from product/workflow design, and route Tastyroad work by user intent to purpose-specific skills.

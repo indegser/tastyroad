@@ -1,4 +1,4 @@
 interface:
   display_name: "Tastyroad YouTube Collector"
-  short_description: "Collect full YouTube channel videos for Tastyroad"
-  default_prompt: "Use $tastyroad-youtube-channel-collect to collect or audit a Tastyroad YouTube source."
+  short_description: "Collect and refresh Tastyroad YouTube sources"
+  default_prompt: "Use $tastyroad-youtube-channel-collect to collect, refresh, or audit a Tastyroad YouTube source."

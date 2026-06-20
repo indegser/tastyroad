@@ -4,12 +4,16 @@ Use this file for active non-trivial work. Keep entries short and checkable.
 
 ## Current Task - 2026-06-21
 
-- [x] Confirm the current public listing gates in the app query.
-- [x] Change public listing eligibility to use collected video + verified Naver Map restaurant mapping.
-- [x] Verify the new public count and build the app.
+- [x] Move Tastyroad skill boundaries to YouTube collection, video restaurant mapping, and site release.
+- [x] Remove the user-facing `tastyroad-data-pipeline` skill surface.
+- [x] Update docs, references, and scripts to use the purpose-specific skill paths.
+- [x] Validate the revised skill metadata and focused Python entry points.
+- [x] Record the skill-boundary lesson.
+- [x] Add the review result.
 
 ### Review
 
-- Public listing eligibility now ignores story review presence and triage review rows.
-- The app lists restaurants with a collected YouTube video mapping, `youtube_video_restaurants.status in ('verified', 'metadata_verified')`, and non-empty `restaurants.naver_map_id`.
-- Verified the new SQL count is 39 public restaurants on the current DB and `pnpm run build` passes.
+- Removed the user-facing `tastyroad-data-pipeline` skill and moved mapping status/promotion/backlog scripts under `$tastyroad-map-video-restaurants`.
+- Kept YouTube collection under `$tastyroad-youtube-channel-collect` and updated README, AGENTS, references, and e2e imports to use purpose-specific paths.
+- Fixed `process_pipeline_backlog.py --dry-run` so it opens SQLite read-only and does not resolve `naver.me` links.
+- Verified skill metadata with `quick_validate.py`, Python syntax/imports with `py_compile`, read-only backlog dry-run, and `pnpm run build`.

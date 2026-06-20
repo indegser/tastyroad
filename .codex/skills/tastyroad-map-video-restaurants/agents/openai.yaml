@@ -1,4 +1,4 @@
 interface:
   display_name: "Tastyroad Video Restaurant Mapper"
-  short_description: "Map video restaurants to Naver place IDs"
-  default_prompt: "Use $tastyroad-map-video-restaurants to find restaurants in a Tastyroad YouTube video and map them to Naver place IDs."
+  short_description: "Resolve video restaurant mappings to Naver place IDs"
+  default_prompt: "Use $tastyroad-map-video-restaurants to inspect mapping_pending or needs_review rows, verify Naver place IDs, and update restaurant mappings."

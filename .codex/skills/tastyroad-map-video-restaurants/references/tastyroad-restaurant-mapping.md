@@ -25,13 +25,7 @@ sqlite3 -header -column data/tastyroad.sqlite "select video_id, detected_restaur
 Apply a verified places JSON file:
 
 ```bash
-python3 .codex/skills/tastyroad-data-pipeline/scripts/promote_verified_places.py --input data/verified_places/<file>.json
-```
-
-Apply agent artifacts:
-
-```bash
-python3 .codex/skills/tastyroad-data-pipeline/scripts/reduce_agent_artifacts.py --stage place_verification --apply
+python3 .codex/skills/tastyroad-map-video-restaurants/scripts/promote_verified_places.py --input data/verified_places/<file>.json
 ```
 
 Check required Naver IDs:

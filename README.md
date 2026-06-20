@@ -18,8 +18,8 @@
 
 ## 스킬
 
-- `$tastyroad-youtube-channel-collect`: YouTube 소스 수집, full-channel 감사, channel_id 확인
-- `$tastyroad-data-pipeline`: SQLite 데이터 갱신, 자막/스토리/장소 pipeline, agent artifact reducer
+- `$tastyroad-youtube-channel-collect`: YouTube 소스 수집/갱신, full-channel 감사, channel_id 확인
+- `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` 조회, Naver place ID 검증, `restaurants`/`youtube_video_restaurants` 반영
 - `$tastyroad-naver-map-sync`: 공개 식당을 Naver Map `Tastyroad` 리스트에 동기화
 - `$tastyroad-site-release`: GitHub push 기반 Vercel 배포, 배포 상태/응답 확인, 배포 후 API 검증
 

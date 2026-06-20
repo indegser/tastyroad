@@ -36,6 +36,13 @@ Lesson format:
 
 ## Planning
 
+- Before making a plan, build a working model of the request:
+  - Frame what the user is trying to accomplish and what would count as done.
+  - Separate observed facts from assumptions and unknowns.
+  - Locate the source of truth before judging behavior or architecture.
+  - Consider whether there is a simpler or more principled path before choosing.
+  - Make a decision first; let the checklist reflect that decision.
+  - Preserve intellectual friction: test user pushback against facts instead of agreeing or disagreeing reflexively.
 - Use `tasks/todo.md` for tasks with three or more steps, architecture decisions, data pipeline changes, releases, or risky edits.
 - The plan should be concrete and checkable, not a long essay.
 - If implementation reveals the plan is wrong, stop, update the plan, and continue from the corrected plan.
@@ -52,7 +59,12 @@ Lesson format:
 ## Repository Context
 
 - This is a Next.js project for a source-backed Korean restaurant listing.
-- Repeated pipeline logic lives under `.codex/skills`, not root-level `scripts/`.
+- Repeated task logic lives under purpose-specific `.codex/skills`, not root-level `scripts/`.
+- User-facing Tastyroad workflow skills are:
+  - `$tastyroad-youtube-channel-collect`: YouTube collection and refresh.
+  - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` inspection, Naver place ID verification, and `restaurants`/`youtube_video_restaurants` writes.
+  - `$tastyroad-site-release`: build, commit/push, and Vercel deployment verification.
+- Do not reintroduce a generic `tastyroad-data-pipeline` user-facing skill; route work by user intent to the purpose-specific skill that owns it.
 - App data and artifacts live under `data/`.
 - Public site code lives under `app/`, `lib/`, and `public/`.
 - Existing README sections for data, skills, agents, and build commands are part of the operating contract.

@@ -4,7 +4,6 @@
 
 - `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters.
 - `.codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py`: collector for RSS latest-window and full-channel modes.
-- `.codex/skills/tastyroad-data-pipeline/scripts/update_pipeline.py`: orchestrated project update; check `full_channel_keys`.
 - `data/raw/youtube/<source_key>.json`: latest collection output per source.
 - `data/tastyroad.sqlite`: authoritative local database.
 

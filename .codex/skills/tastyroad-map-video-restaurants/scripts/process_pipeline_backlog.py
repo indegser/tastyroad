@@ -6,12 +6,17 @@ import argparse
 import json
 import re
 import sqlite3
+import sys
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
+
+SKILLS_DIR = Path(__file__).resolve().parents[2]
+YOUTUBE_SCRIPTS = SKILLS_DIR / "tastyroad-youtube-channel-collect" / "scripts"
+sys.path.insert(1, str(YOUTUBE_SCRIPTS))
 
 from collect_youtube import DEFAULT_SQLITE, fetch_video_details
 from pipeline_schema import ensure_pipeline_schema
@@ -587,8 +592,10 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
         "skipped_overseas_places": 0,
         "not_restaurant_or_uncertain": 0,
     }
-    with sqlite3.connect(sqlite_path) as connection:
-        ensure_pipeline_schema(connection)
+    connection_target = f"file:{sqlite_path}?mode=ro" if dry_run else str(sqlite_path)
+    with sqlite3.connect(connection_target, uri=dry_run) as connection:
+        if not dry_run:
+            ensure_pipeline_schema(connection)
         rows = connection.execute(
             """
             select
@@ -636,8 +643,7 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
                     if place.address.strip():
                         if dry_run:
                             _provider, _query, map_url, _confidence = place_search_values(place)
-                            naver_map_id, _resolved_map_url = resolve_naver_map_details(map_url)
-                            mapped = bool(naver_map_id)
+                            mapped = bool(extract_naver_map_id(map_url))
                         else:
                             mapped = upsert_mapping(connection, int(youtube_video_id), str(video_url), place, now)
                         if mapped:
