@@ -19,7 +19,7 @@ sqlite3 -header -column data/tastyroad.sqlite "select source, count(*) as video_
 List collected IDs for one source:
 
 ```bash
-sqlite3 -noheader data/tastyroad.sqlite "select external_id from mention_candidates join sources on sources.id=mention_candidates.source_id where sources.name='<source_name>' order by external_id;"
+sqlite3 -noheader data/tastyroad.sqlite "select video_id from youtube_videos join sources on sources.id=youtube_videos.source_id where sources.name='<source_name>' order by video_id;"
 ```
 
 Show pipeline status for one source:
@@ -36,7 +36,7 @@ Use this when you need a quick read-only channel inventory:
 yt-dlp --quiet --no-warnings --flat-playlist --extractor-args youtube:lang=ko --print-to-file "%(playlist_index)s\t%(id)s\t%(upload_date)s\t%(title)s\t%(webpage_url)s" /tmp/<source_key>_full.tsv https://www.youtube.com/channel/<channel_id>/videos
 ```
 
-Compare the resulting video IDs with `mention_candidates.external_id` for the source.
+Compare the resulting video IDs with `youtube_videos.video_id` for the source.
 
 ## Fast Collection
 

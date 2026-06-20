@@ -8,12 +8,12 @@ Core flow:
 
 ```text
 YouTube source config
-  -> mention_candidates
+  -> youtube_videos
   -> agent_video_reviews
   -> video_transcripts
   -> video_story_reviews
   -> place_resolution_candidates
-  -> restaurants/place_links/mentions
+  -> restaurants/place_links/youtube_video_restaurants
 ```
 
 The public site must read SQLite only. Pipeline scripts in this skill are the only deterministic writers.

@@ -89,8 +89,8 @@ def load_collected_ids(sqlite_path: Path, source_name: str) -> set[str]:
     with sqlite3.connect(sqlite_path) as connection:
         rows = connection.execute(
             """
-            select c.external_id
-            from mention_candidates c
+            select c.video_id
+            from youtube_videos c
             join sources s on s.id = c.source_id
             where s.name = ?
             """,

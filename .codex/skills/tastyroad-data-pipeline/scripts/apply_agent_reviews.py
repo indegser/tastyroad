@@ -122,13 +122,13 @@ def list_unreviewed(sqlite_path: Path, limit: int) -> list[tuple[str, str, str, 
         rows = connection.execute(
             """
             select
-              c.external_id,
+              c.video_id,
               s.name,
               c.title,
               c.published_at
-            from mention_candidates c
+            from youtube_videos c
             join sources s on s.id = c.source_id
-            left join agent_video_reviews r on r.external_id = c.external_id
+            left join agent_video_reviews r on r.external_id = c.video_id
             where r.external_id is null
             order by c.published_at desc, c.id desc
             limit ?
@@ -146,8 +146,8 @@ def review_coverage(sqlite_path: Path, limit: int = 10) -> ReviewCoverage:
             connection.execute(
                 """
                 select count(*)
-                from mention_candidates c
-                join agent_video_reviews r on r.external_id = c.external_id
+                from youtube_videos c
+                join agent_video_reviews r on r.external_id = c.video_id
                 """
             ).fetchone()[0]
         )
@@ -155,8 +155,8 @@ def review_coverage(sqlite_path: Path, limit: int = 10) -> ReviewCoverage:
             connection.execute(
                 """
                 select count(*)
-                from mention_candidates c
-                left join agent_video_reviews r on r.external_id = c.external_id
+                from youtube_videos c
+                left join agent_video_reviews r on r.external_id = c.video_id
                 where r.external_id is null
                 """
             ).fetchone()[0]

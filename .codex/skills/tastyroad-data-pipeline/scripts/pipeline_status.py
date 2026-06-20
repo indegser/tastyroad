@@ -31,7 +31,7 @@ def print_status(sqlite_path: Path, limit: int) -> None:
             """
             select published_at, source, video_id, title, detected_restaurant_count, mapped_restaurant_count
             from mapping_backlog
-            order by published_at desc, mention_candidate_id desc
+            order by published_at desc, youtube_video_id desc
             limit ?
             """,
             (limit,),

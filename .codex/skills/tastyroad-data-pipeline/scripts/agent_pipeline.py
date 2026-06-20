@@ -88,12 +88,12 @@ def restaurant_triage_tasks(
     rows = connection.execute(
         """
         select
-          c.external_id as video_id,
+          c.video_id,
           s.name as source,
           c.title
-        from mention_candidates c
+        from youtube_videos c
         join sources s on s.id = c.source_id
-        left join agent_video_reviews r on r.external_id = c.external_id
+        left join agent_video_reviews r on r.external_id = c.video_id
         where r.external_id is null
         order by c.published_at desc, c.id desc
         limit ?
@@ -107,7 +107,7 @@ def restaurant_triage_tasks(
             source=str(row["source"]),
             title=str(row["title"]),
             reason="collected video has no agent_video_reviews row",
-            input_artifacts=["data/tastyroad.sqlite:mention_candidates"],
+            input_artifacts=["data/tastyroad.sqlite:youtube_videos"],
             output_artifact=task_output(work_dir, str(row["video_id"]), "restaurant_review.json"),
         )
         for row in rows
@@ -130,7 +130,7 @@ def transcript_fetch_tasks(
         left join video_transcripts t on t.external_id = v.video_id
         where v.review_decision = 'restaurant_intro'
           and t.external_id is null
-        order by v.published_at desc, v.mention_candidate_id desc
+        order by v.published_at desc, v.youtube_video_id desc
         limit ?
         """,
         (limit,),
@@ -178,7 +178,7 @@ def story_review_tasks(
             or length(trim(r.tasting_flow)) < ?
             or r.reviewer = 'codex-story-agent'
           )
-        order by v.published_at desc, v.mention_candidate_id desc
+        order by v.published_at desc, v.youtube_video_id desc
         limit ?
         """,
         (
@@ -222,7 +222,7 @@ def place_verification_tasks(
         from video_pipeline_status
         where review_decision = 'restaurant_intro'
           and mapping_status in ('mapping_pending', 'mapping_partial')
-        order by published_at desc, mention_candidate_id desc
+        order by published_at desc, youtube_video_id desc
         limit ?
         """,
         (limit,),
@@ -260,7 +260,7 @@ def place_extraction_tasks(
         from video_pipeline_status
         where review_decision = 'restaurant_intro'
           and mapping_status in ('mapping_pending', 'mapping_partial')
-        order by published_at desc, mention_candidate_id desc
+        order by published_at desc, youtube_video_id desc
         limit ?
         """,
         (limit,),
@@ -307,12 +307,12 @@ def plan_tasks(
             row = connection.execute(
                 """
                 select
-                  c.external_id as video_id,
+                  c.video_id,
                   s.name as source,
                   c.title
-                from mention_candidates c
+                from youtube_videos c
                 join sources s on s.id = c.source_id
-                where c.external_id = ?
+                where c.video_id = ?
                 """,
                 (video_id,),
             ).fetchone()
@@ -433,7 +433,7 @@ def video_context(sqlite_path: Path, video_id: str) -> dict[str, Any]:
         row = connection.execute(
             """
             select
-              c.external_id as video_id,
+              c.video_id,
               s.name as source,
               s.trust_tier,
               c.title,
@@ -445,9 +445,9 @@ def video_context(sqlite_path: Path, video_id: str) -> dict[str, Any]:
               c.tags,
               c.chapters,
               c.raw_restaurant_name_candidates
-            from mention_candidates c
+            from youtube_videos c
             join sources s on s.id = c.source_id
-            where c.external_id = ?
+            where c.video_id = ?
             """,
             (video_id,),
         ).fetchone()
@@ -698,8 +698,10 @@ def place_extraction_prompt() -> str:
 
 def place_verification_prompt() -> str:
     return (
-        "Verify extracted place candidates against map or web evidence. Do not invent "
-        "addresses or provider links. Return only structured JSON matching expected_output."
+        "Verify extracted place candidates against Naver Map evidence. Return a restaurant "
+        "item only when you have a concrete Naver place ID, entry URL, name, and address. "
+        "Do not invent addresses, place IDs, or provider links. Return only structured JSON "
+        "matching expected_output."
     )
 
 
@@ -852,7 +854,7 @@ def run_restaurant_triage_task(
                     "reviewer": "agent",
                     "reviewed_at": now_iso(),
                 },
-                input_artifacts=["data/tastyroad.sqlite:mention_candidates"],
+                input_artifacts=["data/tastyroad.sqlite:youtube_videos"],
             ),
         )
         return WorkerResult(task.stage, task.video_id, "needs_agent", str(output_path))
@@ -1041,7 +1043,7 @@ def run_story_review_task(
                     "generated_at": now_iso(),
                 },
                 input_artifacts=[
-                    "data/tastyroad.sqlite:mention_candidates",
+                    "data/tastyroad.sqlite:youtube_videos",
                     "data/work/videos/{video_id}/transcript.json",
                     "data/tastyroad.sqlite:video_transcripts",
                 ],
@@ -1096,7 +1098,7 @@ def run_place_extraction_task(
                     ],
                 },
                 input_artifacts=[
-                    "data/tastyroad.sqlite:mention_candidates",
+                    "data/tastyroad.sqlite:youtube_videos",
                     "data/work/videos/{video_id}/story_review.json",
                     "data/work/videos/{video_id}/transcript.json",
                 ],
@@ -1165,7 +1167,8 @@ def run_place_verification_task(
                             "address": "",
                             "phone": None,
                             "category": "",
-                            "map_provider": "google_maps | naver_map | kakao_map",
+                            "map_provider": "naver_map",
+                            "naver_map_id": "",
                             "map_url": "",
                             "evidence_url": "",
                             "confidence": 0.0,
@@ -1299,7 +1302,7 @@ def main() -> int:
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
     parser.add_argument("--work-dir", type=Path, default=DEFAULT_WORK_DIR)
     parser.add_argument("--stage", choices=sorted(STAGES))
-    parser.add_argument("--video-id", help="Force a task for one existing mention candidate.")
+    parser.add_argument("--video-id", help="Force a task for one existing YouTube video.")
     parser.add_argument("--limit", type=int, default=20)
     parser.add_argument("--format", choices=("text", "json"), default="text")
     parser.add_argument(

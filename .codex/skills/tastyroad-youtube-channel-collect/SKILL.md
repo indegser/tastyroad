@@ -1,6 +1,6 @@
 ---
 name: tastyroad-youtube-channel-collect
-description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources using bundled skill scripts. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding videos missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage without repo-level scripts.
+description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding youtube_videos rows missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage.
 ---
 
 # Tastyroad YouTube Channel Collect
@@ -26,7 +26,7 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.
 python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py --source <source_key>
 ```
 
-4. If the user asks which videos are not collected, run:
+4. If the user asks which videos are not collected, run the bundled audit script:
 
 ```bash
 python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/audit_missing_videos.py --source <source_key>
@@ -40,9 +40,9 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/resolve_youtube_
 
 ## Pipeline Checks
 
-For complete project refreshes use `$tastyroad-data-pipeline`; this skill is for source collection and source audits.
+Check `.codex/skills/tastyroad-data-pipeline/scripts/update_pipeline.py` before assuming scheduled or one-command updates use full-channel collection. Full-channel sources should use `reuse_existing=True` and bounded workers so repeated runs only enrich new videos.
 
-Use `data/tastyroad.sqlite` as the authoritative local DB. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
+Use `data/tastyroad.sqlite` as the authoritative local DB. Collected videos live in `youtube_videos`; restaurant mappings live separately in `youtube_video_restaurants`. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
 
 Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`.
 
@@ -57,4 +57,4 @@ The missing TSV includes `playlist_index`, `video_id`, `upload_date`, `title`, a
 
 ## References
 
-Read `references/tastyroad-youtube-data.md` when you need DB tables, common SQL queries, or command examples for manual audits.
+Read `references/tastyroad-youtube-data.md` when you need the DB tables, common SQL queries, or command examples for manual audits.

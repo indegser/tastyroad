@@ -223,7 +223,7 @@ def reviewed_restaurant_rows(
         params.append(video_id)
     if missing_transcript_only:
         sql += " and t.external_id is null"
-    sql += " order by v.published_at desc, v.mention_candidate_id desc"
+    sql += " order by v.published_at desc, v.youtube_video_id desc"
     return list(connection.execute(sql, params).fetchall())
 
 
@@ -501,11 +501,11 @@ def apply_story_reviews(
     for item in items:
         current_video_id = str(item["video_id"])
         exists = connection.execute(
-            "select 1 from mention_candidates where external_id = ?",
+            "select 1 from youtube_videos where video_id = ?",
             (current_video_id,),
         ).fetchone()
         if exists is None:
-            raise RuntimeError(f"No mention candidate found for video_id={current_video_id}")
+            raise RuntimeError(f"No YouTube video found for video_id={current_video_id}")
         connection.execute(
             """
             insert into video_story_reviews (
@@ -565,7 +565,7 @@ def missing_story_review_rows(connection: sqlite3.Connection, *, limit: int | No
             or length(trim(sr.tasting_flow)) < ?
             or sr.reviewer = 'codex-story-agent'
           )
-        order by v.published_at desc, v.mention_candidate_id desc
+        order by v.published_at desc, v.youtube_video_id desc
     """
     params: tuple[Any, ...] = (
         MIN_STORY_INTRO_CHARS,
