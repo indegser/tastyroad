@@ -28,7 +28,9 @@ def update_pipeline(
         config_path=DEFAULT_CONFIG,
         output_dir=DEFAULT_OUTPUT_DIR,
         sqlite_path=sqlite_path,
-        full_channel_keys={"sungsikyung_mukeultende"},
+        full_channel_keys={"sungsikyung_mukeultende", "kim3meals"},
+        workers=4,
+        reuse_existing=True,
     )
 
     apply_reviews(sqlite_path, DEFAULT_AGENT_REVIEWS)

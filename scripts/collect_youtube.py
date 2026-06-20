@@ -9,6 +9,7 @@ import sqlite3
 import subprocess
 import sys
 import urllib.request
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -106,12 +107,30 @@ def parse_source(item: dict[str, Any]) -> YoutubeSource:
     )
 
 
-def collect_source(source: YoutubeSource, collected_at: str) -> list[MentionCandidate]:
+def collect_source(
+    source: YoutubeSource,
+    collected_at: str,
+    *,
+    workers: int = 1,
+    existing_candidates: dict[str, MentionCandidate] | None = None,
+) -> list[MentionCandidate]:
     xml_bytes = fetch_feed(source.resolved_feed_url)
-    return enrich_candidates(parse_feed(xml_bytes, source, collected_at), source)
+    candidates = parse_feed(xml_bytes, source, collected_at)
+    candidates, skip_video_ids = apply_existing_candidates(
+        candidates,
+        existing_candidates or {},
+        collected_at,
+    )
+    return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
 
 
-def collect_source_full_channel(source: YoutubeSource, collected_at: str) -> list[MentionCandidate]:
+def collect_source_full_channel(
+    source: YoutubeSource,
+    collected_at: str,
+    *,
+    workers: int = 1,
+    existing_candidates: dict[str, MentionCandidate] | None = None,
+) -> list[MentionCandidate]:
     rss_candidates = {
         candidate.video_id: candidate
         for candidate in parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
@@ -126,6 +145,8 @@ def collect_source_full_channel(source: YoutubeSource, collected_at: str) -> lis
     ]
     completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
     candidates: list[MentionCandidate] = []
+    existing_candidates = existing_candidates or {}
+    skip_video_ids: set[str] = set()
 
     for line in completed.stdout.splitlines():
         if not line.startswith("{"):
@@ -139,17 +160,20 @@ def collect_source_full_channel(source: YoutubeSource, collected_at: str) -> lis
         if not video_id:
             continue
 
-        rss_candidate = rss_candidates.get(video_id)
+        existing_candidate = existing_candidates.get(video_id)
+        fallback_candidate = existing_candidate or rss_candidates.get(video_id)
         candidates.append(
             make_candidate_from_yt_dlp_item(
                 item=item,
                 source=source,
                 collected_at=collected_at,
-                fallback=rss_candidate,
+                fallback=fallback_candidate,
             )
         )
+        if existing_candidate:
+            skip_video_ids.add(video_id)
 
-    return enrich_candidates(candidates, source)
+    return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
 
 
 def make_candidate_from_yt_dlp_item(
@@ -195,9 +219,88 @@ def make_candidate_from_yt_dlp_item(
     )
 
 
-def enrich_candidates(candidates: list[MentionCandidate], source: YoutubeSource) -> list[MentionCandidate]:
+def apply_existing_candidates(
+    candidates: list[MentionCandidate],
+    existing_candidates: dict[str, MentionCandidate],
+    collected_at: str,
+) -> tuple[list[MentionCandidate], set[str]]:
+    if not existing_candidates:
+        return candidates, set()
+
+    merged_candidates: list[MentionCandidate] = []
+    skip_video_ids: set[str] = set()
+    for candidate in candidates:
+        existing_candidate = existing_candidates.get(candidate.video_id)
+        if existing_candidate is None:
+            merged_candidates.append(candidate)
+            continue
+
+        merged_candidates.append(
+            merge_candidate_with_existing(candidate, existing_candidate, collected_at)
+        )
+        skip_video_ids.add(candidate.video_id)
+
+    return merged_candidates, skip_video_ids
+
+
+def merge_candidate_with_existing(
+    candidate: MentionCandidate,
+    existing_candidate: MentionCandidate,
+    collected_at: str,
+) -> MentionCandidate:
+    return MentionCandidate(
+        source_key=candidate.source_key,
+        source=candidate.source,
+        channel_id=candidate.channel_id or existing_candidate.channel_id,
+        video_id=candidate.video_id,
+        title=candidate.title or existing_candidate.title,
+        url=candidate.url or existing_candidate.url,
+        thumbnail_url=candidate.thumbnail_url or existing_candidate.thumbnail_url,
+        published_at=candidate.published_at or existing_candidate.published_at,
+        updated_at=candidate.updated_at or existing_candidate.updated_at,
+        description=candidate.description or existing_candidate.description,
+        duration_seconds=(
+            candidate.duration_seconds
+            if candidate.duration_seconds is not None
+            else existing_candidate.duration_seconds
+        ),
+        tags=candidate.tags or existing_candidate.tags,
+        chapters=candidate.chapters or existing_candidate.chapters,
+        restaurant_name_candidates=(
+            existing_candidate.restaurant_name_candidates
+            or candidate.restaurant_name_candidates
+        ),
+        collected_at=collected_at,
+    )
+
+
+def enrich_candidates(
+    candidates: list[MentionCandidate],
+    source: YoutubeSource,
+    *,
+    workers: int = 1,
+    skip_video_ids: set[str] | None = None,
+) -> list[MentionCandidate]:
+    skip_video_ids = skip_video_ids or set()
+    workers = max(1, workers)
+    if workers == 1:
+        return enrich_candidates_serial(candidates, source, skip_video_ids)
+
+    return enrich_candidates_parallel(candidates, source, workers, skip_video_ids)
+
+
+def enrich_candidates_serial(
+    candidates: list[MentionCandidate],
+    source: YoutubeSource,
+    skip_video_ids: set[str],
+) -> list[MentionCandidate]:
     enriched: list[MentionCandidate] = []
     for index, candidate in enumerate(candidates, start=1):
+        if candidate.video_id in skip_video_ids:
+            enriched.append(candidate)
+            print(f"{source.key}: reused {index}/{len(candidates)} {candidate.video_id}", flush=True)
+            continue
+
         try:
             item = fetch_video_details(candidate.url)
         except Exception as error:
@@ -219,6 +322,51 @@ def enrich_candidates(candidates: list[MentionCandidate], source: YoutubeSource)
         print(f"{source.key}: enriched {index}/{len(candidates)} {candidate.video_id}", flush=True)
 
     return enriched
+
+
+def enrich_candidates_parallel(
+    candidates: list[MentionCandidate],
+    source: YoutubeSource,
+    workers: int,
+    skip_video_ids: set[str],
+) -> list[MentionCandidate]:
+    enriched: list[MentionCandidate | None] = [None] * len(candidates)
+    futures = {}
+
+    with ThreadPoolExecutor(max_workers=workers) as executor:
+        for index, candidate in enumerate(candidates, start=1):
+            if candidate.video_id in skip_video_ids:
+                enriched[index - 1] = candidate
+                print(f"{source.key}: reused {index}/{len(candidates)} {candidate.video_id}", flush=True)
+                continue
+
+            future = executor.submit(fetch_video_details, candidate.url)
+            futures[future] = (index, candidate)
+
+        for future in as_completed(futures):
+            index, candidate = futures[future]
+            try:
+                item = future.result()
+            except Exception as error:
+                print(
+                    f"warning: failed to enrich {source.key}/{candidate.video_id}: {error}",
+                    file=sys.stderr,
+                )
+                enriched[index - 1] = candidate
+                continue
+
+            enriched[index - 1] = make_candidate_from_yt_dlp_item(
+                item=item,
+                source=source,
+                collected_at=candidate.collected_at,
+                fallback=candidate,
+            )
+            print(f"{source.key}: enriched {index}/{len(candidates)} {candidate.video_id}", flush=True)
+
+    return [
+        candidate if enriched_candidate is None else enriched_candidate
+        for candidate, enriched_candidate in zip(candidates, enriched)
+    ]
 
 
 def fetch_video_details(url: str) -> dict[str, Any]:
@@ -467,6 +615,150 @@ def dedupe(values: Iterable[str]) -> list[str]:
     return result
 
 
+def load_existing_candidates(
+    sqlite_path: Path,
+    output_dir: Path,
+    source: YoutubeSource,
+) -> dict[str, MentionCandidate]:
+    existing = load_existing_candidates_from_json(output_dir / f"{source.key}.json", source)
+    existing.update(load_existing_candidates_from_sqlite(sqlite_path, source))
+    return existing
+
+
+def load_existing_candidates_from_json(
+    path: Path,
+    source: YoutubeSource,
+) -> dict[str, MentionCandidate]:
+    if not path.exists():
+        return {}
+
+    try:
+        payload = json.loads(path.read_text(encoding="utf-8"))
+    except Exception as error:
+        print(f"warning: failed to read existing candidates from {path}: {error}", file=sys.stderr)
+        return {}
+
+    candidates: dict[str, MentionCandidate] = {}
+    for item in payload.get("items", []):
+        if not isinstance(item, dict):
+            continue
+        candidate = mention_candidate_from_mapping(item, source)
+        if candidate is not None:
+            candidates[candidate.video_id] = candidate
+    return candidates
+
+
+def load_existing_candidates_from_sqlite(
+    path: Path,
+    source: YoutubeSource,
+) -> dict[str, MentionCandidate]:
+    if not path.exists():
+        return {}
+
+    try:
+        with sqlite3.connect(path) as connection:
+            rows = connection.execute(
+                """
+                select
+                  c.external_id,
+                  c.title,
+                  c.url,
+                  c.thumbnail_url,
+                  c.published_at,
+                  c.updated_at,
+                  c.description,
+                  c.duration_seconds,
+                  c.tags,
+                  c.chapters,
+                  c.raw_restaurant_name_candidates,
+                  c.collected_at
+                from mention_candidates c
+                join sources s on s.id = c.source_id
+                where s.name = ?
+                """,
+                (source.name,),
+            ).fetchall()
+    except sqlite3.Error as error:
+        print(f"warning: failed to read existing candidates from {path}: {error}", file=sys.stderr)
+        return {}
+
+    candidates: dict[str, MentionCandidate] = {}
+    for row in rows:
+        item = {
+            "source_key": source.key,
+            "source": source.name,
+            "channel_id": source.resolved_channel_id,
+            "video_id": row[0],
+            "title": row[1],
+            "url": row[2],
+            "thumbnail_url": row[3],
+            "published_at": row[4],
+            "updated_at": row[5],
+            "description": row[6],
+            "duration_seconds": row[7],
+            "tags": parse_json_array(row[8]),
+            "chapters": parse_json_array(row[9]),
+            "restaurant_name_candidates": parse_json_array(row[10]),
+            "collected_at": row[11],
+        }
+        candidate = mention_candidate_from_mapping(item, source)
+        if candidate is not None:
+            candidates[candidate.video_id] = candidate
+    return candidates
+
+
+def mention_candidate_from_mapping(
+    item: dict[str, Any],
+    source: YoutubeSource,
+) -> MentionCandidate | None:
+    video_id = str(item.get("video_id") or item.get("external_id") or "").strip()
+    if not video_id:
+        return None
+
+    tags = extract_string_list(item.get("tags"), [])
+    chapters = extract_chapters(item.get("chapters"), [])
+    restaurant_name_candidates = extract_string_list(
+        item.get("restaurant_name_candidates")
+        or item.get("raw_restaurant_name_candidates"),
+        [],
+    )
+
+    duration_seconds: int | None = None
+    duration_value = item.get("duration_seconds")
+    if isinstance(duration_value, (int, float)):
+        duration_seconds = int(duration_value)
+
+    return MentionCandidate(
+        source_key=str(item.get("source_key") or source.key),
+        source=str(item.get("source") or source.name),
+        channel_id=str(item.get("channel_id") or source.resolved_channel_id),
+        video_id=video_id,
+        title=str(item.get("title") or ""),
+        url=str(item.get("url") or f"https://www.youtube.com/watch?v={video_id}"),
+        thumbnail_url=str(item.get("thumbnail_url") or ""),
+        published_at=str(item.get("published_at") or ""),
+        updated_at=str(item.get("updated_at") or ""),
+        description=str(item.get("description") or ""),
+        duration_seconds=duration_seconds,
+        tags=tags,
+        chapters=chapters,
+        restaurant_name_candidates=restaurant_name_candidates,
+        collected_at=str(item.get("collected_at") or ""),
+    )
+
+
+def parse_json_array(value: Any) -> list[Any]:
+    if isinstance(value, list):
+        return value
+    if not isinstance(value, str) or not value:
+        return []
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return []
+    return parsed if isinstance(parsed, list) else []
+
+
 def write_json(output_dir: Path, source: YoutubeSource, candidates: list[MentionCandidate]) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / f"{source.key}.json"
@@ -630,16 +922,34 @@ def collect_sources(
     include_disabled: bool = False,
     full_channel: bool = False,
     full_channel_keys: set[str] | None = None,
+    workers: int = 1,
+    reuse_existing: bool = False,
 ) -> dict[str, int]:
     collected_at = datetime.now(timezone.utc).isoformat()
     counts: dict[str, int] = {}
+    workers = max(1, workers)
 
     for source in load_sources(config_path, only_keys=only_keys, include_disabled=include_disabled):
         use_full_channel = full_channel or (full_channel_keys is not None and source.key in full_channel_keys)
+        existing_candidates = (
+            load_existing_candidates(sqlite_path, output_dir, source)
+            if reuse_existing
+            else {}
+        )
         candidates = (
-            collect_source_full_channel(source, collected_at)
+            collect_source_full_channel(
+                source,
+                collected_at,
+                workers=workers,
+                existing_candidates=existing_candidates,
+            )
             if use_full_channel
-            else collect_source(source, collected_at)
+            else collect_source(
+                source,
+                collected_at,
+                workers=workers,
+                existing_candidates=existing_candidates,
+            )
         )
         output_path = write_json(output_dir, source, candidates)
         write_sqlite(sqlite_path, source, candidates)
@@ -657,6 +967,14 @@ def main() -> int:
     parser.add_argument("--source", action="append", help="Source key to collect. Can be passed multiple times.")
     parser.add_argument("--include-disabled", action="store_true")
     parser.add_argument("--full-channel", action="store_true", help="Collect the full YouTube channel video list with yt-dlp instead of the RSS window.")
+    parser.add_argument("--workers", type=int, default=1, help="Number of parallel per-video detail fetches.")
+    parser.add_argument(
+        "--reuse-existing",
+        "--missing-only",
+        dest="reuse_existing",
+        action="store_true",
+        help="Reuse existing DB/raw candidate details and only enrich videos that are not already collected.",
+    )
     args = parser.parse_args()
 
     counts = collect_sources(
@@ -666,6 +984,8 @@ def main() -> int:
         only_keys=set(args.source) if args.source else None,
         include_disabled=args.include_disabled,
         full_channel=args.full_channel,
+        workers=args.workers,
+        reuse_existing=args.reuse_existing,
     )
 
     print(f"Updated {args.sqlite}")

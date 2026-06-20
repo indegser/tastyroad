@@ -12,6 +12,8 @@ def main() -> int:
         sqlite_path=DEFAULT_SQLITE,
         only_keys={"sungsikyung_mukeultende"},
         full_channel=True,
+        workers=4,
+        reuse_existing=True,
     )
     print(f"Updated {DEFAULT_SQLITE}")
     print(f"Total candidates collected: {sum(counts.values())}")

@@ -50,6 +50,12 @@ data/sources/youtube_sources.json
 python3 scripts/collect_youtube.py --source sungsikyung_mukeultende
 ```
 
+전체 채널을 빠르게 재수집:
+
+```bash
+python3 scripts/collect_youtube.py --source kim3meals --full-channel --reuse-existing --workers 4
+```
+
 채널 URL에서 `channel_id` 확인:
 
 ```bash
