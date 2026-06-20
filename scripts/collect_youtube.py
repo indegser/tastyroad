@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import re
 import sqlite3
 import subprocess
@@ -14,6 +15,7 @@ from dataclasses import asdict, dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable
+from urllib.parse import quote
 from xml.etree import ElementTree
 
 from pipeline_schema import ensure_pipeline_schema
@@ -23,6 +25,7 @@ DEFAULT_CONFIG = Path("data/sources/youtube_sources.json")
 DEFAULT_OUTPUT_DIR = Path("data/raw/youtube")
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 VIDEO_DETAIL_RETRIES = 2
+LOCAL_ENV_PATH = Path(__file__).resolve().parents[1] / ".env.local"
 
 ATOM_NS = "{http://www.w3.org/2005/Atom}"
 YT_NS = "{http://www.youtube.com/xml/schemas/2015}"
@@ -141,9 +144,18 @@ def collect_source_full_channel(
         "--flat-playlist",
         "--extractor-args",
         "youtube:lang=ko",
-        f"https://www.youtube.com/channel/{source.resolved_channel_id}/videos",
     ]
-    completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
+    proxy_url = youtube_dlp_proxy_url()
+    if proxy_url:
+        command.extend(["--proxy", proxy_url])
+    command.append(f"https://www.youtube.com/channel/{source.resolved_channel_id}/videos")
+    try:
+        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
+    except subprocess.CalledProcessError as error:
+        raise RuntimeError(summarize_yt_dlp_error(error)) from error
+    except subprocess.TimeoutExpired as error:
+        raise RuntimeError("yt-dlp timed out while fetching full channel video list") from error
+
     candidates: list[MentionCandidate] = []
     existing_candidates = existing_candidates or {}
     skip_video_ids: set[str] = set()
@@ -378,14 +390,24 @@ def fetch_video_details(url: str) -> dict[str, Any]:
         "--no-warnings",
         "--extractor-args",
         "youtube:lang=ko",
-        url,
     ]
+    proxy_url = youtube_dlp_proxy_url()
+    if proxy_url:
+        command.extend(["--proxy", proxy_url])
+    command.append(url)
+
     last_error: Exception | None = None
     for _attempt in range(VIDEO_DETAIL_RETRIES + 1):
         try:
             completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=45)
+        except subprocess.CalledProcessError as error:
+            last_error = RuntimeError(summarize_yt_dlp_error(error))
+            continue
+        except subprocess.TimeoutExpired:
+            last_error = RuntimeError("yt-dlp timed out while fetching video details")
+            continue
         except Exception as error:
-            last_error = error
+            last_error = RuntimeError(sanitize_proxy_secrets(str(error)))
             continue
 
         for line in completed.stdout.splitlines():
@@ -396,6 +418,82 @@ def fetch_video_details(url: str) -> dict[str, Any]:
     if last_error:
         raise last_error
     raise RuntimeError("yt-dlp returned no JSON object")
+
+
+def load_local_env(path: Path = LOCAL_ENV_PATH) -> None:
+    if not path.exists():
+        return
+
+    for raw_line in path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+
+        key, value = line.split("=", 1)
+        key = key.strip()
+        if not key or key in os.environ:
+            continue
+
+        value = value.strip()
+        if len(value) >= 2 and value[0] == value[-1] and value[0] in ("'", '"'):
+            value = value[1:-1]
+        os.environ[key] = value
+
+
+def int_env(name: str, default: int) -> int:
+    value = os.environ.get(name, "").strip()
+    if not value:
+        return default
+    return int(value)
+
+
+def youtube_dlp_proxy_url() -> str | None:
+    load_local_env()
+
+    explicit_proxy = (
+        os.environ.get("YT_DLP_PROXY", "").strip()
+        or os.environ.get("YT_TRANSCRIPT_HTTPS_PROXY", "").strip()
+        or os.environ.get("YT_TRANSCRIPT_HTTP_PROXY", "").strip()
+    )
+    if explicit_proxy:
+        return explicit_proxy
+
+    webshare_username = os.environ.get("WEBSHARE_PROXY_USERNAME", "").strip()
+    webshare_password = os.environ.get("WEBSHARE_PROXY_PASSWORD", "").strip()
+    if not webshare_username or not webshare_password:
+        return None
+
+    domain = os.environ.get("WEBSHARE_PROXY_DOMAIN", "p.webshare.io").strip() or "p.webshare.io"
+    port = int_env("WEBSHARE_PROXY_PORT", 80)
+    return (
+        "http://"
+        f"{quote(webshare_username, safe='')}:{quote(webshare_password, safe='')}"
+        f"@{domain}:{port}"
+    )
+
+
+def summarize_yt_dlp_error(error: subprocess.CalledProcessError) -> str:
+    stderr_lines = [
+        line.strip()
+        for line in (error.stderr or "").splitlines()
+        if line.strip() and not line.startswith("[debug]")
+    ]
+    detail = stderr_lines[-1] if stderr_lines else "no stderr"
+    return sanitize_proxy_secrets(f"yt-dlp failed with exit code {error.returncode}: {detail}")
+
+
+def sanitize_proxy_secrets(value: str) -> str:
+    proxy_url = youtube_dlp_proxy_url()
+    if proxy_url:
+        value = value.replace(proxy_url, "http://<proxy-redacted>")
+
+    username = os.environ.get("WEBSHARE_PROXY_USERNAME", "").strip()
+    password = os.environ.get("WEBSHARE_PROXY_PASSWORD", "").strip()
+    if username:
+        value = value.replace(username, "<proxy-user-redacted>")
+    if password:
+        value = value.replace(password, "<proxy-password-redacted>")
+    return value
 
 
 def fetch_feed(url: str) -> bytes:
