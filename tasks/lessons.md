@@ -16,3 +16,5 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Build a working model before planning; separate current implementation facts from product/workflow design, and route Tastyroad work by user intent to purpose-specific skills.
 - Trigger: The user asked to verify and deploy `김사원세끼` videos, but the agent only processed the latest two unreviewed videos.
   Rule: For source-level mapping requests, define and report the full source scope first; do not silently narrow work to latest videos or current backlog rows.
+- Trigger: Tastyroad deployment runs repeatedly reported the Vercel app team-scope 403 before falling back to the CLI.
+  Rule: For Tastyroad release status checks, skip the Vercel MCP deployment list and use the locally authenticated Vercel CLI for same-SHA deployment lookup by default.

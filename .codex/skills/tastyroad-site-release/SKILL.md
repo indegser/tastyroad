@@ -1,13 +1,13 @@
 ---
 name: tastyroad-site-release
-description: Deploy the Tastyroad Next.js site through the GitHub-to-Vercel integration. Use when Codex is in the Tastyroad repo and the user says "배포해", asks to deploy/release, asks for a GitHub-based deployment, or needs the Vercel deployment response/status after pushing commits. Prefer git push plus Vercel status lookup over local `vercel deploy`.
+description: Deploy the Tastyroad Next.js site through the GitHub-to-Vercel integration. Use when Codex is in the Tastyroad repo and the user says "배포해", asks to deploy/release, asks for a GitHub-based deployment, or needs the Vercel deployment response/status after pushing commits. Prefer git push plus local authenticated Vercel CLI status lookup over local `vercel deploy`.
 ---
 
 # Tastyroad Site Release
 
 ## Overview
 
-Use this skill from the Tastyroad repo root to release the site through the GitHub integration that triggers Vercel. The normal production path is: validate locally, commit the intended changes, push `main` to GitHub, then fetch the Vercel deployment result for that commit.
+Use this skill from the Tastyroad repo root to release the site through the GitHub integration that triggers Vercel. The normal production path is: validate locally, commit the intended changes, push `main` to GitHub, then fetch the Vercel deployment result for that commit with the locally authenticated Vercel CLI.
 
 ## Project Facts
 
@@ -55,9 +55,7 @@ If the user explicitly asks for a preview deployment, push the feature branch in
 
 5. Get the Vercel deployment response for the pushed commit.
 
-Prefer the Vercel MCP deployment list when available. Read `.vercel/project.json` for `projectId` and `orgId`/team ID, then list deployments and match `meta.githubCommitSha` to `sha`.
-
-If the Vercel MCP is unavailable or returns a team scope 403, use the authenticated local Vercel CLI without asking the user again:
+Use the authenticated local Vercel CLI as the primary status source. Do not call the Vercel MCP deployment list for routine Tastyroad releases, and do not mention the skipped MCP path when the CLI path succeeds.
 
 ```bash
 vercel ls tastyroad --scope jaekwon-hans-projects --format=json --meta githubCommitSha="$sha"
@@ -78,7 +76,7 @@ Check the production alias for production releases and the deployment URL for pr
 curl -fsS "https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true"
 ```
 
-For protected preview URLs, use the Vercel MCP web fetch tool if available. Confirm the response is HTTP 200 and contains an `items` array.
+Confirm the response is HTTP 200 and contains an `items` array. Use Vercel MCP web fetch only if the local CLI/curl path cannot access a protected preview URL, and then report the MCP issue only if it changes the deploy outcome.
 
 ## Safety Rules
 

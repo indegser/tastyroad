@@ -16,3 +16,16 @@ Use this file for active non-trivial work. Keep entries short and checkable.
 - Added source-scoped `김사원세끼` mapping support and safer parsing for numbered/bracket metadata.
 - Promoted all Naver-ID-verifiable `김사원세끼` places: 280 videos are `mapping_verified`, 3 are `not_applicable`, 1 remains `mapping_pending` (`한일상회`, no verified Naver place ID), and 1 remains `mapping_partial` (`맛나분식`, no verified Naver place ID/address).
 - Confirmed no restaurant has a blank `naver_map_id`, no public Naver place link is a search URL, and `pnpm run build` passes.
+
+## Current Task - 2026-06-21 - Vercel 배포 상태 조회 안내 제거
+
+- [x] Read repository guide, lessons, and release skill.
+- [x] Identify why deploy runs repeatedly report the Vercel app team-scope 403 fallback.
+- [x] Update release guidance to use local authenticated Vercel CLI as the primary deployment-status path.
+- [x] Add a reusable lesson for future release runs.
+- [x] Verify the instruction change and record the result.
+
+### Review
+
+- Updated `$tastyroad-site-release` so deployment status lookup skips the Vercel MCP deployment list and uses the locally authenticated Vercel CLI as the normal path.
+- Verification: confirmed the old MCP-first/team-scope fallback wording is absent from the release skill and the CLI-first wording is present.
