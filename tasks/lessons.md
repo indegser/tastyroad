@@ -18,3 +18,5 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: For source-level mapping requests, define and report the full source scope first; do not silently narrow work to latest videos or current backlog rows.
 - Trigger: Tastyroad deployment runs repeatedly reported the Vercel app team-scope 403 before falling back to the CLI.
   Rule: For Tastyroad release status checks, skip the Vercel MCP deployment list and use the locally authenticated Vercel CLI for same-SHA deployment lookup by default.
+- Trigger: A YouTube full-channel collection left one row with blank detail metadata after a 429 and later skipped it as already collected.
+  Rule: Treat rows without enriched detail fields such as `published_at` or `duration_seconds` as retryable, and continue the collection run even when individual enrich attempts hit 429.

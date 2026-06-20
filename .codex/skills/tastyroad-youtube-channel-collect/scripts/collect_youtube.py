@@ -8,6 +8,7 @@ import re
 import sqlite3
 import subprocess
 import sys
+import time
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
@@ -22,7 +23,8 @@ from pipeline_schema import ensure_pipeline_schema
 DEFAULT_CONFIG = Path("data/sources/youtube_sources.json")
 DEFAULT_OUTPUT_DIR = Path("data/raw/youtube")
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
-VIDEO_DETAIL_RETRIES = 2
+VIDEO_DETAIL_RETRIES = 5
+VIDEO_DETAIL_RETRY_BACKOFF_SECONDS = 5
 
 ATOM_NS = "{http://www.w3.org/2005/Atom}"
 YT_NS = "{http://www.youtube.com/xml/schemas/2015}"
@@ -39,6 +41,7 @@ class YoutubeSource:
     enabled: bool
     channel_id: str | None
     feed_url: str | None
+    playlist_url: str | None
     title_include_any: list[str]
     title_exclude_any: list[str]
     title_cleanup_patterns: list[str]
@@ -57,6 +60,12 @@ class YoutubeSource:
             return self.channel_id
         match = re.search(r"channel_id=([^&]+)", self.resolved_feed_url)
         return match.group(1) if match else ""
+
+    @property
+    def resolved_full_channel_url(self) -> str:
+        if self.playlist_url:
+            return self.playlist_url
+        return f"https://www.youtube.com/channel/{self.resolved_channel_id}/videos"
 
 
 @dataclass(frozen=True)
@@ -101,6 +110,7 @@ def parse_source(item: dict[str, Any]) -> YoutubeSource:
         enabled=bool(item.get("enabled", True)),
         channel_id=item.get("channel_id"),
         feed_url=item.get("feed_url"),
+        playlist_url=item.get("playlist_url"),
         title_include_any=list(item.get("title_include_any", [])),
         title_exclude_any=list(item.get("title_exclude_any", [])),
         title_cleanup_patterns=list(item.get("title_cleanup_patterns", [])),
@@ -141,7 +151,7 @@ def collect_source_full_channel(
         "--flat-playlist",
         "--extractor-args",
         "youtube:lang=ko",
-        f"https://www.youtube.com/channel/{source.resolved_channel_id}/videos",
+        source.resolved_full_channel_url,
     ]
     completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
     candidates: list[YoutubeVideo] = []
@@ -170,7 +180,7 @@ def collect_source_full_channel(
                 fallback=fallback_candidate,
             )
         )
-        if existing_candidate:
+        if existing_candidate and has_enriched_video_details(existing_candidate):
             skip_video_ids.add(video_id)
 
     return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
@@ -238,9 +248,14 @@ def apply_existing_candidates(
         merged_candidates.append(
             merge_candidate_with_existing(candidate, existing_candidate, collected_at)
         )
-        skip_video_ids.add(candidate.video_id)
+        if has_enriched_video_details(existing_candidate):
+            skip_video_ids.add(candidate.video_id)
 
     return merged_candidates, skip_video_ids
+
+
+def has_enriched_video_details(candidate: YoutubeVideo) -> bool:
+    return bool(candidate.published_at) and candidate.duration_seconds is not None
 
 
 def merge_candidate_with_existing(
@@ -381,17 +396,21 @@ def fetch_video_details(url: str) -> dict[str, Any]:
         url,
     ]
     last_error: Exception | None = None
-    for _attempt in range(VIDEO_DETAIL_RETRIES + 1):
+    for attempt in range(VIDEO_DETAIL_RETRIES + 1):
         try:
             completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=45)
         except Exception as error:
             last_error = error
+            if attempt < VIDEO_DETAIL_RETRIES:
+                time.sleep(VIDEO_DETAIL_RETRY_BACKOFF_SECONDS)
             continue
 
         for line in completed.stdout.splitlines():
             if line.startswith("{"):
                 return json.loads(line)
         last_error = RuntimeError("yt-dlp returned no JSON object")
+        if attempt < VIDEO_DETAIL_RETRIES:
+            time.sleep(VIDEO_DETAIL_RETRY_BACKOFF_SECONDS)
 
     if last_error:
         raise last_error
@@ -767,6 +786,7 @@ def write_json(output_dir: Path, source: YoutubeSource, candidates: list[Youtube
         "source_key": source.key,
         "source": source.name,
         "feed_url": source.resolved_feed_url,
+        "full_channel_url": source.resolved_full_channel_url,
         "count": len(candidates),
         "items": [asdict(candidate) for candidate in candidates],
     }

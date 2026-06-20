@@ -9,11 +9,12 @@ description: Collect, audit, and troubleshoot Tastyroad YouTube channel video so
 
 Use this skill from the Tastyroad repo root for YouTube source work. The repository no longer owns collection scripts; run the bundled scripts in this skill.
 
-The key distinction is that normal collection reads the YouTube RSS feed and only sees the latest window, while full-channel collection uses `yt-dlp --flat-playlist` to enumerate every video on a channel.
+The key distinction is that normal collection reads the YouTube RSS feed and only sees the latest window, while full-channel collection uses `yt-dlp --flat-playlist` to enumerate every video on a channel or, when configured, a source-specific `playlist_url`.
 
 ## Workflow
 
 1. Inspect the configured source in `data/sources/youtube_sources.json`.
+   - If YouTube exposes the source as a show playlist rather than the channel `/videos` tab, set `playlist_url` on the source and run full-channel collection.
 2. For complete channel coverage, run:
 
 ```bash
@@ -42,7 +43,7 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/resolve_youtube_
 
 Use `data/tastyroad.sqlite` as the authoritative local DB. Collected videos live in `youtube_videos`; restaurant mappings live separately in `youtube_video_restaurants`. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
 
-Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`.
+Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`. Reuse skips complete enriched rows, but rows missing detail fields such as `published_at` or `duration_seconds` remain retryable.
 
 For restaurant mapping status, Naver place ID verification, or `mapping_pending` / `needs_review` work, use `$tastyroad-map-video-restaurants`.
 

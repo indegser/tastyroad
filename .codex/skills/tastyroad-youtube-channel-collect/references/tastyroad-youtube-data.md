@@ -2,7 +2,7 @@
 
 ## Important Files
 
-- `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters.
+- `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters. Add `playlist_url` when the source must be collected from a show playlist instead of the channel `/videos` tab.
 - `.codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py`: collector for RSS latest-window and full-channel modes.
 - `data/raw/youtube/<source_key>.json`: latest collection output per source.
 - `data/tastyroad.sqlite`: authoritative local database.
@@ -29,7 +29,7 @@ sqlite3 -header -column data/tastyroad.sqlite "select published_at, title, url, 
 
 ## Manual Full-Channel Listing
 
-Use this when you need a quick read-only channel inventory:
+Use this when you need a quick read-only channel inventory. For playlist-backed sources, replace the final channel `/videos` URL with the configured `playlist_url`.
 
 ```bash
 yt-dlp --quiet --no-warnings --flat-playlist --extractor-args youtube:lang=ko --print-to-file "%(playlist_index)s\t%(id)s\t%(upload_date)s\t%(title)s\t%(webpage_url)s" /tmp/<source_key>_full.tsv https://www.youtube.com/channel/<channel_id>/videos

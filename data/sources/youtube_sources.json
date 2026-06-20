@@ -30,6 +30,23 @@
         "^\\[[^]]+\\]\\s*",
         "\\s*#.*$"
       ]
+    },
+    {
+      "key": "ttoganjip",
+      "name": "또간집",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UCKDPUy8shCL08iNKkomVz6Q",
+      "official_url": "https://www.youtube.com/playlist?list=PL8ZmFxF9Ts5yZY-RlNAG51MqkURwYBBk5",
+      "playlist_url": "https://www.youtube.com/playlist?list=PL8ZmFxF9Ts5yZY-RlNAG51MqkURwYBBk5",
+      "enabled": true,
+      "title_include_any": [],
+      "title_exclude_any": [],
+      "title_cleanup_patterns": [
+        "\\s*[|lㅣ]\\s*(?:또간집\\s*)?EP\\.\\d+.*$",
+        "^\\[[^]]+\\]\\s*",
+        "\\s*#.*$"
+      ]
     }
   ]
 }

@@ -26,6 +26,10 @@ def load_source(config_path: Path, source_key: str) -> dict[str, Any]:
 
 
 def channel_url(source: dict[str, Any]) -> str:
+    playlist_url = str(source.get("playlist_url") or "")
+    if playlist_url:
+        return playlist_url
+
     channel_id = source.get("channel_id")
     if channel_id:
         return f"https://www.youtube.com/channel/{channel_id}/videos"
@@ -38,11 +42,13 @@ def channel_url(source: dict[str, Any]) -> str:
             return f"https://www.youtube.com/channel/{channel_id}/videos"
 
     official_url = str(source.get("official_url") or "")
+    if "playlist?list=" in official_url:
+        return official_url
     if "/channel/" in official_url:
         return official_url.rstrip("/") + "/videos"
 
     raise SystemExit(
-        f"Source {source.get('key')} needs channel_id or channel feed_url for full-channel audit"
+        f"Source {source.get('key')} needs playlist_url, channel_id, or channel feed_url for full-channel audit"
     )
 
 
