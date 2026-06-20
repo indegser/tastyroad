@@ -2,6 +2,20 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-21 - Agent worktree policy
+
+- [x] Read repository guide and accumulated lessons.
+- [x] Inspect existing worktree, branch, release, and task guidance.
+- [x] Add autonomous worktree creation/reuse policy to `AGENTS.md`.
+- [x] Add push/deploy cleanup rules for agent-created worktrees.
+- [x] Verify the instruction update and record the result.
+
+### Review
+
+- Added autonomous worktree creation/reuse rules to `AGENTS.md`, including branch/path conventions, reuse conditions, and no-routine-stash guidance.
+- Added cleanup rules for successful push/deploy flows and connected `$tastyroad-site-release` to the worktree policy.
+- Verification: `git diff --check` passed, and targeted `rg` confirmed the new worktree, cleanup, release, and lesson guidance is present.
+
 ## Current Task - 2026-06-21
 
 - [x] Scope the full remaining `김사원세끼` source mapping work.

@@ -20,3 +20,5 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: For Tastyroad release status checks, skip the Vercel MCP deployment list and use the locally authenticated Vercel CLI for same-SHA deployment lookup by default.
 - Trigger: A YouTube full-channel collection left one row with blank detail metadata after a 429 and later skipped it as already collected.
   Rule: Treat rows without enriched detail fields such as `published_at` or `duration_seconds` as retryable, and continue the collection run even when individual enrich attempts hit 429.
+- Trigger: Concurrent repository conversations made branch switching require repeated manual stash/checkout decisions.
+  Rule: Let agents route non-trivial tasks into dedicated `../tastyroad-worktrees/<slug>` worktrees and clean up only after clean, pushed, and verified outcomes.

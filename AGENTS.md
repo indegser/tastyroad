@@ -48,6 +48,40 @@ Lesson format:
 - If implementation reveals the plan is wrong, stop, update the plan, and continue from the corrected plan.
 - Do not wait for approval after writing a plan unless the user explicitly asked to review the plan first.
 
+## Autonomous Worktree Management
+
+Use this policy for non-trivial coding, data, release, pipeline, or documentation tasks so concurrent conversations can proceed without routine `stash`/`checkout` churn.
+
+Before editing files:
+
+- Run `git status --short --branch`, `git branch --show-current`, and `git worktree list`.
+- Treat the main checkout at `/Users/indegser/Github/tastyroad` and the `main` branch as shared coordination space unless the task is already clearly scoped to that checkout.
+- If the current checkout has unrelated changes, is on an unrelated branch, or is the shared main checkout, create or reuse a task-specific worktree under `../tastyroad-worktrees/<short-task-slug>`.
+- Use branch names like `codex/<short-task-slug>`, based on a short kebab-case summary of the request.
+- Base new worktrees on `origin/main` unless the user names a different base.
+- Reuse an existing task worktree only when its path/branch matches the current request and its dirty state is clean or clearly belongs to the same task.
+- If a matching worktree has ambiguous dirty changes, preserve it and create a suffixed worktree instead of overwriting or cleaning it.
+
+While working:
+
+- Do all edits, verification, commits, and task-specific commands inside the chosen worktree.
+- Record the chosen worktree path and branch in `tasks/todo.md` for non-trivial tasks.
+- Do not use `git stash` as routine context switching between concurrent tasks.
+- Do not switch branches in a dirty worktree just to reach another task.
+- Respect an explicit user-provided path or branch over this default routing.
+- Skip worktree creation for trivial read-only checks and direct answers.
+
+## Worktree Cleanup Policy
+
+When the agent created a task-specific worktree, clean it up automatically only after the task is safely published or released.
+
+- On ordinary "push" requests, commit only intended changes, push the task branch, then remove the local task worktree only if `git status --short` is clean and all local commits are pushed to the branch upstream.
+- On "deploy" or "release" requests, first follow `$tastyroad-site-release`. Remove the local task worktree only after local validation, GitHub push, Vercel deployment, and deployed-site verification all succeed.
+- For the default `배포해` production path, do not silently deploy a feature branch as production. Integrate the intended changes into `main` through the release workflow, or use a preview deployment only when the user explicitly asks for preview.
+- Remove only the extra worktree directory created under `../tastyroad-worktrees/`; do not delete remote branches automatically.
+- Do not delete local branches for open PRs, unmerged work, failed checks, failed deployment verification, uncommitted changes, or unpushed commits unless the user explicitly asks.
+- If cleanup is unsafe, leave the worktree in place and report the path plus the blocking condition.
+
 ## Verification
 
 - Do not call work complete until behavior has been checked.

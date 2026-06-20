@@ -7,7 +7,7 @@ description: Deploy the Tastyroad Next.js site through the GitHub-to-Vercel inte
 
 ## Overview
 
-Use this skill from the Tastyroad repo root to release the site through the GitHub integration that triggers Vercel. The normal production path is: validate locally, commit the intended changes, push `main` to GitHub, then fetch the Vercel deployment result for that commit with the locally authenticated Vercel CLI.
+Use this skill from the active Tastyroad checkout or task worktree to release the site through the GitHub integration that triggers Vercel. Follow `AGENTS.md` worktree routing and cleanup rules before and after the release. The normal production path is: validate locally, commit the intended changes, push `main` to GitHub, then fetch the Vercel deployment result for that commit with the locally authenticated Vercel CLI.
 
 ## Project Facts
 
@@ -25,10 +25,11 @@ Use this skill from the Tastyroad repo root to release the site through the GitH
 ```bash
 git status --short --branch
 git remote -v
+git worktree list
 git fetch origin main
 ```
 
-If local `main` is behind `origin/main`, fast-forward with `git pull --ff-only` before releasing. If the branch diverged or the dirty files are ambiguous, stop and explain the conflict instead of forcing a merge.
+If local `main` is behind `origin/main`, fast-forward with `git pull --ff-only` before releasing. If the branch diverged or the dirty files are ambiguous, stop and explain the conflict instead of forcing a merge. If the current checkout is a feature/task worktree and the user asked for the default production `배포해`, do not push that feature branch as production; first make the target clear and integrate only the intended changes into `main` through the normal release flow. If the user explicitly asks for a preview deployment, stay on the feature branch and report the preview deployment.
 
 2. Validate locally.
 
@@ -77,6 +78,10 @@ curl -fsS "https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true
 ```
 
 Confirm the response is HTTP 200 and contains an `items` array. Use Vercel MCP web fetch only if the local CLI/curl path cannot access a protected preview URL, and then report the MCP issue only if it changes the deploy outcome.
+
+7. Clean up the task worktree when safe.
+
+If this release started from an agent-created task worktree, apply the `AGENTS.md` Worktree Cleanup Policy after deployment verification succeeds. Remove only a clean, fully pushed or integrated local worktree; leave branches and any unsafe worktree state intact.
 
 ## Safety Rules
 
