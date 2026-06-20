@@ -25,7 +25,7 @@ def verify(sqlite_path: Path) -> list[tuple[str, str, str, float, str]]:
               m.confidence,
               m.status
             from restaurants r
-            join mentions m on m.restaurant_id = r.id
+            join youtube_video_restaurants m on m.restaurant_id = r.id
             join place_links p on p.restaurant_id = r.id
             order by m.confidence desc
             """

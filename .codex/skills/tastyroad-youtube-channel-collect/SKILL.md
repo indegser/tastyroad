@@ -1,6 +1,6 @@
 ---
 name: tastyroad-youtube-channel-collect
-description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding videos missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage.
+description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding youtube_videos rows missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage.
 ---
 
 # Tastyroad YouTube Channel Collect
@@ -40,7 +40,7 @@ python3 scripts/resolve_youtube_channel_id.py "https://www.youtube.com/@handle"
 
 Check `scripts/update_pipeline.py` before assuming scheduled or one-command updates use full-channel collection. Full-channel sources should use `reuse_existing=True` and bounded workers so repeated runs only enrich new videos.
 
-Use `data/tastyroad.sqlite` as the authoritative local DB. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
+Use `data/tastyroad.sqlite` as the authoritative local DB. Collected videos live in `youtube_videos`; restaurant mappings live separately in `youtube_video_restaurants`. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
 
 Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`.
 

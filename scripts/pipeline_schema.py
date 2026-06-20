@@ -2,15 +2,127 @@
 
 from __future__ import annotations
 
+import re
 import sqlite3
+
+
+NAVER_PLACE_ID_RE = re.compile(r"(?:/entry/place/|/place/)(\d+)")
 
 
 def ensure_pipeline_schema(connection: sqlite3.Connection) -> None:
     connection.execute("pragma foreign_keys = on")
+    drop_pipeline_views(connection)
+    migrate_legacy_video_schema(connection)
+    ensure_source_schema(connection)
+    ensure_youtube_video_schema(connection)
     ensure_review_schema(connection)
     ensure_story_review_schema(connection)
     ensure_mapping_schema(connection)
     ensure_pipeline_views(connection)
+
+
+def table_exists(connection: sqlite3.Connection, table_name: str) -> bool:
+    return (
+        connection.execute(
+            "select 1 from sqlite_master where type = 'table' and name = ?",
+            (table_name,),
+        ).fetchone()
+        is not None
+    )
+
+
+def column_names(connection: sqlite3.Connection, table_name: str) -> set[str]:
+    if not table_exists(connection, table_name):
+        return set()
+    return {row[1] for row in connection.execute(f"pragma table_info({table_name})").fetchall()}
+
+
+def drop_pipeline_views(connection: sqlite3.Connection) -> None:
+    connection.executescript(
+        """
+        drop view if exists mapping_backlog;
+        drop view if exists unreviewed_videos;
+        drop view if exists video_pipeline_status;
+        """
+    )
+
+
+def migrate_legacy_video_schema(connection: sqlite3.Connection) -> None:
+    if table_exists(connection, "mention_candidates") and not table_exists(connection, "youtube_videos"):
+        connection.execute("alter table mention_candidates rename to youtube_videos")
+
+    youtube_video_columns = column_names(connection, "youtube_videos")
+    if "external_id" in youtube_video_columns and "video_id" not in youtube_video_columns:
+        connection.execute("alter table youtube_videos rename column external_id to video_id")
+
+    if table_exists(connection, "mentions") and not table_exists(connection, "youtube_video_restaurants"):
+        connection.execute("alter table mentions rename to youtube_video_restaurants")
+
+    video_restaurant_columns = column_names(connection, "youtube_video_restaurants")
+    if (
+        "mention_candidate_id" in video_restaurant_columns
+        and "youtube_video_id" not in video_restaurant_columns
+    ):
+        connection.execute(
+            "alter table youtube_video_restaurants rename column mention_candidate_id to youtube_video_id"
+        )
+
+    resolution_columns = column_names(connection, "place_resolution_candidates")
+    if "mention_candidate_id" in resolution_columns and "youtube_video_id" not in resolution_columns:
+        connection.execute(
+            "alter table place_resolution_candidates rename column mention_candidate_id to youtube_video_id"
+        )
+
+
+def ensure_source_schema(connection: sqlite3.Connection) -> None:
+    connection.execute(
+        """
+        create table if not exists sources (
+          id integer primary key autoincrement,
+          name text not null unique,
+          type text not null,
+          trust_tier text not null,
+          official_url text not null,
+          created_at text not null
+        )
+        """
+    )
+
+
+def ensure_youtube_video_schema(connection: sqlite3.Connection) -> None:
+    connection.execute(
+        """
+        create table if not exists youtube_videos (
+          id integer primary key autoincrement,
+          source_id integer not null references sources(id),
+          video_id text not null,
+          title text not null,
+          url text not null,
+          thumbnail_url text not null default '',
+          published_at text not null,
+          updated_at text not null,
+          description text not null default '',
+          duration_seconds integer,
+          tags text not null default '[]',
+          chapters text not null default '[]',
+          raw_restaurant_name_candidates text not null,
+          collected_at text not null,
+          status text not null default 'pending',
+          unique(source_id, video_id)
+        )
+        """
+    )
+    columns = column_names(connection, "youtube_videos")
+    if "thumbnail_url" not in columns:
+        connection.execute("alter table youtube_videos add column thumbnail_url text not null default ''")
+    if "description" not in columns:
+        connection.execute("alter table youtube_videos add column description text not null default ''")
+    if "duration_seconds" not in columns:
+        connection.execute("alter table youtube_videos add column duration_seconds integer")
+    if "tags" not in columns:
+        connection.execute("alter table youtube_videos add column tags text not null default '[]'")
+    if "chapters" not in columns:
+        connection.execute("alter table youtube_videos add column chapters text not null default '[]'")
 
 
 def ensure_review_schema(connection: sqlite3.Connection) -> None:
@@ -70,6 +182,7 @@ def ensure_mapping_schema(connection: sqlite3.Connection) -> None:
         """
         create table if not exists restaurants (
           id integer primary key autoincrement,
+          naver_map_id text not null check(naver_map_id != ''),
           canonical_name text not null,
           display_name text not null,
           local_name text,
@@ -81,6 +194,7 @@ def ensure_mapping_schema(connection: sqlite3.Connection) -> None:
           status text not null default 'open',
           created_at text not null,
           updated_at text not null,
+          unique(naver_map_id),
           unique(country_code, address, canonical_name)
         );
 
@@ -97,19 +211,19 @@ def ensure_mapping_schema(connection: sqlite3.Connection) -> None:
           unique(restaurant_id, provider, url)
         );
 
-        create table if not exists mentions (
+        create table if not exists youtube_video_restaurants (
           id integer primary key autoincrement,
           restaurant_id integer not null references restaurants(id),
-          mention_candidate_id integer not null references mention_candidates(id),
+          youtube_video_id integer not null references youtube_videos(id),
           confidence real not null,
           status text not null,
           verified_at text not null,
-          unique(restaurant_id, mention_candidate_id)
+          unique(restaurant_id, youtube_video_id)
         );
 
         create table if not exists place_resolution_candidates (
           id integer primary key autoincrement,
-          mention_candidate_id integer not null references mention_candidates(id),
+          youtube_video_id integer not null references youtube_videos(id),
           search_provider text not null,
           query text not null,
           result_name text not null default '',
@@ -122,32 +236,96 @@ def ensure_mapping_schema(connection: sqlite3.Connection) -> None:
           status text not null default 'candidate',
           evidence_json text not null default '{}',
           searched_at text not null,
-          unique(mention_candidate_id, search_provider, query, result_url)
+          unique(youtube_video_id, search_provider, query, result_url)
         );
         """
     )
+    columns = column_names(connection, "restaurants")
+    if "naver_map_id" not in columns:
+        connection.execute("alter table restaurants add column naver_map_id text not null default ''")
+    backfill_restaurant_naver_map_ids(connection)
+    connection.execute(
+        """
+        create unique index if not exists restaurants_naver_map_id_unique
+        on restaurants(naver_map_id)
+        where naver_map_id != ''
+        """
+    )
+    connection.executescript(
+        """
+        create trigger if not exists restaurants_require_naver_map_id_insert
+        before insert on restaurants
+        when trim(new.naver_map_id) = ''
+        begin
+          select raise(abort, 'restaurants.naver_map_id is required');
+        end;
+
+        create trigger if not exists restaurants_require_naver_map_id_update
+        before update of naver_map_id on restaurants
+        when trim(new.naver_map_id) = ''
+        begin
+          select raise(abort, 'restaurants.naver_map_id is required');
+        end;
+        """
+    )
+
+
+def extract_naver_map_id(url: str) -> str:
+    match = NAVER_PLACE_ID_RE.search(url)
+    return match.group(1) if match else ""
+
+
+def backfill_restaurant_naver_map_ids(connection: sqlite3.Connection) -> None:
+    if "naver_map_id" not in column_names(connection, "restaurants"):
+        return
+
+    rows = connection.execute(
+        """
+        select r.id, p.url
+        from restaurants r
+        join place_links p on p.restaurant_id = r.id
+        where r.naver_map_id = ''
+          and p.provider = 'naver_map'
+          and p.status in ('verified', 'metadata_verified')
+          and p.url not like '%/p/search/%'
+        order by p.confidence desc, p.verified_at desc, p.id desc
+        """
+    ).fetchall()
+    for restaurant_id, url in rows:
+        naver_map_id = extract_naver_map_id(str(url or ""))
+        if not naver_map_id:
+            continue
+        existing = connection.execute(
+            "select 1 from restaurants where naver_map_id = ? and id != ?",
+            (naver_map_id, restaurant_id),
+        ).fetchone()
+        if existing is not None:
+            continue
+        connection.execute(
+            "update restaurants set naver_map_id = ? where id = ? and naver_map_id = ''",
+            (naver_map_id, restaurant_id),
+        )
 
 
 def ensure_pipeline_views(connection: sqlite3.Connection) -> None:
     connection.executescript(
         """
-        drop view if exists video_pipeline_status;
         create view video_pipeline_status as
         with mapped as (
           select
-            mention_candidate_id,
+            youtube_video_id,
             count(distinct restaurant_id) as mapped_restaurant_count,
             max(verified_at) as last_mapped_at
-          from mentions
-          group by mention_candidate_id
+          from youtube_video_restaurants
+          group by youtube_video_id
         ),
         search_counts as (
           select
-            mention_candidate_id,
+            youtube_video_id,
             count(*) as search_candidate_count,
             max(searched_at) as last_search_at
           from place_resolution_candidates
-          group by mention_candidate_id
+          group by youtube_video_id
         ),
         reviewed as (
           select
@@ -166,8 +344,8 @@ def ensure_pipeline_views(connection: sqlite3.Connection) -> None:
           from agent_video_reviews
         )
         select
-          c.id as mention_candidate_id,
-          c.external_id as video_id,
+          c.id as youtube_video_id,
+          c.video_id,
           s.name as source,
           c.title,
           c.url,
@@ -197,19 +375,17 @@ def ensure_pipeline_views(connection: sqlite3.Connection) -> None:
             when coalesce(m.mapped_restaurant_count, 0) < max(coalesce(r.detected_restaurant_count, 1), 1) then 'mapping_partial'
             else 'mapping_verified'
           end as mapping_status
-        from mention_candidates c
+        from youtube_videos c
         join sources s on s.id = c.source_id
-        left join reviewed r on r.external_id = c.external_id
-        left join mapped m on m.mention_candidate_id = c.id
-        left join search_counts sc on sc.mention_candidate_id = c.id;
+        left join reviewed r on r.external_id = c.video_id
+        left join mapped m on m.youtube_video_id = c.id
+        left join search_counts sc on sc.youtube_video_id = c.id;
 
-        drop view if exists unreviewed_videos;
         create view unreviewed_videos as
         select *
         from video_pipeline_status
         where review_status = 'unreviewed';
 
-        drop view if exists mapping_backlog;
         create view mapping_backlog as
         select *
         from video_pipeline_status

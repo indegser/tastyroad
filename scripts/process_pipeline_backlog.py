@@ -6,6 +6,7 @@ import argparse
 import json
 import re
 import sqlite3
+import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -17,10 +18,20 @@ from pipeline_schema import ensure_pipeline_schema
 
 
 MAP_URL_RE = re.compile(r"https?://(?:naver\.me|maps\.app\.goo\.gl|www\.google\.com/maps)[^\s)]+")
+NAVER_PLACE_ID_RE = re.compile(r"(?:/entry/place/|/place/)(\d+)")
+DOMESTIC_ADDRESS_RE = re.compile(
+    r"^(서울|경기|인천|부산|대구|대전|광주|울산|세종|제주|강원|충북|충남|전북|전남|경북|경남)"
+)
 ADDRESS_HINT_RE = re.compile(
     r"(서울|경기|인천|부산|대구|대전|광주|울산|세종|제주|강원|충북|충남|전북|전남|경북|경남|"
     r"도로|길|읍|면|동|구|시|군|로\s?\d|Carrer|Rue|Via|Av\.|Avenue|Pl\.|Plaça|Dr,|홍콩|중국|"
     r"스페인|프랑스|이탈리아|Tokyo|Japan|Madrid|Barcelona|Paris|Roma|Wan Chai)"
+)
+OVERSEAS_HINT_RE = re.compile(
+    r"(도쿄|오사카|일본|싱가포르|독일|베를린|홍콩|중국|스페인|프랑스|이탈리아|"
+    r"Tokyo|Osaka|Japan|Singapore|Berlin|Germany|Hong Kong|Madrid|Barcelona|Paris|Roma|"
+    r"Wan Chai|Rangoon|Bukit|Raffles|Killiney|Neil Rd)",
+    re.IGNORECASE,
 )
 NON_RESTAURANT_TITLE_RE = re.compile(
     r"(#shorts|매주 금요일|프로필사진|봉사활동|몸무게|체력|피자마루 신메뉴|광고|리뷰😂|성심당 약|"
@@ -47,14 +58,55 @@ def is_address(value: str) -> bool:
     return bool(ADDRESS_HINT_RE.search(value)) and not value.startswith(("http://", "https://"))
 
 
+def is_domestic_address(value: str) -> bool:
+    return bool(DOMESTIC_ADDRESS_RE.search(clean(value)))
+
+
+def is_overseas_place(place: Place, context: str = "") -> bool:
+    if is_domestic_address(place.address):
+        return False
+    return bool(OVERSEAS_HINT_RE.search(f"{place.name} {place.address} {context}"))
+
+
+def is_naver_map_url(url: str) -> bool:
+    return "naver.me" in url or "map.naver.com" in url
+
+
+def is_real_naver_place_url(url: str) -> bool:
+    return "naver.me" in url or "/p/entry/place/" in url or "/place/" in url
+
+
+def extract_naver_map_id(url: str) -> str:
+    match = NAVER_PLACE_ID_RE.search(url)
+    return match.group(1) if match else ""
+
+
+def resolve_naver_map_url(url: str) -> str:
+    if not url.startswith("https://naver.me/"):
+        return url
+    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+    with urllib.request.urlopen(request, timeout=15) as response:
+        return response.geturl()
+
+
+def resolve_naver_map_details(url: str) -> tuple[str, str]:
+    naver_map_id = extract_naver_map_id(url)
+    if naver_map_id:
+        return naver_map_id, url
+    if not url.startswith("https://naver.me/"):
+        return "", url
+    try:
+        resolved_url = resolve_naver_map_url(url)
+    except Exception as error:  # noqa: BLE001 - naver.me redirects can fail transiently.
+        print(f"warning: failed to resolve Naver map URL {url}: {error}")
+        return "", url
+    return extract_naver_map_id(resolved_url), resolved_url
+
+
 def map_provider(url: str, country_code: str) -> str:
-    if "naver.me" in url or "map.naver.com" in url:
+    if is_naver_map_url(url):
         return "naver_map"
-    if "kakao" in url:
-        return "kakao_map"
-    if "maps.app.goo.gl" in url or "google.com/maps" in url:
-        return "google_maps"
-    return "naver_map" if country_code == "KR" else "google_maps"
+    return "naver_map"
 
 
 def search_url(provider: str, query: str) -> str:
@@ -66,20 +118,25 @@ def search_url(provider: str, query: str) -> str:
     return f"https://www.google.com/maps/search/?api=1&query={encoded}"
 
 
-def infer_country(address: str) -> str:
-    if any(token in address for token in ("스페인", "Barcelona", "Madrid")):
+def infer_country(address: str, name: str = "") -> str:
+    value = f"{address} {name}"
+    if any(token in value for token in ("스페인", "Barcelona", "Madrid")):
         return "ES"
-    if any(token in address for token in ("프랑스", "Paris", "Rue ")):
+    if any(token in value for token in ("프랑스", "Paris", "Rue ")):
         return "FR"
-    if any(token in address for token in ("이탈리아", "Roma", "Via ")):
+    if any(token in value for token in ("이탈리아", "Roma", "Via ")):
         return "IT"
-    if "홍콩" in address or "Wan Chai" in address:
+    if "홍콩" in value or "Wan Chai" in value:
         return "HK"
-    if "중국" in address or "Dongcheng" in address:
+    if "중국" in value or "Dongcheng" in value:
         return "CN"
-    if any(token in address for token in ("Tokyo", "Japan", "일본")):
+    if any(token in value for token in ("Tokyo", "Japan", "일본", "도쿄", "오사카")):
         return "JP"
-    return "KR"
+    if any(token in value for token in ("Singapore", "싱가포르", "Rangoon", "Lau Pa Sat")):
+        return "SG"
+    if any(token in value for token in ("Berlin", "Germany", "독일")):
+        return "DE"
+    return "KR" if address.strip() else ""
 
 
 def infer_region(address: str) -> str:
@@ -248,14 +305,14 @@ def refresh_candidate_metadata(
     description = str(item.get("description") or "")
     connection.execute(
         """
-        update mention_candidates
+        update youtube_videos
         set
           description = ?,
           duration_seconds = coalesce(?, duration_seconds),
           thumbnail_url = coalesce(nullif(?, ''), thumbnail_url),
           tags = ?,
           chapters = ?
-        where external_id = ?
+        where video_id = ?
         """,
         (
             description,
@@ -315,61 +372,33 @@ def upsert_review(connection: sqlite3.Connection, video_id: str, places: list[Pl
     )
 
 
-def upsert_mapping(connection: sqlite3.Connection, mention_candidate_id: int, video_url: str, place: Place, now: str) -> None:
-    country_code = infer_country(place.address)
-    region = infer_region(place.address)
-    provider = map_provider(place.map_url, country_code)
+def place_search_values(place: Place) -> tuple[str, str, str, float]:
+    provider = "naver_map"
     query = clean(f"{place.name} {place.address}")
-    map_url = place.map_url or search_url(provider, query)
-    confidence = 0.9 if place.address else 0.76
+    map_url = place.map_url if is_real_naver_place_url(place.map_url) else ""
+    confidence = 0.9 if place.address else 0.45
+    return provider, query, map_url, confidence
 
-    connection.execute(
-        """
-        insert into restaurants (
-          canonical_name, display_name, local_name, country_code, region,
-          address, phone, category, created_at, updated_at
-        )
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        on conflict(country_code, address, canonical_name) do update set
-          display_name = excluded.display_name,
-          local_name = excluded.local_name,
-          region = excluded.region,
-          phone = coalesce(nullif(excluded.phone, ''), restaurants.phone),
-          category = coalesce(nullif(excluded.category, ''), restaurants.category),
-          updated_at = excluded.updated_at
-        """,
-        (
-            place.name,
-            place.name,
-            place.name,
-            country_code,
-            region,
-            place.address,
-            place.phone,
-            place.category,
-            now,
-            now,
-        ),
-    )
-    restaurant_id = int(
-        connection.execute(
-            """
-            select id from restaurants
-            where country_code = ? and address = ? and canonical_name = ?
-            """,
-            (country_code, place.address, place.name),
-        ).fetchone()[0]
-    )
 
+def upsert_place_resolution_candidate(
+    connection: sqlite3.Connection,
+    youtube_video_id: int,
+    video_url: str,
+    place: Place,
+    now: str,
+    *,
+    status: str,
+) -> None:
+    provider, query, map_url, confidence = place_search_values(place)
     connection.execute(
         """
         insert into place_resolution_candidates (
-          mention_candidate_id, search_provider, query, result_name,
+          youtube_video_id, search_provider, query, result_name,
           result_address, result_phone, result_category, result_url,
           result_rank, confidence, status, evidence_json, searched_at
         )
         values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-        on conflict(mention_candidate_id, search_provider, query, result_url) do update set
+        on conflict(youtube_video_id, search_provider, query, result_url) do update set
           result_name = excluded.result_name,
           result_address = excluded.result_address,
           result_phone = excluded.result_phone,
@@ -380,7 +409,7 @@ def upsert_mapping(connection: sqlite3.Connection, mention_candidate_id: int, vi
           searched_at = excluded.searched_at
         """,
         (
-            mention_candidate_id,
+            youtube_video_id,
             provider,
             query,
             place.name,
@@ -390,10 +419,119 @@ def upsert_mapping(connection: sqlite3.Connection, mention_candidate_id: int, vi
             map_url,
             1,
             confidence,
-            "selected",
-            json.dumps({"source": "video_metadata", "notes": place.notes, "video_url": video_url}, ensure_ascii=False),
+            status,
+            json.dumps(
+                {
+                    "source": "video_metadata",
+                    "notes": place.notes,
+                    "video_url": video_url,
+                    "missing_address": not bool(place.address.strip()),
+                },
+                ensure_ascii=False,
+            ),
             now,
         ),
+    )
+
+
+def upsert_mapping(connection: sqlite3.Connection, youtube_video_id: int, video_url: str, place: Place, now: str) -> bool:
+    if not place.address.strip():
+        raise ValueError(f"Cannot promote {place.name!r} without a verified address")
+    if is_overseas_place(place):
+        raise ValueError(f"Cannot promote overseas place {place.name!r} in Naver-only mode")
+
+    country_code = infer_country(place.address, place.name)
+    region = infer_region(place.address)
+    provider, _query, map_url, confidence = place_search_values(place)
+    naver_map_id, resolved_map_url = resolve_naver_map_details(map_url)
+
+    if not naver_map_id:
+        upsert_place_resolution_candidate(
+            connection,
+            youtube_video_id,
+            video_url,
+            place,
+            now,
+            status="needs_review",
+        )
+        return False
+
+    existing = connection.execute(
+        "select id from restaurants where naver_map_id = ?",
+        (naver_map_id,),
+    ).fetchone()
+    if existing is None:
+        existing = connection.execute(
+            """
+            select id from restaurants
+            where country_code = ? and address = ? and canonical_name = ?
+            """,
+            (country_code, place.address, place.name),
+        ).fetchone()
+
+    if existing is not None:
+        restaurant_id = int(existing[0])
+        connection.execute(
+            """
+            update restaurants
+            set
+              naver_map_id = ?,
+              display_name = ?,
+              local_name = ?,
+              region = ?,
+              phone = coalesce(nullif(?, ''), phone),
+              category = coalesce(nullif(?, ''), category),
+              updated_at = ?
+            where id = ?
+            """,
+            (
+                naver_map_id,
+                place.name,
+                place.name,
+                region,
+                place.phone,
+                place.category,
+                now,
+                restaurant_id,
+            ),
+        )
+    else:
+        connection.execute(
+            """
+            insert into restaurants (
+              naver_map_id, canonical_name, display_name, local_name, country_code, region,
+              address, phone, category, created_at, updated_at
+            )
+            values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+            """,
+            (
+                naver_map_id,
+                place.name,
+                place.name,
+                place.name,
+                country_code,
+                region,
+                place.address,
+                place.phone,
+                place.category,
+                now,
+                now,
+            ),
+        )
+        restaurant_id = int(
+            connection.execute(
+                "select id from restaurants where naver_map_id = ?",
+                (naver_map_id,),
+            ).fetchone()[0]
+        )
+
+    upsert_place_resolution_candidate(
+        connection,
+        youtube_video_id,
+        video_url,
+        place,
+        now,
+        status="selected",
     )
 
     connection.execute(
@@ -413,7 +551,7 @@ def upsert_mapping(connection: sqlite3.Connection, mention_candidate_id: int, vi
         (
             restaurant_id,
             provider,
-            map_url,
+            resolved_map_url,
             video_url,
             confidence,
             "metadata_verified",
@@ -424,17 +562,18 @@ def upsert_mapping(connection: sqlite3.Connection, mention_candidate_id: int, vi
 
     connection.execute(
         """
-        insert into mentions (
-          restaurant_id, mention_candidate_id, confidence, status, verified_at
+        insert into youtube_video_restaurants (
+          restaurant_id, youtube_video_id, confidence, status, verified_at
         )
         values (?, ?, ?, ?, ?)
-        on conflict(restaurant_id, mention_candidate_id) do update set
+        on conflict(restaurant_id, youtube_video_id) do update set
           confidence = excluded.confidence,
           status = excluded.status,
           verified_at = excluded.verified_at
         """,
-        (restaurant_id, mention_candidate_id, confidence, "metadata_verified", now),
+        (restaurant_id, youtube_video_id, confidence, "metadata_verified", now),
     )
+    return True
 
 
 def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_metadata: bool = True) -> dict[str, int]:
@@ -443,6 +582,9 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
         "reviewed": 0,
         "metadata_refreshed": 0,
         "mapped_places": 0,
+        "places_needing_address": 0,
+        "places_needing_naver_map_id": 0,
+        "skipped_overseas_places": 0,
         "not_restaurant_or_uncertain": 0,
     }
     with sqlite3.connect(sqlite_path) as connection:
@@ -450,7 +592,7 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
         rows = connection.execute(
             """
             select
-              v.mention_candidate_id,
+              v.youtube_video_id,
               v.video_id,
               v.title,
               v.url,
@@ -458,13 +600,13 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
               v.mapping_status,
               c.description
             from video_pipeline_status v
-            join mention_candidates c on c.id = v.mention_candidate_id
+            join youtube_videos c on c.id = v.youtube_video_id
             where v.mapping_status != 'mapping_verified'
-            order by v.published_at desc, v.mention_candidate_id desc
+            order by v.published_at desc, v.youtube_video_id desc
             """
         ).fetchall()
 
-        for mention_candidate_id, video_id, title, video_url, review_status, _mapping_status, description in rows:
+        for youtube_video_id, video_id, title, video_url, review_status, _mapping_status, description in rows:
             description_text = str(description or "")
             places = extract_places(description_text)
             if enrich_missing_metadata and should_refresh_metadata(str(review_status), str(title), description_text, places):
@@ -475,6 +617,15 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
                 except Exception as error:
                     print(f"warning: failed to refresh metadata for {video_id}: {error}")
 
+            context = f"{title}\n{description_text}"
+            overseas_places = [
+                place for place in places if is_overseas_place(place, context)
+            ]
+            places = [
+                place for place in places if not is_overseas_place(place, context)
+            ]
+            counts["skipped_overseas_places"] += len(overseas_places)
+
             if str(review_status) == "unreviewed":
                 counts["reviewed"] += 1
                 if not dry_run:
@@ -482,9 +633,28 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
 
             if places:
                 for place in places:
-                    counts["mapped_places"] += 1
-                    if not dry_run:
-                        upsert_mapping(connection, int(mention_candidate_id), str(video_url), place, now)
+                    if place.address.strip():
+                        if dry_run:
+                            _provider, _query, map_url, _confidence = place_search_values(place)
+                            naver_map_id, _resolved_map_url = resolve_naver_map_details(map_url)
+                            mapped = bool(naver_map_id)
+                        else:
+                            mapped = upsert_mapping(connection, int(youtube_video_id), str(video_url), place, now)
+                        if mapped:
+                            counts["mapped_places"] += 1
+                        else:
+                            counts["places_needing_naver_map_id"] += 1
+                    else:
+                        if not dry_run:
+                            upsert_place_resolution_candidate(
+                                connection,
+                                int(youtube_video_id),
+                                str(video_url),
+                                place,
+                                now,
+                                status="needs_review",
+                            )
+                        counts["places_needing_address"] += 1
             elif str(review_status) == "unreviewed":
                 counts["not_restaurant_or_uncertain"] += 1
 

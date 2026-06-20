@@ -17,6 +17,21 @@ MIN_TASTING_FLOW_CHARS = 180
 DEFAULT_PAGE_SIZE = 20
 
 
+def active_search_link_count(sqlite_path: Path) -> int:
+    with sqlite3.connect(sqlite_path) as connection:
+        return int(
+            connection.execute(
+                """
+                select count(*)
+                from place_links
+                where provider = 'naver_map'
+                  and status in ('verified', 'metadata_verified')
+                  and url like '%/p/search/%'
+                """
+            ).fetchone()[0]
+        )
+
+
 def expected_public_count(sqlite_path: Path) -> int:
     with sqlite3.connect(sqlite_path) as connection:
         return int(
@@ -24,16 +39,71 @@ def expected_public_count(sqlite_path: Path) -> int:
                 """
                 select count(distinct r.id)
                 from restaurants r
-                join mentions m on m.restaurant_id = r.id
-                join mention_candidates c on c.id = m.mention_candidate_id
-                join agent_video_reviews review on review.external_id = c.external_id
-                join video_story_reviews story on story.external_id = c.external_id
+                join youtube_video_restaurants m on m.restaurant_id = r.id
+                join youtube_videos c on c.id = m.youtube_video_id
+                join agent_video_reviews review on review.external_id = c.video_id
+                join video_story_reviews story on story.external_id = c.video_id
                 where review.decision = 'restaurant_intro'
+                  and trim(r.naver_map_id) != ''
                   and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
                   and length(trim(story.story_intro)) >= ?
                   and length(trim(story.tasting_flow)) >= ?
                 """
                 ,
+                (MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS),
+            ).fetchone()[0]
+        )
+
+
+def public_missing_map_count(sqlite_path: Path) -> int:
+    with sqlite3.connect(sqlite_path) as connection:
+        return int(
+            connection.execute(
+                """
+                with ranked_mentions as (
+                  select
+                    r.id,
+                    row_number() over (
+                      partition by r.id
+                      order by c.published_at desc, c.id desc
+                    ) as mention_rank
+                  from restaurants r
+                  join youtube_video_restaurants m on m.restaurant_id = r.id
+                  join youtube_videos c on c.id = m.youtube_video_id
+                  join agent_video_reviews review on review.external_id = c.video_id
+                  join video_story_reviews story on story.external_id = c.video_id
+                  where review.decision = 'restaurant_intro'
+                    and trim(r.naver_map_id) != ''
+                    and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
+                    and length(trim(story.story_intro)) >= ?
+                    and length(trim(story.tasting_flow)) >= ?
+                ),
+                ranked_links as (
+                  select
+                    restaurant_id,
+                    url,
+                    row_number() over (
+                      partition by restaurant_id
+                      order by
+                        case provider
+                          when 'naver_map' then 0
+                          when 'google_maps' then 1
+                          else 2
+                        end,
+                        confidence desc,
+                        verified_at desc
+                    ) as link_rank
+                  from place_links
+                  where status in ('verified', 'metadata_verified')
+                    and url not like '%/p/search/%'
+                )
+                select count(*)
+                from ranked_mentions
+                left join ranked_links on ranked_links.restaurant_id = ranked_mentions.id
+                  and ranked_links.link_rank = 1
+                where ranked_mentions.mention_rank = 1
+                  and ranked_links.url is null
+                """,
                 (MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS),
             ).fetchone()[0]
         )
@@ -51,6 +121,20 @@ def read_html(html_path: Path | None, url: str | None) -> str:
 def verify(sqlite_path: Path, html_path: Path | None, url: str | None) -> None:
     expected_count = expected_public_count(sqlite_path)
     expected_page_count = min(expected_count, DEFAULT_PAGE_SIZE)
+    search_link_count = active_search_link_count(sqlite_path)
+    missing_map_count = public_missing_map_count(sqlite_path)
+
+    if search_link_count:
+        raise RuntimeError(
+            "Public listing contract failed: "
+            f"{search_link_count} active Naver map links are search URLs, "
+            "not verified place entries."
+        )
+    if missing_map_count:
+        raise RuntimeError(
+            "Public listing contract failed: "
+            f"{missing_map_count} public restaurants do not have a verified map link."
+        )
 
     if not url and html_path and not html_path.exists():
         if not DEFAULT_DYNAMIC_ROUTE.exists():
@@ -72,6 +156,12 @@ def verify(sqlite_path: Path, html_path: Path | None, url: str | None) -> None:
     html = read_html(html_path, url)
     card_count = html.count('class="video-card"')
     story_count = html.count('class="story-section"')
+
+    if "/p/search/" in html:
+        raise RuntimeError(
+            "Public listing contract failed: rendered HTML contains a "
+            "Naver search URL instead of a verified place entry."
+        )
 
     if card_count != expected_page_count:
         raise RuntimeError(

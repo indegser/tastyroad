@@ -60,7 +60,7 @@ class YoutubeSource:
 
 
 @dataclass(frozen=True)
-class MentionCandidate:
+class YoutubeVideo:
     source_key: str
     source: str
     channel_id: str
@@ -112,8 +112,8 @@ def collect_source(
     collected_at: str,
     *,
     workers: int = 1,
-    existing_candidates: dict[str, MentionCandidate] | None = None,
-) -> list[MentionCandidate]:
+    existing_candidates: dict[str, YoutubeVideo] | None = None,
+) -> list[YoutubeVideo]:
     xml_bytes = fetch_feed(source.resolved_feed_url)
     candidates = parse_feed(xml_bytes, source, collected_at)
     candidates, skip_video_ids = apply_existing_candidates(
@@ -129,8 +129,8 @@ def collect_source_full_channel(
     collected_at: str,
     *,
     workers: int = 1,
-    existing_candidates: dict[str, MentionCandidate] | None = None,
-) -> list[MentionCandidate]:
+    existing_candidates: dict[str, YoutubeVideo] | None = None,
+) -> list[YoutubeVideo]:
     rss_candidates = {
         candidate.video_id: candidate
         for candidate in parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
@@ -144,7 +144,7 @@ def collect_source_full_channel(
         f"https://www.youtube.com/channel/{source.resolved_channel_id}/videos",
     ]
     completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
-    candidates: list[MentionCandidate] = []
+    candidates: list[YoutubeVideo] = []
     existing_candidates = existing_candidates or {}
     skip_video_ids: set[str] = set()
 
@@ -180,8 +180,8 @@ def make_candidate_from_yt_dlp_item(
     item: dict[str, Any],
     source: YoutubeSource,
     collected_at: str,
-    fallback: MentionCandidate | None = None,
-) -> MentionCandidate:
+    fallback: YoutubeVideo | None = None,
+) -> YoutubeVideo:
     video_id = str(item.get("id") or "").strip()
     title = str(item.get("title") or (fallback.title if fallback else "")).strip()
     url = str(item.get("webpage_url") or item.get("url") or f"https://www.youtube.com/watch?v={video_id}")
@@ -194,7 +194,7 @@ def make_candidate_from_yt_dlp_item(
         else extract_title_candidates(title, source)
     )
 
-    return MentionCandidate(
+    return YoutubeVideo(
         source_key=source.key,
         source=source.name,
         channel_id=str(item.get("channel_id") or source.resolved_channel_id),
@@ -220,14 +220,14 @@ def make_candidate_from_yt_dlp_item(
 
 
 def apply_existing_candidates(
-    candidates: list[MentionCandidate],
-    existing_candidates: dict[str, MentionCandidate],
+    candidates: list[YoutubeVideo],
+    existing_candidates: dict[str, YoutubeVideo],
     collected_at: str,
-) -> tuple[list[MentionCandidate], set[str]]:
+) -> tuple[list[YoutubeVideo], set[str]]:
     if not existing_candidates:
         return candidates, set()
 
-    merged_candidates: list[MentionCandidate] = []
+    merged_candidates: list[YoutubeVideo] = []
     skip_video_ids: set[str] = set()
     for candidate in candidates:
         existing_candidate = existing_candidates.get(candidate.video_id)
@@ -244,11 +244,11 @@ def apply_existing_candidates(
 
 
 def merge_candidate_with_existing(
-    candidate: MentionCandidate,
-    existing_candidate: MentionCandidate,
+    candidate: YoutubeVideo,
+    existing_candidate: YoutubeVideo,
     collected_at: str,
-) -> MentionCandidate:
-    return MentionCandidate(
+) -> YoutubeVideo:
+    return YoutubeVideo(
         source_key=candidate.source_key,
         source=candidate.source,
         channel_id=candidate.channel_id or existing_candidate.channel_id,
@@ -275,12 +275,12 @@ def merge_candidate_with_existing(
 
 
 def enrich_candidates(
-    candidates: list[MentionCandidate],
+    candidates: list[YoutubeVideo],
     source: YoutubeSource,
     *,
     workers: int = 1,
     skip_video_ids: set[str] | None = None,
-) -> list[MentionCandidate]:
+) -> list[YoutubeVideo]:
     skip_video_ids = skip_video_ids or set()
     workers = max(1, workers)
     if workers == 1:
@@ -290,11 +290,11 @@ def enrich_candidates(
 
 
 def enrich_candidates_serial(
-    candidates: list[MentionCandidate],
+    candidates: list[YoutubeVideo],
     source: YoutubeSource,
     skip_video_ids: set[str],
-) -> list[MentionCandidate]:
-    enriched: list[MentionCandidate] = []
+) -> list[YoutubeVideo]:
+    enriched: list[YoutubeVideo] = []
     for index, candidate in enumerate(candidates, start=1):
         if candidate.video_id in skip_video_ids:
             enriched.append(candidate)
@@ -325,12 +325,12 @@ def enrich_candidates_serial(
 
 
 def enrich_candidates_parallel(
-    candidates: list[MentionCandidate],
+    candidates: list[YoutubeVideo],
     source: YoutubeSource,
     workers: int,
     skip_video_ids: set[str],
-) -> list[MentionCandidate]:
-    enriched: list[MentionCandidate | None] = [None] * len(candidates)
+) -> list[YoutubeVideo]:
+    enriched: list[YoutubeVideo | None] = [None] * len(candidates)
     futures = {}
 
     with ThreadPoolExecutor(max_workers=workers) as executor:
@@ -410,9 +410,9 @@ def fetch_feed(url: str) -> bytes:
         return response.read()
 
 
-def parse_feed(xml_bytes: bytes, source: YoutubeSource, collected_at: str) -> list[MentionCandidate]:
+def parse_feed(xml_bytes: bytes, source: YoutubeSource, collected_at: str) -> list[YoutubeVideo]:
     root = ElementTree.fromstring(xml_bytes)
-    candidates: list[MentionCandidate] = []
+    candidates: list[YoutubeVideo] = []
 
     for entry in root.findall(f"{ATOM_NS}entry"):
         title = text_or_empty(entry.find(f"{ATOM_NS}title"))
@@ -425,7 +425,7 @@ def parse_feed(xml_bytes: bytes, source: YoutubeSource, collected_at: str) -> li
         thumbnail_url = extract_thumbnail_url(entry, video_id)
 
         candidates.append(
-            MentionCandidate(
+            YoutubeVideo(
                 source_key=source.key,
                 source=source.name,
                 channel_id=source.resolved_channel_id,
@@ -482,7 +482,7 @@ def format_yt_dlp_timestamp(item: dict[str, Any]) -> str:
     return ""
 
 
-def extract_duration_seconds(item: dict[str, Any], fallback: MentionCandidate | None = None) -> int | None:
+def extract_duration_seconds(item: dict[str, Any], fallback: YoutubeVideo | None = None) -> int | None:
     duration = item.get("duration")
     if isinstance(duration, (int, float)):
         return int(duration)
@@ -619,7 +619,7 @@ def load_existing_candidates(
     sqlite_path: Path,
     output_dir: Path,
     source: YoutubeSource,
-) -> dict[str, MentionCandidate]:
+) -> dict[str, YoutubeVideo]:
     existing = load_existing_candidates_from_json(output_dir / f"{source.key}.json", source)
     existing.update(load_existing_candidates_from_sqlite(sqlite_path, source))
     return existing
@@ -628,7 +628,7 @@ def load_existing_candidates(
 def load_existing_candidates_from_json(
     path: Path,
     source: YoutubeSource,
-) -> dict[str, MentionCandidate]:
+) -> dict[str, YoutubeVideo]:
     if not path.exists():
         return {}
 
@@ -638,11 +638,11 @@ def load_existing_candidates_from_json(
         print(f"warning: failed to read existing candidates from {path}: {error}", file=sys.stderr)
         return {}
 
-    candidates: dict[str, MentionCandidate] = {}
+    candidates: dict[str, YoutubeVideo] = {}
     for item in payload.get("items", []):
         if not isinstance(item, dict):
             continue
-        candidate = mention_candidate_from_mapping(item, source)
+        candidate = youtube_video_from_mapping(item, source)
         if candidate is not None:
             candidates[candidate.video_id] = candidate
     return candidates
@@ -651,16 +651,17 @@ def load_existing_candidates_from_json(
 def load_existing_candidates_from_sqlite(
     path: Path,
     source: YoutubeSource,
-) -> dict[str, MentionCandidate]:
+) -> dict[str, YoutubeVideo]:
     if not path.exists():
         return {}
 
     try:
         with sqlite3.connect(path) as connection:
+            ensure_pipeline_schema(connection)
             rows = connection.execute(
                 """
                 select
-                  c.external_id,
+                  c.video_id,
                   c.title,
                   c.url,
                   c.thumbnail_url,
@@ -672,7 +673,7 @@ def load_existing_candidates_from_sqlite(
                   c.chapters,
                   c.raw_restaurant_name_candidates,
                   c.collected_at
-                from mention_candidates c
+                from youtube_videos c
                 join sources s on s.id = c.source_id
                 where s.name = ?
                 """,
@@ -682,7 +683,7 @@ def load_existing_candidates_from_sqlite(
         print(f"warning: failed to read existing candidates from {path}: {error}", file=sys.stderr)
         return {}
 
-    candidates: dict[str, MentionCandidate] = {}
+    candidates: dict[str, YoutubeVideo] = {}
     for row in rows:
         item = {
             "source_key": source.key,
@@ -701,16 +702,16 @@ def load_existing_candidates_from_sqlite(
             "restaurant_name_candidates": parse_json_array(row[10]),
             "collected_at": row[11],
         }
-        candidate = mention_candidate_from_mapping(item, source)
+        candidate = youtube_video_from_mapping(item, source)
         if candidate is not None:
             candidates[candidate.video_id] = candidate
     return candidates
 
 
-def mention_candidate_from_mapping(
+def youtube_video_from_mapping(
     item: dict[str, Any],
     source: YoutubeSource,
-) -> MentionCandidate | None:
+) -> YoutubeVideo | None:
     video_id = str(item.get("video_id") or item.get("external_id") or "").strip()
     if not video_id:
         return None
@@ -728,7 +729,7 @@ def mention_candidate_from_mapping(
     if isinstance(duration_value, (int, float)):
         duration_seconds = int(duration_value)
 
-    return MentionCandidate(
+    return YoutubeVideo(
         source_key=str(item.get("source_key") or source.key),
         source=str(item.get("source") or source.name),
         channel_id=str(item.get("channel_id") or source.resolved_channel_id),
@@ -759,7 +760,7 @@ def parse_json_array(value: Any) -> list[Any]:
     return parsed if isinstance(parsed, list) else []
 
 
-def write_json(output_dir: Path, source: YoutubeSource, candidates: list[MentionCandidate]) -> Path:
+def write_json(output_dir: Path, source: YoutubeSource, candidates: list[YoutubeVideo]) -> Path:
     output_dir.mkdir(parents=True, exist_ok=True)
     path = output_dir / f"{source.key}.json"
     payload = {
@@ -773,7 +774,7 @@ def write_json(output_dir: Path, source: YoutubeSource, candidates: list[Mention
     return path
 
 
-def write_sqlite(path: Path, source: YoutubeSource, candidates: list[MentionCandidate]) -> None:
+def write_sqlite(path: Path, source: YoutubeSource, candidates: list[YoutubeVideo]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with sqlite3.connect(path) as connection:
@@ -783,9 +784,9 @@ def write_sqlite(path: Path, source: YoutubeSource, candidates: list[MentionCand
         for candidate in candidates:
             connection.execute(
                 """
-                insert into mention_candidates (
+                insert into youtube_videos (
                   source_id,
-                  external_id,
+                  video_id,
                   title,
                   url,
                   thumbnail_url,
@@ -799,17 +800,17 @@ def write_sqlite(path: Path, source: YoutubeSource, candidates: list[MentionCand
                   collected_at
                 )
                 values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-                on conflict(source_id, external_id) do update set
+                on conflict(source_id, video_id) do update set
                   title = excluded.title,
                   url = excluded.url,
                   thumbnail_url = excluded.thumbnail_url,
                   published_at = case
                     when excluded.published_at != '' then excluded.published_at
-                    else mention_candidates.published_at
+                    else youtube_videos.published_at
                   end,
                   updated_at = case
                     when excluded.updated_at != '' then excluded.updated_at
-                    else mention_candidates.updated_at
+                    else youtube_videos.updated_at
                   end,
                   description = excluded.description,
                   duration_seconds = excluded.duration_seconds,
@@ -837,61 +838,6 @@ def write_sqlite(path: Path, source: YoutubeSource, candidates: list[MentionCand
 
 
 def ensure_collection_schema(connection: sqlite3.Connection) -> None:
-    connection.executescript(
-        """
-        create table if not exists sources (
-          id integer primary key autoincrement,
-          name text not null unique,
-          type text not null,
-          trust_tier text not null,
-          official_url text not null,
-          created_at text not null
-        );
-
-        create table if not exists mention_candidates (
-          id integer primary key autoincrement,
-          source_id integer not null references sources(id),
-          external_id text not null,
-          title text not null,
-          url text not null,
-          thumbnail_url text not null default '',
-          published_at text not null,
-          updated_at text not null,
-          description text not null default '',
-          duration_seconds integer,
-          tags text not null default '[]',
-          chapters text not null default '[]',
-          raw_restaurant_name_candidates text not null,
-          collected_at text not null,
-          status text not null default 'pending',
-          unique(source_id, external_id)
-        );
-        """
-    )
-    columns = {
-        row[1]
-        for row in connection.execute("pragma table_info(mention_candidates)").fetchall()
-    }
-    if "thumbnail_url" not in columns:
-        connection.execute(
-            "alter table mention_candidates add column thumbnail_url text not null default ''"
-        )
-    if "description" not in columns:
-        connection.execute(
-            "alter table mention_candidates add column description text not null default ''"
-        )
-    if "duration_seconds" not in columns:
-        connection.execute(
-            "alter table mention_candidates add column duration_seconds integer"
-        )
-    if "tags" not in columns:
-        connection.execute(
-            "alter table mention_candidates add column tags text not null default '[]'"
-        )
-    if "chapters" not in columns:
-        connection.execute(
-            "alter table mention_candidates add column chapters text not null default '[]'"
-        )
     ensure_pipeline_schema(connection)
 
 
@@ -960,7 +906,7 @@ def collect_sources(
 
 
 def main() -> int:
-    parser = argparse.ArgumentParser(description="Collect YouTube RSS mention candidates for configured sources.")
+    parser = argparse.ArgumentParser(description="Collect YouTube video rows for configured sources.")
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)

@@ -19,8 +19,9 @@ from process_video_stories import (
     validate_story_review_quality,
 )
 from promote_verified_places import (
-    get_candidate_id,
-    upsert_mention,
+    get_youtube_video_id,
+    resolve_naver_map_details,
+    upsert_video_restaurant,
     upsert_place_link,
     upsert_place_resolution_candidate,
     upsert_restaurant,
@@ -146,9 +147,9 @@ def places_from_artifact(path: Path) -> tuple[str, str, list[dict[str, Any]]]:
     return video_id, verified_at, [item for item in items if isinstance(item, dict)]
 
 
-def mention_candidate_exists(connection: sqlite3.Connection, video_id: str) -> bool:
+def youtube_video_exists(connection: sqlite3.Connection, video_id: str) -> bool:
     row = connection.execute(
-        "select 1 from mention_candidates where external_id = ? limit 1",
+        "select 1 from youtube_videos where video_id = ? limit 1",
         (video_id,),
     ).fetchone()
     return row is not None
@@ -267,8 +268,8 @@ def reduce_restaurant_review_artifact(
 ) -> ReductionResult:
     try:
         video_id, item = review_from_artifact(artifact_path)
-        if not mention_candidate_exists(connection, video_id):
-            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching mention_candidate")
+        if not youtube_video_exists(connection, video_id):
+            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching youtube_video")
         if apply:
             upsert_review_from_item(connection, video_id, item)
         return ReductionResult(video_id, str(artifact_path), "applied" if apply else "planned")
@@ -284,12 +285,12 @@ def reduce_transcript_artifact(
 ) -> ReductionResult:
     try:
         video_id, fetched_at, transcript = transcript_from_artifact(artifact_path)
-        if not mention_candidate_exists(connection, video_id):
+        if not youtube_video_exists(connection, video_id):
             return ReductionResult(
                 video_id=video_id,
                 artifact_path=str(artifact_path),
                 status="skipped",
-                reason="no matching mention_candidate",
+                reason="no matching youtube_video",
             )
         if apply:
             upsert_transcript(connection, video_id, transcript, fetched_at)
@@ -315,8 +316,8 @@ def reduce_story_review_artifact(
 ) -> ReductionResult:
     try:
         video_id, item = story_from_artifact(artifact_path)
-        if not mention_candidate_exists(connection, video_id):
-            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching mention_candidate")
+        if not youtube_video_exists(connection, video_id):
+            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching youtube_video")
         for key in ("critic_rounds", "revision_history"):
             signature = story_signature(item, key)
             if signature and duplicate_signatures and signature in duplicate_signatures:
@@ -336,15 +337,23 @@ def reduce_place_verification_artifact(
 ) -> ReductionResult:
     try:
         video_id, verified_at, items = places_from_artifact(artifact_path)
-        if not mention_candidate_exists(connection, video_id):
-            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching mention_candidate")
+        if not youtube_video_exists(connection, video_id):
+            return ReductionResult(video_id, str(artifact_path), "skipped", "no matching youtube_video")
         if apply:
-            mention_candidate_id = get_candidate_id(connection, video_id)
+            youtube_video_id = get_youtube_video_id(connection, video_id)
             for item in items:
-                restaurant_id = upsert_restaurant(connection, item, verified_at)
-                upsert_place_resolution_candidate(connection, mention_candidate_id, item, verified_at)
-                upsert_place_link(connection, restaurant_id, item, verified_at)
-                upsert_mention(connection, restaurant_id, mention_candidate_id, item, verified_at)
+                naver_map_id, resolved_map_url = resolve_naver_map_details(item)
+                resolved_item = {
+                    **item,
+                    "map_url": resolved_map_url,
+                    "resolution_status": "selected" if naver_map_id else "needs_review",
+                }
+                upsert_place_resolution_candidate(connection, youtube_video_id, resolved_item, verified_at)
+                if not naver_map_id:
+                    continue
+                restaurant_id = upsert_restaurant(connection, resolved_item, verified_at, naver_map_id)
+                upsert_place_link(connection, restaurant_id, resolved_item, verified_at)
+                upsert_video_restaurant(connection, restaurant_id, youtube_video_id, resolved_item, verified_at)
         return ReductionResult(video_id, str(artifact_path), "applied" if apply else "planned")
     except Exception as error:  # noqa: BLE001
         return ReductionResult("", str(artifact_path), "invalid", f"{type(error).__name__}: {error}")

@@ -95,12 +95,13 @@ function loadRestaurantItems(): RestaurantItem[] {
               order by c.published_at desc, c.id desc
             ) as mention_rank
           from restaurants r
-          join mentions m on m.restaurant_id = r.id
-          join mention_candidates c on c.id = m.mention_candidate_id
+          join youtube_video_restaurants m on m.restaurant_id = r.id
+          join youtube_videos c on c.id = m.youtube_video_id
           join sources s on s.id = c.source_id
-          join agent_video_reviews review on review.external_id = c.external_id
-          join video_story_reviews story on story.external_id = c.external_id
+          join agent_video_reviews review on review.external_id = c.video_id
+          join video_story_reviews story on story.external_id = c.video_id
           where review.decision = 'restaurant_intro'
+            and trim(r.naver_map_id) != ''
             and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
             and length(trim(story.story_intro)) >= ?
             and length(trim(story.tasting_flow)) >= ?
@@ -118,6 +119,7 @@ function loadRestaurantItems(): RestaurantItem[] {
             ) as link_rank
           from place_links
           where status in ('verified', 'metadata_verified')
+            and url not like '%/p/search/%'
         )
         select
           ranked_mentions.id,
