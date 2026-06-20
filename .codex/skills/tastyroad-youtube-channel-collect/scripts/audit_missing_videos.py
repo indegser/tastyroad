@@ -25,70 +25,94 @@ def load_source(config_path: Path, source_key: str) -> dict[str, Any]:
     raise SystemExit(f"Source not found in {config_path}: {source_key}")
 
 
-def channel_url(source: dict[str, Any]) -> str:
+def channel_urls(source: dict[str, Any]) -> list[str]:
     playlist_url = str(source.get("playlist_url") or "")
+    urls: list[str] = []
+
     if playlist_url:
-        return playlist_url
-
-    channel_id = source.get("channel_id")
-    if channel_id:
-        return f"https://www.youtube.com/channel/{channel_id}/videos"
-
-    feed_url = str(source.get("feed_url") or "")
-    marker = "channel_id="
-    if marker in feed_url:
-        channel_id = feed_url.split(marker, 1)[1].split("&", 1)[0]
+        urls.append(playlist_url)
+    else:
+        channel_id = source.get("channel_id")
         if channel_id:
-            return f"https://www.youtube.com/channel/{channel_id}/videos"
+            urls.append(f"https://www.youtube.com/channel/{channel_id}/videos")
 
-    official_url = str(source.get("official_url") or "")
-    if "playlist?list=" in official_url:
-        return official_url
-    if "/channel/" in official_url:
-        return official_url.rstrip("/") + "/videos"
+        feed_url = str(source.get("feed_url") or "")
+        marker = "channel_id="
+        if not urls and marker in feed_url:
+            channel_id = feed_url.split(marker, 1)[1].split("&", 1)[0]
+            if channel_id:
+                urls.append(f"https://www.youtube.com/channel/{channel_id}/videos")
 
-    raise SystemExit(
-        f"Source {source.get('key')} needs playlist_url, channel_id, or channel feed_url for full-channel audit"
-    )
+        official_url = str(source.get("official_url") or "")
+        if not urls and "playlist?list=" in official_url:
+            urls.append(official_url)
+        if not urls and "/channel/" in official_url:
+            urls.append(official_url.rstrip("/") + "/videos")
+
+    urls.extend(str(url) for url in source.get("playlist_urls", []) if str(url))
+    deduped = list(dict.fromkeys(urls))
+    if deduped:
+        return deduped
+
+    raise SystemExit(f"Source {source.get('key')} needs playlist_url, playlist_urls, channel_id, or channel feed_url for full-channel audit")
 
 
 def fetch_full_channel(source: dict[str, Any]) -> list[dict[str, Any]]:
-    command = [
-        "yt-dlp",
-        "--quiet",
-        "--no-warnings",
-        "--flat-playlist",
-        "--extractor-args",
-        "youtube:lang=ko",
-        "--dump-json",
-        channel_url(source),
-    ]
-    try:
-        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=180)
-    except subprocess.CalledProcessError as error:
-        if error.stderr:
-            print(error.stderr.strip(), file=sys.stderr)
-        raise SystemExit(f"yt-dlp failed with exit code {error.returncode}")
     rows: list[dict[str, Any]] = []
+    seen_video_ids: set[str] = set()
 
-    for line in completed.stdout.splitlines():
-        if not line.startswith("{"):
-            continue
-        item = json.loads(line)
-        video_id = str(item.get("id") or "").strip()
-        if not video_id:
-            continue
-        rows.append(
-            {
-                "playlist_index": item.get("playlist_index") or len(rows) + 1,
-                "video_id": video_id,
-                "upload_date": item.get("upload_date") or "NA",
-                "title": str(item.get("title") or "").strip(),
-                "url": item.get("webpage_url") or item.get("url") or f"https://www.youtube.com/watch?v={video_id}",
-            }
-        )
+    for url in channel_urls(source):
+        command = [
+            "yt-dlp",
+            "--quiet",
+            "--no-warnings",
+            "--flat-playlist",
+            "--extractor-args",
+            "youtube:lang=ko",
+            "--dump-json",
+            url,
+        ]
+        try:
+            completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=180)
+        except subprocess.CalledProcessError as error:
+            if error.stderr:
+                print(error.stderr.strip(), file=sys.stderr)
+            raise SystemExit(f"yt-dlp failed with exit code {error.returncode}")
+
+        for line in completed.stdout.splitlines():
+            if not line.startswith("{"):
+                continue
+            item = json.loads(line)
+            title = str(item.get("title") or "").strip()
+            if not title or not should_include_title(title, source):
+                continue
+
+            video_id = str(item.get("id") or "").strip()
+            if not video_id or video_id in seen_video_ids:
+                continue
+            seen_video_ids.add(video_id)
+            rows.append(
+                {
+                    "playlist_index": len(rows) + 1,
+                    "video_id": video_id,
+                    "upload_date": item.get("upload_date") or "NA",
+                    "title": title,
+                    "url": item.get("webpage_url") or item.get("url") or f"https://www.youtube.com/watch?v={video_id}",
+                }
+            )
 
     return rows
+
+
+def should_include_title(title: str, source: dict[str, Any]) -> bool:
+    title_include_any = list(source.get("title_include_any", []))
+    title_exclude_any = list(source.get("title_exclude_any", []))
+    title_folded = title.casefold()
+    if title_include_any and not any(keyword.casefold() in title_folded for keyword in title_include_any):
+        return False
+    if any(keyword.casefold() in title_folded for keyword in title_exclude_any):
+        return False
+    return True
 
 
 def load_collected_ids(sqlite_path: Path, source_name: str) -> set[str]:

@@ -42,6 +42,7 @@ class YoutubeSource:
     channel_id: str | None
     feed_url: str | None
     playlist_url: str | None
+    playlist_urls: list[str]
     title_include_any: list[str]
     title_exclude_any: list[str]
     title_cleanup_patterns: list[str]
@@ -63,9 +64,17 @@ class YoutubeSource:
 
     @property
     def resolved_full_channel_url(self) -> str:
+        return self.resolved_full_channel_urls[0]
+
+    @property
+    def resolved_full_channel_urls(self) -> list[str]:
+        urls: list[str] = []
         if self.playlist_url:
-            return self.playlist_url
-        return f"https://www.youtube.com/channel/{self.resolved_channel_id}/videos"
+            urls.append(self.playlist_url)
+        else:
+            urls.append(f"https://www.youtube.com/channel/{self.resolved_channel_id}/videos")
+        urls.extend(self.playlist_urls)
+        return dedupe(urls)
 
 
 @dataclass(frozen=True)
@@ -111,6 +120,7 @@ def parse_source(item: dict[str, Any]) -> YoutubeSource:
         channel_id=item.get("channel_id"),
         feed_url=item.get("feed_url"),
         playlist_url=item.get("playlist_url"),
+        playlist_urls=list(item.get("playlist_urls", [])),
         title_include_any=list(item.get("title_include_any", [])),
         title_exclude_any=list(item.get("title_exclude_any", [])),
         title_cleanup_patterns=list(item.get("title_cleanup_patterns", [])),
@@ -131,7 +141,13 @@ def collect_source(
         existing_candidates or {},
         collected_at,
     )
-    return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
+    enriched_candidates = enrich_candidates(
+        candidates,
+        source,
+        workers=workers,
+        skip_video_ids=skip_video_ids,
+    )
+    return filter_collectable_full_channel_candidates(enriched_candidates, source)
 
 
 def collect_source_full_channel(
@@ -145,43 +161,47 @@ def collect_source_full_channel(
         candidate.video_id: candidate
         for candidate in parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
     }
-    command = [
-        "yt-dlp",
-        "--dump-json",
-        "--flat-playlist",
-        "--extractor-args",
-        "youtube:lang=ko",
-        source.resolved_full_channel_url,
-    ]
-    completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
     candidates: list[YoutubeVideo] = []
     existing_candidates = existing_candidates or {}
     skip_video_ids: set[str] = set()
+    seen_video_ids: set[str] = set()
 
-    for line in completed.stdout.splitlines():
-        if not line.startswith("{"):
-            continue
-        item = json.loads(line)
-        title = str(item.get("title") or "").strip()
-        if not should_include_title(title, source):
-            continue
+    for full_channel_url in source.resolved_full_channel_urls:
+        command = [
+            "yt-dlp",
+            "--dump-json",
+            "--flat-playlist",
+            "--extractor-args",
+            "youtube:lang=ko",
+            full_channel_url,
+        ]
+        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
 
-        video_id = str(item.get("id") or "").strip()
-        if not video_id:
-            continue
+        for line in completed.stdout.splitlines():
+            if not line.startswith("{"):
+                continue
+            item = json.loads(line)
+            title = str(item.get("title") or "").strip()
+            if not title or not should_include_title(title, source):
+                continue
 
-        existing_candidate = existing_candidates.get(video_id)
-        fallback_candidate = existing_candidate or rss_candidates.get(video_id)
-        candidates.append(
-            make_candidate_from_yt_dlp_item(
-                item=item,
-                source=source,
-                collected_at=collected_at,
-                fallback=fallback_candidate,
+            video_id = str(item.get("id") or "").strip()
+            if not video_id or video_id in seen_video_ids:
+                continue
+            seen_video_ids.add(video_id)
+
+            existing_candidate = existing_candidates.get(video_id)
+            fallback_candidate = existing_candidate or rss_candidates.get(video_id)
+            candidates.append(
+                make_candidate_from_yt_dlp_item(
+                    item=item,
+                    source=source,
+                    collected_at=collected_at,
+                    fallback=fallback_candidate,
+                )
             )
-        )
-        if existing_candidate and has_enriched_video_details(existing_candidate):
-            skip_video_ids.add(video_id)
+            if existing_candidate and has_enriched_video_details(existing_candidate):
+                skip_video_ids.add(video_id)
 
     return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
 
@@ -256,6 +276,30 @@ def apply_existing_candidates(
 
 def has_enriched_video_details(candidate: YoutubeVideo) -> bool:
     return bool(candidate.published_at) and candidate.duration_seconds is not None
+
+
+def filter_collectable_full_channel_candidates(
+    candidates: list[YoutubeVideo],
+    source: YoutubeSource,
+) -> list[YoutubeVideo]:
+    filtered: list[YoutubeVideo] = []
+    dropped: list[YoutubeVideo] = []
+    for candidate in candidates:
+        if (
+            candidate.title
+            and has_enriched_video_details(candidate)
+            and should_include_title(candidate.title, source)
+        ):
+            filtered.append(candidate)
+        else:
+            dropped.append(candidate)
+
+    for candidate in dropped:
+        print(
+            f"warning: dropped incomplete or excluded {source.key}/{candidate.video_id}",
+            file=sys.stderr,
+        )
+    return filtered
 
 
 def merge_candidate_with_existing(
@@ -536,9 +580,10 @@ def text_or_empty(element: ElementTree.Element | None) -> str:
 
 
 def should_include_title(title: str, source: YoutubeSource) -> bool:
-    if source.title_include_any and not any(keyword in title for keyword in source.title_include_any):
+    title_folded = title.casefold()
+    if source.title_include_any and not any(keyword.casefold() in title_folded for keyword in source.title_include_any):
         return False
-    if any(keyword in title for keyword in source.title_exclude_any):
+    if any(keyword.casefold() in title_folded for keyword in source.title_exclude_any):
         return False
     return True
 
@@ -787,6 +832,7 @@ def write_json(output_dir: Path, source: YoutubeSource, candidates: list[Youtube
         "source": source.name,
         "feed_url": source.resolved_feed_url,
         "full_channel_url": source.resolved_full_channel_url,
+        "full_channel_urls": source.resolved_full_channel_urls,
         "count": len(candidates),
         "items": [asdict(candidate) for candidate in candidates],
     }
@@ -794,13 +840,20 @@ def write_json(output_dir: Path, source: YoutubeSource, candidates: list[Youtube
     return path
 
 
-def write_sqlite(path: Path, source: YoutubeSource, candidates: list[YoutubeVideo]) -> None:
+def write_sqlite(
+    path: Path,
+    source: YoutubeSource,
+    candidates: list[YoutubeVideo],
+    *,
+    prune_missing: bool = False,
+) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
 
     with sqlite3.connect(path) as connection:
         connection.execute("pragma foreign_keys = on")
         ensure_collection_schema(connection)
         source_id = upsert_source(connection, source)
+        candidate_video_ids = {candidate.video_id for candidate in candidates}
         for candidate in candidates:
             connection.execute(
                 """
@@ -855,6 +908,22 @@ def write_sqlite(path: Path, source: YoutubeSource, candidates: list[YoutubeVide
                     candidate.collected_at,
                 ),
             )
+        if prune_missing:
+            if candidate_video_ids:
+                placeholders = ",".join("?" for _ in candidate_video_ids)
+                connection.execute(
+                    f"""
+                    delete from youtube_videos
+                    where source_id = ?
+                      and video_id not in ({placeholders})
+                    """,
+                    (source_id, *sorted(candidate_video_ids)),
+                )
+            else:
+                connection.execute(
+                    "delete from youtube_videos where source_id = ?",
+                    (source_id,),
+                )
 
 
 def ensure_collection_schema(connection: sqlite3.Connection) -> None:
@@ -918,7 +987,7 @@ def collect_sources(
             )
         )
         output_path = write_json(output_dir, source, candidates)
-        write_sqlite(sqlite_path, source, candidates)
+        write_sqlite(sqlite_path, source, candidates, prune_missing=use_full_channel)
         counts[source.key] = len(candidates)
         print(f"{source.key}: collected {len(candidates)} candidates -> {output_path}")
 

@@ -47,6 +47,41 @@
         "^\\[[^]]+\\]\\s*",
         "\\s*#.*$"
       ]
+    },
+    {
+      "key": "choizaroad",
+      "name": "최자로드",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "official_url": "https://www.youtube.com/@choizaroad_official",
+      "playlist_urls": [
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3tNkDJ6_RQzsTemA4RFcScb",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3vthfzjd7LAS24_A58iIKZv",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3s__HwGKJphyLl_KZTEwYGS",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3vAvOy52DJN7vco_jkU0cV2",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3vRoh0umDUCk3FnWjk6IKhF",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3s5wC1AdhHf1LGojWrE8pOa",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3uNHuMdjiRyYJVVY-_Yq3TA",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
+        "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
+      ],
+      "enabled": true,
+      "title_include_any": [],
+      "title_exclude_any": [
+        "배부른 소리",
+        "커밍순",
+        "COMING SOON",
+        "Epilogue",
+        "에필로그",
+        "BTS",
+        "미공개컷"
+      ],
+      "title_cleanup_patterns": [
+        "\\s*[|lㅣ]\\s*(?:\\(?Rewriting\\)?\\s*)?(?:(?:NEW\\s*)?최자로드|CHOIZA ROAD|Choiza Road|Choi Ja(?:-ro)?(?: Road)?|Choiza)(?:\\s+.*)?$",
+        "^\\[[^]]+\\]\\s*",
+        "\\s*#.*$"
+      ]
     }
   ]
 }

@@ -2,6 +2,38 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-21 - 최자로드 채널 영상 수집
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/choizaroad-source-collection`
+Branch: `codex/choizaroad-source-collection`
+
+- [x] Read repository guide, lessons, and YouTube collection skill.
+- [x] Confirm the official `최자로드` channel and channel ID.
+- [x] Add the `최자로드` source configuration without disturbing existing sources.
+- [x] Run full-channel collection for the new source.
+- [x] Verify DB/raw output counts and record the result.
+
+### Review
+
+- Added `choizaroad` as an A-tier YouTube source for the official `CHOIZA ROAD - 최자로드` channel (`UCYdUe6y0F8TQS6siNVS7QMw`).
+- Collected 34 restaurant-focused videos into `data/raw/youtube/choizaroad.json` and `data/tastyroad.sqlite`; the 2 audit misses are intentional exclusions: `배부른 소리` and `커밍순`.
+- Verification: source JSON validation passed, raw JSON has 34/34 complete detail rows, DB has 34 `최자로드` videos with 0 incomplete detail rows, and `pnpm run build` passed after installing dependencies in the new worktree.
+
+## Current Task - 2026-06-21 - 최자로드 레거시 시즌 판단
+
+- [x] Re-read repository guide, lessons, and YouTube collection skill.
+- [x] Inventory legacy `최자로드` playlists and overlap with the official channel.
+- [x] Decide whether to collect legacy seasons as the same source or separate sources.
+- [x] Implement the chosen collection shape and collect legacy videos if warranted.
+- [x] Verify DB/raw output counts and record the result.
+
+### Review
+
+- Decision: keep legacy `최자로드` seasons under the same `choizaroad` source, not separate per-season sources, because they are the same program and separate sources would fragment mapping/status display.
+- Added `playlist_urls` support so a source can collect its channel plus multiple official playlists; updated the audit script to use the same title filters and skip unavailable titleless playlist entries.
+- Collected 147 `최자로드` videos across the official channel plus regular seasons 1-9. Excluded non-restaurant/utility items: `배부른 소리`, `커밍순`, `Epilogue`/`에필로그`, `BTS`, and `미공개컷`; skipped 15 titleless unavailable playlist entries.
+- Verification: missing-video audit is `remote_total=147`, `local_collected=147`, `missing=0`; raw/DB have 0 incomplete detail rows; Python compile, JSON validation, and `pnpm run build` passed.
+
 ## Current Task - 2026-06-21 - Agent worktree policy
 
 - [x] Read repository guide and accumulated lessons.

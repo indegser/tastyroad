@@ -2,7 +2,7 @@
 
 ## Important Files
 
-- `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters. Add `playlist_url` when the source must be collected from a show playlist instead of the channel `/videos` tab.
+- `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters. Add `playlist_url` when the source must be collected from a show playlist instead of the channel `/videos` tab. Add `playlist_urls` when one source spans multiple official playlists.
 - `.codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py`: collector for RSS latest-window and full-channel modes.
 - `data/raw/youtube/<source_key>.json`: latest collection output per source.
 - `data/tastyroad.sqlite`: authoritative local database.

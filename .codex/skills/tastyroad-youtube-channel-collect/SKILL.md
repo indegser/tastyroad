@@ -15,6 +15,7 @@ The key distinction is that normal collection reads the YouTube RSS feed and onl
 
 1. Inspect the configured source in `data/sources/youtube_sources.json`.
    - If YouTube exposes the source as a show playlist rather than the channel `/videos` tab, set `playlist_url` on the source and run full-channel collection.
+   - If one source spans multiple official playlists, set `playlist_urls` to collect them with the channel or primary playlist under the same source key.
 2. For complete channel coverage, run:
 
 ```bash
