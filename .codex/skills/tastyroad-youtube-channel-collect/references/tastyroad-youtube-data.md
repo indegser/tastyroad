@@ -3,8 +3,8 @@
 ## Important Files
 
 - `data/sources/youtube_sources.json`: configured YouTube sources; each source needs `key`, `name`, `channel_id` or `feed_url`, and cleanup filters.
-- `scripts/collect_youtube.py`: collector for RSS latest-window and full-channel modes.
-- `scripts/update_pipeline.py`: orchestrated project update; check `full_channel_keys`.
+- `.codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py`: collector for RSS latest-window and full-channel modes.
+- `.codex/skills/tastyroad-data-pipeline/scripts/update_pipeline.py`: orchestrated project update; check `full_channel_keys`.
 - `data/raw/youtube/<source_key>.json`: latest collection output per source.
 - `data/tastyroad.sqlite`: authoritative local database.
 
@@ -43,7 +43,7 @@ Compare the resulting video IDs with `mention_candidates.external_id` for the so
 Use this for normal full-channel refreshes after a source has already been collected once:
 
 ```bash
-python3 scripts/collect_youtube.py --source <source_key> --full-channel --reuse-existing --workers 4
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py --source <source_key> --full-channel --reuse-existing --workers 4
 ```
 
 `--reuse-existing` reads existing candidates from `data/tastyroad.sqlite` and `data/raw/youtube/<source_key>.json`, keeps their enriched metadata, and only fetches per-video details for new or missing IDs. `--missing-only` is an alias for the same behavior.

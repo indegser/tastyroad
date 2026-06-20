@@ -7,12 +7,10 @@ import sqlite3
 from pathlib import Path
 
 from collect_youtube import DEFAULT_SQLITE
-from pipeline_schema import ensure_pipeline_schema
 
 
 def print_status(sqlite_path: Path, limit: int) -> None:
-    with sqlite3.connect(sqlite_path) as connection:
-        ensure_pipeline_schema(connection)
+    with sqlite3.connect(f"file:{sqlite_path}?mode=ro", uri=True) as connection:
         review_rows = connection.execute(
             """
             select review_status, count(*)

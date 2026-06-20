@@ -1,13 +1,15 @@
 ---
 name: tastyroad-youtube-channel-collect
-description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding videos missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage.
+description: Collect, audit, and troubleshoot Tastyroad YouTube channel video sources using bundled skill scripts. Use when adding or updating sources in data/sources/youtube_sources.json, running full-channel YouTube collection instead of the RSS latest-window collector, finding videos missing from data/tastyroad.sqlite or data/raw/youtube/*.json, resolving YouTube channel IDs from handles, or deciding which sources need full-channel pipeline coverage without repo-level scripts.
 ---
 
 # Tastyroad YouTube Channel Collect
 
 ## Overview
 
-Use this skill for Tastyroad YouTube source work. The key distinction is that normal collection reads the YouTube RSS feed and only sees the latest window, while full-channel collection uses `yt-dlp --flat-playlist` to enumerate every video on a channel.
+Use this skill from the Tastyroad repo root for YouTube source work. The repository no longer owns collection scripts; run the bundled scripts in this skill.
+
+The key distinction is that normal collection reads the YouTube RSS feed and only sees the latest window, while full-channel collection uses `yt-dlp --flat-playlist` to enumerate every video on a channel.
 
 ## Workflow
 
@@ -15,16 +17,16 @@ Use this skill for Tastyroad YouTube source work. The key distinction is that no
 2. For complete channel coverage, run:
 
 ```bash
-python3 scripts/collect_youtube.py --source <source_key> --full-channel --reuse-existing --workers 4
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py --source <source_key> --full-channel --reuse-existing --workers 4
 ```
 
 3. For a normal latest-window refresh, run:
 
 ```bash
-python3 scripts/collect_youtube.py --source <source_key>
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py --source <source_key>
 ```
 
-4. If the user asks which videos are not collected, run the bundled audit script:
+4. If the user asks which videos are not collected, run:
 
 ```bash
 python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/audit_missing_videos.py --source <source_key>
@@ -33,12 +35,12 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/audit_missing_vi
 5. If a source uses a handle URL and lacks `channel_id`, resolve it with:
 
 ```bash
-python3 scripts/resolve_youtube_channel_id.py "https://www.youtube.com/@handle"
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/resolve_youtube_channel_id.py "https://www.youtube.com/@handle"
 ```
 
 ## Pipeline Checks
 
-Check `scripts/update_pipeline.py` before assuming scheduled or one-command updates use full-channel collection. Full-channel sources should use `reuse_existing=True` and bounded workers so repeated runs only enrich new videos.
+For complete project refreshes use `$tastyroad-data-pipeline`; this skill is for source collection and source audits.
 
 Use `data/tastyroad.sqlite` as the authoritative local DB. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
 
@@ -55,4 +57,4 @@ The missing TSV includes `playlist_index`, `video_id`, `upload_date`, `title`, a
 
 ## References
 
-Read `references/tastyroad-youtube-data.md` when you need the DB tables, common SQL queries, or command examples for manual audits.
+Read `references/tastyroad-youtube-data.md` when you need DB tables, common SQL queries, or command examples for manual audits.

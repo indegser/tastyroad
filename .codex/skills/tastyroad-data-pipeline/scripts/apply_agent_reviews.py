@@ -178,7 +178,7 @@ def assert_all_candidates_reviewed(sqlite_path: Path, limit: int = 10) -> Review
         )
         raise RuntimeError(
             f"{coverage.unreviewed_count} collected videos have not gone through review. "
-            "Run `python3 scripts/apply_agent_reviews.py --list-unreviewed` and add decisions "
+            "Run `python3 .codex/skills/tastyroad-data-pipeline/scripts/apply_agent_reviews.py --list-unreviewed` and add decisions "
             f"to data/agent_reviews/video_reviews.json before listing.\n{examples}"
         )
     return coverage

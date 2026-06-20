@@ -721,7 +721,7 @@ def stage_artifact(
         "generated_at": now_iso(),
         "worker": {
             "name": task.stage,
-            "implementation": "scripts.agent_pipeline",
+            "implementation": "tastyroad-data-pipeline.agent_pipeline",
             "prompt_version": prompt_version_for_stage(task.stage),
             "model": None,
         },
@@ -744,7 +744,7 @@ def transcript_artifact(task: StageTask, transcript: Any, *, languages: tuple[st
         "fetched_at": now_iso(),
         "worker": {
             "name": "transcript_fetch",
-            "implementation": "scripts.agent_pipeline",
+            "implementation": "tastyroad-data-pipeline.agent_pipeline",
             "prompt_version": None,
             "model": None,
         },
@@ -776,7 +776,7 @@ def failed_artifact(task: StageTask, error: Exception, *, languages: tuple[str, 
         "fetched_at": now_iso(),
         "worker": {
             "name": task.stage,
-            "implementation": "scripts.agent_pipeline",
+            "implementation": "tastyroad-data-pipeline.agent_pipeline",
             "prompt_version": None,
             "model": None,
         },

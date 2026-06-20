@@ -13,7 +13,6 @@ from pipeline_schema import ensure_pipeline_schema
 
 
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
-DEFAULT_INPUT = Path("data/verified_places/sungsikyung_mukeultende_places.json")
 DEFAULT_INPUT_DIR = Path("data/verified_places")
 
 
@@ -245,22 +244,23 @@ def promote_many(sqlite_path: Path, input_paths: list[Path]) -> int:
 def main() -> int:
     parser = argparse.ArgumentParser(description="Promote verified place matches into normalized tables.")
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
-    parser.add_argument("--input", type=Path, default=DEFAULT_INPUT)
+    parser.add_argument("--input", type=Path, help="Promote one verified-place JSON file.")
     parser.add_argument(
         "--input-dir",
         type=Path,
-        help="Promote every JSON file in this directory. Overrides --input.",
+        default=DEFAULT_INPUT_DIR,
+        help="Promote every JSON file in this directory when --input is not set.",
     )
     args = parser.parse_args()
 
-    if args.input_dir:
+    if args.input:
+        count = promote(args.sqlite, args.input)
+        print(f"Promoted {count} verified places")
+    else:
         input_paths = discover_inputs(args.input_dir)
         if not input_paths:
             raise RuntimeError(f"No verified place JSON files found in {args.input_dir}")
         count = promote_many(args.sqlite, input_paths)
-    else:
-        count = promote(args.sqlite, args.input)
-        print(f"Promoted {count} verified places")
 
     print(f"Updated {args.sqlite}")
     return 0

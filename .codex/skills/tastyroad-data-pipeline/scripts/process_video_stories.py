@@ -65,7 +65,7 @@ REQUIRED_CRITIC_CHECKS = (
     "no_generic_phrasing",
 )
 MIN_STORY_CRITIC_ROUNDS = 3
-LOCAL_ENV_PATH = Path(__file__).resolve().parents[1] / ".env.local"
+LOCAL_ENV_PATH = Path.cwd() / ".env.local"
 
 
 @dataclass(frozen=True)

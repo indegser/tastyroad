@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tastyroad Site Release"
+  short_description: "Verify, package, and deploy Tastyroad"
+  default_prompt: "Use $tastyroad-site-release to verify the Tastyroad public listing and prepare a deployment."

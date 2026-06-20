@@ -5,20 +5,7 @@
     "node": ">=22.5.0"
   },
   "scripts": {
-    "build": "next build && python3 scripts/verify_public_listing_contract.py",
-    "update:data": "python3 scripts/update_pipeline.py",
-    "collect": "python3 scripts/collect_youtube.py",
-    "plan:agents": "python3 scripts/agent_pipeline.py",
-    "run:transcripts": "python3 scripts/agent_pipeline.py --stage transcript_fetch --run",
-    "run:story": "python3 scripts/agent_pipeline.py --stage story_review --run",
-    "run:places": "python3 scripts/agent_pipeline.py --stage place_verification --run",
-    "orchestrate:agents": "python3 scripts/orchestrate_agents.py",
-    "agent:inbox": "python3 scripts/agent_inbox.py",
-    "agent:task": "python3 scripts/agent_task.py",
-    "reduce:agents": "python3 scripts/reduce_agent_artifacts.py",
-    "verify:public": "python3 scripts/verify_public_listing_contract.py",
-    "verify:public:prod": "python3 scripts/verify_public_listing_contract.py --url https://taste.indegser.com",
-    "deploy": "pnpm dlx vercel@latest pull --yes --environment=production --scope jaekwon-hans-projects && pnpm dlx vercel@latest build --prod --yes && python3 scripts/verify_public_listing_contract.py && python3 scripts/prepare_vercel_output.py && pnpm dlx vercel@latest deploy --prebuilt --prod --yes --scope jaekwon-hans-projects && python3 scripts/verify_public_listing_contract.py --url https://taste.indegser.com"
+    "build": "next build"
   },
   "dependencies": {
     "geist": "^1.7.2",

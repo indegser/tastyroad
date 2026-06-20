@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tastyroad Naver Map Sync"
+  short_description: "Sync Tastyroad places into a fixed Naver Map list"
+  default_prompt: "Use $tastyroad-naver-map-sync to sync the public Tastyroad restaurants into my fixed Naver Map list."
