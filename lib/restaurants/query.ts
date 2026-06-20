@@ -10,8 +10,6 @@ import type {
 } from "./types";
 
 const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad.sqlite");
-const MIN_STORY_INTRO_CHARS = 240;
-const MIN_TASTING_FLOW_CHARS = 180;
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
@@ -24,6 +22,7 @@ type RestaurantRow = {
   address: string;
   category: string | null;
   status: string;
+  naver_map_id: string;
   source: string | null;
   source_title: string | null;
   source_url: string | null;
@@ -84,6 +83,7 @@ function loadRestaurantItems(): RestaurantItem[] {
             r.address,
             r.category,
             r.status,
+            r.naver_map_id,
             s.name as source,
             c.title as source_title,
             c.url as source_url,
@@ -98,13 +98,9 @@ function loadRestaurantItems(): RestaurantItem[] {
           join youtube_video_restaurants m on m.restaurant_id = r.id
           join youtube_videos c on c.id = m.youtube_video_id
           join sources s on s.id = c.source_id
-          join agent_video_reviews review on review.external_id = c.video_id
-          join video_story_reviews story on story.external_id = c.video_id
-          where review.decision = 'restaurant_intro'
-            and trim(r.naver_map_id) != ''
-            and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
-            and length(trim(story.story_intro)) >= ?
-            and length(trim(story.tasting_flow)) >= ?
+          left join video_story_reviews story on story.external_id = c.video_id
+          where trim(r.naver_map_id) != ''
+            and m.status in ('verified', 'metadata_verified')
         ),
         ranked_links as (
           select
@@ -132,7 +128,10 @@ function loadRestaurantItems(): RestaurantItem[] {
           ranked_mentions.source,
           ranked_mentions.source_title,
           ranked_mentions.source_url,
-          ranked_links.url as map_url,
+          coalesce(
+            ranked_links.url,
+            'https://map.naver.com/p/entry/place/' || ranked_mentions.naver_map_id
+          ) as map_url,
           ranked_mentions.story_hook,
           ranked_mentions.story_intro,
           ranked_mentions.tasting_flow
@@ -143,7 +142,7 @@ function loadRestaurantItems(): RestaurantItem[] {
         order by ranked_mentions.name asc, ranked_mentions.id asc
         `,
       )
-      .all(MIN_STORY_INTRO_CHARS, MIN_TASTING_FLOW_CHARS) as RestaurantRow[];
+      .all() as RestaurantRow[];
 
     return rows.map((row) => ({
       id: row.id,

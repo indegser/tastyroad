@@ -10,3 +10,5 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Before non-trivial work, read `AGENTS.md` and relevant entries in this file, then track the task in `tasks/todo.md`.
 - Trigger: The user clarified that Claude will not be used in this repository.
   Rule: Do not add or rely on Claude-specific files; keep persistent agent guidance in `AGENTS.md` and `CODEX.md`.
+- Trigger: The user clarified that public web listing should not depend on story review completion.
+  Rule: Treat collected YouTube video plus verified Naver Map restaurant mapping with a non-empty `naver_map_id` as the public listing gate; story fields are optional display content only.

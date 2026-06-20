@@ -30,7 +30,7 @@ export default async function Home({
         <p className="muted">검증된 맛집 {result.total.toLocaleString("ko-KR")}곳</p>
         <h1>맛집 탐색</h1>
         <p className="summary muted">
-          스토리와 지도 매핑이 모두 완료된 맛집을 출처와 지역으로 좁혀 볼 수 있습니다.
+          네이버 지도 검증이 완료된 맛집을 출처와 지역으로 좁혀 볼 수 있습니다.
         </p>
       </header>
 
