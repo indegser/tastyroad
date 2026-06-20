@@ -1,0 +1,60 @@
+{
+  "source": "김사원세끼",
+  "verified_at": "2026-06-21T00:00:00+09:00",
+  "items": [
+    {
+      "video_id": "ew4gA-ca8ys",
+      "resolved_name": "국민사랑포차 중곡점",
+      "display_name": "국민사랑포차 중곡점",
+      "local_name": "국민사랑포차 중곡점",
+      "country_code": "KR",
+      "region": "서울 광진구",
+      "address": "서울 광진구 긴고랑로 42",
+      "phone": null,
+      "category": "포장마차",
+      "map_provider": "naver_map",
+      "naver_map_id": "1660182231",
+      "map_url": "https://map.naver.com/p/entry/place/1660182231?placePath=%2Fhome",
+      "evidence_url": "https://youtubeplace.co.kr/restaurant/detail/gukminsarang-pocha-junggok",
+      "confidence": 0.92,
+      "status": "metadata_verified",
+      "notes": "영상 설명란은 국민사랑포차 여러 지점 검색을 요청하고, YouTubePlace의 같은 영상 장소 정보가 중곡점 주소와 Naver place ID를 제공한다."
+    },
+    {
+      "video_id": "dND84d-0DZM",
+      "resolved_name": "강동원",
+      "display_name": "강동원",
+      "local_name": "강동원",
+      "country_code": "KR",
+      "region": "서울 마포구",
+      "address": "서울 마포구 망원로 3",
+      "phone": null,
+      "category": "중식당",
+      "map_provider": "naver_map",
+      "naver_map_id": "1835965631",
+      "map_url": "https://map.naver.com/p/entry/place/1835965631?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=dND84d-0DZM",
+      "confidence": 0.95,
+      "status": "metadata_verified",
+      "notes": "영상 설명란의 상호와 주소가 Naver place ID의 상호와 일치한다."
+    },
+    {
+      "video_id": "9v1fbnXkchE",
+      "resolved_name": "마린보이펜션",
+      "display_name": "마린보이펜션",
+      "local_name": "마린보이펜션",
+      "country_code": "KR",
+      "region": "경기 가평군",
+      "address": "경기 가평군 가평읍 북한강변로 144",
+      "phone": null,
+      "category": "펜션",
+      "map_provider": "naver_map",
+      "naver_map_id": "38460072",
+      "map_url": "https://map.naver.com/p/entry/place/38460072?placePath=%2Fhome",
+      "evidence_url": "https://youtubeplace.co.kr/content/detail/crazy-pension-unlimited-meat-drinks-ZZ9v1fbnXkchE",
+      "confidence": 0.95,
+      "status": "metadata_verified",
+      "notes": "영상 설명란과 YouTubePlace 장소 정보의 상호, 주소, Naver place ID가 일치한다."
+    }
+  ]
+}

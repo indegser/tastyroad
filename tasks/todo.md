@@ -4,15 +4,15 @@ Use this file for active non-trivial work. Keep entries short and checkable.
 
 ## Current Task - 2026-06-21
 
-- [x] Inspect the latest unmapped/unreviewed `김사원세끼` videos.
-- [x] Verify every listed restaurant against a numeric Naver Map place ID.
-- [x] Promote verified places into `restaurants` and `youtube_video_restaurants`.
-- [x] Verify DB mapping status and required Naver IDs.
-- [x] Run the production build before release.
+- [x] Scope the full remaining `김사원세끼` source mapping work.
+- [x] Make metadata-backed mapping safe to run for only `김사원세끼`.
+- [x] Promote every restaurant with verified numeric Naver Map IDs.
+- [x] Inspect and resolve any residual unmapped `김사원세끼` videos.
+- [x] Verify DB mapping status, required Naver IDs, and app build.
 - [x] Add the review result.
 
 ### Review
 
-- Added `김사원세끼` reviews for `jNE63WCLQlk` and `EJ1rPCr0SCQ`.
-- Verified and promoted 별난오리 (`38275504`), 금릉슈퍼 (`18682367`), and 일등집 (`1678099688`) from Naver Map entry URLs.
-- Confirmed both videos are `mapping_verified`, no restaurant row has a blank `naver_map_id`, and `pnpm run build` passes.
+- Added source-scoped `김사원세끼` mapping support and safer parsing for numbered/bracket metadata.
+- Promoted all Naver-ID-verifiable `김사원세끼` places: 280 videos are `mapping_verified`, 3 are `not_applicable`, 1 remains `mapping_pending` (`한일상회`, no verified Naver place ID), and 1 remains `mapping_partial` (`맛나분식`, no verified Naver place ID/address).
+- Confirmed no restaurant has a blank `naver_map_id`, no public Naver place link is a search URL, and `pnpm run build` passes.

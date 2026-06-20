@@ -7,12 +7,14 @@ import json
 import re
 import sqlite3
 import sys
+import urllib.error
 import urllib.request
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 from urllib.parse import quote
+from urllib.parse import urlparse
 
 SKILLS_DIR = Path(__file__).resolve().parents[2]
 YOUTUBE_SCRIPTS = SKILLS_DIR / "tastyroad-youtube-channel-collect" / "scripts"
@@ -24,6 +26,11 @@ from pipeline_schema import ensure_pipeline_schema
 
 MAP_URL_RE = re.compile(r"https?://(?:naver\.me|maps\.app\.goo\.gl|www\.google\.com/maps)[^\s)]+")
 NAVER_PLACE_ID_RE = re.compile(r"(?:/entry/place/|/place/)(\d+)")
+NAVER_SHARE_ID_RE = re.compile(r"[?&](?:id|pinId)=(\d+)")
+NAVER_USER_AGENT = (
+    "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+    "AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+)
 DOMESTIC_ADDRESS_RE = re.compile(
     r"^(서울|경기|인천|부산|대구|대전|광주|울산|세종|제주|강원|충북|충남|전북|전남|경북|경남)"
 )
@@ -43,6 +50,9 @@ NON_RESTAURANT_TITLE_RE = re.compile(
     r"먹방계|쇼핑법|영어공부|멕시코인은|치킨 맞히기|강아지|쿡방의 저주|솔직한 리뷰|"
     r"주접과 조롱|딸기|월드콘|장비보다|심란한)"
 )
+NON_RESTAURANT_INFO_RE = re.compile(
+    r"(김사원\s*세끼|김사원세끼|픽스|시크릿|한정특가|이벤트|노포\s*투어|구매\s*링크)"
+)
 
 
 @dataclass(frozen=True)
@@ -57,6 +67,10 @@ class Place:
 
 def clean(value: str) -> str:
     return re.sub(r"\s+", " ", value).strip(" -:：\t")
+
+
+def normalize_place_name(value: str) -> str:
+    return clean(re.sub(r"^\d+\.\s*", "", value))
 
 
 def is_address(value: str) -> bool:
@@ -82,23 +96,53 @@ def is_real_naver_place_url(url: str) -> bool:
 
 
 def extract_naver_map_id(url: str) -> str:
-    match = NAVER_PLACE_ID_RE.search(url)
+    match = NAVER_PLACE_ID_RE.search(url) or NAVER_SHARE_ID_RE.search(url)
     return match.group(1) if match else ""
 
 
+class NoRedirectHandler(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):  # noqa: ANN001
+        return None
+
+
+def normalize_naver_place_url(url: str) -> str:
+    naver_map_id = extract_naver_map_id(url)
+    if naver_map_id:
+        return f"https://map.naver.com/p/entry/place/{naver_map_id}?placePath=%2Fhome"
+    return url
+
+
 def resolve_naver_map_url(url: str) -> str:
-    if not url.startswith("https://naver.me/"):
-        return url
-    request = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-    with urllib.request.urlopen(request, timeout=15) as response:
-        return response.geturl()
+    if not re.match(r"https?://naver\.me/", url):
+        return normalize_naver_place_url(url)
+    url = re.sub(r"^http://naver\.me/", "https://naver.me/", url)
+    request = urllib.request.Request(
+        url,
+        headers={
+            "User-Agent": NAVER_USER_AGENT,
+            "Accept": "text/html,*/*",
+            "Accept-Language": "ko-KR,ko;q=0.9,en;q=0.8",
+        },
+    )
+    opener = urllib.request.build_opener(NoRedirectHandler)
+    try:
+        with opener.open(request, timeout=15) as response:
+            return normalize_naver_place_url(response.geturl())
+    except urllib.error.HTTPError as error:
+        if 300 <= error.code < 400:
+            location = error.headers.get("Location", "")
+            if location.startswith("/"):
+                parsed = urlparse(url)
+                location = f"{parsed.scheme}://{parsed.netloc}{location}"
+            return normalize_naver_place_url(location)
+        raise
 
 
 def resolve_naver_map_details(url: str) -> tuple[str, str]:
     naver_map_id = extract_naver_map_id(url)
     if naver_map_id:
         return naver_map_id, url
-    if not url.startswith("https://naver.me/"):
+    if not re.match(r"https?://naver\.me/", url):
         return "", url
     try:
         resolved_url = resolve_naver_map_url(url)
@@ -185,7 +229,7 @@ def parse_numbered_blocks(description: str) -> list[Place]:
         if not match:
             index += 1
             continue
-        name = clean(match.group(2))
+        name = normalize_place_name(match.group(2))
         if "식당X" in name:
             index += 1
             continue
@@ -208,8 +252,10 @@ def parse_bracket_blocks(description: str) -> list[Place]:
         match = re.fullmatch(r"\[(.+?)\]", line)
         if not match:
             continue
-        name = clean(match.group(1))
-        if name in {"식당정보", "BGM 정보", "구매 링크"}:
+        name = normalize_place_name(match.group(1))
+        if name in {"식당정보", "BGM 정보", "BGM정보", "구매 링크", "사진 출처", "사진출처"}:
+            continue
+        if NON_RESTAURANT_INFO_RE.search(name):
             continue
         address = ""
         phone = ""
@@ -240,8 +286,10 @@ def parse_plain_store_info(description: str) -> list[Place]:
             cursor += 1
         if cursor >= len(lines):
             continue
-        name = clean(lines[cursor])
+        name = normalize_place_name(lines[cursor])
         if name.startswith("[") and name.endswith("]"):
+            continue
+        if NON_RESTAURANT_INFO_RE.search(name):
             continue
         address = ""
         phone = ""
@@ -286,10 +334,19 @@ def extract_places(description: str) -> list[Place]:
         parse_pin_lines,
     ):
         for place in parser(description):
-            key = (place.name, place.address, place.map_url)
+            key = (normalize_place_name(place.name), place.address, place.map_url)
             if place.name and key not in seen:
                 seen.add(key)
-                result.append(place)
+                result.append(
+                    Place(
+                        name=normalize_place_name(place.name),
+                        address=place.address,
+                        phone=place.phone,
+                        category=place.category,
+                        map_url=place.map_url,
+                        notes=place.notes,
+                    )
+                )
     return result
 
 
@@ -581,7 +638,12 @@ def upsert_mapping(connection: sqlite3.Connection, youtube_video_id: int, video_
     return True
 
 
-def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_metadata: bool = True) -> dict[str, int]:
+def process_backlog(
+    sqlite_path: Path,
+    dry_run: bool = False,
+    enrich_missing_metadata: bool = True,
+    source: str = "",
+) -> dict[str, int]:
     now = datetime.now(timezone.utc).isoformat()
     counts = {
         "reviewed": 0,
@@ -609,8 +671,10 @@ def process_backlog(sqlite_path: Path, dry_run: bool = False, enrich_missing_met
             from video_pipeline_status v
             join youtube_videos c on c.id = v.youtube_video_id
             where v.mapping_status != 'mapping_verified'
+              and (? = '' or v.source = ?)
             order by v.published_at desc, v.youtube_video_id desc
-            """
+            """,
+            (source, source),
         ).fetchall()
 
         for youtube_video_id, video_id, title, video_url, review_status, _mapping_status, description in rows:
@@ -679,12 +743,18 @@ def main() -> int:
         action="store_true",
         help="Do not re-fetch YouTube metadata for restaurant-like rows with empty descriptions.",
     )
+    parser.add_argument(
+        "--source",
+        default="",
+        help="Limit processing to one source display name, for example 김사원세끼.",
+    )
     args = parser.parse_args()
 
     counts = process_backlog(
         args.sqlite,
         dry_run=args.dry_run,
         enrich_missing_metadata=not args.skip_enrich_missing_metadata,
+        source=args.source,
     )
     for key, value in counts.items():
         print(f"{key}: {value}")
