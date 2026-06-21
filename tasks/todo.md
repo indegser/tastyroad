@@ -2,6 +2,28 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-21 - 또간집 지도 검증
+
+- [x] Read repository guide, lessons, and map verification skill.
+- [x] Create isolated worktree `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-map-verification` on `codex/ddoganjip-map-verification`.
+- [x] Scope all collected `또간집` videos and current mapping readiness.
+- [x] Generate or inspect restaurant/place candidates from video metadata and external source-backed listings.
+- [x] Verify concrete Naver Map place IDs and promote valid mappings.
+- [x] Verify residual statuses, blank Naver ID checks, and app build.
+- [x] Record review/result notes.
+
+### Notes
+
+- Direct Naver HTTP search requests fell into ncaptcha/no-result flows.
+- Logged-in Edge CDP works for Naver Map search and place detail extraction; sample EP.103 IDs verified: `다락가든=17341605`, `홍가네순대=13416013`, `팔복순대 논산본점=21019320`, `함지박=17333463`.
+
+### Review
+
+- Promoted 287 `또간집` video-place mappings with numeric Naver Map IDs across the source.
+- Final source status: `mapping_verified=90`, `not_applicable=9`, `mapping_partial=1`.
+- The only partial video is EP.74 신림: `목포수산` and `오삼숙이` are mapped, while transcript-mentioned `별장` remains `needs_review` because its historical Naver ID resolves to a deleted/unavailable detail page.
+- Verification: no restaurant has a blank `naver_map_id`, no Naver place link is a search URL, and `pnpm run build` passed after installing dependencies from the frozen lockfile.
+
 ## Current Task - 2026-06-21 - 최자로드 채널 영상 수집
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/choizaroad-source-collection`
