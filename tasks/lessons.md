@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-06-22
+
+- Trigger: The user clarified that new transcript ingestion should ignore legacy story compatibility but keep the existing Webshare/youtube_transcript_api fetch path.
+  Rule: For Tastyroad transcript work, separate storage/schema redesign from the fetch mechanism; reuse the existing Webshare-backed youtube_transcript_api method unless explicitly told otherwise.
+
 ## 2026-06-21
 
 - Trigger: The repository had no `AGENTS.md` or `CODEX.md`, so future agents had no project-local operating memory.

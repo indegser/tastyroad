@@ -153,16 +153,6 @@ def ensure_review_schema(connection: sqlite3.Connection) -> None:
 def ensure_story_review_schema(connection: sqlite3.Connection) -> None:
     connection.executescript(
         """
-        create table if not exists video_transcripts (
-          external_id text primary key,
-          language_code text not null,
-          language text not null default '',
-          is_generated integer not null default 0,
-          transcript_json text not null,
-          transcript_text text not null,
-          fetched_at text not null
-        );
-
         create table if not exists video_story_reviews (
           external_id text primary key,
           story_intro text not null,
@@ -170,8 +160,7 @@ def ensure_story_review_schema(connection: sqlite3.Connection) -> None:
           story_hook text not null default '',
           reviewer text not null default 'codex',
           evidence_json text not null default '{}',
-          generated_at text not null,
-          foreign key(external_id) references video_transcripts(external_id)
+          generated_at text not null
         );
         """
     )

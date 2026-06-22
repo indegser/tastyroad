@@ -46,7 +46,7 @@ Use `data/tastyroad.sqlite` as the authoritative local DB. Collected videos live
 
 Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`. Reuse skips complete enriched rows, but rows missing detail fields such as `published_at` or `duration_seconds` remain retryable.
 
-For restaurant mapping status, Naver place ID verification, or `mapping_pending` / `needs_review` work, use `$tastyroad-map-video-restaurants`.
+For transcript download/storage, use `$tastyroad-youtube-transcript-ingest`. For restaurant mapping status, Naver place ID verification, or `mapping_pending` / `needs_review` work, use `$tastyroad-map-video-restaurants`.
 
 ## Audit Output
 

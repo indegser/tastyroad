@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tastyroad YouTube Transcript Ingest"
+  short_description: "Store YouTube captions in SQLite"
+  default_prompt: "Use $tastyroad-youtube-transcript-ingest to fetch missing YouTube transcripts into the Tastyroad SQLite database."

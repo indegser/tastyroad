@@ -11,6 +11,7 @@
 - `data/raw/youtube/*.json`: 수집 결과 mirror
 - `data/agent_reviews/*.json`: 영상 검수 입력
 - `data/story_reviews/*.json`: 스토리 리뷰 입력
+- `data/tastyroad.sqlite`의 `youtube_transcript_*` 테이블: YouTube 자막 raw track/segment 저장소
 - `data/verified_places/*.json`: 검증된 장소 승격 입력
 - `data/work/`: 멀티 에이전트 작업 artifact
 - `data/naver_map_list_target.json`: Naver Map 저장 리스트 설정
@@ -19,6 +20,7 @@
 ## 스킬
 
 - `$tastyroad-youtube-channel-collect`: YouTube 소스 수집/갱신, full-channel 감사, channel_id 확인
+- `$tastyroad-youtube-transcript-ingest`: Webshare 기반 YouTube 자막 다운로드와 SQLite raw track/segment 저장
 - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` 조회, Naver place ID 검증, `restaurants`/`youtube_video_restaurants` 반영
 - `$tastyroad-naver-map-sync`: 공개 식당을 Naver Map `Tastyroad` 리스트에 동기화
 - `$tastyroad-site-release`: GitHub push 기반 Vercel 배포, 배포 상태/응답 확인, 배포 후 API 검증

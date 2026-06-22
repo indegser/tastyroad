@@ -2,6 +2,28 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-22 - YouTube transcript ingest skill
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/youtube-transcript-ingest-skill`
+Branch: `codex/youtube-transcript-ingest-skill`
+
+- [x] Read repository guide, lessons, and `$skill-creator`.
+- [x] Create isolated worktree for the transcript ingest skill work.
+- [x] Create a repo-local transcript ingest skill scaffold.
+- [x] Implement Webshare-backed YouTube transcript DB ingest scripts using the existing fetch method.
+- [x] Clean transcript ownership out of the existing collection/mapping pipeline schema.
+- [x] Update README/skill guidance for the new transcript workflow.
+- [x] Verify skill validation, script syntax, schema creation, and focused dry runs.
+- [x] Record review/result notes.
+
+### Review
+
+- Added `$tastyroad-youtube-transcript-ingest` with Webshare-backed `youtube_transcript_api` fetch logic, transcript schema creation, source/video dry-run selection, status reporting, and preferred transcript text export.
+- Added `youtube_transcript_jobs`, `youtube_transcript_tracks`, `youtube_transcript_segments`, `youtube_transcript_fetch_attempts`, `preferred_youtube_transcripts`, and `youtube_transcript_status` to `data/tastyroad.sqlite`; no transcript rows were fetched during this task.
+- Removed `video_transcripts` ownership from the existing YouTube collection and restaurant mapping pipeline schemas; `video_story_reviews` remains for public app story display.
+- Updated README, AGENTS, and YouTube collection skill guidance so transcript ingest routes to the new skill.
+- Verification: skill validation passed, Python compile passed, transcript status/dry-run worked for `ttoganjip`, temporary pipeline schema checks confirmed no `video_transcripts` table creation, `git diff --check` passed, and SQLite integrity check returned `ok`.
+
 ## Current Task - 2026-06-21 - 또간집 지도 검증
 
 - [x] Read repository guide, lessons, and map verification skill.
