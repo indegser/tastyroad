@@ -36,6 +36,12 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: For Tastyroad Blob workflows, ensure `BLOB_STORE_ID` is present in Vercel project env and local `.env.local`; OIDC requires both `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID`.
 - Trigger: Running a schema helper's `main()` during verification altered tracked `data/tastyroad.sqlite`.
   Rule: For schema smoke tests, copy the DB to `/tmp` and import/call the schema function with an explicit temp path; do not run root-default schema CLIs against tracked data unless updating the DB is intentional.
+- Trigger: Vercel Blob uploads failed when auth flags were appended after `put`/`list` subcommand arguments.
+  Rule: With current Vercel CLI, pass Blob auth flags such as `--rw-token` or `--oidc-token --store-id` immediately after `vercel blob` and before the subcommand.
+- Trigger: Vercel Blob became suspended while legacy `video_transcripts` still held recoverable timed captions.
+  Rule: Keep transcript object storage provider configurable, prefer the private `tastyroad-transcripts` Supabase Storage bucket for the current archive path, and use `--replace-existing` before dropping legacy rows when existing tracks point at an unavailable provider.
+- Trigger: `apply_patch` created generated must-taste artifacts in the shared main checkout while the active task was running in a dedicated worktree.
+  Rule: When editing files for a task-specific worktree, pass absolute worktree paths to `apply_patch` or verify the file location before validation; clean up any files accidentally created in the shared checkout.
 
 ## 2026-06-22
 

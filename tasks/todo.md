@@ -2,6 +2,49 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Sung Si-kyung must-taste continuation
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-legacy-must-taste`
+Branch: `codex/sungsikyung-legacy-must-taste`
+
+- [x] Re-read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Scope remaining Sung Si-kyung transcript-backed restaurant-video pairs missing must-taste rows.
+- [x] Extract validated must-taste artifacts for the next high-confidence Sung Si-kyung pairs.
+- [x] Apply passing results to `data/tastyroad.sqlite`.
+- [x] Verify stored rows, DB integrity, and app build after updates.
+- [x] Record review/result notes.
+
+### Review
+
+- Completed must-taste extraction for the 7 remaining transcript-backed `성시경의 먹을텐데` restaurant-video pairs: `무교동 유정낙지`, `철길왕갈비살`, `별미곱창`, `망원역 몽골생소금구이`, `을지로 인천집`, `부흥축산`, and `남영동 까치네`.
+- Added 12 validated must-taste rows, bringing the Sung Si-kyung scope to 19/19 transcript-backed pairs with rows and 33 total items.
+- Stored results only after `apply_must_taste_result.py --dry-run` passed for all 7 artifact chains.
+- Verification: SQLite `pragma integrity_check` returned `ok`; Sung Si-kyung coverage query returned `total_pairs=19`, `pairs_with_items=19`, `items=33`; `git diff --check` passed; `pnpm run build` passed.
+
+## Current Task - 2026-06-24 - Supabase transcript archive migration
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-legacy-must-taste`
+Branch: `codex/sungsikyung-legacy-must-taste`
+
+- [x] Read repository guide, lessons, transcript ingest skill, and Vercel/Supabase storage context.
+- [x] Confirm Supabase integration env is present locally and create the private `tastyroad-transcripts` bucket.
+- [x] Add Supabase Storage as a transcript object storage provider.
+- [x] Update transcript read paths to use `storage_provider` for Blob/Supabase selection.
+- [x] Archive legacy `video_transcripts` rows into Supabase Storage with existing unavailable provider rows replaced.
+- [x] Drop the fully archived legacy table and vacuum SQLite if safe.
+- [x] Verify DB integrity, storage split, Supabase transcript reads, and must-taste context preparation.
+- [x] Record review/result notes.
+
+### Review
+
+- Added Supabase Storage support to the transcript object archive helper while preserving Vercel Blob reads/writes through `storage_provider`.
+- Added `SUPABASE_STORAGE_BUCKET=tastyroad-transcripts` and `TRANSCRIPT_STORAGE_PROVIDER=supabase_storage` as non-sensitive Vercel env vars in Production, Preview, and Development, then pulled them into local `.env.local`.
+- Archived all 210 legacy `video_transcripts` rows to the private Supabase `tastyroad-transcripts` bucket with `--replace-existing`, including the previously Vercel-backed Sung Si-kyung rows, then dropped the fully archived legacy table.
+- Vacuumed `data/tastyroad.sqlite`; tracked DB size dropped from 22MB after migration to 11MB.
+- Prepared must-taste context/coverage/chunks/task artifacts for all 19 transcript-backed Sung Si-kyung restaurant-video mappings.
+- Stored 3 validated must-taste items for `대포항회집` / `OJl_XAXANH0`: `광어회`, `해삼`, `생선찜`.
+- Verification: Supabase `transcripts/segments` listing returned 210 objects; Sung Si-kyung transcript coverage is 195/210 videos, all 195 Supabase-backed; `video_transcripts` table count is 0; SQLite `pragma integrity_check` returned `ok`; Python compile, `git diff --check`, and `pnpm run build` passed.
+
 ## Current Task - 2026-06-24 - Remaining map-verified transcript ingest
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-map-verified`
@@ -326,3 +369,16 @@ Result note: Created private Vercel Blob store `tastyroad-transcripts` (`store_0
 - [x] Verify transcript status/export, must-taste context fallback, Blob object counts, and app build.
 
 Result note: Archived 390 existing `youtube_transcript_tracks` into the private Vercel Blob `tastyroad-transcripts` store, writing 780 Blob objects totaling 8.3MB. Pruned SQLite raw/segment payloads and ran `VACUUM`, reducing `data/tastyroad.sqlite` from 54,206,464 bytes (52MB displayed) to 19,509,248 bytes (19MB displayed). `youtube_transcript_segments` now has 0 rows, all 390 tracks have distinct `raw_blob_path` and `segments_blob_path`, and `transcript_status.py` reports archived tracks as `vercel_blob`. The legacy `video_transcripts` table remains because it contains 176 old 성시경 transcript rows without corresponding `youtube_transcript_tracks`; it is not referenced by current code but was preserved rather than dropped. Verification: archive dry-run returned target_count 0 after migration, SQLite `integrity_check` returned `ok`, Blob store reported 780 objects / 8.3MB, transcript export worked, must-taste context was rebuilt from Blob-backed segments for `fPsMKDTzqaI`/restaurant 2 with full coverage, Python compile passed, `git diff --check` passed, and `pnpm run build` passed.
+## 2026-06-24 - Reuse Sung Si-kyung legacy transcripts for must-taste
+
+- [x] Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-legacy-must-taste`
+- [x] Branch: `codex/sungsikyung-legacy-must-taste`
+- [x] Read agent guide, lessons, release, transcript ingest, and must-taste skill instructions.
+- [x] Inspect legacy `video_transcripts` structure and decide whether it can become timed Blob-backed tracks.
+- [x] Add a safe migration path for reusable legacy Sung Si-kyung transcripts into Vercel Blob.
+- [x] Scope mapped Sung Si-kyung restaurant/video pairs that can now run must-taste.
+- [ ] Run the legacy archive after Vercel Blob store `tastyroad-transcripts` is active.
+- [ ] Run the `$tastyroad-transcript-must-taste` workflow for a focused verified subset after Blob reads are available.
+- [ ] Verify DB integrity, Blob archive status, must-taste validation, and build.
+
+Result note: Added `archive_legacy_video_transcripts.py` to convert reusable timed rows from `video_transcripts` into Blob-backed `youtube_transcript_tracks`, and fixed `transcript_blob_store.py` for the current Vercel CLI auth flag order (`vercel blob --rw-token ... put/list/get`). Dry-run selected the expected 176 성시경 legacy rows. Actual archive and must-taste context preparation are blocked because Vercel reports Blob store `tastyroad-transcripts` (`store_0Bd8YrIAPENYUcGE`) as `Status: Suspended`, `Billing State: Inactive`; `blob put` and `blob get` fail while `blob list-stores` shows 780 existing objects / 8.3MB.

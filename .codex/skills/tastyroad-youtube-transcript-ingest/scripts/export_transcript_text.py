@@ -17,7 +17,14 @@ def export_text(sqlite_path: Path, video_id: str, output: Path | None) -> None:
         ensure_transcript_schema(connection)
         row = connection.execute(
             """
-            select id, video_id, source_name, language_code, transcript_text, segments_blob_path
+            select
+              id,
+              video_id,
+              source_name,
+              language_code,
+              transcript_text,
+              segments_blob_path,
+              storage_provider
             from preferred_youtube_transcripts
             where video_id = ?
             """,
@@ -41,7 +48,10 @@ def export_text(sqlite_path: Path, video_id: str, output: Path | None) -> None:
     if not text and segment_rows:
         text = " ".join(str(segment["text"]) for segment in segment_rows).strip()
     if not text and row["segments_blob_path"]:
-        segments = load_segments_blob(str(row["segments_blob_path"]))
+        segments = load_segments_blob(
+            str(row["segments_blob_path"]),
+            storage_provider=str(row["storage_provider"]),
+        )
         text = " ".join(str(segment["text"]) for segment in segments).strip()
     if not text:
         raise SystemExit(f"Preferred transcript for {video_id} has no exportable text.")
