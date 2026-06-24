@@ -1,6 +1,6 @@
 ---
 name: tastyroad-youtube-transcript-ingest
-description: Download YouTube captions for collected Tastyroad videos through the existing youtube_transcript_api/Webshare proxy method, archive raw tracks plus timed segments in object storage, and store transcript metadata in data/tastyroad.sqlite. Use when fetching missing transcripts, refreshing transcript coverage for a source or video, checking transcript DB status, exporting transcript text, archiving existing SQLite transcripts to Blob/Supabase Storage, or preparing transcript data for later must-taste extraction.
+description: Download YouTube captions for collected Tastyroad videos through the existing youtube_transcript_api/Webshare proxy method, archive raw tracks plus timed segments in object storage, and store transcript metadata in data/tastyroad.sqlite. Use when fetching missing transcripts, refreshing transcript coverage for a source or video, checking transcript DB status, exporting transcript text, archiving existing SQLite transcripts to Supabase Storage, migrating legacy Vercel Blob-backed rows, or preparing transcript data for later must-taste extraction.
 ---
 
 # Tastyroad YouTube Transcript Ingest
@@ -11,7 +11,7 @@ Use this skill from the Tastyroad repo root to make YouTube captions a reusable 
 
 The fetch method is the existing one: `youtube_transcript_api.YouTubeTranscriptApi` with `WebshareProxyConfig` from `.env.local`/environment variables, falling back to generic proxy env vars when present.
 
-The storage method is object storage for raw provider payloads and normalized timed segments, with SQLite retaining transcript metadata, fetch attempts, text export cache, and object pathnames. Supabase Storage is the current canonical target when `--storage-provider supabase_storage` or `TRANSCRIPT_STORAGE_PROVIDER=supabase_storage` is set. Vercel Blob remains supported when the Blob store is active. Use the private `tastyroad-transcripts` bucket/store unless the task explicitly requires a different target.
+The storage method is object storage for raw provider payloads and normalized timed segments, with SQLite retaining transcript metadata, fetch attempts, text export cache, and object pathnames. Supabase Storage is the canonical target when `--storage-provider supabase_storage` or `TRANSCRIPT_STORAGE_PROVIDER=supabase_storage` is set. Vercel Blob support remains only for explicit legacy recovery when the Blob store is active. Use the private `tastyroad-transcripts` bucket unless the task explicitly requires a different target.
 
 ## Workflow
 
@@ -66,12 +66,22 @@ python3 .codex/skills/tastyroad-youtube-transcript-ingest/scripts/archive_legacy
 python3 .codex/skills/tastyroad-youtube-transcript-ingest/scripts/archive_legacy_video_transcripts.py --source <source_key> --storage-provider supabase_storage --missing-tracks-only --drop-legacy-table-if-archived
 ```
 
+8. Migrate legacy Vercel Blob-backed track metadata to Supabase Storage:
+
+```bash
+python3 .codex/skills/tastyroad-youtube-transcript-ingest/scripts/migrate_vercel_blob_to_supabase.py --env-file <pulled_env> --dry-run
+python3 .codex/skills/tastyroad-youtube-transcript-ingest/scripts/migrate_vercel_blob_to_supabase.py --env-file <pulled_env> --payload-sqlite <historical_sqlite_with_segments> --dry-run
+python3 .codex/skills/tastyroad-youtube-transcript-ingest/scripts/migrate_vercel_blob_to_supabase.py --env-file <pulled_env> --payload-sqlite <historical_sqlite_with_segments>
+```
+
+Use `--payload-sqlite` when the Vercel Blob store is suspended and direct `vercel blob get` returns 403, but a historical tracked SQLite database still contains `raw_json` and `youtube_transcript_segments`.
+
 ## Rules
 
-- Store successful transcript payloads in the configured object storage provider. For the current Tastyroad setup, prefer Supabase Storage unless a task explicitly targets Vercel Blob. Keep `youtube_transcript_tracks` as the source of truth for metadata, preferred-track ranking, content hash, object pathnames, fetch time, and export text.
+- Store successful transcript payloads in Supabase Storage unless a task explicitly targets legacy Vercel Blob recovery. Keep `youtube_transcript_tracks` as the source of truth for metadata, preferred-track ranking, content hash, object pathnames, fetch time, and export text.
 - Do not add new large raw transcript blobs to Git or to public site runtime data.
 - `youtube_transcript_segments` is now a compatibility/cache table. New object-storage-only fetches may leave it empty; downstream consumers must use `segments_blob_path` and `storage_provider` when needed.
-- `video_transcripts` is legacy-only. If it contains timed caption rows that are not represented in `youtube_transcript_tracks`, use the legacy archive script to create object-storage-backed tracks before dropping the table. If existing tracks point at a suspended provider, use `--replace-existing` while the legacy rows still exist.
+- `video_transcripts` is legacy-only. If it contains timed caption rows that are not represented in `youtube_transcript_tracks`, use the legacy archive script to create object-storage-backed tracks before dropping the table. If existing tracks point at a suspended provider, migrate them to Supabase before deleting any remaining recoverable payload source.
 - Store failures in `youtube_transcript_fetch_attempts`; do not delete failed evidence just because a later retry may succeed.
 - Prefer Korean, then English by passing `--languages ko,en` unless the task needs a different order.
 - Use a request delay for source-scale runs. Stop on repeated YouTube block errors instead of pushing through a bad proxy path.

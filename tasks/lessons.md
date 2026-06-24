@@ -8,6 +8,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 - Trigger: Running `vercel curl` from an unlinked task worktree created and linked an unintended Vercel project named after the worktree.
   Rule: For Vercel commands that need project context beyond `vercel ls/inspect`, run from the linked main checkout or pass a known linked cwd; verify `.vercel/project.json` points to `tastyroad` before commands that can link, create, or mutate projects.
+- Trigger: A Vercel Blob CLI failure traceback included the subprocess argv with `--rw-token`.
+  Rule: Scripts that invoke CLIs with secrets in argv must suppress exception chaining or redact command arguments before raising/logging errors.
 
 ## 2026-06-24
 

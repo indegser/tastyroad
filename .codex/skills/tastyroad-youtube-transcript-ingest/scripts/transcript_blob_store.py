@@ -117,7 +117,7 @@ def run_blob_cli(args: list[str], *, env_values: dict[str, str] | None = None) -
         stderr = (exc.stderr or "").strip()
         stdout = (exc.stdout or "").strip()
         detail = stderr or stdout or f"exit status {exc.returncode}"
-        raise RuntimeError(f"Vercel Blob CLI command failed: {detail}") from exc
+        raise RuntimeError(f"Vercel Blob CLI command failed: {detail}") from None
 
 
 def blob_is_configured(env_values: dict[str, str] | None = None) -> bool:

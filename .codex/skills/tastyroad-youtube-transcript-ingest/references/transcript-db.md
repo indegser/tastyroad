@@ -24,7 +24,7 @@ YT_TRANSCRIPT_HTTPS_PROXY=
 
 The Python environment must provide `youtube_transcript_api`.
 
-Vercel Blob variables:
+Legacy Vercel Blob variables:
 
 ```bash
 BLOB_READ_WRITE_TOKEN=
@@ -33,7 +33,7 @@ BLOB_STORE_ID=
 VERCEL_BLOB_SCOPE=jaekwon-hans-projects
 ```
 
-Local and pipeline scripts use the official `vercel blob` CLI through `transcript_blob_store.py`. A static `BLOB_READ_WRITE_TOKEN` is enough for local/off-Vercel scripts. If using OIDC, `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID` must both be present.
+Local recovery scripts can use the official `vercel blob` CLI through `transcript_blob_store.py`. A static `BLOB_READ_WRITE_TOKEN` is enough for local/off-Vercel scripts. If using OIDC, `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID` must both be present. Current transcript archives should not depend on Vercel Blob; migrate any `storage_provider='vercel_blob'` rows to Supabase Storage.
 
 Supabase Storage variables:
 
@@ -44,19 +44,19 @@ SUPABASE_STORAGE_BUCKET=tastyroad-transcripts
 TRANSCRIPT_STORAGE_PROVIDER=supabase_storage
 ```
 
-The Tastyroad transcript bucket/store is private and named `tastyroad-transcripts`. Supabase Storage is the current canonical archive target; Vercel Blob rows remain readable when that store is active.
+The Tastyroad transcript bucket is private and named `tastyroad-transcripts`. Supabase Storage is the canonical archive target. Vercel Blob support is legacy-only and may be unavailable when the old store is suspended.
 
 ## Tables
 
 `youtube_transcript_jobs`: One row per fetch run, including scope, requested language order, final status, and stats.
 
-`youtube_transcript_tracks`: One successful transcript track per `(youtube_video_id, language_code, is_generated, provider)`. `content_hash` detects unchanged content. New object-storage-backed rows store provider-neutral object pathnames and sizes in `raw_blob_path`, `segments_blob_path`, `raw_blob_size`, `segments_blob_size`, `storage_provider`, `blob_uploaded_at`, and `blob_metadata_json`. `transcript_text` remains a small export cache. `raw_json` is a compatibility field and should stay `[]` for object-storage-only rows.
+`youtube_transcript_tracks`: One successful transcript track per `(youtube_video_id, language_code, is_generated, provider)`. `content_hash` detects unchanged content. New object-storage-backed rows store provider-neutral object pathnames and sizes in `raw_blob_path`, `segments_blob_path`, `raw_blob_size`, `segments_blob_size`, `storage_provider`, `blob_uploaded_at`, and `blob_metadata_json`. `transcript_text` remains a small export cache. `raw_json` is a compatibility field and should stay `[]` for object-storage-only rows. Current rows should use `storage_provider='supabase_storage'`.
 
 `youtube_transcript_segments`: Compatibility/cache table for normalized timed rows. New object-storage-only rows may not have SQLite segment rows; downstream scripts should read `segments_blob_path` with `storage_provider` when this table has no rows.
 
 `youtube_transcript_fetch_attempts`: One row per attempted video fetch. Store failed attempts here with `error_type` and `error_message`.
 
-`video_transcripts`: Legacy timed-caption table retained only during migration. If rows remain here, archive them with `archive_legacy_video_transcripts.py` so `youtube_transcript_tracks` owns the metadata and object storage owns raw/segment payloads. Drop this table only after every legacy row has an object-storage-backed track. Use `--replace-existing` before dropping if existing tracks point at a suspended provider.
+`video_transcripts`: Legacy timed-caption table retained only during migration. If rows remain here, archive them with `archive_legacy_video_transcripts.py` so `youtube_transcript_tracks` owns the metadata and object storage owns raw/segment payloads. Drop this table only after every legacy row has an object-storage-backed track. If existing tracks point at a suspended provider, migrate them to Supabase before deleting any remaining recoverable payload source.
 
 ## Views
 

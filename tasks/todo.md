@@ -2,6 +2,31 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Vercel Blob transcript migration to Supabase
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/vercel-blob-to-supabase-latest`
+Branch: `codex/vercel-blob-to-supabase-latest`
+
+- [x] Read repository guide, lessons, transcript ingest skill, and storage schema notes.
+- [x] Create an isolated worktree for the data migration.
+- [x] Add a focused Vercel Blob to Supabase Storage migration script.
+- [x] Pull runtime env to a temporary untracked file and validate object read/write access.
+- [x] Dry-run the migration against the 356 Vercel-backed transcript tracks.
+- [x] Run the migration and update SQLite metadata only after each object pair copies.
+- [x] Verify storage split, sample transcript reads, DB integrity, and build.
+- [x] Record review/result notes.
+
+### Review
+
+- Direct Vercel Blob read with the pulled project token failed with 403 because the old `tastyroad-transcripts` store is suspended.
+- Recovered the source payloads from historical SQLite at commit `2fd4de3`, which still had 390 raw transcript tracks and 117,030 timed segment rows.
+- Reconstructed and uploaded the 356 remaining Vercel-backed transcript tracks into Supabase Storage using the same object pathnames, then updated `youtube_transcript_tracks.storage_provider` after each raw/segment pair uploaded and read-back verification passed.
+- Transcript storage is now all Supabase: `youtube_transcript_tracks` has 566 `supabase_storage` rows and 0 `vercel_blob` rows; preferred transcripts also show 566 Supabase-backed rows.
+- Rebased the work onto latest `origin/main` content before the final migration run, preserving the 94 existing `video_must_taste_items` rows from `d88b89e`.
+- Verified Supabase segment downloads for `1HExH6cy5BQ`, `jNE63WCLQlk`, and dash-prefixed `-BBY9hij2UI`; SQLite `pragma integrity_check` returned `ok`.
+- Updated README and transcript skill docs to mark Supabase Storage as canonical and Vercel Blob as legacy recovery only.
+- Verification: transcript status, Python compile, `git diff --check`, and `pnpm run build` passed after installing worktree-local dependencies. The old Vercel Blob store still exists remotely with 780 objects and remains suspended; it was not emptied or deleted.
+
 ## Current Task - 2026-06-25 - Address map link release follow-up
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/address-map-link`
