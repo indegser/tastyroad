@@ -314,3 +314,15 @@ Branch: `codex/choizaroad-source-collection`
 - [x] Verify schema migration, dry runs, Blob helper behavior, and build.
 
 Result note: Created private Vercel Blob store `tastyroad-transcripts` (`store_0Bd8YrIAPENYUcGE`) and connected it to the `tastyroad` Vercel project. Added `BLOB_STORE_ID` for production, preview, and development, and verified private Blob upload/download/delete with both Vercel CLI and the new Python helper. Updated transcript ingest to store raw/segment payloads in Blob by default, keep SQLite metadata, support existing SQLite cache fallback, and provide an archive/prune script for existing transcript payloads. Verification: Python compile, temp-DB schema migration, fetch dry-run, archive dry-run, fake upsert paths, must-taste context smoke test, Blob helper healthcheck, `git diff --check`, and `pnpm run build` passed. `data/tastyroad.sqlite` was restored to no diff; no Blob test files remain.
+## 2026-06-24 - Archive existing transcripts to Vercel Blob
+
+- [x] Worktree: `/Users/indegser/Github/tastyroad-worktrees/blob-transcript-archive`
+- [x] Branch: `codex/blob-transcript-archive`
+- [x] Read agent guide, lessons, and `$tastyroad-youtube-transcript-ingest` instructions.
+- [x] Link the worktree to the `tastyroad` Vercel project.
+- [x] Pull/check Blob env and dry-run the full archive scope.
+- [x] Archive existing SQLite transcript payloads to Vercel Blob and prune SQLite raw/segment payloads.
+- [x] Vacuum and audit `data/tastyroad.sqlite` size/table distribution.
+- [x] Verify transcript status/export, must-taste context fallback, Blob object counts, and app build.
+
+Result note: Archived 390 existing `youtube_transcript_tracks` into the private Vercel Blob `tastyroad-transcripts` store, writing 780 Blob objects totaling 8.3MB. Pruned SQLite raw/segment payloads and ran `VACUUM`, reducing `data/tastyroad.sqlite` from 54,206,464 bytes (52MB displayed) to 19,509,248 bytes (19MB displayed). `youtube_transcript_segments` now has 0 rows, all 390 tracks have distinct `raw_blob_path` and `segments_blob_path`, and `transcript_status.py` reports archived tracks as `vercel_blob`. The legacy `video_transcripts` table remains because it contains 176 old 성시경 transcript rows without corresponding `youtube_transcript_tracks`; it is not referenced by current code but was preserved rather than dropped. Verification: archive dry-run returned target_count 0 after migration, SQLite `integrity_check` returned `ok`, Blob store reported 780 objects / 8.3MB, transcript export worked, must-taste context was rebuilt from Blob-backed segments for `fPsMKDTzqaI`/restaurant 2 with full coverage, Python compile passed, `git diff --check` passed, and `pnpm run build` passed.
