@@ -2,6 +2,19 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Compact restaurant address row
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/compact-address`
+Branch: `codex/compact-address`
+Target: Vercel preview
+
+- [x] Read repository guide, lessons, and relevant Next.js/browser guidance.
+- [x] Inspect current restaurant card address rendering and spacing.
+- [x] Make the address consume less vertical space without losing the map action.
+- [x] Verify build and mobile/desktop layout.
+- [ ] Push and verify preview deployment.
+- [ ] Record review/result notes.
+
 ## Current Task - 2026-06-25 - Production release latest-video cards
 
 Worktree: `/Users/indegser/Github/tastyroad`

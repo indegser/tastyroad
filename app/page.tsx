@@ -134,6 +134,7 @@ function RestaurantCard({ restaurant }: { restaurant: RestaurantItem }) {
                 className="address-map-link"
                 href={restaurant.mapUrl}
                 aria-label={`${restaurant.address} 지도에서 보기`}
+                title={restaurant.address}
               >
                 <span>{restaurant.address}</span>
                 <span className="map-link-label">
@@ -142,7 +143,9 @@ function RestaurantCard({ restaurant }: { restaurant: RestaurantItem }) {
                 </span>
               </a>
             ) : (
-              restaurant.address
+              <span className="restaurant-address-text" title={restaurant.address}>
+                {restaurant.address}
+              </span>
             )}
           </p>
         </div>
