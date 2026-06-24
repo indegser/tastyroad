@@ -471,12 +471,23 @@ h1 {
   padding-top: 0;
 }
 
+.restaurant-summary {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) clamp(104px, 32vw, 132px);
+  gap: 12px;
+  align-items: start;
+}
+
+.restaurant-summary.is-text-only {
+  grid-template-columns: 1fr;
+}
+
 .restaurant-info {
   min-width: 0;
 }
 
 .restaurant-info h3 {
-  margin: 0 0 4px;
+  margin: 0 0 5px;
   overflow-wrap: anywhere;
   font-size: 1.12rem;
   font-weight: 650;
@@ -484,38 +495,12 @@ h1 {
   letter-spacing: 0;
 }
 
-.info-table,
 .address-map-link,
 .video-link,
+.restaurant-address,
+.source-meta,
 .must-taste-section {
   font-size: 0.9125rem;
-}
-
-.info-table {
-  display: grid;
-  gap: 5px;
-  margin: 9px 0 0;
-}
-
-.info-row {
-  display: grid;
-  grid-template-columns: 4.9rem minmax(0, 1fr);
-  column-gap: 10px;
-}
-
-.info-row dt {
-  color: var(--text-secondary);
-  font-size: 0.8125rem;
-  font-weight: 560;
-  line-height: 1.55;
-}
-
-.info-row dd {
-  min-width: 0;
-  margin: 0;
-  color: var(--story);
-  line-height: 1.55;
-  overflow-wrap: anywhere;
 }
 
 .address-map-link {
@@ -556,14 +541,18 @@ h1 {
   max-width: 100%;
   gap: 5px;
   color: var(--story);
-  font-weight: 450;
-  line-height: inherit;
+  font-weight: 520;
+  line-height: 1.38;
   text-decoration: none;
 }
 
 .video-link span:first-child {
   min-width: 0;
+  display: -webkit-box;
+  overflow: hidden;
   overflow-wrap: anywhere;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
 }
 
 .video-link:hover {
@@ -576,12 +565,47 @@ h1 {
   line-height: 1;
 }
 
-.must-taste-section {
-  margin-top: 14px;
-  padding: 12px 14px 13px;
+.source-meta {
+  margin: 4px 0 0;
+  color: var(--text-tertiary);
+  font-size: 0.8rem;
+  line-height: 1.38;
+  overflow-wrap: anywhere;
+}
+
+.restaurant-address {
+  margin: 6px 0 0;
+  color: var(--story);
+  font-size: 0.84rem;
+  line-height: 1.45;
+  overflow-wrap: anywhere;
+}
+
+.video-thumbnail-link {
+  display: block;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
   border: 1px solid var(--soft-border);
   border-radius: 8px;
-  background: var(--panel);
+  background: var(--panel-muted);
+  line-height: 0;
+}
+
+.video-thumbnail-link img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.video-thumbnail-link:hover img {
+  opacity: 0.92;
+}
+
+.must-taste-section {
+  margin-top: 12px;
+  padding-top: 11px;
+  border-top: 1px solid var(--soft-border);
 }
 
 .must-taste-list {
@@ -752,22 +776,19 @@ h1 {
     line-height: 1.28;
   }
 
-  .info-table,
+  .restaurant-summary {
+    grid-template-columns: minmax(0, 1fr) clamp(150px, 22vw, 190px);
+    gap: 18px;
+  }
+
+  .video-link,
+  .restaurant-address,
   .must-taste-section {
     font-size: 0.96rem;
   }
 
-  .info-row {
-    grid-template-columns: 5.35rem minmax(0, 1fr);
-    column-gap: 12px;
-  }
-
-  .info-row dt {
-    font-size: 0.875rem;
-  }
-
-  .info-row dd {
-    line-height: 1.6;
+  .source-meta {
+    font-size: 0.84rem;
   }
 
   .must-taste-list p {

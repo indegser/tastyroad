@@ -4,6 +4,7 @@ import {
 } from "../lib/restaurants/query";
 import type {
   FacetValue,
+  RestaurantItem,
   RestaurantSearchParams,
 } from "../lib/restaurants/types";
 
@@ -89,66 +90,7 @@ export default async function Home({
             <ol className="restaurant-list">
               {result.items.map((restaurant) => (
                 <li key={restaurant.id}>
-                  <article className="restaurant-card">
-                    <div className="restaurant-info">
-                      <h3>{restaurant.name}</h3>
-                      <dl className="info-table">
-                        <div className="info-row">
-                          <dt>주소</dt>
-                          <dd>
-                            {restaurant.mapUrl ? (
-                              <a
-                                className="address-map-link"
-                                href={restaurant.mapUrl}
-                                aria-label={`${restaurant.address} 지도에서 보기`}
-                              >
-                                <span>{restaurant.address}</span>
-                                <span className="map-link-label">
-                                  지도에서 보기
-                                  <span aria-hidden="true">↗</span>
-                                </span>
-                              </a>
-                            ) : (
-                              restaurant.address
-                            )}
-                          </dd>
-                        </div>
-                        <div className="info-row">
-                          <dt>채널</dt>
-                          <dd>{restaurant.source}</dd>
-                        </div>
-                        <div className="info-row">
-                          <dt>영상</dt>
-                          <dd>
-                            <a className="video-link" href={restaurant.sourceUrl}>
-                              <span>{restaurant.sourceTitle}</span>
-                              <span aria-hidden="true">↗</span>
-                            </a>
-                          </dd>
-                        </div>
-                      </dl>
-                      {restaurant.mustTasteItems.length > 0 ? (
-                        <section className="must-taste-section" aria-label="추천 메뉴">
-                          <ol className="must-taste-list">
-                            {restaurant.mustTasteItems.map((item) => (
-                              <li key={`${item.rank}-${item.menuItem}`}>
-                                <span className="must-taste-rank" aria-label={`${item.rank}순위`}>
-                                  {item.rank}
-                                </span>
-                                <div className="must-taste-body">
-                                  <div className="must-taste-heading">
-                                    <strong>{item.menuItem}</strong>
-                                    <time>{item.timestamp}</time>
-                                  </div>
-                                  <p>“{item.reason}”</p>
-                                </div>
-                              </li>
-                            ))}
-                          </ol>
-                        </section>
-                      ) : null}
-                    </div>
-                  </article>
+                  <RestaurantCard restaurant={restaurant} />
                 </li>
               ))}
             </ol>
@@ -164,6 +106,84 @@ export default async function Home({
         </section>
       </div>
     </main>
+  );
+}
+
+function RestaurantCard({ restaurant }: { restaurant: RestaurantItem }) {
+  const uploadAge = getRelativeUploadAge(restaurant.sourcePublishedAt);
+  const summaryClassName = restaurant.sourceThumbnailUrl
+    ? "restaurant-summary"
+    : "restaurant-summary is-text-only";
+
+  return (
+    <article className="restaurant-card">
+      <div className={summaryClassName}>
+        <div className="restaurant-info">
+          <h3>{restaurant.name}</h3>
+          <a className="video-link" href={restaurant.sourceUrl}>
+            <span>{restaurant.sourceTitle}</span>
+            <span aria-hidden="true">↗</span>
+          </a>
+          <p className="source-meta">
+            {restaurant.source}
+            {uploadAge ? ` · ${uploadAge}` : ""}
+          </p>
+          <p className="restaurant-address">
+            {restaurant.mapUrl ? (
+              <a
+                className="address-map-link"
+                href={restaurant.mapUrl}
+                aria-label={`${restaurant.address} 지도에서 보기`}
+              >
+                <span>{restaurant.address}</span>
+                <span className="map-link-label">
+                  지도
+                  <span aria-hidden="true">↗</span>
+                </span>
+              </a>
+            ) : (
+              restaurant.address
+            )}
+          </p>
+        </div>
+
+        {restaurant.sourceThumbnailUrl ? (
+          <a
+            className="video-thumbnail-link"
+            href={restaurant.sourceUrl}
+            aria-label={`영상 보기: ${restaurant.sourceTitle}`}
+          >
+            <img
+              src={restaurant.sourceThumbnailUrl}
+              alt=""
+              loading="lazy"
+              decoding="async"
+            />
+          </a>
+        ) : null}
+      </div>
+
+      {restaurant.mustTasteItems.length > 0 ? (
+        <section className="must-taste-section" aria-label="추천 메뉴">
+          <ol className="must-taste-list">
+            {restaurant.mustTasteItems.map((item) => (
+              <li key={`${item.rank}-${item.menuItem}`}>
+                <span className="must-taste-rank" aria-label={`${item.rank}순위`}>
+                  {item.rank}
+                </span>
+                <div className="must-taste-body">
+                  <div className="must-taste-heading">
+                    <strong>{item.menuItem}</strong>
+                    <time>{item.timestamp}</time>
+                  </div>
+                  <p>“{item.reason}”</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ) : null}
+    </article>
   );
 }
 
@@ -525,4 +545,37 @@ function getResultSummary(total: number, params: RestaurantSearchParams) {
   return activeLabels.length > 0
     ? `${totalLabel} · ${activeLabels.join(" · ")}`
     : totalLabel;
+}
+
+function getRelativeUploadAge(value: string) {
+  const timestamp = Date.parse(value);
+
+  if (Number.isNaN(timestamp)) {
+    return "";
+  }
+
+  const elapsedSeconds = Math.max(0, Math.floor((Date.now() - timestamp) / 1000));
+
+  if (elapsedSeconds < 60) {
+    return "방금 전";
+  }
+
+  const units = [
+    { seconds: 365 * 24 * 60 * 60, label: "년" },
+    { seconds: 30 * 24 * 60 * 60, label: "개월" },
+    { seconds: 7 * 24 * 60 * 60, label: "주" },
+    { seconds: 24 * 60 * 60, label: "일" },
+    { seconds: 60 * 60, label: "시간" },
+    { seconds: 60, label: "분" },
+  ];
+
+  for (const unit of units) {
+    const count = Math.floor(elapsedSeconds / unit.seconds);
+
+    if (count > 0) {
+      return `${count}${unit.label} 전`;
+    }
+  }
+
+  return "방금 전";
 }

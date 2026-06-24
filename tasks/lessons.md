@@ -45,7 +45,7 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: After adding or changing Vercel env vars, run `vercel env pull .env.local --yes` from the linked `tastyroad` checkout when it is safe to overwrite local env, then verify required keys without printing values.
 - Trigger: Running a schema helper's `main()` during verification altered tracked `data/tastyroad.sqlite`.
   Rule: For schema smoke tests, copy the DB to `/tmp` and import/call the schema function with an explicit temp path; do not run root-default schema CLIs against tracked data unless updating the DB is intentional.
-- Trigger: The user defined design "weeds" as redundant visible words such as labeling an already familiar filter area as `필터`.
+- Trigger: The user defined design "weeds"/`잔디` as redundant visible words such as labeling an already familiar filter area as `필터` or a menu quote block as `추천 이유`.
   Rule: In Tastyroad UI work, remove visible explanatory labels when the layout/control pattern already carries the meaning; keep accessible labels for assistive technology.
 - Trigger: The must-taste list inherited restaurant-card divider spacing because `.restaurant-list li + li` matched nested list items.
   Rule: Scope restaurant list spacing/divider selectors to direct children (`.restaurant-list > li`) so nested content lists keep their own layout.

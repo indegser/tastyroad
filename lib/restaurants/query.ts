@@ -75,6 +75,8 @@ type RestaurantRow = {
   source: string | null;
   source_title: string | null;
   source_url: string | null;
+  source_thumbnail_url: string | null;
+  source_published_at: string | null;
   map_url: string | null;
   must_taste_json: string | null;
 };
@@ -135,6 +137,9 @@ function loadRestaurantItems(): RestaurantItem[] {
             s.name as source,
             c.title as source_title,
             c.url as source_url,
+            c.thumbnail_url as source_thumbnail_url,
+            c.published_at as source_published_at,
+            c.id as source_video_row_id,
             top3.must_taste_json,
             row_number() over (
               partition by r.id
@@ -201,6 +206,8 @@ function loadRestaurantItems(): RestaurantItem[] {
           ranked_mentions.source,
           ranked_mentions.source_title,
           ranked_mentions.source_url,
+          ranked_mentions.source_thumbnail_url,
+          ranked_mentions.source_published_at,
           coalesce(
             ranked_links.url,
             'https://map.naver.com/p/entry/place/' || ranked_mentions.naver_map_id
@@ -210,7 +217,10 @@ function loadRestaurantItems(): RestaurantItem[] {
         left join ranked_links on ranked_links.restaurant_id = ranked_mentions.id
           and ranked_links.link_rank = 1
         where ranked_mentions.mention_rank = 1
-        order by ranked_mentions.name asc, ranked_mentions.id asc
+        order by
+          ranked_mentions.source_published_at desc,
+          ranked_mentions.source_video_row_id desc,
+          ranked_mentions.id asc
         `,
       )
       .all() as RestaurantRow[];
@@ -224,6 +234,8 @@ function loadRestaurantItems(): RestaurantItem[] {
       source: row.source || "",
       sourceTitle: row.source_title || "",
       sourceUrl: row.source_url || "",
+      sourceThumbnailUrl: row.source_thumbnail_url || "",
+      sourcePublishedAt: row.source_published_at || "",
       mapUrl: row.map_url || "",
       mustTasteItems: parseMustTasteItems(row.must_taste_json),
       region: normalizeRegion({

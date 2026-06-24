@@ -2,6 +2,38 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Small thumbnail restaurant cards preview
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort`
+Branch: `codex/latest-video-sort`
+Target: Vercel preview
+
+- [x] Read repository guide, lessons, Next.js guidance, browser guidance, and release workflow.
+- [x] Reuse the existing latest-video-sort worktree for the related listing change.
+- [x] Add representative video thumbnail and upload metadata to restaurant results.
+- [x] Implement the small-thumbnail card layout without redundant visible labels.
+- [x] Verify build, local API, and mobile/desktop browser layout.
+- [ ] Commit, push, and verify the Vercel preview deployment.
+- [ ] Record review/result notes.
+
+## Current Task - 2026-06-25 - Sort restaurants by latest video upload
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort`
+Branch: `codex/latest-video-sort`
+
+- [x] Read repository guide and lessons.
+- [x] Create an isolated worktree for the listing sort change.
+- [x] Inspect restaurant query and rendering flow.
+- [x] Change default restaurant ordering to latest representative video upload.
+- [x] Verify query ordering and app build.
+- [x] Record review/result notes.
+
+### Review
+
+- Changed the public restaurant query to sort by each restaurant's latest representative YouTube upload timestamp, then representative video row id, then restaurant id.
+- Kept the existing per-restaurant representative video selection unchanged: each restaurant still uses its newest verified mention.
+- Verification: `git diff --check`, direct SQLite first-page sample, `pnpm run build`, and local API check at `/api/restaurants?limit=8` passed.
+
 ## Current Task - 2026-06-25 - Document worktree env provisioning
 
 Worktree: `/Users/indegser/Github/tastyroad`

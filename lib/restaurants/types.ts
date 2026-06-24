@@ -20,6 +20,8 @@ export type RestaurantItem = {
   source: string;
   sourceTitle: string;
   sourceUrl: string;
+  sourceThumbnailUrl: string;
+  sourcePublishedAt: string;
   mapUrl: string;
   mustTasteItems: MustTasteItem[];
   region: NormalizedRegion;
