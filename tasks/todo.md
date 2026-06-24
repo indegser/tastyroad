@@ -2,6 +2,59 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Deploy facet UX
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/horizontal-facets`
+Branch: `codex/horizontal-facets`
+Target: production `main`
+
+- [x] Read release skill and inspect local release state.
+- [x] Fetch `origin/main` before integration.
+- [ ] Commit only the facet UX and documentation changes.
+- [ ] Integrate the release commit into `main` and push.
+- [ ] Verify the matching Vercel deployment and production alias.
+- [ ] Clean up the task worktree if safe.
+- [ ] Record release result notes.
+
+## Current Task - 2026-06-24 - PC side-rail facet UX
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/horizontal-facets`
+Branch: `codex/horizontal-facets`
+
+- [x] Read repository guide, lessons, and Next.js skill guidance.
+- [x] Reuse the existing facet UX worktree and inspect current changes.
+- [x] Rework desktop facets into a 29CM-style left rail while keeping compact mobile facets.
+- [x] Document the facet UX philosophy and device split.
+- [x] Verify build and browser layout.
+- [x] Record review/result notes.
+
+### Review
+
+- Reintroduced the desktop two-column explorer layout with a 29CM-style left facet rail and results on the right.
+- Kept mobile on compact `가나다 | 지역 | 채널` folded facets, with opened options rendered as a full-width panel without horizontal overflow.
+- Added `docs/facet-ux-philosophy.md` covering search-first behavior, PC left-rail rationale, mobile compact facets, and rules for adding future facets.
+- Updated the repository lesson for the PC/mobile facet split.
+- Verification: `git diff --check`, `pnpm run build`, agent-browser PC screenshot, PC region facet open/apply, mobile initial state, mobile region facet open, and mobile overflow check.
+
+## Current Task - 2026-06-24 - Horizontal collapsed facets
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/horizontal-facets`
+Branch: `codex/horizontal-facets`
+
+- [x] Read repository guide, lessons, and Next.js skill guidance.
+- [x] Create isolated worktree for the horizontal facet UX change.
+- [x] Inspect current search/facet page and styles.
+- [x] Replace the vertical facet rail with horizontal collapsed categories.
+- [x] Verify build and browser layout.
+- [x] Record review/result notes.
+
+### Review
+
+- Changed the public facet UX from a vertical side rail to compact horizontal collapsed categories: `가나다`, `지역`, `채널`.
+- Kept all facet groups closed by default, including when filters are active; active filters remain visible as chips above the facet bar.
+- Merged region cluster and detail region controls into one `지역` category, with detail regions appearing after a region cluster is selected.
+- Verification: `pnpm run build`, `git diff --check`, agent-browser desktop/mobile screenshots, initial closed state, opened region facet, region link navigation, no console errors, and no mobile horizontal overflow.
+
 ## Current Task - 2026-06-24 - Restaurant search facets
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-search-facets`

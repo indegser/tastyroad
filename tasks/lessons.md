@@ -26,6 +26,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Store public `reason` as a short exact quote from `evidence` or `supporting_evidence`; keep generated judgment in `quality.check` and `review.decision_reason`, not in the displayed text.
 - Trigger: The user pointed out that over-trimmed quotes like `진짜 0.1도 안나요` lose their subject.
   Rule: Direct subtitle quotes should be long enough to keep the subject and claim understandable while remaining an exact evidence substring.
+- Trigger: After exploring 29CM, the user clarified that Tastyroad should use a PC left-rail facet UX while keeping mobile-friendly compact facets.
+  Rule: Treat public listing facets by device: PC may use a persistent e-commerce-style left rail, while mobile should keep compact folded chip/sheet-style entry points; document the rationale when this architecture changes.
 
 ## 2026-06-22
 

@@ -55,55 +55,40 @@ export default async function Home({
               ) : null}
             </div>
 
-            <FacetGroup
-              label="가나다"
-              values={facets.nameInitials}
-              activeValue={params.nameInitial}
-              hrefFor={(value) =>
-                hrefWith(rawSearchParams, { nameInitial: value, page: "" })
-              }
-              variant="initials"
-              defaultOpen
-            />
-            <FacetGroup
-              label="지역권"
-              values={facets.regionClusters}
-              activeValue={params.regionCluster}
-              hrefFor={(value) =>
-                hrefWith(rawSearchParams, {
-                  regionCluster: value,
-                  region: "",
-                  page: "",
-                })
-              }
-              defaultOpen
-            />
-            {params.regionCluster || params.region ? (
+            <div className="facet-groups">
               <FacetGroup
-                label="세부 지역"
-                values={facets.regions}
-                activeValue={params.region}
+                label="가나다"
+                values={facets.nameInitials}
+                activeValue={params.nameInitial}
                 hrefFor={(value) =>
+                  hrefWith(rawSearchParams, { nameInitial: value, page: "" })
+                }
+                variant="initials"
+              />
+              <RegionFacetGroup
+                regionClusters={facets.regionClusters}
+                regions={facets.regions}
+                activeRegionCluster={params.regionCluster}
+                activeRegion={params.region}
+                hrefForRegionCluster={(value) =>
+                  hrefWith(rawSearchParams, {
+                    regionCluster: value,
+                    region: "",
+                    page: "",
+                  })
+                }
+                hrefForRegion={(value) =>
                   hrefWith(rawSearchParams, { region: value, page: "" })
                 }
-                defaultOpen
               />
-            ) : (
-              <section className="facet-group is-disabled" aria-disabled="true">
-                <div className="facet-summary">
-                  <span>세부 지역</span>
-                  <small>지역권별</small>
-                </div>
-              </section>
-            )}
-            <FacetGroup
-              label="출처"
-              values={facets.sources}
-              activeValues={params.sources}
-              hrefFor={(value) => hrefWithToggledValue(rawSearchParams, "source", value)}
-              multi
-              defaultOpen={params.sources.length > 0}
-            />
+              <FacetGroup
+                label="채널"
+                values={facets.sources}
+                activeValues={params.sources}
+                hrefFor={(value) => hrefWithToggledValue(rawSearchParams, "source", value)}
+                multi
+              />
+            </div>
           </aside>
         ) : null}
 
@@ -270,7 +255,6 @@ function FacetGroup({
   hrefFor,
   multi = false,
   variant = "list",
-  defaultOpen = false,
 }: {
   label: string;
   values: FacetValue[];
@@ -279,7 +263,6 @@ function FacetGroup({
   hrefFor: (value: string) => string;
   multi?: boolean;
   variant?: "list" | "initials";
-  defaultOpen?: boolean;
 }) {
   if (values.length === 0) {
     return null;
@@ -290,10 +273,7 @@ function FacetGroup({
   ).length;
 
   return (
-    <details
-      className={`facet-group ${variant === "initials" ? "is-initials" : ""}`}
-      open={defaultOpen || activeCount > 0}
-    >
+    <details className={`facet-group ${variant === "initials" ? "is-initials" : ""}`}>
       <summary>
         <span>{label}</span>
         <small>{activeCount > 0 ? `${activeCount} 선택` : `${values.length}개`}</small>
@@ -317,6 +297,84 @@ function FacetGroup({
             </a>
           );
         })}
+      </div>
+    </details>
+  );
+}
+
+function RegionFacetGroup({
+  regionClusters,
+  regions,
+  activeRegionCluster,
+  activeRegion,
+  hrefForRegionCluster,
+  hrefForRegion,
+}: {
+  regionClusters: FacetValue[];
+  regions: FacetValue[];
+  activeRegionCluster: string;
+  activeRegion: string;
+  hrefForRegionCluster: (value: string) => string;
+  hrefForRegion: (value: string) => string;
+}) {
+  if (regionClusters.length === 0) {
+    return null;
+  }
+
+  const activeCount = Number(Boolean(activeRegionCluster)) + Number(Boolean(activeRegion));
+
+  return (
+    <details className="facet-group is-region">
+      <summary>
+        <span>지역</span>
+        <small>{activeCount > 0 ? `${activeCount} 선택` : `${regionClusters.length}개`}</small>
+      </summary>
+      <div className="facet-options">
+        <section className="facet-option-section" aria-label="지역권">
+          <h3>지역권</h3>
+          <div className="facet-option-list">
+            {regionClusters.map((facet) => {
+              const active = facet.value === activeRegionCluster;
+
+              return (
+                <a
+                  key={facet.value}
+                  href={active ? hrefForRegionCluster("") : hrefForRegionCluster(facet.value)}
+                  className={`facet-option ${active ? "is-active" : ""}`}
+                  aria-current={active ? "true" : undefined}
+                >
+                  <span className="facet-marker" aria-hidden="true" />
+                  <span className="facet-option-label">{facet.value}</span>
+                  <small>{facet.count.toLocaleString("ko-KR")}</small>
+                </a>
+              );
+            })}
+          </div>
+        </section>
+
+        {activeRegionCluster || activeRegion ? (
+          <section className="facet-option-section" aria-label="세부 지역">
+            <h3>세부 지역</h3>
+            <div className="facet-option-list">
+              {regions.map((facet) => {
+                const active = facet.value === activeRegion;
+
+                return (
+                  <a
+                    key={facet.value}
+                    href={active ? hrefForRegion("") : hrefForRegion(facet.value)}
+                    className={`facet-option ${active ? "is-active" : ""}`}
+                    aria-current={active ? "true" : undefined}
+                  >
+                    <span className="facet-marker" aria-hidden="true" />
+                    <span className="facet-option-label">{facet.value}</span>
+                    <small>{facet.count.toLocaleString("ko-KR")}</small>
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        ) : null}
       </div>
     </details>
   );
@@ -462,7 +520,7 @@ function getActiveFilters(
 
   for (const source of params.sources) {
     filters.push({
-      label: "출처",
+      label: "채널",
       value: source,
       href: hrefWithToggledValue(searchParams, "source", source),
     });

@@ -238,10 +238,12 @@ h1 {
 
 .facet-panel {
   display: grid;
+  gap: 0;
+  margin: 0;
   border: 1px solid var(--border);
   border-radius: 8px;
   background: var(--panel);
-  padding: 0 14px;
+  padding: 0;
 }
 
 .facet-header {
@@ -249,7 +251,7 @@ h1 {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
-  padding: 14px 0;
+  padding: 14px;
   border-bottom: 1px solid var(--soft-border);
 }
 
@@ -276,29 +278,39 @@ h1 {
   font-weight: 620;
 }
 
+.facet-groups {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.facet-groups:has(.facet-group[open]) .facet-group {
+  border-right-color: transparent;
+}
+
 .facet-group {
-  padding: 10px 0;
-  border-bottom: 1px solid var(--soft-border);
+  position: relative;
+  min-width: 0;
+  border-right: 1px solid var(--soft-border);
 }
 
 .facet-group:last-child {
-  border-bottom: 0;
+  border-right: 0;
 }
 
-.facet-group summary,
-.facet-summary {
+.facet-group[open] {
+  z-index: 2;
+}
+
+.facet-group summary {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto;
   align-items: center;
   gap: 8px;
-  min-height: 30px;
+  min-height: 46px;
+  padding: 0 12px;
   color: var(--foreground);
   cursor: pointer;
   list-style: none;
-}
-
-.facet-summary {
-  cursor: default;
 }
 
 .facet-group summary::-webkit-details-marker {
@@ -317,8 +329,7 @@ h1 {
   content: "-";
 }
 
-.facet-group summary span,
-.facet-summary span {
+.facet-group summary span {
   min-width: 0;
   overflow-wrap: anywhere;
   font-size: 0.875rem;
@@ -326,33 +337,51 @@ h1 {
   line-height: 1.25;
 }
 
-.facet-group summary small,
-.facet-summary small {
+.facet-group summary small {
   color: var(--text-tertiary);
   font-size: 0.74rem;
   font-weight: 620;
   white-space: nowrap;
 }
 
-.facet-group.is-disabled {
-  color: var(--text-tertiary);
-}
-
-.facet-group.is-disabled .facet-summary {
-  grid-template-columns: minmax(0, 1fr) auto;
-}
-
-.facet-group.is-disabled span {
-  color: var(--text-secondary);
-}
-
 .facet-options {
   display: grid;
-  gap: 2px;
-  max-height: 280px;
-  margin-top: 7px;
+  gap: 8px;
+  width: 300%;
+  max-height: 320px;
   overflow: auto;
-  padding-right: 2px;
+  padding: 0 12px 12px;
+  border-top: 1px solid var(--soft-border);
+  background: var(--panel);
+}
+
+.facet-group:nth-child(2) .facet-options {
+  transform: translateX(-33.333%);
+}
+
+.facet-group:nth-child(3) .facet-options {
+  transform: translateX(-66.666%);
+}
+
+.facet-option-section {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.facet-option-section h3 {
+  margin: 8px 0 0;
+  color: var(--text-tertiary);
+  font-size: 0.75rem;
+  font-weight: 650;
+  line-height: 1.3;
+  letter-spacing: 0;
+}
+
+.facet-option-list {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
 }
 
 .facet-option {
@@ -699,6 +728,18 @@ h1 {
   .active-filters a {
     max-width: 100%;
   }
+
+  .facet-group summary {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 4px;
+    min-height: 44px;
+    padding: 0 8px;
+  }
+
+  .facet-group summary small {
+    font-size: 0.68rem;
+  }
+
 }
 
 @media (min-width: 720px) {
@@ -766,6 +807,61 @@ h1 {
     top: 24px;
     max-height: calc(100vh - 48px);
     overflow: auto;
+    border: 0;
+    border-top: 4px solid var(--foreground);
+    border-radius: 0;
+    background: transparent;
+  }
+
+  .facet-header {
+    padding: 14px 0;
+    border-bottom: 0;
+  }
+
+  .facet-header strong {
+    font-size: 1rem;
+  }
+
+  .facet-groups {
+    grid-template-columns: 1fr;
+    border-top: 1px solid var(--soft-border);
+  }
+
+  .facet-group {
+    padding: 10px 0;
+    border-right: 0;
+    border-bottom: 1px solid var(--soft-border);
+  }
+
+  .facet-group:last-child {
+    border-bottom: 1px solid var(--soft-border);
+  }
+
+  .facet-group summary {
+    min-height: 34px;
+    padding: 0;
+  }
+
+  .facet-options {
+    width: auto;
+    max-height: 280px;
+    padding: 7px 2px 0 0;
+    border-top: 0;
+    background: transparent;
+  }
+
+  .facet-group:nth-child(2) .facet-options,
+  .facet-group:nth-child(3) .facet-options {
+    transform: none;
+  }
+
+  .facet-option-section h3 {
+    margin: 10px 0 3px;
+  }
+
+  .facet-group.is-initials .facet-options {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    padding-right: 0;
   }
 
   .results-header {
