@@ -12,6 +12,7 @@ Target: Vercel preview
 - [x] Inspect current restaurant card address rendering and spacing.
 - [x] Make the address consume less vertical space without losing the map action.
 - [x] Verify build and mobile/desktop layout.
+- [x] Tighten the `지도` action label size after focused feedback.
 - [ ] Push and verify preview deployment.
 - [ ] Record review/result notes.
 

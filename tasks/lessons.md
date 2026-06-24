@@ -6,6 +6,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-06-25
 
+- Trigger: The user clarified that the oversized address issue was specifically the visible `지도` action text, not the whole address row.
+  Rule: For visual feedback on a card sub-element, identify and adjust the named element first instead of broadening the change to adjacent content.
 - Trigger: Running `vercel curl` from an unlinked task worktree created and linked an unintended Vercel project named after the worktree.
   Rule: For Vercel commands that need project context beyond `vercel ls/inspect`, run from the linked main checkout or pass a known linked cwd; verify `.vercel/project.json` points to `tastyroad` before commands that can link, create, or mutate projects.
 - Trigger: A Vercel Blob CLI failure traceback included the subprocess argv with `--rw-token`.

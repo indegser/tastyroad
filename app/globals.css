@@ -526,11 +526,15 @@ h1 {
 .map-link-label {
   display: inline-flex;
   align-items: baseline;
-  gap: 4px;
+  gap: 3px;
   color: var(--link);
-  font-size: 0.74rem;
-  font-weight: 560;
+  font-size: 0.64rem;
+  font-weight: 520;
   white-space: nowrap;
+}
+
+.map-link-label span {
+  font-size: 0.86em;
 }
 
 .address-map-link:hover {
