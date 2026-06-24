@@ -2,6 +2,19 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Production release latest-video cards
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+Target: production `main`
+
+- [x] Read repository guide, lessons, and release workflow.
+- [x] Fast-forward `main` to the verified latest-video card preview branch.
+- [x] Verify production build.
+- [ ] Push `main` and verify production Vercel deployment.
+- [ ] Clean up the merged preview worktree if safe.
+- [ ] Record review/result notes.
+
 ## Current Task - 2026-06-25 - Tune thumbnail card typography
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort`
