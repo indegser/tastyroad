@@ -28,6 +28,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Direct subtitle quotes should be long enough to keep the subject and claim understandable while remaining an exact evidence substring.
 - Trigger: After exploring 29CM, the user clarified that Tastyroad should use a PC left-rail facet UX while keeping mobile-friendly compact facets.
   Rule: Treat public listing facets by device: PC may use a persistent e-commerce-style left rail, while mobile should keep compact folded chip/sheet-style entry points; document the rationale when this architecture changes.
+- Trigger: Re-running must-taste extraction for map-verified restaurants found an existing item whose evidence segment belonged to a later restaurant in the same multi-restaurant video.
+  Rule: Before preserving existing must-taste rows in multi-restaurant videos, verify the cited segment belongs to the target restaurant portion; re-run or reject stale items that only pass by using another restaurant's segment.
+- Trigger: Must-taste context preparation failed for YouTube IDs that begin with `-` because argparse treated the ID as another option.
+  Rule: When passing YouTube IDs to repo CLIs from loops, use `--video-id=<id>` rather than `--video-id <id>` so dash-prefixed video IDs are handled correctly.
 
 ## 2026-06-22
 
