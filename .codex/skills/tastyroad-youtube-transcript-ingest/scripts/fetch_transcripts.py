@@ -16,6 +16,8 @@ from typing import Any
 from transcript_blob_store import (
     DEFAULT_BLOB_ACCESS,
     DEFAULT_BLOB_PREFIX,
+    DEFAULT_STORAGE_PROVIDER,
+    STORAGE_PROVIDERS,
     TranscriptBlobUpload,
     upload_transcript_blobs,
 )
@@ -366,11 +368,12 @@ def upsert_transcript_track(
     store_sqlite_payload = storage in ("sqlite", "both")
     raw_json = json_text(transcript.raw_segments) if store_sqlite_payload else "[]"
     transcript_hash = content_hash(transcript.raw_segments)
-    storage_provider = {
-        "blob": "vercel_blob",
-        "both": "sqlite+vercel_blob",
-        "sqlite": "sqlite",
-    }[storage]
+    if blob_upload and storage == "blob":
+        storage_provider = blob_upload.provider
+    elif blob_upload and storage == "both":
+        storage_provider = f"sqlite+{blob_upload.provider}"
+    else:
+        storage_provider = "sqlite"
     raw_blob_path = blob_upload.raw.pathname if blob_upload else ""
     raw_blob_size = blob_upload.raw.size if blob_upload else 0
     segments_blob_path = blob_upload.segments.pathname if blob_upload else ""
@@ -569,7 +572,13 @@ def run(args: argparse.Namespace) -> dict[str, int]:
                         fetched_at=fetched_at,
                         prefix=args.blob_prefix,
                         access=args.blob_access,
+                        storage_provider=args.storage_provider,
                     )
+                stored_provider = "sqlite"
+                if blob_upload and args.storage == "blob":
+                    stored_provider = blob_upload.provider
+                elif blob_upload and args.storage == "both":
+                    stored_provider = f"sqlite+{blob_upload.provider}"
                 track_id = upsert_transcript_track(
                     connection,
                     target=target,
@@ -590,6 +599,7 @@ def run(args: argparse.Namespace) -> dict[str, int]:
                         "is_generated": transcript.is_generated,
                         "segment_count": len(transcript.segments),
                         "storage": args.storage,
+                        "storage_provider": stored_provider,
                         "raw_blob_path": blob_upload.raw.pathname if blob_upload else "",
                         "segments_blob_path": blob_upload.segments.pathname if blob_upload else "",
                     },
@@ -599,7 +609,7 @@ def run(args: argparse.Namespace) -> dict[str, int]:
                 consecutive_blocks = 0
                 print(
                     f"Fetched {target.video_id}: {transcript.language_code} "
-                    f"segments={len(transcript.segments)} storage={args.storage}"
+                    f"segments={len(transcript.segments)} storage={stored_provider}"
                 )
             except Exception as exc:  # noqa: BLE001 - transcript availability varies by video.
                 error_type = "youtube_block" if is_youtube_block_error(exc) else exc.__class__.__name__
@@ -662,18 +672,24 @@ def parse_args() -> argparse.Namespace:
         "--storage",
         choices=("blob", "sqlite", "both"),
         default=DEFAULT_STORAGE,
-        help="Where to store transcript payloads. Default stores raw/segments in Vercel Blob and metadata in SQLite.",
+        help="Where to store transcript payloads. Default stores raw/segments in object storage and metadata in SQLite.",
     )
     parser.add_argument(
         "--blob-prefix",
         default=DEFAULT_BLOB_PREFIX,
-        help="Vercel Blob pathname prefix for transcript archive objects.",
+        help="Object storage pathname prefix for transcript archive objects.",
     )
     parser.add_argument(
         "--blob-access",
         choices=("private", "public"),
         default=DEFAULT_BLOB_ACCESS,
-        help="Vercel Blob access mode. Tastyroad transcript archives should normally stay private.",
+        help="Object storage access mode. Tastyroad transcript archives should normally stay private.",
+    )
+    parser.add_argument(
+        "--storage-provider",
+        choices=STORAGE_PROVIDERS,
+        default=DEFAULT_STORAGE_PROVIDER,
+        help="Object storage provider for transcript payloads when --storage uses blob storage.",
     )
     parser.add_argument(
         "--request-delay",

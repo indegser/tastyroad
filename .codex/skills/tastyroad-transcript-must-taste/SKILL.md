@@ -1,13 +1,13 @@
 ---
 name: tastyroad-transcript-must-taste
-description: Run a multi-pass, transcript-grounded "must taste" recommendation pipeline for a specific Tastyroad restaurant mention in a YouTube video. Use when Codex needs to read timed YouTube captions from the Blob-backed transcript archive referenced by data/tastyroad.sqlite, scan the whole transcript with parallel attention-scout passes, aggregate repeated and high-attention menu candidates, run evidence/visitor review passes, choose only genuinely recommended menu items for one restaurant, include short direct subtitle quotes for display, and validate/store source-backed rows in video_must_taste_items by restaurant_id and youtube_video_id. Do not use this for one-shot exact-three filling, video-level Top 3, generated ad-copy reasons, story reviews, prose essays, restaurant mapping, or caption fetching.
+description: Run a multi-pass, transcript-grounded "must taste" recommendation pipeline for a specific Tastyroad restaurant mention in a YouTube video. Use when Codex needs to read timed YouTube captions from the object-storage-backed transcript archive referenced by data/tastyroad.sqlite, scan the whole transcript with parallel attention-scout passes, aggregate repeated and high-attention menu candidates, run evidence/visitor review passes, choose only genuinely recommended menu items for one restaurant, include short direct subtitle quotes for display, and validate/store source-backed rows in video_must_taste_items by restaurant_id and youtube_video_id. Do not use this for one-shot exact-three filling, video-level Top 3, generated ad-copy reasons, story reviews, prose essays, restaurant mapping, or caption fetching.
 ---
 
 # Tastyroad Transcript Must-Taste
 
 ## Overview
 
-Use this skill after `$tastyroad-youtube-transcript-ingest` has stored timed captions. Captions may live in Vercel Blob with SQLite metadata, or in the legacy SQLite segment cache. The output is not a story and not video-level: it is a multi-pass artifact pipeline that scans the whole transcript, surfaces attention events, aggregates menu candidates, reviews each candidate, rejects weak candidates, and stores zero to three genuinely recommended transcript-supported menu items for one target restaurant.
+Use this skill after `$tastyroad-youtube-transcript-ingest` has stored timed captions. Captions may live in Supabase Storage or Vercel Blob with SQLite metadata, or in the legacy SQLite segment cache. The output is not a story and not video-level: it is a multi-pass artifact pipeline that scans the whole transcript, surfaces attention events, aggregates menu candidates, reviews each candidate, rejects weak candidates, and stores zero to three genuinely recommended transcript-supported menu items for one target restaurant.
 
 ## Workflow
 
@@ -39,7 +39,7 @@ Use subagents only for the scout/review stages. Do deterministic chunking, cover
 Artifact contract:
 
 - Every artifact must carry the same `video_id`, `restaurant_id`, `transcript_track_id`, and `context_hash` from `context.json`.
-- `context.json` is the source of transcript truth for extraction; it may have been assembled from `youtube_transcript_segments` or from the `segments_blob_path` Vercel Blob archive.
+- `context.json` is the source of transcript truth for extraction; it may have been assembled from `youtube_transcript_segments` or from the `segments_blob_path` object archive using the row's `storage_provider`.
 - `attention_events.jsonl`: one JSON object per attention event; include `event_id`, `chunk_id`, `candidate_id`, `menu_item`, `event_type`, `attention_score`, exact transcript evidence fields, `restaurant_scope_note`, and `note`.
 - `menu_candidates.json`: root object with `candidates`; every attention event must be represented by a candidate with the same `candidate_id`, and each candidate must list its `event_ids`.
 - `candidate_reviews.json`: root object with `reviews`; every candidate must have `evidence_skeptic` and `visitor_judge` reviews, and each review must cite `cited_event_ids` for that candidate.

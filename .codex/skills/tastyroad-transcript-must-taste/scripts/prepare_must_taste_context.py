@@ -359,7 +359,10 @@ def load_context(
                     "duration_seconds": float(segment["duration_seconds"]),
                     "text": str(segment["text"]),
                 }
-                for segment in load_segments_blob(str(row["segments_blob_path"]))
+                for segment in load_segments_blob(
+                    str(row["segments_blob_path"]),
+                    storage_provider=str(row["storage_provider"]),
+                )
             ]
 
     if not segments:

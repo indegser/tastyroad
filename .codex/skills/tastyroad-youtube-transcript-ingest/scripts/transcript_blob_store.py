@@ -11,12 +11,18 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Protocol
+from urllib.error import HTTPError, URLError
+from urllib.parse import quote
+from urllib.request import Request, urlopen
 
 
 LOCAL_ENV_PATH = Path(".env.local")
 DEFAULT_BLOB_ACCESS = "private"
 DEFAULT_BLOB_PREFIX = "transcripts"
 DEFAULT_BLOB_CLI = "vercel"
+DEFAULT_STORAGE_PROVIDER = "vercel_blob"
+DEFAULT_SUPABASE_BUCKET = "tastyroad-transcripts"
+STORAGE_PROVIDERS = ("vercel_blob", "supabase_storage")
 
 
 class TranscriptLike(Protocol):
@@ -93,24 +99,110 @@ def run_blob_cli(args: list[str], *, env_values: dict[str, str] | None = None) -
     env = os.environ.copy()
     env.update(env_values)
     auth_options = blob_auth_options(env_values)
-    command = [env.get("VERCEL_BLOB_CLI", DEFAULT_BLOB_CLI), "blob", *args, *auth_options]
+    command = [env.get("VERCEL_BLOB_CLI", DEFAULT_BLOB_CLI), "blob", *auth_options, *args]
     scope = env.get("VERCEL_BLOB_SCOPE", "").strip()
     if scope:
         command.extend(["--scope", scope])
 
-    return subprocess.run(
-        command,
-        check=True,
-        text=True,
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        env=env,
-    )
+    try:
+        return subprocess.run(
+            command,
+            check=True,
+            text=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            env=env,
+        )
+    except subprocess.CalledProcessError as exc:
+        stderr = (exc.stderr or "").strip()
+        stdout = (exc.stdout or "").strip()
+        detail = stderr or stdout or f"exit status {exc.returncode}"
+        raise RuntimeError(f"Vercel Blob CLI command failed: {detail}") from exc
 
 
 def blob_is_configured(env_values: dict[str, str] | None = None) -> bool:
     env_values = env_values or load_local_env()
     return bool(blob_auth_options(env_values))
+
+
+def normalize_storage_provider(
+    storage_provider: str | None,
+    env_values: dict[str, str] | None = None,
+) -> str:
+    env_values = env_values or load_local_env()
+    provider = (
+        storage_provider
+        or env_values.get("TRANSCRIPT_STORAGE_PROVIDER", "")
+        or DEFAULT_STORAGE_PROVIDER
+    ).strip()
+    if provider.startswith("sqlite+"):
+        provider = provider.split("+", 1)[1]
+    if provider not in STORAGE_PROVIDERS:
+        raise ValueError(
+            f"Unsupported transcript storage provider {provider!r}. "
+            f"Expected one of: {', '.join(STORAGE_PROVIDERS)}."
+        )
+    return provider
+
+
+def supabase_service_key(env_values: dict[str, str]) -> str:
+    return (
+        env_values.get("SUPABASE_SERVICE_ROLE_KEY", "").strip()
+        or env_values.get("SUPABASE_SECRET_KEY", "").strip()
+    )
+
+
+def supabase_is_configured(env_values: dict[str, str] | None = None) -> bool:
+    env_values = env_values or load_local_env()
+    return bool(env_values.get("SUPABASE_URL", "").strip() and supabase_service_key(env_values))
+
+
+def supabase_bucket(env_values: dict[str, str]) -> str:
+    return env_values.get("SUPABASE_STORAGE_BUCKET", "").strip() or DEFAULT_SUPABASE_BUCKET
+
+
+def supabase_object_url(env_values: dict[str, str], pathname: str) -> str:
+    base_url = env_values.get("SUPABASE_URL", "").strip().rstrip("/")
+    if not base_url:
+        raise RuntimeError("SUPABASE_URL is required for Supabase Storage transcript archives.")
+    bucket = quote(supabase_bucket(env_values), safe="")
+    object_path = quote(pathname.strip("/"), safe="/")
+    return f"{base_url}/storage/v1/object/{bucket}/{object_path}"
+
+
+def supabase_headers(env_values: dict[str, str], *, content_type: str | None = None) -> dict[str, str]:
+    service_key = supabase_service_key(env_values)
+    if not service_key:
+        raise RuntimeError(
+            "SUPABASE_SERVICE_ROLE_KEY is required for private Supabase Storage transcript archives."
+        )
+    headers = {
+        "apikey": service_key,
+        "Authorization": f"Bearer {service_key}",
+    }
+    if content_type:
+        headers["Content-Type"] = content_type
+    return headers
+
+
+def run_supabase_request(
+    method: str,
+    url: str,
+    *,
+    headers: dict[str, str],
+    data: bytes | None = None,
+) -> bytes:
+    request = Request(url, data=data, headers=headers, method=method)
+    try:
+        with urlopen(request, timeout=90) as response:
+            return response.read()
+    except HTTPError as exc:
+        detail = exc.read().decode("utf-8", "replace").strip()
+        raise RuntimeError(
+            f"Supabase Storage request failed with HTTP {exc.code}: {detail or exc.reason}"
+        ) from exc
+    except URLError as exc:
+        raise RuntimeError(f"Supabase Storage request failed: {exc.reason}") from exc
 
 
 def safe_video_id(video_id: str) -> str:
@@ -161,7 +253,7 @@ def segment_blob_rows(transcript: TranscriptLike) -> list[dict[str, Any]]:
     return rows
 
 
-def upload_file(
+def upload_vercel_file(
     path: Path,
     *,
     pathname: str,
@@ -187,6 +279,47 @@ def upload_file(
     return BlobObject(pathname=pathname, size=path.stat().st_size, content_type=content_type)
 
 
+def upload_supabase_file(
+    path: Path,
+    *,
+    pathname: str,
+    content_type: str,
+    env_values: dict[str, str],
+) -> BlobObject:
+    url = supabase_object_url(env_values, pathname)
+    headers = supabase_headers(env_values, content_type=content_type)
+    headers["x-upsert"] = "true"
+    run_supabase_request("POST", url, headers=headers, data=path.read_bytes())
+    return BlobObject(pathname=pathname, size=path.stat().st_size, content_type=content_type)
+
+
+def upload_file(
+    path: Path,
+    *,
+    pathname: str,
+    access: str,
+    content_type: str,
+    provider: str,
+    env_values: dict[str, str],
+) -> BlobObject:
+    if provider == "vercel_blob":
+        return upload_vercel_file(
+            path,
+            pathname=pathname,
+            access=access,
+            content_type=content_type,
+            env_values=env_values,
+        )
+    if provider == "supabase_storage":
+        return upload_supabase_file(
+            path,
+            pathname=pathname,
+            content_type=content_type,
+            env_values=env_values,
+        )
+    raise ValueError(f"Unsupported transcript storage provider: {provider}")
+
+
 def upload_transcript_blobs(
     *,
     target: TargetLike,
@@ -195,13 +328,20 @@ def upload_transcript_blobs(
     fetched_at: str,
     prefix: str = DEFAULT_BLOB_PREFIX,
     access: str = DEFAULT_BLOB_ACCESS,
+    storage_provider: str | None = None,
     env_values: dict[str, str] | None = None,
 ) -> TranscriptBlobUpload:
     env_values = env_values or load_local_env()
-    if not blob_is_configured(env_values):
+    provider = normalize_storage_provider(storage_provider, env_values)
+    if provider == "vercel_blob" and not blob_is_configured(env_values):
         raise RuntimeError(
             "Vercel Blob is not configured. Run `vercel blob create-store ...` "
             "and `vercel env pull`, or set BLOB_READ_WRITE_TOKEN."
+        )
+    if provider == "supabase_storage" and not supabase_is_configured(env_values):
+        raise RuntimeError(
+            "Supabase Storage is not configured. Run `vercel env pull` after adding the "
+            "Supabase integration, or set SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY."
         )
 
     video_id = safe_video_id(target.video_id)
@@ -236,6 +376,7 @@ def upload_transcript_blobs(
             pathname=raw_pathname,
             access=access,
             content_type="application/gzip",
+            provider=provider,
             env_values=env_values,
         )
         segments_blob = upload_file(
@@ -243,11 +384,12 @@ def upload_transcript_blobs(
             pathname=segments_pathname,
             access=access,
             content_type="application/gzip",
+            provider=provider,
             env_values=env_values,
         )
 
     return TranscriptBlobUpload(
-        provider="vercel_blob",
+        provider=provider,
         access=access,
         raw=raw_blob,
         segments=segments_blob,
@@ -255,7 +397,12 @@ def upload_transcript_blobs(
     )
 
 
-def download_blob(pathname: str, *, access: str = DEFAULT_BLOB_ACCESS) -> bytes:
+def download_vercel_blob(
+    pathname: str,
+    *,
+    access: str,
+    env_values: dict[str, str] | None = None,
+) -> bytes:
     with tempfile.TemporaryDirectory(prefix="tastyroad-transcript-blob-") as directory:
         output_path = Path(directory) / "blob"
         run_blob_cli(
@@ -266,15 +413,45 @@ def download_blob(pathname: str, *, access: str = DEFAULT_BLOB_ACCESS) -> bytes:
                 access,
                 "--output",
                 str(output_path),
-            ]
+            ],
+            env_values=env_values,
         )
         return output_path.read_bytes()
 
 
-def load_segments_blob(pathname: str, *, access: str = DEFAULT_BLOB_ACCESS) -> list[dict[str, Any]]:
+def download_supabase_blob(pathname: str, *, env_values: dict[str, str]) -> bytes:
+    url = supabase_object_url(env_values, pathname)
+    headers = supabase_headers(env_values)
+    return run_supabase_request("GET", url, headers=headers)
+
+
+def download_blob(
+    pathname: str,
+    *,
+    access: str = DEFAULT_BLOB_ACCESS,
+    storage_provider: str | None = None,
+    env_values: dict[str, str] | None = None,
+) -> bytes:
+    env_values = env_values or load_local_env()
+    provider = normalize_storage_provider(storage_provider, env_values)
+    if provider == "vercel_blob":
+        return download_vercel_blob(pathname, access=access, env_values=env_values)
+    if provider == "supabase_storage":
+        return download_supabase_blob(pathname, env_values=env_values)
+    raise ValueError(f"Unsupported transcript storage provider: {provider}")
+
+
+def load_segments_blob(
+    pathname: str,
+    *,
+    access: str = DEFAULT_BLOB_ACCESS,
+    storage_provider: str | None = None,
+) -> list[dict[str, Any]]:
     if not pathname:
         return []
-    payload = gzip.decompress(download_blob(pathname, access=access)).decode("utf-8")
+    payload = gzip.decompress(
+        download_blob(pathname, access=access, storage_provider=storage_provider)
+    ).decode("utf-8")
     segments: list[dict[str, Any]] = []
     for line in payload.splitlines():
         if not line.strip():

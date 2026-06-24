@@ -9,7 +9,13 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
-from transcript_blob_store import DEFAULT_BLOB_ACCESS, DEFAULT_BLOB_PREFIX, upload_transcript_blobs
+from transcript_blob_store import (
+    DEFAULT_BLOB_ACCESS,
+    DEFAULT_BLOB_PREFIX,
+    DEFAULT_STORAGE_PROVIDER,
+    STORAGE_PROVIDERS,
+    upload_transcript_blobs,
+)
 from transcript_schema import DEFAULT_SQLITE, ensure_transcript_schema
 
 
@@ -142,8 +148,13 @@ def archive(args: argparse.Namespace) -> dict[str, int]:
                 fetched_at=str(track["fetched_at"]),
                 prefix=args.blob_prefix,
                 access=args.blob_access,
+                storage_provider=args.storage_provider,
             )
-            storage_provider = "vercel_blob" if args.prune_sqlite_payload else "sqlite+vercel_blob"
+            storage_provider = (
+                blob_upload.provider
+                if args.prune_sqlite_payload
+                else f"sqlite+{blob_upload.provider}"
+            )
             raw_json = "[]" if args.prune_sqlite_payload else str(track["raw_json"])
             connection.execute(
                 """
@@ -199,13 +210,19 @@ def archive(args: argparse.Namespace) -> dict[str, int]:
 
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
-        description="Archive existing SQLite transcript payloads into Vercel Blob."
+        description="Archive existing SQLite transcript payloads into object storage."
     )
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
     parser.add_argument("--missing-only", action="store_true", help="Only upload tracks without a segments blob path.")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--blob-prefix", default=DEFAULT_BLOB_PREFIX)
     parser.add_argument("--blob-access", choices=("private", "public"), default=DEFAULT_BLOB_ACCESS)
+    parser.add_argument(
+        "--storage-provider",
+        choices=STORAGE_PROVIDERS,
+        default=DEFAULT_STORAGE_PROVIDER,
+        help="Object storage provider for archived transcript payloads.",
+    )
     parser.add_argument(
         "--prune-sqlite-payload",
         action="store_true",

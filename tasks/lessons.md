@@ -49,6 +49,12 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Do not show a must-taste section title when rank-led rows, menu names, quotes, and grouping already carry the meaning; keep only an accessibility label and verify a multi-item example.
 - Trigger: The user works remotely and cannot reliably inspect local `localhost` URLs shared by agents.
   Rule: For public UI changes, use a feature/preview branch as the default remote review path after local verification; do not ask before pushing a preview branch unless the change is risky or explicitly local-only.
+- Trigger: Vercel Blob uploads failed when auth flags were appended after `put`/`list` subcommand arguments.
+  Rule: With current Vercel CLI, pass Blob auth flags such as `--rw-token` or `--oidc-token --store-id` immediately after `vercel blob` and before the subcommand.
+- Trigger: Vercel Blob became suspended while legacy `video_transcripts` still held recoverable timed captions.
+  Rule: Keep transcript object storage provider configurable, prefer the private `tastyroad-transcripts` Supabase Storage bucket for the current archive path, and use `--replace-existing` before dropping legacy rows when existing tracks point at an unavailable provider.
+- Trigger: `apply_patch` created generated must-taste artifacts in the shared main checkout while the active task was running in a dedicated worktree.
+  Rule: When editing files for a task-specific worktree, pass absolute worktree paths to `apply_patch` or verify the file location before validation; clean up any files accidentally created in the shared checkout.
 
 ## 2026-06-22
 

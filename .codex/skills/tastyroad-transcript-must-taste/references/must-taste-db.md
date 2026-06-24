@@ -2,11 +2,11 @@
 
 ## Source Tables
 
-Use `preferred_youtube_transcripts` from `$tastyroad-youtube-transcript-ingest`. Timed segments may come from the legacy `youtube_transcript_segments` cache or from the Vercel Blob object referenced by `segments_blob_path`.
+Use `preferred_youtube_transcripts` from `$tastyroad-youtube-transcript-ingest`. Timed segments may come from the legacy `youtube_transcript_segments` cache or from the object storage item referenced by `segments_blob_path` and `storage_provider`.
 
 The must-taste skill does not fetch captions. If `prepare_must_taste_context.py` reports that no preferred transcript exists, run transcript ingest first.
 
-`prepare_must_taste_context.py` first reads `youtube_transcript_segments`. If no cached rows exist, it downloads and expands `segments_blob_path` from the private `tastyroad-transcripts` Blob store. The generated `context.json` is the extraction source of truth either way.
+`prepare_must_taste_context.py` first reads `youtube_transcript_segments`. If no cached rows exist, it downloads and expands `segments_blob_path` from the private `tastyroad-transcripts` Supabase Storage bucket or Vercel Blob store based on `storage_provider`. The generated `context.json` is the extraction source of truth either way.
 
 ## Work Artifacts
 
