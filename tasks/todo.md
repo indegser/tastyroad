@@ -13,8 +13,15 @@ Target: Vercel preview
 - [x] Add representative video thumbnail and upload metadata to restaurant results.
 - [x] Implement the small-thumbnail card layout without redundant visible labels.
 - [x] Verify build, local API, and mobile/desktop browser layout.
-- [ ] Commit, push, and verify the Vercel preview deployment.
-- [ ] Record review/result notes.
+- [x] Commit, push, and verify the Vercel preview deployment.
+- [x] Record review/result notes.
+
+### Review
+
+- Changed restaurant cards to a compact small-thumbnail layout: video title and thumbnail link to YouTube, source metadata shows YouTube-style relative upload age, and address links keep only a compact `지도` action.
+- Added representative video thumbnail and upload timestamp fields to restaurant results while preserving latest representative video sorting.
+- Kept must-taste rows visible as rank, menu, timestamp, and quote without adding visible labels such as `추천 이유`.
+- Verification: `git diff --check`, `pnpm run build`, local API sample, local mobile/desktop browser checks, zero browser console errors, and authenticated Vercel preview API/HTML checks passed.
 
 ## Current Task - 2026-06-25 - Sort restaurants by latest video upload
 
