@@ -12,8 +12,14 @@ Target: Vercel preview
 - [x] Inspect current thumbnail-card typography and spacing.
 - [x] Tune type scale, line height, and vertical rhythm without changing content structure.
 - [x] Verify build and mobile/desktop browser layout.
-- [ ] Commit, push, and verify updated Vercel preview.
-- [ ] Record review/result notes.
+- [x] Commit, push, and verify updated Vercel preview.
+- [x] Record review/result notes.
+
+### Review
+
+- Tuned the compact thumbnail-card typography around the existing structure: slightly smaller restaurant names, quieter source/address metadata, tighter video title rhythm, and a more balanced recommendation block.
+- Kept the small-thumbnail design, YouTube title/thumbnail click targets, YouTube-style relative upload age, and label-free must-taste rows intact.
+- Verification: `git diff --check`, `pnpm run build`, local mobile/desktop browser checks, zero browser console errors, and authenticated Vercel preview API/HTML checks passed.
 
 ## Current Task - 2026-06-25 - Small thumbnail restaurant cards preview
 
