@@ -13,6 +13,54 @@ const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad.sqlite");
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
+const NAME_INITIAL_FACETS = [
+  "ㄱ",
+  "ㄴ",
+  "ㄷ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅅ",
+  "ㅇ",
+  "ㅈ",
+  "ㅊ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+  "#",
+];
+const HANGUL_INITIALS = [
+  "ㄱ",
+  "ㄲ",
+  "ㄴ",
+  "ㄷ",
+  "ㄸ",
+  "ㄹ",
+  "ㅁ",
+  "ㅂ",
+  "ㅃ",
+  "ㅅ",
+  "ㅆ",
+  "ㅇ",
+  "ㅈ",
+  "ㅉ",
+  "ㅊ",
+  "ㅋ",
+  "ㅌ",
+  "ㅍ",
+  "ㅎ",
+];
+const HANGUL_INITIAL_GROUPS: Record<string, string> = {
+  "ㄲ": "ㄱ",
+  "ㄸ": "ㄷ",
+  "ㅃ": "ㅂ",
+  "ㅆ": "ㅅ",
+  "ㅉ": "ㅈ",
+};
+const HANGUL_SYLLABLE_START = 0xac00;
+const HANGUL_SYLLABLE_END = 0xd7a3;
+const HANGUL_SYLLABLES_PER_INITIAL = 588;
 
 type RestaurantRow = {
   id: number;
@@ -40,6 +88,7 @@ export function normalizeRestaurantSearchParams(
     sources: normalizeSourceParams(params),
     region: normalizeText(params.get("region")),
     regionCluster: normalizeText(params.get("regionCluster")),
+    nameInitial: normalizeNameInitial(params.get("nameInitial")),
     page: normalizePositiveInteger(params.get("page"), DEFAULT_PAGE),
     limit: Math.min(normalizePositiveInteger(params.get("limit"), DEFAULT_LIMIT), MAX_LIMIT),
     includeFacets: params.get("includeFacets") === "true",
@@ -184,6 +233,9 @@ function filterRestaurants(
     if (params.regionCluster && item.region.cluster !== params.regionCluster) {
       return false;
     }
+    if (params.nameInitial && getRestaurantNameInitial(item.name) !== params.nameInitial) {
+      return false;
+    }
     if (!query) {
       return true;
     }
@@ -211,6 +263,13 @@ function buildFacets(
   params: RestaurantSearchParams,
 ): RestaurantFacets {
   return {
+    nameInitials: sortNameInitialFacets(
+      countFacet(
+        filterRestaurants(items, { ...params, nameInitial: "" }).map((item) =>
+          getRestaurantNameInitial(item.name),
+        ),
+      ),
+    ),
     sources: countFacet(
       filterRestaurants(items, { ...params, sources: [] }).map((item) => item.source),
     ),
@@ -245,6 +304,17 @@ function countFacet(values: string[]): FacetValue[] {
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "ko-KR"));
 }
 
+function sortNameInitialFacets(values: FacetValue[]) {
+  const order = new Map(NAME_INITIAL_FACETS.map((value, index) => [value, index]));
+
+  return values.sort(
+    (a, b) =>
+      (order.get(a.value) ?? Number.MAX_SAFE_INTEGER) -
+        (order.get(b.value) ?? Number.MAX_SAFE_INTEGER) ||
+      a.value.localeCompare(b.value, "ko-KR"),
+  );
+}
+
 function normalizeText(value: string | null) {
   return (value || "").replace(/\s+/g, " ").trim();
 }
@@ -261,6 +331,31 @@ function normalizeSourceParams(params: URLSearchParams) {
   }
 
   return Array.from(deduped);
+}
+
+function normalizeNameInitial(value: string | null) {
+  const normalized = normalizeText(value);
+
+  return NAME_INITIAL_FACETS.includes(normalized) ? normalized : "";
+}
+
+function getRestaurantNameInitial(name: string) {
+  const firstCharacter = normalizeText(name).charAt(0);
+  const codePoint = firstCharacter.charCodeAt(0);
+
+  if (codePoint >= HANGUL_SYLLABLE_START && codePoint <= HANGUL_SYLLABLE_END) {
+    const initialIndex = Math.floor(
+      (codePoint - HANGUL_SYLLABLE_START) / HANGUL_SYLLABLES_PER_INITIAL,
+    );
+    const initial = HANGUL_INITIALS[initialIndex] || "#";
+    return HANGUL_INITIAL_GROUPS[initial] || initial;
+  }
+
+  if (NAME_INITIAL_FACETS.includes(firstCharacter)) {
+    return firstCharacter;
+  }
+
+  return "#";
 }
 
 function normalizePositiveInteger(value: string | null, fallback: number) {

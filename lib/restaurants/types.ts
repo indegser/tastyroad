@@ -5,6 +5,7 @@ export type RestaurantSearchParams = {
   sources: string[];
   region: string;
   regionCluster: string;
+  nameInitial: string;
   page: number;
   limit: number;
   includeFacets: boolean;
@@ -32,6 +33,7 @@ export type FacetValue = {
 };
 
 export type RestaurantFacets = {
+  nameInitials: FacetValue[];
   sources: FacetValue[];
   regionClusters: FacetValue[];
   regions: FacetValue[];

@@ -2,7 +2,10 @@ import {
   normalizeRestaurantSearchParams,
   searchRestaurants,
 } from "../lib/restaurants/query";
-import type { FacetValue } from "../lib/restaurants/types";
+import type {
+  FacetValue,
+  RestaurantSearchParams,
+} from "../lib/restaurants/types";
 
 type PageSearchParams = Record<string, string | string[] | undefined>;
 
@@ -26,137 +29,237 @@ export default async function Home({
 
   return (
     <main>
-      <header>
+      <header className="page-header">
         <p className="muted">검증된 맛집 {result.total.toLocaleString("ko-KR")}곳</p>
         <h1>맛집 탐색</h1>
         <p className="summary muted">
-          네이버 지도 검증이 완료된 맛집을 출처와 지역으로 좁혀 볼 수 있습니다.
+          네이버 지도 검증이 완료된 맛집을 검색과 패싯으로 좁혀 볼 수 있습니다.
         </p>
       </header>
 
-      {facets ? (
-        <aside className="facet-panel" aria-label="맛집 필터">
-          <div className="facet-header">
-            <strong>필터</strong>
-            {hasActiveFilters(params) ? (
-              <a href="/" className="clear-filters">
-                전체 보기
-              </a>
-            ) : null}
-          </div>
-          <FacetGroup
-            label="1. 지역권"
-            values={facets.regionClusters}
-            activeValue={params.regionCluster}
-            hrefFor={(value) =>
-              hrefWith(rawSearchParams, {
-                regionCluster: value,
-                region: "",
-                page: "",
-              })
-            }
-          />
-          {params.regionCluster || params.region ? (
+      <SearchForm params={params} />
+      <ActiveFilters params={params} searchParams={rawSearchParams} />
+
+      <div className="explorer-layout">
+        {facets ? (
+          <aside className="facet-panel" aria-label="맛집 필터">
+            <div className="facet-header">
+              <div>
+                <strong>필터</strong>
+                <span>{getActiveFilterCount(params).toLocaleString("ko-KR")}개 적용</span>
+              </div>
+              {hasActiveFilters(params) ? (
+                <a href="/" className="clear-filters">
+                  초기화
+                </a>
+              ) : null}
+            </div>
+
             <FacetGroup
-              label="2. 세부 지역"
-              values={facets.regions}
-              activeValue={params.region}
-              hrefFor={(value) => hrefWith(rawSearchParams, { region: value, page: "" })}
+              label="가나다"
+              values={facets.nameInitials}
+              activeValue={params.nameInitial}
+              hrefFor={(value) =>
+                hrefWith(rawSearchParams, { nameInitial: value, page: "" })
+              }
+              variant="initials"
+              defaultOpen
             />
-          ) : (
-            <section className="facet-group is-disabled">
-              <h2>2. 세부 지역</h2>
-              <p>지역권을 먼저 선택하면 구/시 단위로 좁힐 수 있습니다.</p>
-            </section>
-          )}
-          <FacetGroup
-            label="출처"
-            values={facets.sources}
-            activeValues={params.sources}
-            hrefFor={(value) => hrefWithToggledValue(rawSearchParams, "source", value)}
-            multi
-          />
-        </aside>
-      ) : null}
-
-      {result.items.length > 0 ? (
-        <ol className="video-list">
-          {result.items.map((restaurant) => (
-            <li key={restaurant.id}>
-              <article className="video-card">
-                <div className="video-info">
-                  <h2>{restaurant.name}</h2>
-                  <dl className="info-table">
-                    <div className="info-row">
-                      <dt>지역</dt>
-                      <dd>
-                        {restaurant.region.region}
-                        <span className="subtle-divider">/</span>
-                        {restaurant.region.cluster}
-                      </dd>
-                    </div>
-                    <div className="info-row">
-                      <dt>주소</dt>
-                      <dd>{restaurant.address}</dd>
-                    </div>
-                    <div className="info-row">
-                      <dt>채널</dt>
-                      <dd>{restaurant.source}</dd>
-                    </div>
-                    <div className="info-row">
-                      <dt>영상</dt>
-                      <dd>
-                        <a className="video-link" href={restaurant.sourceUrl}>
-                          <span>{restaurant.sourceTitle}</span>
-                          <span aria-hidden="true">↗</span>
-                        </a>
-                      </dd>
-                    </div>
-                    {restaurant.mapUrl ? (
-                      <div className="info-row">
-                        <dt>지도</dt>
-                        <dd>
-                          <a className="video-link" href={restaurant.mapUrl}>
-                            <span>지도에서 보기</span>
-                            <span aria-hidden="true">↗</span>
-                          </a>
-                        </dd>
-                      </div>
-                    ) : null}
-                    {restaurant.storyHook ? (
-                      <div className="info-row">
-                        <dt>한줄 요약</dt>
-                        <dd>{restaurant.storyHook}</dd>
-                      </div>
-                    ) : null}
-                  </dl>
-                  {restaurant.storyIntro ? (
-                    <section className="story-section" aria-label="이야기">
-                      <h3 className="section-label">이야기</h3>
-                      <p>{restaurant.storyIntro}</p>
-                    </section>
-                  ) : null}
-                  {restaurant.tastingFlow ? (
-                    <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
-                      <h3 className="section-label">시식 메뉴 및 순서</h3>
-                      <p>{restaurant.tastingFlow}</p>
-                    </section>
-                  ) : null}
+            <FacetGroup
+              label="지역권"
+              values={facets.regionClusters}
+              activeValue={params.regionCluster}
+              hrefFor={(value) =>
+                hrefWith(rawSearchParams, {
+                  regionCluster: value,
+                  region: "",
+                  page: "",
+                })
+              }
+              defaultOpen
+            />
+            {params.regionCluster || params.region ? (
+              <FacetGroup
+                label="세부 지역"
+                values={facets.regions}
+                activeValue={params.region}
+                hrefFor={(value) =>
+                  hrefWith(rawSearchParams, { region: value, page: "" })
+                }
+                defaultOpen
+              />
+            ) : (
+              <section className="facet-group is-disabled" aria-disabled="true">
+                <div className="facet-summary">
+                  <span>세부 지역</span>
+                  <small>지역권별</small>
                 </div>
-              </article>
-            </li>
-          ))}
-        </ol>
-      ) : (
-        <p className="empty-state">조건에 맞는 맛집이 없습니다.</p>
-      )}
+              </section>
+            )}
+            <FacetGroup
+              label="출처"
+              values={facets.sources}
+              activeValues={params.sources}
+              hrefFor={(value) => hrefWithToggledValue(rawSearchParams, "source", value)}
+              multi
+              defaultOpen={params.sources.length > 0}
+            />
+          </aside>
+        ) : null}
 
-      <Pagination
-        page={result.page}
-        totalPages={result.totalPages}
-        searchParams={rawSearchParams}
-      />
+        <section className="results-panel" aria-labelledby="results-heading">
+          <div className="results-header">
+            <div>
+              <h2 id="results-heading">맛집 목록</h2>
+              <p>{getResultSummary(result.total, params)}</p>
+            </div>
+          </div>
+
+          {result.items.length > 0 ? (
+            <ol className="restaurant-list">
+              {result.items.map((restaurant) => (
+                <li key={restaurant.id}>
+                  <article className="restaurant-card">
+                    <div className="restaurant-info">
+                      <h3>{restaurant.name}</h3>
+                      <dl className="info-table">
+                        <div className="info-row">
+                          <dt>지역</dt>
+                          <dd>
+                            {restaurant.region.region}
+                            <span className="subtle-divider">/</span>
+                            {restaurant.region.cluster}
+                          </dd>
+                        </div>
+                        <div className="info-row">
+                          <dt>주소</dt>
+                          <dd>{restaurant.address}</dd>
+                        </div>
+                        <div className="info-row">
+                          <dt>채널</dt>
+                          <dd>{restaurant.source}</dd>
+                        </div>
+                        <div className="info-row">
+                          <dt>영상</dt>
+                          <dd>
+                            <a className="video-link" href={restaurant.sourceUrl}>
+                              <span>{restaurant.sourceTitle}</span>
+                              <span aria-hidden="true">↗</span>
+                            </a>
+                          </dd>
+                        </div>
+                        {restaurant.mapUrl ? (
+                          <div className="info-row">
+                            <dt>지도</dt>
+                            <dd>
+                              <a className="video-link" href={restaurant.mapUrl}>
+                                <span>지도에서 보기</span>
+                                <span aria-hidden="true">↗</span>
+                              </a>
+                            </dd>
+                          </div>
+                        ) : null}
+                        {restaurant.storyHook ? (
+                          <div className="info-row">
+                            <dt>한줄 요약</dt>
+                            <dd>{restaurant.storyHook}</dd>
+                          </div>
+                        ) : null}
+                      </dl>
+                      {restaurant.storyIntro ? (
+                        <section className="story-section" aria-label="이야기">
+                          <h4 className="section-label">이야기</h4>
+                          <p>{restaurant.storyIntro}</p>
+                        </section>
+                      ) : null}
+                      {restaurant.tastingFlow ? (
+                        <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
+                          <h4 className="section-label">시식 메뉴 및 순서</h4>
+                          <p>{restaurant.tastingFlow}</p>
+                        </section>
+                      ) : null}
+                    </div>
+                  </article>
+                </li>
+              ))}
+            </ol>
+          ) : (
+            <p className="empty-state">조건에 맞는 맛집이 없습니다.</p>
+          )}
+
+          <Pagination
+            page={result.page}
+            totalPages={result.totalPages}
+            searchParams={rawSearchParams}
+          />
+        </section>
+      </div>
     </main>
+  );
+}
+
+function SearchForm({ params }: { params: RestaurantSearchParams }) {
+  return (
+    <form className="search-form" action="/" role="search">
+      {params.nameInitial ? (
+        <input type="hidden" name="nameInitial" value={params.nameInitial} />
+      ) : null}
+      {params.regionCluster ? (
+        <input type="hidden" name="regionCluster" value={params.regionCluster} />
+      ) : null}
+      {params.region ? (
+        <input type="hidden" name="region" value={params.region} />
+      ) : null}
+      {params.sources.map((source) => (
+        <input key={source} type="hidden" name="source" value={source} />
+      ))}
+      <label className="visually-hidden" htmlFor="restaurant-search">
+        맛집 검색
+      </label>
+      <input
+        id="restaurant-search"
+        type="search"
+        name="q"
+        defaultValue={params.q}
+        placeholder="식당명, 동네, 메뉴, 채널 검색"
+        autoComplete="off"
+      />
+      <button type="submit">검색</button>
+    </form>
+  );
+}
+
+function ActiveFilters({
+  params,
+  searchParams,
+}: {
+  params: RestaurantSearchParams;
+  searchParams: PageSearchParams | undefined;
+}) {
+  const filters = getActiveFilters(params, searchParams);
+
+  if (filters.length === 0) {
+    return null;
+  }
+
+  return (
+    <nav className="active-filters" aria-label="적용된 필터">
+      <span>적용됨</span>
+      {filters.map((filter) => (
+        <a
+          key={`${filter.label}:${filter.value}`}
+          href={filter.href}
+          aria-label={`${filter.label} ${filter.value} 제거`}
+        >
+          <small>{filter.label}</small>
+          <span>{filter.value}</span>
+          <b aria-hidden="true">x</b>
+        </a>
+      ))}
+      <a className="clear-all" href="/">
+        전체 초기화
+      </a>
+    </nav>
   );
 }
 
@@ -167,6 +270,8 @@ function FacetGroup({
   activeValues,
   hrefFor,
   multi = false,
+  variant = "list",
+  defaultOpen = false,
 }: {
   label: string;
   values: FacetValue[];
@@ -174,14 +279,26 @@ function FacetGroup({
   activeValues?: string[];
   hrefFor: (value: string) => string;
   multi?: boolean;
+  variant?: "list" | "initials";
+  defaultOpen?: boolean;
 }) {
   if (values.length === 0) {
     return null;
   }
 
+  const activeCount = values.filter((facet) =>
+    activeValues ? activeValues.includes(facet.value) : facet.value === activeValue,
+  ).length;
+
   return (
-    <section className="facet-group">
-      <h2>{label}</h2>
+    <details
+      className={`facet-group ${variant === "initials" ? "is-initials" : ""}`}
+      open={defaultOpen || activeCount > 0}
+    >
+      <summary>
+        <span>{label}</span>
+        <small>{activeCount > 0 ? `${activeCount} 선택` : `${values.length}개`}</small>
+      </summary>
       <div className="facet-options">
         {values.map((facet) => {
           const active = activeValues
@@ -192,16 +309,17 @@ function FacetGroup({
             <a
               key={facet.value}
               href={multi || !active ? hrefFor(facet.value) : hrefFor("")}
-              className={active ? "is-active" : undefined}
+              className={`facet-option ${active ? "is-active" : ""}`}
               aria-current={active ? "true" : undefined}
             >
-              <span>{facet.value}</span>
+              <span className="facet-marker" aria-hidden="true" />
+              <span className="facet-option-label">{facet.value}</span>
               <small>{facet.count.toLocaleString("ko-KR")}</small>
             </a>
           );
         })}
       </div>
-    </section>
+    </details>
   );
 }
 
@@ -281,7 +399,15 @@ function hrefWithToggledValue(
   value: string,
 ) {
   const urlParams = toUrlSearchParams(searchParams);
-  const values = urlParams.getAll(key);
+  const values = Array.from(
+    new Set(
+      urlParams
+        .getAll(key)
+        .flatMap((item) => item.split(","))
+        .map((item) => item.trim())
+        .filter(Boolean),
+    ),
+  );
   urlParams.delete(key);
 
   for (const currentValue of values) {
@@ -300,12 +426,77 @@ function hrefWithToggledValue(
   return query ? `/?${query}` : "/";
 }
 
-function hasActiveFilters(params: {
-  sources: string[];
-  region: string;
-  regionCluster: string;
-}) {
-  return Boolean(
-    params.sources.length > 0 || params.region || params.regionCluster,
+function getActiveFilters(
+  params: RestaurantSearchParams,
+  searchParams: PageSearchParams | undefined,
+) {
+  const filters: Array<{ label: string; value: string; href: string }> = [];
+
+  if (params.q) {
+    filters.push({
+      label: "검색어",
+      value: params.q,
+      href: hrefWith(searchParams, { q: "", page: "" }),
+    });
+  }
+  if (params.nameInitial) {
+    filters.push({
+      label: "가나다",
+      value: params.nameInitial,
+      href: hrefWith(searchParams, { nameInitial: "", page: "" }),
+    });
+  }
+  if (params.regionCluster) {
+    filters.push({
+      label: "지역권",
+      value: params.regionCluster,
+      href: hrefWith(searchParams, { regionCluster: "", region: "", page: "" }),
+    });
+  }
+  if (params.region) {
+    filters.push({
+      label: "세부 지역",
+      value: params.region,
+      href: hrefWith(searchParams, { region: "", page: "" }),
+    });
+  }
+
+  for (const source of params.sources) {
+    filters.push({
+      label: "출처",
+      value: source,
+      href: hrefWithToggledValue(searchParams, "source", source),
+    });
+  }
+
+  return filters;
+}
+
+function getActiveFilterCount(params: RestaurantSearchParams) {
+  return (
+    params.sources.length +
+    Number(Boolean(params.q)) +
+    Number(Boolean(params.region)) +
+    Number(Boolean(params.regionCluster)) +
+    Number(Boolean(params.nameInitial))
   );
+}
+
+function hasActiveFilters(params: RestaurantSearchParams) {
+  return getActiveFilterCount(params) > 0;
+}
+
+function getResultSummary(total: number, params: RestaurantSearchParams) {
+  const activeLabels = [
+    params.q ? `"${params.q}"` : "",
+    params.nameInitial ? `${params.nameInitial} 초성` : "",
+    params.regionCluster,
+    params.region,
+    ...params.sources,
+  ].filter(Boolean);
+  const totalLabel = `${total.toLocaleString("ko-KR")}곳`;
+
+  return activeLabels.length > 0
+    ? `${totalLabel} · ${activeLabels.join(" · ")}`
+    : totalLabel;
 }

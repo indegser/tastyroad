@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Restaurant search facets
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-search-facets`
+Branch: `codex/restaurant-search-facets`
+
+- [x] Read repository guide, lessons, and Next.js skill guidance.
+- [x] Create isolated worktree for the search/facet UI work.
+- [x] Inspect current restaurant query and page patterns.
+- [x] Add restaurant-name 가나다 facet support to the data/query types.
+- [x] Redesign the public page around search, active filters, and scalable facet groups.
+- [x] Verify build and browser behavior.
+- [x] Record review/result notes.
+
+### Review
+
+- Added public search UI backed by the existing `q` restaurant search parameter.
+- Added `nameInitial` 가나다 facet support, with doubled Korean initials grouped into the base initial bucket.
+- Reworked the public page into a search bar, active filter chips, a scalable details-based facet panel, and a two-column desktop layout.
+- Verification: `pnpm run build`, `git diff --check`, API smoke check for `nameInitial`, agent-browser desktop/mobile screenshots, search submit, initial facet, region/detail facet, no console errors, and no mobile horizontal overflow.
+
 ## Current Task - 2026-06-22 - YouTube transcript ingest skill
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/youtube-transcript-ingest-skill`
