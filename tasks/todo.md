@@ -2,6 +2,19 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Tune thumbnail card typography
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort`
+Branch: `codex/latest-video-sort`
+Target: Vercel preview
+
+- [x] Read repository guide, lessons, Next.js guidance, and release workflow.
+- [x] Inspect current thumbnail-card typography and spacing.
+- [x] Tune type scale, line height, and vertical rhythm without changing content structure.
+- [x] Verify build and mobile/desktop browser layout.
+- [ ] Commit, push, and verify updated Vercel preview.
+- [ ] Record review/result notes.
+
 ## Current Task - 2026-06-25 - Small thumbnail restaurant cards preview
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort`

@@ -473,8 +473,8 @@ h1 {
 
 .restaurant-summary {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) clamp(104px, 32vw, 132px);
-  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) clamp(96px, 28vw, 120px);
+  gap: 14px;
   align-items: start;
 }
 
@@ -487,11 +487,11 @@ h1 {
 }
 
 .restaurant-info h3 {
-  margin: 0 0 5px;
+  margin: 0 0 7px;
   overflow-wrap: anywhere;
-  font-size: 1.12rem;
-  font-weight: 650;
-  line-height: 1.3;
+  font-size: 1.08rem;
+  font-weight: 680;
+  line-height: 1.32;
   letter-spacing: 0;
 }
 
@@ -509,7 +509,7 @@ h1 {
   align-items: baseline;
   gap: 2px 10px;
   max-width: 100%;
-  color: var(--story);
+  color: inherit;
   text-decoration: none;
 }
 
@@ -541,8 +541,9 @@ h1 {
   max-width: 100%;
   gap: 5px;
   color: var(--story);
-  font-weight: 520;
-  line-height: 1.38;
+  font-size: 0.89rem;
+  font-weight: 470;
+  line-height: 1.46;
   text-decoration: none;
 }
 
@@ -566,18 +567,18 @@ h1 {
 }
 
 .source-meta {
-  margin: 4px 0 0;
+  margin: 5px 0 0;
   color: var(--text-tertiary);
-  font-size: 0.8rem;
-  line-height: 1.38;
+  font-size: 0.78rem;
+  line-height: 1.42;
   overflow-wrap: anywhere;
 }
 
 .restaurant-address {
-  margin: 6px 0 0;
-  color: var(--story);
-  font-size: 0.84rem;
-  line-height: 1.45;
+  margin: 8px 0 0;
+  color: var(--text-secondary);
+  font-size: 0.82rem;
+  line-height: 1.5;
   overflow-wrap: anywhere;
 }
 
@@ -603,8 +604,8 @@ h1 {
 }
 
 .must-taste-section {
-  margin-top: 12px;
-  padding-top: 11px;
+  margin-top: 14px;
+  padding-top: 13px;
   border-top: 1px solid var(--soft-border);
 }
 
@@ -618,14 +619,14 @@ h1 {
 
 .must-taste-list li {
   display: grid;
-  grid-template-columns: 1.45rem minmax(0, 1fr);
-  column-gap: 8px;
+  grid-template-columns: 1.5rem minmax(0, 1fr);
+  column-gap: 10px;
   align-items: start;
 }
 
 .must-taste-list li + li {
-  margin-top: 9px;
-  padding-top: 9px;
+  margin-top: 11px;
+  padding-top: 11px;
   border-top: 1px solid var(--soft-border);
 }
 
@@ -633,14 +634,14 @@ h1 {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 1.35rem;
-  height: 1.35rem;
-  margin-top: 1px;
+  width: 1.28rem;
+  height: 1.28rem;
+  margin-top: 2px;
   border: 1px solid var(--border);
   border-radius: 999px;
   background: var(--panel-muted);
   color: var(--text-secondary);
-  font-size: 0.72rem;
+  font-size: 0.68rem;
   font-weight: 650;
   line-height: 1;
 }
@@ -653,30 +654,30 @@ h1 {
   display: flex;
   align-items: baseline;
   flex-wrap: wrap;
-  gap: 4px 7px;
+  gap: 4px 8px;
   min-width: 0;
 }
 
 .must-taste-heading strong {
   min-width: 0;
   color: var(--story);
-  font-size: 0.93rem;
-  font-weight: 620;
-  line-height: 1.35;
+  font-size: 0.9rem;
+  font-weight: 610;
+  line-height: 1.42;
   overflow-wrap: anywhere;
 }
 
 .must-taste-heading time {
   color: var(--text-tertiary);
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
   white-space: nowrap;
 }
 
 .must-taste-list p {
-  margin: 1px 0 0;
+  margin: 2px 0 0;
   color: var(--text-secondary);
-  line-height: 1.62;
+  line-height: 1.58;
   overflow-wrap: anywhere;
 }
 
@@ -772,27 +773,27 @@ h1 {
   }
 
   .restaurant-info h3 {
-    font-size: 1.42rem;
-    line-height: 1.28;
+    font-size: 1.32rem;
+    line-height: 1.3;
   }
 
   .restaurant-summary {
-    grid-template-columns: minmax(0, 1fr) clamp(150px, 22vw, 190px);
-    gap: 18px;
+    grid-template-columns: minmax(0, 1fr) clamp(150px, 21vw, 180px);
+    gap: 20px;
   }
 
   .video-link,
   .restaurant-address,
   .must-taste-section {
-    font-size: 0.96rem;
+    font-size: 0.94rem;
   }
 
   .source-meta {
-    font-size: 0.84rem;
+    font-size: 0.82rem;
   }
 
   .must-taste-list p {
-    line-height: 1.62;
+    line-height: 1.6;
   }
 }
 
