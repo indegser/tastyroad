@@ -124,14 +124,6 @@ h1 {
   letter-spacing: 0;
 }
 
-.summary {
-  max-width: 34rem;
-  margin-top: 8px;
-  color: var(--text-secondary);
-  font-size: 0.9375rem;
-  line-height: 1.6;
-}
-
 .search-form {
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto;
@@ -182,14 +174,9 @@ h1 {
   font-size: 0.8125rem;
 }
 
-.active-filters > span {
-  color: var(--text-tertiary);
-  font-weight: 620;
-}
-
 .active-filters a {
   display: inline-grid;
-  grid-template-columns: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr) auto;
   align-items: center;
   gap: 6px;
   max-width: 100%;
@@ -207,12 +194,6 @@ h1 {
   color: var(--link-hover);
 }
 
-.active-filters small {
-  color: var(--text-tertiary);
-  font-size: 0.72rem;
-  font-weight: 650;
-}
-
 .active-filters a span {
   min-width: 0;
   overflow-wrap: anywhere;
@@ -225,7 +206,9 @@ h1 {
 }
 
 .active-filters .clear-all {
-  grid-template-columns: 1fr;
+  display: inline-flex;
+  border-color: transparent;
+  background: transparent;
   color: var(--link);
   font-weight: 620;
 }
@@ -244,38 +227,6 @@ h1 {
   border-radius: 8px;
   background: var(--panel);
   padding: 0;
-}
-
-.facet-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 14px;
-  padding: 14px;
-  border-bottom: 1px solid var(--soft-border);
-}
-
-.facet-header div {
-  display: grid;
-  gap: 1px;
-}
-
-.facet-header strong {
-  font-size: 0.95rem;
-  font-weight: 680;
-  line-height: 1.25;
-}
-
-.facet-header span {
-  color: var(--text-tertiary);
-  font-size: 0.76rem;
-  font-weight: 560;
-}
-
-.clear-filters {
-  color: var(--link);
-  font-size: 0.84rem;
-  font-weight: 620;
 }
 
 .facet-groups {
@@ -721,10 +672,6 @@ h1 {
     align-items: stretch;
   }
 
-  .active-filters > span {
-    width: 100%;
-  }
-
   .active-filters a {
     max-width: 100%;
   }
@@ -755,11 +702,6 @@ h1 {
     margin-bottom: 12px;
     font-size: 3.25rem;
     line-height: 1.04;
-  }
-
-  .summary {
-    font-size: 1rem;
-    line-height: 1.65;
   }
 
   .restaurant-list li + li {
@@ -813,18 +755,8 @@ h1 {
     background: transparent;
   }
 
-  .facet-header {
-    padding: 14px 0;
-    border-bottom: 0;
-  }
-
-  .facet-header strong {
-    font-size: 1rem;
-  }
-
   .facet-groups {
     grid-template-columns: 1fr;
-    border-top: 1px solid var(--soft-border);
   }
 
   .facet-group {

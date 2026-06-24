@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Design weed cleanup
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+
+- [x] Read repository guide, lessons, and Next.js skill guidance.
+- [x] Inspect visible copy and current facet/search layout.
+- [x] Remove redundant instructional labels and repeated explanatory text.
+- [x] Update facet UX documentation with the weed-removal principle.
+- [x] Verify build and browser layout.
+- [x] Record review/result notes.
+### Review
+
+- Removed visible redundant labels from the public listing: the facet rail no longer says `필터`, active chips no longer say `적용됨` or repeat field labels, the result section no longer shows a visible `맛집 목록` heading, and the search placeholder no longer repeats `검색`.
+- Kept accessibility context through `aria-label`s and a visually hidden result heading.
+- Added the weed-removal principle to `docs/facet-ux-philosophy.md` and a reusable lesson in `tasks/lessons.md`.
+- Verification: `git diff --check`, `pnpm run build`, agent-browser PC/mobile screenshots, active condition chip check, and mobile overflow check.
+- Release prep: `origin/main` was fetched, the branch was confirmed even with `origin/main`, and `pnpm run build` passed before the production commit.
+
 ## Current Task - 2026-06-24 - Remaining map-verified transcript ingest
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-map-verified`

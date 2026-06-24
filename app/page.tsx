@@ -30,11 +30,8 @@ export default async function Home({
   return (
     <main>
       <header className="page-header">
-        <p className="muted">검증된 맛집 {result.total.toLocaleString("ko-KR")}곳</p>
+        <p className="muted">{result.total.toLocaleString("ko-KR")}곳</p>
         <h1>맛집 탐색</h1>
-        <p className="summary muted">
-          네이버 지도 검증이 완료된 맛집을 검색과 패싯으로 좁혀 볼 수 있습니다.
-        </p>
       </header>
 
       <SearchForm params={params} />
@@ -42,19 +39,7 @@ export default async function Home({
 
       <div className="explorer-layout">
         {facets ? (
-          <aside className="facet-panel" aria-label="맛집 필터">
-            <div className="facet-header">
-              <div>
-                <strong>필터</strong>
-                <span>{getActiveFilterCount(params).toLocaleString("ko-KR")}개 적용</span>
-              </div>
-              {hasActiveFilters(params) ? (
-                <a href="/" className="clear-filters">
-                  초기화
-                </a>
-              ) : null}
-            </div>
-
+          <aside className="facet-panel" aria-label="탐색 조건">
             <div className="facet-groups">
               <FacetGroup
                 label="가나다"
@@ -94,10 +79,10 @@ export default async function Home({
 
         <section className="results-panel" aria-labelledby="results-heading">
           <div className="results-header">
-            <div>
-              <h2 id="results-heading">맛집 목록</h2>
-              <p>{getResultSummary(result.total, params)}</p>
-            </div>
+            <h2 id="results-heading" className="visually-hidden">
+              맛집 목록
+            </h2>
+            <p>{getResultSummary(result.total, params)}</p>
           </div>
 
           {result.items.length > 0 ? (
@@ -205,7 +190,7 @@ function SearchForm({ params }: { params: RestaurantSearchParams }) {
         type="search"
         name="q"
         defaultValue={params.q}
-        placeholder="식당명, 동네, 메뉴, 채널 검색"
+        placeholder="식당명, 동네, 메뉴, 채널"
         autoComplete="off"
       />
       <button type="submit">검색</button>
@@ -227,21 +212,19 @@ function ActiveFilters({
   }
 
   return (
-    <nav className="active-filters" aria-label="적용된 필터">
-      <span>적용됨</span>
+    <nav className="active-filters" aria-label="선택한 조건">
       {filters.map((filter) => (
         <a
           key={`${filter.label}:${filter.value}`}
           href={filter.href}
           aria-label={`${filter.label} ${filter.value} 제거`}
         >
-          <small>{filter.label}</small>
           <span>{filter.value}</span>
           <b aria-hidden="true">x</b>
         </a>
       ))}
-      <a className="clear-all" href="/">
-        전체 초기화
+      <a className="clear-all" href="/" aria-label="모든 조건 제거">
+        초기화
       </a>
     </nav>
   );
@@ -527,20 +510,6 @@ function getActiveFilters(
   }
 
   return filters;
-}
-
-function getActiveFilterCount(params: RestaurantSearchParams) {
-  return (
-    params.sources.length +
-    Number(Boolean(params.q)) +
-    Number(Boolean(params.region)) +
-    Number(Boolean(params.regionCluster)) +
-    Number(Boolean(params.nameInitial))
-  );
-}
-
-function hasActiveFilters(params: RestaurantSearchParams) {
-  return getActiveFilterCount(params) > 0;
 }
 
 function getResultSummary(total: number, params: RestaurantSearchParams) {
