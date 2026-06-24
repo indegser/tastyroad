@@ -506,8 +506,7 @@ h1 {
 
 .info-table,
 .video-link,
-.story-section,
-.tasting-flow {
+.must-taste-section {
   font-size: 0.9125rem;
 }
 
@@ -568,8 +567,7 @@ h1 {
   color: var(--text-tertiary);
 }
 
-.story-section,
-.tasting-flow {
+.must-taste-section {
   margin-top: 14px;
   padding-top: 12px;
   border-top: 1px solid var(--soft-border);
@@ -584,8 +582,57 @@ h1 {
   letter-spacing: 0;
 }
 
-.story-section p,
-.tasting-flow p {
+.must-taste-list {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.must-taste-list li {
+  display: grid;
+  gap: 3px;
+}
+
+.must-taste-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 7px;
+  min-width: 0;
+}
+
+.must-taste-heading span {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.35rem;
+  height: 1.35rem;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-secondary);
+  font-size: 0.72rem;
+  font-weight: 650;
+  line-height: 1;
+}
+
+.must-taste-heading strong {
+  min-width: 0;
+  color: var(--story);
+  font-size: 0.93rem;
+  font-weight: 620;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.must-taste-heading time {
+  color: var(--text-tertiary);
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  white-space: nowrap;
+}
+
+.must-taste-list p {
   color: var(--text-secondary);
   line-height: 1.72;
   overflow-wrap: anywhere;
@@ -685,8 +732,7 @@ h1 {
   }
 
   .info-table,
-  .story-section,
-  .tasting-flow {
+  .must-taste-section {
     font-size: 0.96rem;
   }
 
@@ -704,8 +750,7 @@ h1 {
     line-height: 1.6;
   }
 
-  .story-section p,
-  .tasting-flow p {
+  .must-taste-list p {
     line-height: 1.72;
   }
 }

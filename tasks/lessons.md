@@ -4,6 +4,29 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-06-24
+
+- Trigger: The user clarified that transcript post-processing should extract must-taste Top 3 items, not story prose.
+  Rule: Retire `story_hook`/`story_intro`/`tasting_flow` workflows; require each must-taste item to cite an exact transcript segment and timestamp, and do not use metadata or old story prose as source evidence.
+- Trigger: A video-level Top 3 design would attach the same items to every restaurant in multi-restaurant videos.
+  Rule: Store and display must-taste Top 3 by restaurant-video pair (`restaurant_id` plus `youtube_video_id`), not by video alone.
+- Trigger: The user corrected must-taste reasons that read like verb-ending explanatory sentences.
+  Rule: Do not use generated sentence-style explanations for public display; after later correction, prefer direct subtitle quotes in `reason`.
+- Trigger: The user questioned must-taste reasons that added qualities not directly supported by the cited transcript.
+  Rule: Do not add atmosphere, location, freshness, market, scenery, or quality claims to `reason` unless the cited segment or immediate neighboring transcript context directly supports them.
+- Trigger: The user noticed the must-taste extractor was filling three slots from weak mentions.
+  Rule: Treat must-taste as maximum three quality-gated recommendations; never fill a third slot from mention/order/eating alone, and require a score plus strong signal such as explicit recommendation, repeat-visit intent, differentiator, or strong praise.
+- Trigger: The user found literal transcript-backed reasons too flat for restaurant choice.
+  Rule: Add a visitor-persuasiveness review gate for candidate selection; keep its judgment in `review`, not necessarily in the displayed `reason`.
+- Trigger: The user clarified that natural must-taste extraction needs repeated analysis over the whole transcript, not a single pass that reacts to mentions.
+  Rule: Require `coverage.json`, `chunks.json`, `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, target-restaurant scope notes, and `rejected_candidates` lineage before applying results; do not accept one-shot `result.json` outputs.
+- Trigger: The user flagged awkward reason phrases such as `추천이 바로 꽂힌` and `볶음밥까지 너무 맛있는 집`.
+  Rule: Avoid coined slogans or restaurant-level claims such as `맛있는 집`; if generated phrases feel awkward, use direct subtitle quotes instead.
+- Trigger: The user found even low-inference generated reason phrases awkward and suggested quoting subtitles directly.
+  Rule: Store public `reason` as a short exact quote from `evidence` or `supporting_evidence`; keep generated judgment in `quality.check` and `review.decision_reason`, not in the displayed text.
+- Trigger: The user pointed out that over-trimmed quotes like `진짜 0.1도 안나요` lose their subject.
+  Rule: Direct subtitle quotes should be long enough to keep the subject and claim understandable while remaining an exact evidence substring.
+
 ## 2026-06-22
 
 - Trigger: The user clarified that new transcript ingestion should ignore legacy story compatibility but keep the existing Webshare/youtube_transcript_api fetch path.

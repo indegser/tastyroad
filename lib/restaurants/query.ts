@@ -3,6 +3,7 @@ import path from "node:path";
 import { normalizeRegion } from "./region";
 import type {
   FacetValue,
+  MustTasteItem,
   RestaurantFacets,
   RestaurantItem,
   RestaurantSearchParams,
@@ -75,9 +76,7 @@ type RestaurantRow = {
   source_title: string | null;
   source_url: string | null;
   map_url: string | null;
-  story_hook: string | null;
-  story_intro: string | null;
-  tasting_flow: string | null;
+  must_taste_json: string | null;
 };
 
 export function normalizeRestaurantSearchParams(
@@ -136,9 +135,7 @@ function loadRestaurantItems(): RestaurantItem[] {
             s.name as source,
             c.title as source_title,
             c.url as source_url,
-            story.story_hook,
-            story.story_intro,
-            story.tasting_flow,
+            top3.must_taste_json,
             row_number() over (
               partition by r.id
               order by c.published_at desc, c.id desc
@@ -147,7 +144,34 @@ function loadRestaurantItems(): RestaurantItem[] {
           join youtube_video_restaurants m on m.restaurant_id = r.id
           join youtube_videos c on c.id = m.youtube_video_id
           join sources s on s.id = c.source_id
-          left join video_story_reviews story on story.external_id = c.video_id
+          left join (
+            select
+              restaurant_id,
+              youtube_video_id,
+              json_group_array(
+                json_object(
+                  'rank', rank,
+                  'menuItem', item_name,
+                  'reason', reason,
+                  'timestamp', timestamp_label,
+                  'evidence', evidence_text
+                )
+              ) as must_taste_json
+            from (
+              select
+                restaurant_id,
+                youtube_video_id,
+                rank,
+                item_name,
+                reason,
+                timestamp_label,
+                evidence_text
+              from video_must_taste_items
+              order by restaurant_id, youtube_video_id, rank
+            )
+            group by restaurant_id, youtube_video_id
+          ) top3 on top3.restaurant_id = r.id
+            and top3.youtube_video_id = c.id
           where trim(r.naver_map_id) != ''
             and m.status in ('verified', 'metadata_verified')
         ),
@@ -181,9 +205,7 @@ function loadRestaurantItems(): RestaurantItem[] {
             ranked_links.url,
             'https://map.naver.com/p/entry/place/' || ranked_mentions.naver_map_id
           ) as map_url,
-          ranked_mentions.story_hook,
-          ranked_mentions.story_intro,
-          ranked_mentions.tasting_flow
+          ranked_mentions.must_taste_json
         from ranked_mentions
         left join ranked_links on ranked_links.restaurant_id = ranked_mentions.id
           and ranked_links.link_rank = 1
@@ -203,9 +225,7 @@ function loadRestaurantItems(): RestaurantItem[] {
       sourceTitle: row.source_title || "",
       sourceUrl: row.source_url || "",
       mapUrl: row.map_url || "",
-      storyHook: row.story_hook?.trim() || "",
-      storyIntro: row.story_intro?.trim() || "",
-      tastingFlow: row.tasting_flow?.trim() || "",
+      mustTasteItems: parseMustTasteItems(row.must_taste_json),
       region: normalizeRegion({
         region: row.raw_region,
         address: row.address,
@@ -246,9 +266,12 @@ function filterRestaurants(
       item.category,
       item.source,
       item.sourceTitle,
-      item.storyHook,
-      item.storyIntro,
-      item.tastingFlow,
+      ...item.mustTasteItems.flatMap((mustTasteItem) => [
+        mustTasteItem.menuItem,
+        mustTasteItem.reason,
+        mustTasteItem.timestamp,
+        mustTasteItem.evidence,
+      ]),
       item.region.region,
       item.region.cluster,
     ]
@@ -317,6 +340,47 @@ function sortNameInitialFacets(values: FacetValue[]) {
 
 function normalizeText(value: string | null) {
   return (value || "").replace(/\s+/g, " ").trim();
+}
+
+function parseMustTasteItems(value: string | null): MustTasteItem[] {
+  if (!value) {
+    return [];
+  }
+
+  try {
+    const parsed = JSON.parse(value) as unknown;
+    if (!Array.isArray(parsed)) {
+      return [];
+    }
+
+    return parsed
+      .map((item) => {
+        if (!item || typeof item !== "object") {
+          return null;
+        }
+        const entry = item as Record<string, unknown>;
+        return {
+          rank: normalizePositiveInteger(String(entry.rank || ""), 0),
+          menuItem: normalizeText(String(entry.menuItem || "")),
+          reason: normalizeText(String(entry.reason || "")),
+          timestamp: normalizeText(String(entry.timestamp || "")),
+          evidence: normalizeText(String(entry.evidence || "")),
+        };
+      })
+      .filter((item): item is MustTasteItem => {
+        return Boolean(
+          item &&
+            item.rank >= 1 &&
+            item.rank <= 3 &&
+            item.menuItem &&
+            item.reason &&
+            item.timestamp,
+        );
+      })
+      .sort((a, b) => a.rank - b.rank);
+  } catch {
+    return [];
+  }
 }
 
 function normalizeSourceParams(params: URLSearchParams) {

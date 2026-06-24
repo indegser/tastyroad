@@ -13,6 +13,7 @@ Branch: `codex/restaurant-search-facets`
 - [x] Add restaurant-name 가나다 facet support to the data/query types.
 - [x] Redesign the public page around search, active filters, and scalable facet groups.
 - [x] Verify build and browser behavior.
+
 - [x] Record review/result notes.
 
 ### Review
@@ -21,6 +22,46 @@ Branch: `codex/restaurant-search-facets`
 - Added `nameInitial` 가나다 facet support, with doubled Korean initials grouped into the base initial bucket.
 - Reworked the public page into a search bar, active filter chips, a scalable details-based facet panel, and a two-column desktop layout.
 - Verification: `pnpm run build`, `git diff --check`, API smoke check for `nameInitial`, agent-browser desktop/mobile screenshots, search submit, initial facet, region/detail facet, no console errors, and no mobile horizontal overflow.
+
+## Current Task - 2026-06-24 - Transcript must-taste top3 skill
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/transcript-top3-skill`
+Branch: `codex/transcript-top3-skill`
+
+- [x] Convert must-taste storage and UI from video-level to restaurant-video-level.
+- [x] Generate restaurant-scoped Top 3 for the first three visible site cards.
+- [x] Verify schema, API, and build after restaurant-scoped results are stored.
+- [x] Convert must-taste display reasons from generated phrases to direct subtitle quotes.
+- [x] Tighten must-taste reasons so the phrase does not add claims beyond the cited transcript evidence.
+- [x] Change must-taste extraction from exact Top 3 filling to max-3 quality-gated recommendations.
+- [x] Add a visitor-persuasiveness review gate and tighten stored reasons.
+- [x] Add multi-pass whole-transcript artifact pipeline with coverage, scouts, candidates, reviews, and rejections.
+
+- [x] Read repository guide, lessons, and `$skill-creator`.
+- [x] Create isolated worktree for the transcript Top 3 skill work.
+- [x] Inspect and remove the old story review agents/pipeline surfaces.
+- [x] Add a repo-local skill for transcript-grounded must-taste Top 3 extraction.
+- [x] Update docs and app/data contracts away from story review fields.
+- [x] Verify skill validation, script syntax, focused schema/query checks, and app build.
+- [x] Record review/result notes.
+
+### Review
+
+- Added `$tastyroad-transcript-must-taste` with context preparation, strict result validation, and `video_must_taste_items` SQLite storage for transcript-grounded must-taste recommendations.
+- Removed story review agents, story review JSON inputs, story table creation, and app story display/query fields.
+- Updated public app cards/API to expose restaurant-scoped `mustTasteItems` from `video_must_taste_items`.
+- Updated README, AGENTS, lessons, transcript ingest guidance, mapping guidance, and Naver Map sync gating to avoid story review dependencies.
+- Generated and stored quality-gated recommendation rows for `1.5닭갈비 본점`, `1966정원 천성항점`, and `1969양동통닭 본점`; `1966정원 천성항점` now stores two items instead of forcing a third.
+- Added visitor-persuasiveness review scoring and drivers; `우동사리` and `튀김 닭발` were excluded because they were weaker restaurant-selection reasons.
+- Updated must-taste reason rules so public `reason` is a short direct subtitle quote rather than a generated explanatory sentence.
+- Tightened reason guidance and the first three stored results to avoid unsupported inferred qualities such as freshness, scenery, or market atmosphere.
+- Re-applied the first three visible site cards with visitor-facing reasons.
+- Added whole-transcript coverage/chunk artifacts, attention event scouting, target-restaurant scope notes, candidate aggregation, per-candidate evidence/visitor reviews, and required rejection lineage before final application.
+- Tightened validation so selected items must reference reviewed candidates, candidate evidence must overlap attention events, every attention event must be aggregated into a candidate, every review must cite candidate events, and every non-selected candidate must be rejected.
+- Replaced awkward/high-inference reason phrases with direct subtitle quotes.
+- Switched public `reason` from generated copy to short direct subtitle quotes and rendered them with quotation marks on the site.
+- Expanded over-trimmed direct quotes when needed, e.g. `진짜 0.1도 안나요` -> `닭갈비구이 내 진짜 0.1도 안나요`, so the displayed quote keeps its subject.
+- Verification: skill validation passed, Python compile passed, low-quality item rejection passed, weak visitor-review rejection passed, generated reason rejection passed, missing rejection/scope/candidate/review-citation lineage checks failed as expected, SQLite integrity check returned `ok`, old `video_story_reviews` table count is 0, same-video non-target restaurants have 0 must-taste rows, API returned restaurant-specific quality-gated `mustTasteItems`, and `pnpm run build` passed.
 
 ## Current Task - 2026-06-22 - YouTube transcript ingest skill
 
@@ -40,7 +81,7 @@ Branch: `codex/youtube-transcript-ingest-skill`
 
 - Added `$tastyroad-youtube-transcript-ingest` with Webshare-backed `youtube_transcript_api` fetch logic, transcript schema creation, source/video dry-run selection, status reporting, and preferred transcript text export.
 - Added `youtube_transcript_jobs`, `youtube_transcript_tracks`, `youtube_transcript_segments`, `youtube_transcript_fetch_attempts`, `preferred_youtube_transcripts`, and `youtube_transcript_status` to `data/tastyroad.sqlite`; no transcript rows were fetched during this task.
-- Removed `video_transcripts` ownership from the existing YouTube collection and restaurant mapping pipeline schemas; `video_story_reviews` remains for public app story display.
+- Removed `video_transcripts` ownership from the existing YouTube collection and restaurant mapping pipeline schemas. The old `video_story_reviews` display path was removed later by the 2026-06-24 transcript must-taste task.
 - Updated README, AGENTS, and YouTube collection skill guidance so transcript ingest routes to the new skill.
 - Verification: skill validation passed, Python compile passed, transcript status/dry-run worked for `ttoganjip`, temporary pipeline schema checks confirmed no `video_transcripts` table creation, `git diff --check` passed, and SQLite integrity check returned `ok`.
 

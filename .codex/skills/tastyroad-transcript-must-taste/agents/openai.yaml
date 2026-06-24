@@ -1,0 +1,4 @@
+interface:
+  display_name: "Tastyroad Transcript Must-Taste"
+  short_description: "Must-taste picks with subtitle quotes"
+  default_prompt: "Use $tastyroad-transcript-must-taste to run a multi-pass whole-transcript must-taste extraction with direct subtitle quotes for one Tastyroad restaurant."

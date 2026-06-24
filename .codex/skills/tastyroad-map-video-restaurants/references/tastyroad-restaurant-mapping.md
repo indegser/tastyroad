@@ -45,5 +45,5 @@ sqlite3 -header -column data/tastyroad.sqlite "select id, display_name, naver_ma
 
 - For multi-restaurant videos, create one item per restaurant with the same `video_id`.
 - Match by name plus address. Phone/category are supporting evidence, not substitutes for a place ID.
-- Keep notes short and factual; do not put public story prose in mapping notes.
+- Keep notes short and factual; do not put public display copy or must-taste selections in mapping notes.
 - After applying, `select count(*) from restaurants where naver_map_id=''` must return `0`.

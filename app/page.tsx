@@ -159,23 +159,22 @@ export default async function Home({
                             </dd>
                           </div>
                         ) : null}
-                        {restaurant.storyHook ? (
-                          <div className="info-row">
-                            <dt>한줄 요약</dt>
-                            <dd>{restaurant.storyHook}</dd>
-                          </div>
-                        ) : null}
                       </dl>
-                      {restaurant.storyIntro ? (
-                        <section className="story-section" aria-label="이야기">
-                          <h4 className="section-label">이야기</h4>
-                          <p>{restaurant.storyIntro}</p>
-                        </section>
-                      ) : null}
-                      {restaurant.tastingFlow ? (
-                        <section className="tasting-flow" aria-label="시식 메뉴 및 순서">
-                          <h4 className="section-label">시식 메뉴 및 순서</h4>
-                          <p>{restaurant.tastingFlow}</p>
+                      {restaurant.mustTasteItems.length > 0 ? (
+                        <section className="must-taste-section" aria-label="꼭 맛볼 메뉴">
+                          <h4 className="section-label">꼭 맛볼 메뉴</h4>
+                          <ol className="must-taste-list">
+                            {restaurant.mustTasteItems.map((item) => (
+                              <li key={`${item.rank}-${item.menuItem}`}>
+                                <div className="must-taste-heading">
+                                  <span>{item.rank}</span>
+                                  <strong>{item.menuItem}</strong>
+                                  <time>{item.timestamp}</time>
+                                </div>
+                                <p>“{item.reason}”</p>
+                              </li>
+                            ))}
+                          </ol>
                         </section>
                       ) : null}
                     </div>

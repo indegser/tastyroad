@@ -42,14 +42,10 @@ with ranked_mentions as (
       order by c.published_at desc, c.id desc
     ) as mention_rank
   from restaurants r
-  join mentions m on m.restaurant_id = r.id
-  join mention_candidates c on c.id = m.mention_candidate_id
-  join agent_video_reviews review on review.external_id = c.external_id
-  join video_story_reviews story on story.external_id = c.external_id
-  where review.decision = 'restaurant_intro'
-    and (trim(story.story_hook) != '' or trim(story.story_intro) != '')
-    and length(trim(story.story_intro)) >= 240
-    and length(trim(story.tasting_flow)) >= 180
+  join youtube_video_restaurants m on m.restaurant_id = r.id
+  join youtube_videos c on c.id = m.youtube_video_id
+  where trim(r.naver_map_id) != ''
+    and m.status in ('verified', 'metadata_verified')
 ),
 ranked_links as (
   select

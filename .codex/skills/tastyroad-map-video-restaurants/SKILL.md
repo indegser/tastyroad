@@ -27,7 +27,7 @@ sqlite3 -header -column data/tastyroad.sqlite "select v.video_id, p.query, p.res
 sqlite3 -header -column data/tastyroad.sqlite "select id, video_id, title, url from youtube_videos where video_id='<video_id>';"
 ```
 
-3. Gather evidence from the video row, description, transcript, story review, and existing artifacts under `data/work/videos/<video_id>/`.
+3. Gather evidence from the video row, description, transcript, must-taste artifacts, and existing work artifacts under `data/work/`.
 4. Extract every real restaurant/place in the video. Keep multi-place videos as N items; do not collapse them into one mapping.
 5. Verify each candidate in Naver Map. Accept only a specific place entry with a numeric ID, normally visible in a URL like `https://map.naver.com/p/entry/place/<naver_map_id>`.
 6. If only a Naver search URL exists, do not insert into `restaurants`; leave a `place_resolution_candidates` row with `needs_review`.

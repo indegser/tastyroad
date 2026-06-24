@@ -16,7 +16,6 @@ def ensure_pipeline_schema(connection: sqlite3.Connection) -> None:
     ensure_source_schema(connection)
     ensure_youtube_video_schema(connection)
     ensure_review_schema(connection)
-    ensure_story_review_schema(connection)
     ensure_mapping_schema(connection)
     ensure_pipeline_views(connection)
 
@@ -148,22 +147,6 @@ def ensure_review_schema(connection: sqlite3.Connection) -> None:
         connection.execute(
             "alter table agent_video_reviews add column detected_restaurant_count integer not null default 0"
         )
-
-
-def ensure_story_review_schema(connection: sqlite3.Connection) -> None:
-    connection.executescript(
-        """
-        create table if not exists video_story_reviews (
-          external_id text primary key,
-          story_intro text not null,
-          tasting_flow text not null,
-          story_hook text not null default '',
-          reviewer text not null default 'codex',
-          evidence_json text not null default '{}',
-          generated_at text not null
-        );
-        """
-    )
 
 
 def ensure_mapping_schema(connection: sqlite3.Connection) -> None:

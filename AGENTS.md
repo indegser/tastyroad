@@ -87,7 +87,7 @@ When the agent created a task-specific worktree, clean it up automatically only 
 - Do not call work complete until behavior has been checked.
 - Prefer repository commands and skills over ad hoc scripts.
 - Use `pnpm run build` for app build verification when relevant.
-- For Tastyroad data, release, YouTube collection, transcript ingest, or Naver Map workflows, read and follow the matching `.codex/skills` instructions before running commands.
+- For Tastyroad data, release, YouTube collection, transcript ingest, transcript must-taste extraction, or Naver Map workflows, read and follow the matching `.codex/skills` instructions before running commands.
 - Record what was verified in the final response and, for non-trivial work, in `tasks/todo.md`.
 
 ## Repository Context
@@ -97,6 +97,7 @@ When the agent created a task-specific worktree, clean it up automatically only 
 - User-facing Tastyroad workflow skills are:
   - `$tastyroad-youtube-channel-collect`: YouTube collection and refresh.
   - `$tastyroad-youtube-transcript-ingest`: Webshare-backed YouTube transcript download and SQLite track/segment storage.
+  - `$tastyroad-transcript-must-taste`: Restaurant-scoped, multi-pass transcript must-taste extraction with whole-transcript coverage, attention candidates, candidate reviews, rejection tracking, quality validation, and SQLite storage.
   - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` inspection, Naver place ID verification, and `restaurants`/`youtube_video_restaurants` writes.
   - `$tastyroad-site-release`: build, commit/push, and Vercel deployment verification.
 - Do not reintroduce a generic `tastyroad-data-pipeline` user-facing skill; route work by user intent to the purpose-specific skill that owns it.

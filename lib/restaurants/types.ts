@@ -21,10 +21,16 @@ export type RestaurantItem = {
   sourceTitle: string;
   sourceUrl: string;
   mapUrl: string;
-  storyHook: string;
-  storyIntro: string;
-  tastingFlow: string;
+  mustTasteItems: MustTasteItem[];
   region: NormalizedRegion;
+};
+
+export type MustTasteItem = {
+  rank: number;
+  menuItem: string;
+  reason: string;
+  timestamp: string;
+  evidence: string;
 };
 
 export type FacetValue = {
