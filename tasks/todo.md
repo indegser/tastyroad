@@ -11,9 +11,17 @@ Target: production `main`
 - [x] Read repository guide, lessons, and release workflow.
 - [x] Fast-forward `main` to the verified compact address preview branch.
 - [x] Verify production build.
-- [ ] Push `main` and verify production Vercel deployment.
-- [ ] Clean up the merged preview worktree if safe.
-- [ ] Record review/result notes.
+- [x] Push `main` and verify production Vercel deployment.
+- [x] Clean up the merged preview worktree if safe.
+- [x] Record review/result notes.
+
+### Review
+
+- Released the compact address row and smaller `지도` action label to production by fast-forwarding `main` through the verified preview commits.
+- Production deployment reached `READY` through the GitHub integration.
+- Verified `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned an item with thumbnail and upload metadata.
+- Verified production HTML includes the address map link and thumbnail link, and fetched production CSS confirms `.map-link-label` uses the smaller `0.64rem` style with a reduced arrow.
+- Removed `/Users/indegser/Github/tastyroad-worktrees/compact-address` after confirming it was clean, pushed, and merged into `main`.
 
 ## Current Task - 2026-06-25 - Compact restaurant address row
 
