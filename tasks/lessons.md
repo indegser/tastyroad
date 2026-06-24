@@ -41,6 +41,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: When passing YouTube IDs to repo CLIs from loops, use `--video-id=<id>` rather than `--video-id <id>` so dash-prefixed video IDs are handled correctly.
 - Trigger: Vercel Blob CLI upload failed after store creation because local env had `VERCEL_OIDC_TOKEN` without `BLOB_STORE_ID`.
   Rule: For Tastyroad Blob workflows, ensure `BLOB_STORE_ID` is present in Vercel project env and local `.env.local`; OIDC requires both `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID`.
+- Trigger: Vercel env vars were added remotely, but the linked main checkout's `.env.local` still lacked the new values for the next agent session.
+  Rule: After adding or changing Vercel env vars, run `vercel env pull .env.local --yes` from the linked `tastyroad` checkout when it is safe to overwrite local env, then verify required keys without printing values.
 - Trigger: Running a schema helper's `main()` during verification altered tracked `data/tastyroad.sqlite`.
   Rule: For schema smoke tests, copy the DB to `/tmp` and import/call the schema function with an explicit temp path; do not run root-default schema CLIs against tracked data unless updating the DB is intentional.
 - Trigger: The user defined design "weeds" as redundant visible words such as labeling an already familiar filter area as `필터`.

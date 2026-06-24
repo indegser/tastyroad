@@ -66,6 +66,7 @@ While working:
 
 - Do all edits, verification, commits, and task-specific commands inside the chosen worktree.
 - Record the chosen worktree path and branch in `tasks/todo.md` for non-trivial tasks.
+- After creating or reusing a task-specific worktree that needs Vercel-managed env vars, provision that worktree's local env from the linked main checkout: `vercel env pull <worktree>/.env.local --yes --cwd /Users/indegser/Github/tastyroad`. Do this instead of running `vercel env pull` from an unlinked worktree. If overwriting local env would be unsafe, preserve the existing file and report the blocker.
 - Do not use `git stash` as routine context switching between concurrent tasks.
 - Do not switch branches in a dirty worktree just to reach another task.
 - Respect an explicit user-provided path or branch over this default routing.

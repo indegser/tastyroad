@@ -2,6 +2,41 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Document worktree env provisioning
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+
+- [x] Read repository guide and lessons for worktree/Vercel env rules.
+- [x] Add worktree `.env.local` provisioning guidance to `AGENTS.md`.
+- [x] Verify markdown diff and record review notes.
+
+### Review
+
+- Added a worktree env provisioning rule to `AGENTS.md`: when a task worktree needs Vercel-managed env vars, write `<worktree>/.env.local` using `vercel env pull <worktree>/.env.local --yes --cwd /Users/indegser/Github/tastyroad`.
+- The rule explicitly avoids running `vercel env pull` from an unlinked worktree and tells agents to preserve existing env files when overwrite safety is unclear.
+- Verification: `git diff --check` passed for `AGENTS.md`, `tasks/todo.md`, and `tasks/lessons.md`.
+
+## Current Task - 2026-06-25 - Add Webshare proxy env to Vercel
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+Target: Vercel project `tastyroad`
+
+- [x] Read repository guide, lessons, and Vercel env guidance.
+- [x] Confirm local Webshare proxy variables are present without printing values.
+- [x] Add Webshare proxy variables to Vercel Production, Preview, and Development.
+- [x] Verify Vercel lists the Webshare proxy variables.
+- [x] Pull Vercel Development env into local `.env.local`.
+- [x] Record review/result notes.
+
+### Review
+
+- Added `WEBSHARE_PROXY_USERNAME`, `WEBSHARE_PROXY_PASSWORD`, `WEBSHARE_PROXY_DOMAIN`, `WEBSHARE_PROXY_PORT`, and `WEBSHARE_PROXY_RETRIES_WHEN_BLOCKED` to Vercel project `tastyroad`.
+- Scope is Production, Preview, and Development for all five variables.
+- Verification: `vercel env ls` lists all five Webshare proxy variables in all three environments as encrypted.
+- Local `.env.local` was refreshed from Vercel Development and now includes Supabase, Blob, Postgres, Vercel OIDC, and Webshare proxy variables; values were not printed.
+
 ## Current Task - 2026-06-25 - Vercel Blob transcript migration to Supabase
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/vercel-blob-to-supabase-latest`
