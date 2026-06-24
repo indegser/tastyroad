@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-06-25
+
+- Trigger: Running `vercel curl` from an unlinked task worktree created and linked an unintended Vercel project named after the worktree.
+  Rule: For Vercel commands that need project context beyond `vercel ls/inspect`, run from the linked main checkout or pass a known linked cwd; verify `.vercel/project.json` points to `tastyroad` before commands that can link, create, or mutate projects.
+
 ## 2026-06-24
 
 - Trigger: The user clarified that transcript post-processing should extract must-taste Top 3 items, not story prose.

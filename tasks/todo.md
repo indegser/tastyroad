@@ -2,6 +2,20 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Address map link release follow-up
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/address-map-link`
+Branch: `codex/address-map-link`
+Target: production `main`
+
+- [x] Record the user's preview-branch default for remote UI review.
+- [x] Add a reusable lesson for the Vercel task-worktree auto-link pitfall.
+- [x] Update the Tastyroad release skill to require linked `tastyroad` cwd for Vercel project-context commands.
+- [ ] Commit and push the follow-up prevention changes.
+- [ ] Merge the preview branch into `main` and push.
+- [ ] Verify the production Vercel deployment and site response.
+- [ ] Clean up the task worktree if safe.
+
 ## Current Task - 2026-06-24 - Address map link cleanup
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/address-map-link`

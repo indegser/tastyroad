@@ -17,6 +17,7 @@ Use this skill from the active Tastyroad checkout or task worktree to release th
 - Vercel scope: `jaekwon-hans-projects`
 - Production aliases include `https://taste.indegser.com` and `https://tastyroad-flame.vercel.app`
 - Local Vercel project IDs live in `.vercel/project.json`. Do not commit `.vercel/`.
+- Task worktrees often do not have `.vercel/project.json`. Before running Vercel commands that can link, create, or mutate project state (`vercel curl`, `vercel project ...`, `vercel pull`, `vercel link`, or any deploy command), verify the current cwd is linked to `tastyroad` or run the command from `/Users/indegser/Github/tastyroad`. Do not let Vercel auto-link a task worktree or create a project named after the worktree.
 
 ## Release Workflow
 
@@ -77,7 +78,7 @@ Check the production alias for production releases and the deployment URL for pr
 curl -fsS "https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true"
 ```
 
-Confirm the response is HTTP 200 and contains an `items` array. Use Vercel MCP web fetch only if the local CLI/curl path cannot access a protected preview URL, and then report the MCP issue only if it changes the deploy outcome.
+Confirm the response is HTTP 200 and contains an `items` array. For protected previews, use `vercel curl` only from a cwd whose `.vercel/project.json` points to project `tastyroad`, usually `/Users/indegser/Github/tastyroad`; do not run it from an unlinked task worktree. Use Vercel MCP web fetch only if the local CLI/curl path cannot access a protected preview URL, and then report the MCP issue only if it changes the deploy outcome.
 
 7. Clean up the task worktree when safe.
 
