@@ -12,9 +12,17 @@ Target: production `main`
 - [x] Add a reusable lesson for the Vercel task-worktree auto-link pitfall.
 - [x] Update the Tastyroad release skill to require linked `tastyroad` cwd for Vercel project-context commands.
 - [x] Commit and push the follow-up prevention changes.
-- [ ] Merge the preview branch into `main` and push.
-- [ ] Verify the production Vercel deployment and site response.
-- [ ] Clean up the task worktree if safe.
+- [x] Merge the preview branch into `main` and push.
+- [x] Verify the production Vercel deployment and site response.
+- [x] Clean up the task worktree if safe.
+
+### Review
+
+- Merged `codex/address-map-link` into `main` with fast-forward commits through `cca6361`.
+- Production deployment `tastyroad-mz0y2hefv-jaekwon-hans-projects.vercel.app` reached `READY`.
+- Verified `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with one item and a `mapUrl`.
+- Verified production HTML contains `.address-map-link` and `지도에서 보기`, with zero restaurant-card `<dt>지역</dt>` or `<dt>지도</dt>` rows.
+- Removed `/Users/indegser/Github/tastyroad-worktrees/address-map-link` after confirming it was clean and pushed.
 
 ## Current Task - 2026-06-24 - Address map link cleanup
 
