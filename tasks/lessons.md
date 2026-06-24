@@ -40,8 +40,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: In Tastyroad UI work, remove visible explanatory labels when the layout/control pattern already carries the meaning; keep accessible labels for assistive technology.
 - Trigger: The must-taste list inherited restaurant-card divider spacing because `.restaurant-list li + li` matched nested list items.
   Rule: Scope restaurant list spacing/divider selectors to direct children (`.restaurant-list > li`) so nested content lists keep their own layout.
-- Trigger: The must-taste section felt like a plain data label rather than a visitor-facing menu choice.
-  Rule: Present must-taste items as an action-oriented menu block, e.g. `먼저 맛볼 메뉴`, with rank-led rows and compact transcript quotes; verify at least one multi-item example.
+- Trigger: The user pointed out that even `먼저 맛볼 메뉴` was visible copy repeating the ranked menu block's meaning.
+  Rule: Do not show a must-taste section title when rank-led rows, menu names, quotes, and grouping already carry the meaning; keep only an accessibility label and verify a multi-item example.
 
 ## 2026-06-22
 

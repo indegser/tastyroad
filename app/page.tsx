@@ -131,13 +131,7 @@ export default async function Home({
                         ) : null}
                       </dl>
                       {restaurant.mustTasteItems.length > 0 ? (
-                        <section
-                          className="must-taste-section"
-                          aria-labelledby={`must-taste-${restaurant.id}`}
-                        >
-                          <h4 id={`must-taste-${restaurant.id}`} className="section-label">
-                            먼저 맛볼 메뉴
-                          </h4>
+                        <section className="must-taste-section" aria-label="추천 메뉴">
                           <ol className="must-taste-list">
                             {restaurant.mustTasteItems.map((item) => (
                               <li key={`${item.rank}-${item.menuItem}`}>

@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Must-taste label weed removal
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+Target: production `main`
+
+- [x] Read repository guide, lessons, Next.js guidance, browser guidance, and release workflow.
+- [x] Inspect current must-taste markup and visible label styles.
+- [x] Remove the visible must-taste section label while keeping an accessibility label.
+- [x] Update the reusable lesson away from visible must-taste titles.
+- [x] Verify desktop/mobile layout and build.
+- [x] Prepare intended changes for production release.
+
+### Review
+
+- Removed the visible must-taste title; the section now relies on rank-led menu rows, transcript quotes, and grouping.
+- Kept accessibility context with `aria-label="추천 메뉴"` on the section.
+- Removed unused `.section-label` styling.
+- Verification before release: desktop and mobile agent-browser checks for `?q=1966정원`, no old visible title text, no mobile overflow, `git diff --check`, and `pnpm run build`.
+
 ## Current Task - 2026-06-24 - Must-taste layout tune
 
 Worktree: `/Users/indegser/Github/tastyroad`
@@ -22,7 +42,7 @@ Branch: `main`
 - Root cause: the restaurant-card divider selector `.restaurant-list li + li` also matched nested must-taste `<li>` elements, so the second menu inherited a large top gap, border, and inset shadow.
 - Changed restaurant list spacing/divider rules to direct-child selectors (`.restaurant-list > li`) so nested lists use only their own compact spacing.
 - Verification: desktop and mobile agent-browser screenshots for `?q=1966정원`, DOM checks confirmed no nested border/padding/box-shadow, mobile overflow check passed, `git diff --check` passed, and `pnpm run build` passed.
-- Iterated the final presentation into a compact `먼저 맛볼 메뉴` block with rank-led rows, transcript quote text, and subtle separators between multiple items.
+- Iterated the presentation into a compact rank-led menu block with transcript quote text and subtle separators between multiple items.
 - Rechecked two-item examples `1966정원` and `학곡리막국수닭갈비` on mobile, plus the desktop `1966정원` view; no horizontal overflow.
 
 ## Current Task - 2026-06-24 - Design weed cleanup
