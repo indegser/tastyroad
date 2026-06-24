@@ -94,16 +94,24 @@ export default async function Home({
                       <h3>{restaurant.name}</h3>
                       <dl className="info-table">
                         <div className="info-row">
-                          <dt>지역</dt>
-                          <dd>
-                            {restaurant.region.region}
-                            <span className="subtle-divider">/</span>
-                            {restaurant.region.cluster}
-                          </dd>
-                        </div>
-                        <div className="info-row">
                           <dt>주소</dt>
-                          <dd>{restaurant.address}</dd>
+                          <dd>
+                            {restaurant.mapUrl ? (
+                              <a
+                                className="address-map-link"
+                                href={restaurant.mapUrl}
+                                aria-label={`${restaurant.address} 지도에서 보기`}
+                              >
+                                <span>{restaurant.address}</span>
+                                <span className="map-link-label">
+                                  지도에서 보기
+                                  <span aria-hidden="true">↗</span>
+                                </span>
+                              </a>
+                            ) : (
+                              restaurant.address
+                            )}
+                          </dd>
                         </div>
                         <div className="info-row">
                           <dt>채널</dt>
@@ -118,17 +126,6 @@ export default async function Home({
                             </a>
                           </dd>
                         </div>
-                        {restaurant.mapUrl ? (
-                          <div className="info-row">
-                            <dt>지도</dt>
-                            <dd>
-                              <a className="video-link" href={restaurant.mapUrl}>
-                                <span>지도에서 보기</span>
-                                <span aria-hidden="true">↗</span>
-                              </a>
-                            </dd>
-                          </div>
-                        ) : null}
                       </dl>
                       {restaurant.mustTasteItems.length > 0 ? (
                         <section className="must-taste-section" aria-label="추천 메뉴">

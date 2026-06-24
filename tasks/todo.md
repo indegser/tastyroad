@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Address map link cleanup
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/address-map-link`
+Branch: `codex/address-map-link`
+
+- [x] Read repository guide, lessons, and Next.js skill guidance.
+- [x] Create an isolated worktree for the public listing UI change.
+- [x] Inspect restaurant card metadata rendering and related styles.
+- [x] Remove redundant visible region metadata from restaurant cards.
+- [x] Combine address display with the map link where a map URL exists.
+- [x] Verify build/layout and record review notes.
+
+### Review
+
+- Removed the visible restaurant-card `지역` row and the separate `지도` row.
+- Changed the `주소` row so map-verified restaurants expose one address link with `지도에서 보기`; restaurants without a map URL still show plain address text.
+- Added compact wrapping styles for the address/map link and an explicit accessible label.
+- Verification: `git diff --check`, `pnpm run build`, agent-browser desktop/mobile checks, no browser error overlay, no `지역`/`지도` card rows, address map links present, and no mobile horizontal overflow.
+
 ## Current Task - 2026-06-24 - Must-taste label weed removal
 
 Worktree: `/Users/indegser/Github/tastyroad`

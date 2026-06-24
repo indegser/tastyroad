@@ -485,6 +485,7 @@ h1 {
 }
 
 .info-table,
+.address-map-link,
 .video-link,
 .must-taste-section {
   font-size: 0.9125rem;
@@ -517,6 +518,39 @@ h1 {
   overflow-wrap: anywhere;
 }
 
+.address-map-link {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 10px;
+  max-width: 100%;
+  color: var(--story);
+  text-decoration: none;
+}
+
+.address-map-link > span:first-child {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.map-link-label {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  color: var(--link);
+  font-size: 0.84rem;
+  font-weight: 560;
+  white-space: nowrap;
+}
+
+.address-map-link:hover {
+  color: var(--link-hover);
+}
+
+.address-map-link:hover .map-link-label {
+  color: var(--link-hover);
+}
+
 .video-link {
   display: inline-flex;
   max-width: 100%;
@@ -540,11 +574,6 @@ h1 {
   color: var(--link);
   font-size: 0.82em;
   line-height: 1;
-}
-
-.subtle-divider {
-  margin: 0 6px;
-  color: var(--text-tertiary);
 }
 
 .must-taste-section {

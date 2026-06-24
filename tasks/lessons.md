@@ -42,6 +42,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Scope restaurant list spacing/divider selectors to direct children (`.restaurant-list > li`) so nested content lists keep their own layout.
 - Trigger: The user pointed out that even `먼저 맛볼 메뉴` was visible copy repeating the ranked menu block's meaning.
   Rule: Do not show a must-taste section title when rank-led rows, menu names, quotes, and grouping already carry the meaning; keep only an accessibility label and verify a multi-item example.
+- Trigger: The user works remotely and cannot reliably inspect local `localhost` URLs shared by agents.
+  Rule: For public UI changes, use a feature/preview branch as the default remote review path after local verification; do not ask before pushing a preview branch unless the change is risky or explicitly local-only.
 
 ## 2026-06-22
 
