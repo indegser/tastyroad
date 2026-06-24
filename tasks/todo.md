@@ -11,9 +11,17 @@ Target: production `main`
 - [x] Read repository guide, lessons, and release workflow.
 - [x] Fast-forward `main` to the verified latest-video card preview branch.
 - [x] Verify production build.
-- [ ] Push `main` and verify production Vercel deployment.
-- [ ] Clean up the merged preview worktree if safe.
-- [ ] Record review/result notes.
+- [x] Push `main` and verify production Vercel deployment.
+- [x] Clean up the merged preview worktree if safe.
+- [x] Record review/result notes.
+
+### Review
+
+- Released the latest-video restaurant card design to production by fast-forwarding `main` through the verified preview commits.
+- Production deployment `tastyroad-ic8ml0b6w-jaekwon-hans-projects.vercel.app` reached `READY`.
+- Verified `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned an item with `sourceThumbnailUrl` and `sourcePublishedAt`.
+- Verified production HTML for `1966정원` includes thumbnail links, video title links, and YouTube-style relative upload age, with no visible `추천 이유` or `먼저 맛볼 메뉴` labels.
+- Removed `/Users/indegser/Github/tastyroad-worktrees/latest-video-sort` after confirming it was clean, pushed, and merged into `main`.
 
 ## Current Task - 2026-06-25 - Tune thumbnail card typography
 
