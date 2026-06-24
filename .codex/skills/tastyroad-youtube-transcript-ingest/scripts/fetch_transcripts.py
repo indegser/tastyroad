@@ -13,12 +13,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any
 
+from transcript_blob_store import (
+    DEFAULT_BLOB_ACCESS,
+    DEFAULT_BLOB_PREFIX,
+    TranscriptBlobUpload,
+    upload_transcript_blobs,
+)
 from transcript_schema import DEFAULT_SQLITE, ensure_transcript_schema
 
 
 DEFAULT_CONFIG = Path("data/sources/youtube_sources.json")
 DEFAULT_LANGUAGES = ("ko", "en")
 DEFAULT_PROVIDER = "youtube_transcript_api"
+DEFAULT_STORAGE = "blob"
 DEFAULT_TRANSCRIPT_REQUEST_DELAY_SECONDS = 0.0
 DEFAULT_MAX_CONSECUTIVE_TRANSCRIPT_BLOCKS = 3
 LOCAL_ENV_PATH = Path(".env.local")
@@ -353,9 +360,40 @@ def upsert_transcript_track(
     target: VideoTarget,
     transcript: TranscriptPayload,
     fetched_at: str,
+    storage: str,
+    blob_upload: TranscriptBlobUpload | None,
 ) -> int:
-    raw_json = json_text(transcript.raw_segments)
+    store_sqlite_payload = storage in ("sqlite", "both")
+    raw_json = json_text(transcript.raw_segments) if store_sqlite_payload else "[]"
     transcript_hash = content_hash(transcript.raw_segments)
+    storage_provider = {
+        "blob": "vercel_blob",
+        "both": "sqlite+vercel_blob",
+        "sqlite": "sqlite",
+    }[storage]
+    raw_blob_path = blob_upload.raw.pathname if blob_upload else ""
+    raw_blob_size = blob_upload.raw.size if blob_upload else 0
+    segments_blob_path = blob_upload.segments.pathname if blob_upload else ""
+    segments_blob_size = blob_upload.segments.size if blob_upload else 0
+    blob_uploaded_at = blob_upload.uploaded_at if blob_upload else ""
+    blob_metadata = (
+        {
+            "provider": blob_upload.provider,
+            "access": blob_upload.access,
+            "raw": {
+                "pathname": blob_upload.raw.pathname,
+                "size": blob_upload.raw.size,
+                "content_type": blob_upload.raw.content_type,
+            },
+            "segments": {
+                "pathname": blob_upload.segments.pathname,
+                "size": blob_upload.segments.size,
+                "content_type": blob_upload.segments.content_type,
+            },
+        }
+        if blob_upload
+        else {}
+    )
     connection.execute(
         """
         insert into youtube_transcript_tracks (
@@ -370,9 +408,16 @@ def upsert_transcript_track(
           transcript_text,
           content_hash,
           segment_count,
+          storage_provider,
+          raw_blob_path,
+          raw_blob_size,
+          segments_blob_path,
+          segments_blob_size,
+          blob_uploaded_at,
+          blob_metadata_json,
           fetched_at
         )
-        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+        values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         on conflict(youtube_video_id, language_code, is_generated, provider) do update set
           source_name = excluded.source_name,
           language = excluded.language,
@@ -380,6 +425,13 @@ def upsert_transcript_track(
           transcript_text = excluded.transcript_text,
           content_hash = excluded.content_hash,
           segment_count = excluded.segment_count,
+          storage_provider = excluded.storage_provider,
+          raw_blob_path = excluded.raw_blob_path,
+          raw_blob_size = excluded.raw_blob_size,
+          segments_blob_path = excluded.segments_blob_path,
+          segments_blob_size = excluded.segments_blob_size,
+          blob_uploaded_at = excluded.blob_uploaded_at,
+          blob_metadata_json = excluded.blob_metadata_json,
           fetched_at = excluded.fetched_at
         """,
         (
@@ -394,6 +446,13 @@ def upsert_transcript_track(
             transcript.text,
             transcript_hash,
             len(transcript.segments),
+            storage_provider,
+            raw_blob_path,
+            raw_blob_size,
+            segments_blob_path,
+            segments_blob_size,
+            blob_uploaded_at,
+            json_text(blob_metadata),
             fetched_at,
         ),
     )
@@ -418,32 +477,33 @@ def upsert_transcript_track(
 
     track_id = int(row["id"])
     connection.execute("delete from youtube_transcript_segments where track_id = ?", (track_id,))
-    for index, segment in enumerate(transcript.segments):
-        raw_index = int(segment.get("raw_index", index))
-        raw_segment = transcript.raw_segments[raw_index] if raw_index < len(transcript.raw_segments) else {}
-        connection.execute(
-            """
-            insert into youtube_transcript_segments (
-              track_id,
-              segment_index,
-              start_seconds,
-              duration_seconds,
-              end_seconds,
-              text,
-              raw_json
+    if store_sqlite_payload:
+        for index, segment in enumerate(transcript.segments):
+            raw_index = int(segment.get("raw_index", index))
+            raw_segment = transcript.raw_segments[raw_index] if raw_index < len(transcript.raw_segments) else {}
+            connection.execute(
+                """
+                insert into youtube_transcript_segments (
+                  track_id,
+                  segment_index,
+                  start_seconds,
+                  duration_seconds,
+                  end_seconds,
+                  text,
+                  raw_json
+                )
+                values (?, ?, ?, ?, ?, ?, ?)
+                """,
+                (
+                    track_id,
+                    index,
+                    float(segment["start"]),
+                    float(segment["duration"]),
+                    float(segment["end"]),
+                    str(segment["text"]),
+                    json_text(raw_segment),
+                ),
             )
-            values (?, ?, ?, ?, ?, ?, ?)
-            """,
-            (
-                track_id,
-                index,
-                float(segment["start"]),
-                float(segment["duration"]),
-                float(segment["end"]),
-                str(segment["text"]),
-                json_text(raw_segment),
-            ),
-        )
     return track_id
 
 
@@ -499,11 +559,24 @@ def run(args: argparse.Namespace) -> dict[str, int]:
             try:
                 transcript = fetch_transcript(target.video_id, languages)
                 fetched_at = now_iso()
+                transcript_hash = content_hash(transcript.raw_segments)
+                blob_upload = None
+                if args.storage in ("blob", "both"):
+                    blob_upload = upload_transcript_blobs(
+                        target=target,
+                        transcript=transcript,
+                        content_hash=transcript_hash,
+                        fetched_at=fetched_at,
+                        prefix=args.blob_prefix,
+                        access=args.blob_access,
+                    )
                 track_id = upsert_transcript_track(
                     connection,
                     target=target,
                     transcript=transcript,
                     fetched_at=fetched_at,
+                    storage=args.storage,
+                    blob_upload=blob_upload,
                 )
                 record_attempt(
                     connection,
@@ -516,6 +589,9 @@ def run(args: argparse.Namespace) -> dict[str, int]:
                         "language_code": transcript.language_code,
                         "is_generated": transcript.is_generated,
                         "segment_count": len(transcript.segments),
+                        "storage": args.storage,
+                        "raw_blob_path": blob_upload.raw.pathname if blob_upload else "",
+                        "segments_blob_path": blob_upload.segments.pathname if blob_upload else "",
                     },
                 )
                 connection.commit()
@@ -523,7 +599,7 @@ def run(args: argparse.Namespace) -> dict[str, int]:
                 consecutive_blocks = 0
                 print(
                     f"Fetched {target.video_id}: {transcript.language_code} "
-                    f"segments={len(transcript.segments)}"
+                    f"segments={len(transcript.segments)} storage={args.storage}"
                 )
             except Exception as exc:  # noqa: BLE001 - transcript availability varies by video.
                 error_type = "youtube_block" if is_youtube_block_error(exc) else exc.__class__.__name__
@@ -582,6 +658,23 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--refresh", action="store_true", help="Fetch even when a transcript track exists.")
     parser.add_argument("--limit", type=int)
     parser.add_argument("--languages", default=",".join(DEFAULT_LANGUAGES))
+    parser.add_argument(
+        "--storage",
+        choices=("blob", "sqlite", "both"),
+        default=DEFAULT_STORAGE,
+        help="Where to store transcript payloads. Default stores raw/segments in Vercel Blob and metadata in SQLite.",
+    )
+    parser.add_argument(
+        "--blob-prefix",
+        default=DEFAULT_BLOB_PREFIX,
+        help="Vercel Blob pathname prefix for transcript archive objects.",
+    )
+    parser.add_argument(
+        "--blob-access",
+        choices=("private", "public"),
+        default=DEFAULT_BLOB_ACCESS,
+        help="Vercel Blob access mode. Tastyroad transcript archives should normally stay private.",
+    )
     parser.add_argument(
         "--request-delay",
         type=float,

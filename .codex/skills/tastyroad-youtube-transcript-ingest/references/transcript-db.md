@@ -24,13 +24,26 @@ YT_TRANSCRIPT_HTTPS_PROXY=
 
 The Python environment must provide `youtube_transcript_api`.
 
+Vercel Blob variables:
+
+```bash
+BLOB_READ_WRITE_TOKEN=
+VERCEL_OIDC_TOKEN=
+BLOB_STORE_ID=
+VERCEL_BLOB_SCOPE=jaekwon-hans-projects
+```
+
+Local and pipeline scripts use the official `vercel blob` CLI through `transcript_blob_store.py`. A static `BLOB_READ_WRITE_TOKEN` is enough for local/off-Vercel scripts. If using OIDC, `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID` must both be present.
+
+The Tastyroad transcript store is private and named `tastyroad-transcripts`.
+
 ## Tables
 
 `youtube_transcript_jobs`: One row per fetch run, including scope, requested language order, final status, and stats.
 
-`youtube_transcript_tracks`: One successful transcript track per `(youtube_video_id, language_code, is_generated, provider)`. `raw_json` stores the provider segment payload, `transcript_text` stores joined text, and `content_hash` detects unchanged content.
+`youtube_transcript_tracks`: One successful transcript track per `(youtube_video_id, language_code, is_generated, provider)`. `content_hash` detects unchanged content. New Blob-backed rows store Vercel Blob pathnames and sizes in `raw_blob_path`, `segments_blob_path`, `raw_blob_size`, `segments_blob_size`, `storage_provider`, `blob_uploaded_at`, and `blob_metadata_json`. `transcript_text` remains a small export cache. `raw_json` is a compatibility field and should stay `[]` for Blob-only rows.
 
-`youtube_transcript_segments`: One normalized timed row per transcript segment. Keep `raw_json` for provider-level details and use `text`, `start_seconds`, `duration_seconds`, and `end_seconds` for downstream processing.
+`youtube_transcript_segments`: Compatibility/cache table for normalized timed rows. New Blob-only rows may not have SQLite segment rows; downstream scripts should read `segments_blob_path` when this table has no rows.
 
 `youtube_transcript_fetch_attempts`: One row per attempted video fetch. Store failed attempts here with `error_type` and `error_message`.
 
@@ -67,8 +80,20 @@ Timed transcript sample:
 sqlite3 -header -column data/tastyroad.sqlite "select s.segment_index, s.start_seconds, s.text from preferred_youtube_transcripts p join youtube_transcript_segments s on s.track_id=p.id where p.video_id='<video_id>' order by s.segment_index limit 20;"
 ```
 
+Blob-backed timed transcript path:
+
+```bash
+sqlite3 -header -column data/tastyroad.sqlite "select video_id, storage_provider, segments_blob_path, segments_blob_size from preferred_youtube_transcripts where video_id='<video_id>';"
+```
+
 Preferred full text length:
 
 ```bash
 sqlite3 -header -column data/tastyroad.sqlite "select video_id, language_code, is_generated, segment_count, length(transcript_text) as text_length from preferred_youtube_transcripts order by fetched_at desc limit 20;"
+```
+
+Storage split:
+
+```bash
+sqlite3 -header -column data/tastyroad.sqlite "select storage_provider, count(*) as tracks, round(sum(segments_blob_size + raw_blob_size) / 1024.0 / 1024.0, 2) as blob_mb from preferred_youtube_transcripts group by storage_provider;"
 ```

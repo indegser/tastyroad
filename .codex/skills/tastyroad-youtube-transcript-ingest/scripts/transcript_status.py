@@ -54,6 +54,17 @@ def print_status(sqlite_path: Path, source: str | None, config_path: Path, limit
             """,
             params,
         ).fetchall()
+        storage_rows = connection.execute(
+            f"""
+            select source, coalesce(storage_provider, '') as storage_provider, count(*) as count
+            from youtube_transcript_status
+            {source_clause}
+              {"and" if source_clause else "where"} transcript_status = 'has_transcript'
+            group by source, storage_provider
+            order by source, storage_provider
+            """,
+            params,
+        ).fetchall()
         missing_rows = connection.execute(
             f"""
             select published_at, source, video_id, transcript_status, title, last_error_type
@@ -69,6 +80,12 @@ def print_status(sqlite_path: Path, source: str | None, config_path: Path, limit
     print("Transcript status")
     for row in rows:
         print(f"- {row['source']}\t{row['transcript_status']}: {row['count']}")
+
+    if storage_rows:
+        print("\nTranscript storage")
+        for row in storage_rows:
+            storage_provider = row["storage_provider"] or "unknown"
+            print(f"- {row['source']}\t{storage_provider}: {row['count']}")
 
     if missing_rows:
         print("\nMissing or failed transcripts")

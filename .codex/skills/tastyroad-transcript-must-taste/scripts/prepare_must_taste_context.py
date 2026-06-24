@@ -24,10 +24,11 @@ TRANSCRIPT_SCRIPTS = (
 sys.path.insert(0, str(TRANSCRIPT_SCRIPTS))
 
 try:
+    from transcript_blob_store import load_segments_blob
     from transcript_schema import ensure_transcript_schema
 except ImportError as exc:  # pragma: no cover - defensive when skill layout changes.
     raise SystemExit(
-        "Could not import transcript_schema.py from tastyroad-youtube-transcript-ingest."
+        "Could not import transcript helpers from tastyroad-youtube-transcript-ingest."
     ) from exc
 
 
@@ -301,6 +302,9 @@ def load_context(
               p.is_generated,
               p.provider,
               p.segment_count,
+              p.storage_provider,
+              p.segments_blob_path,
+              p.blob_uploaded_at,
               p.fetched_at,
               y.title,
               y.url,
@@ -345,6 +349,19 @@ def load_context(
             ).fetchall()
         ]
 
+        if not segments and row["segments_blob_path"]:
+            segments = [
+                {
+                    "segment_index": int(segment["segment_index"]),
+                    "timestamp": timestamp_label(float(segment["start_seconds"])),
+                    "start_seconds": float(segment["start_seconds"]),
+                    "end_seconds": float(segment["end_seconds"]),
+                    "duration_seconds": float(segment["duration_seconds"]),
+                    "text": str(segment["text"]),
+                }
+                for segment in load_segments_blob(str(row["segments_blob_path"]))
+            ]
+
     if not segments:
         raise SystemExit(f"Preferred transcript for {video_id} has no timed segments.")
 
@@ -380,6 +397,9 @@ def load_context(
             "language": str(row["language"]),
             "is_generated": bool(row["is_generated"]),
             "provider": str(row["provider"]),
+            "storage_provider": str(row["storage_provider"]),
+            "segments_blob_path": str(row["segments_blob_path"]),
+            "blob_uploaded_at": str(row["blob_uploaded_at"]),
             "segment_count": int(row["segment_count"]),
             "fetched_at": str(row["fetched_at"]),
             "segments": segments,

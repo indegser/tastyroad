@@ -742,11 +742,12 @@ def apply_result(
         )
         for item in items:
             evidence_json = {
-                "source": "youtube_transcript_segments",
+                "source": transcript.get("storage_provider") or "youtube_transcript_segments",
                 "context_path": str(context_path),
                 "result_path": str(result_path),
                 "language_code": transcript.get("language_code", ""),
                 "is_generated": bool(transcript.get("is_generated")),
+                "segments_blob_path": transcript.get("segments_blob_path", ""),
                 "quality": item["quality"],
                 "review": item["review"],
                 "candidate_id": item["candidate_id"],

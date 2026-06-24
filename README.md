@@ -6,11 +6,12 @@
 
 ## 데이터
 
-- `data/tastyroad.sqlite`: 사이트가 읽는 기준 SQLite DB
+- `data/tastyroad.sqlite`: 사이트가 읽는 기준 SQLite DB 및 파이프라인 메타데이터 DB
+- Vercel Blob `tastyroad-transcripts`: YouTube 자막 raw track/segment 원천 아카이브
 - `data/sources/youtube_sources.json`: YouTube 소스 설정
 - `data/raw/youtube/*.json`: 수집 결과 mirror
 - `data/agent_reviews/*.json`: 영상 검수 입력
-- `data/tastyroad.sqlite`의 `youtube_transcript_*` 테이블: YouTube 자막 raw track/segment 저장소
+- `data/tastyroad.sqlite`의 `youtube_transcript_*` 테이블: YouTube 자막 fetch 이력, preferred track, Blob path metadata, legacy segment cache
 - `data/tastyroad.sqlite`의 `video_must_taste_items` 테이블: 식당별 자막 근거 필수 맛보기 추천 저장소
 - `data/verified_places/*.json`: 검증된 장소 승격 입력
 - `data/work/`: 멀티 에이전트 작업 artifact
@@ -21,8 +22,8 @@
 ## 스킬
 
 - `$tastyroad-youtube-channel-collect`: YouTube 소스 수집/갱신, full-channel 감사, channel_id 확인
-- `$tastyroad-youtube-transcript-ingest`: Webshare 기반 YouTube 자막 다운로드와 SQLite raw track/segment 저장
-- `$tastyroad-transcript-must-taste`: 저장된 자막 segment 전체 스캔, attention 후보 집계, 후보 리뷰, 탈락 사유까지 거쳐 식당별 꼭 맛볼 추천 메뉴 최대 3개와 직접 자막 인용 추출/검증/저장
+- `$tastyroad-youtube-transcript-ingest`: Webshare 기반 YouTube 자막 다운로드, Vercel Blob raw/segment 아카이브, SQLite metadata 저장
+- `$tastyroad-transcript-must-taste`: Blob-backed 또는 SQLite cached 자막 segment 전체 스캔, attention 후보 집계, 후보 리뷰, 탈락 사유까지 거쳐 식당별 꼭 맛볼 추천 메뉴 최대 3개와 직접 자막 인용 추출/검증/저장
 - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` 조회, Naver place ID 검증, `restaurants`/`youtube_video_restaurants` 반영
 - `$tastyroad-naver-map-sync`: 공개 식당을 Naver Map `Tastyroad` 리스트에 동기화
 - `$tastyroad-site-release`: GitHub push 기반 Vercel 배포, 배포 상태/응답 확인, 배포 후 API 검증

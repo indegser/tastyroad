@@ -302,3 +302,15 @@ Branch: `codex/choizaroad-source-collection`
 - Updated full-channel reuse logic so rows missing enriched detail fields are retried instead of skipped.
 - Retried `ttoganjip`; `9F9a_fFx45o` is now enriched with `published_at=2023-02-03T09:28:11+00:00`, `duration_seconds=1220`, and description text.
 - Verification: Python compile passed, `또간집` incomplete detail count is 0, missing-video audit is `remote_total=100`, `local_collected=100`, `missing=0`, raw JSON has 100/100 complete detail rows, and `pnpm run build` passed.
+## 2026-06-24 - Vercel Blob transcript workflow
+
+- [x] Worktree: `/Users/indegser/github/tastyroad-worktrees/vercel-blob-transcripts`
+- [x] Branch: `codex/vercel-blob-transcripts`
+- [x] Read agent guide, lessons, Vercel storage guidance, and transcript skills.
+- [x] Create and connect private Vercel Blob store for Tastyroad transcripts.
+- [x] Add Blob-backed transcript storage helpers and SQLite metadata columns.
+- [x] Update transcript ingest/export/status scripts and skill docs.
+- [x] Update must-taste context preparation to read Blob-backed segments.
+- [x] Verify schema migration, dry runs, Blob helper behavior, and build.
+
+Result note: Created private Vercel Blob store `tastyroad-transcripts` (`store_0Bd8YrIAPENYUcGE`) and connected it to the `tastyroad` Vercel project. Added `BLOB_STORE_ID` for production, preview, and development, and verified private Blob upload/download/delete with both Vercel CLI and the new Python helper. Updated transcript ingest to store raw/segment payloads in Blob by default, keep SQLite metadata, support existing SQLite cache fallback, and provide an archive/prune script for existing transcript payloads. Verification: Python compile, temp-DB schema migration, fetch dry-run, archive dry-run, fake upsert paths, must-taste context smoke test, Blob helper healthcheck, `git diff --check`, and `pnpm run build` passed. `data/tastyroad.sqlite` was restored to no diff; no Blob test files remain.

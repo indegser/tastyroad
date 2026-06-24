@@ -32,6 +32,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Before preserving existing must-taste rows in multi-restaurant videos, verify the cited segment belongs to the target restaurant portion; re-run or reject stale items that only pass by using another restaurant's segment.
 - Trigger: Must-taste context preparation failed for YouTube IDs that begin with `-` because argparse treated the ID as another option.
   Rule: When passing YouTube IDs to repo CLIs from loops, use `--video-id=<id>` rather than `--video-id <id>` so dash-prefixed video IDs are handled correctly.
+- Trigger: Vercel Blob CLI upload failed after store creation because local env had `VERCEL_OIDC_TOKEN` without `BLOB_STORE_ID`.
+  Rule: For Tastyroad Blob workflows, ensure `BLOB_STORE_ID` is present in Vercel project env and local `.env.local`; OIDC requires both `VERCEL_OIDC_TOKEN` and `BLOB_STORE_ID`.
+- Trigger: Running a schema helper's `main()` during verification altered tracked `data/tastyroad.sqlite`.
+  Rule: For schema smoke tests, copy the DB to `/tmp` and import/call the schema function with an explicit temp path; do not run root-default schema CLIs against tracked data unless updating the DB is intentional.
 
 ## 2026-06-22
 

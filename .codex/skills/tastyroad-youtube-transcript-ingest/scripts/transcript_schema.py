@@ -9,6 +9,33 @@ from pathlib import Path
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 
 
+def table_exists(connection: sqlite3.Connection, table_name: str) -> bool:
+    return (
+        connection.execute(
+            "select 1 from sqlite_master where type = 'table' and name = ?",
+            (table_name,),
+        ).fetchone()
+        is not None
+    )
+
+
+def column_names(connection: sqlite3.Connection, table_name: str) -> set[str]:
+    if not table_exists(connection, table_name):
+        return set()
+    return {row[1] for row in connection.execute(f"pragma table_info({table_name})").fetchall()}
+
+
+def ensure_column(
+    connection: sqlite3.Connection,
+    table_name: str,
+    column_name: str,
+    column_definition: str,
+) -> None:
+    if column_name in column_names(connection, table_name):
+        return
+    connection.execute(f"alter table {table_name} add column {column_name} {column_definition}")
+
+
 def ensure_transcript_schema(connection: sqlite3.Connection) -> None:
     connection.execute("pragma foreign_keys = on")
     connection.executescript(
@@ -38,6 +65,13 @@ def ensure_transcript_schema(connection: sqlite3.Connection) -> None:
           transcript_text text not null default '',
           content_hash text not null,
           segment_count integer not null default 0,
+          storage_provider text not null default 'sqlite',
+          raw_blob_path text not null default '',
+          raw_blob_size integer not null default 0,
+          segments_blob_path text not null default '',
+          segments_blob_size integer not null default 0,
+          blob_uploaded_at text not null default '',
+          blob_metadata_json text not null default '{}',
           fetched_at text not null,
           unique(youtube_video_id, language_code, is_generated, provider)
         );
@@ -78,7 +112,53 @@ def ensure_transcript_schema(connection: sqlite3.Connection) -> None:
         on youtube_transcript_fetch_attempts(video_id, attempted_at);
         """
     )
+    ensure_transcript_columns(connection)
     ensure_transcript_views(connection)
+
+
+def ensure_transcript_columns(connection: sqlite3.Connection) -> None:
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "storage_provider",
+        "text not null default 'sqlite'",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "raw_blob_path",
+        "text not null default ''",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "raw_blob_size",
+        "integer not null default 0",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "segments_blob_path",
+        "text not null default ''",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "segments_blob_size",
+        "integer not null default 0",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "blob_uploaded_at",
+        "text not null default ''",
+    )
+    ensure_column(
+        connection,
+        "youtube_transcript_tracks",
+        "blob_metadata_json",
+        "text not null default '{}'",
+    )
 
 
 def ensure_transcript_views(connection: sqlite3.Connection) -> None:
@@ -121,6 +201,13 @@ def ensure_transcript_views(connection: sqlite3.Connection) -> None:
           transcript_text,
           content_hash,
           segment_count,
+          storage_provider,
+          raw_blob_path,
+          raw_blob_size,
+          segments_blob_path,
+          segments_blob_size,
+          blob_uploaded_at,
+          blob_metadata_json,
           fetched_at
         from ranked
         where transcript_rank = 1;
@@ -155,6 +242,12 @@ def ensure_transcript_views(connection: sqlite3.Connection) -> None:
           p.language,
           p.is_generated,
           p.segment_count,
+          p.storage_provider,
+          p.raw_blob_path,
+          p.raw_blob_size,
+          p.segments_blob_path,
+          p.segments_blob_size,
+          p.blob_uploaded_at,
           p.fetched_at,
           la.status as last_attempt_status,
           la.error_type as last_error_type,
