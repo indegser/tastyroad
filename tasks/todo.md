@@ -485,3 +485,17 @@ Result note: Archived 390 existing `youtube_transcript_tracks` into the private 
 - [ ] Verify DB integrity, Blob archive status, must-taste validation, and build.
 
 Result note: Added `archive_legacy_video_transcripts.py` to convert reusable timed rows from `video_transcripts` into Blob-backed `youtube_transcript_tracks`, and fixed `transcript_blob_store.py` for the current Vercel CLI auth flag order (`vercel blob --rw-token ... put/list/get`). Dry-run selected the expected 176 성시경 legacy rows. Actual archive and must-taste context preparation are blocked because Vercel reports Blob store `tastyroad-transcripts` (`store_0Bd8YrIAPENYUcGE`) as `Status: Suspended`, `Billing State: Inactive`; `blob put` and `blob get` fail while `blob list-stores` shows 780 existing objects / 8.3MB.
+
+## Current Task - 2026-06-25 - Fill remaining must-taste and deploy
+
+- [x] Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-fill-release`
+- [x] Branch: `codex/must-taste-fill-release`
+- [x] Read agent guide, lessons, `$tastyroad-transcript-must-taste`, and `$tastyroad-site-release`.
+- [x] Scope current transcript-backed public restaurant-video pairs missing must-taste rows.
+- [x] Restore transcript archive environment access for the task worktree without committing secrets.
+- [x] Prepare must-taste contexts for the selected remaining pairs.
+- [x] Generate full skill artifacts and apply only validation-passing must-taste results.
+- [x] Verify DB integrity, coverage counts, and app build.
+- [ ] Commit/push through the production release flow and verify the deployed site.
+
+Result note: Added 45 validation-passing must-taste rows for 20 Supabase-backed 김사원세끼 restaurant-video pairs. Total must-taste coverage is now 50 restaurant-video pairs and 94 menu items. The remaining transcript-backed missing scope is 595 Vercel Blob-backed pairs, currently blocked by Blob 403 reads during context preparation. Verification so far: all 20 `apply_must_taste_result.py --dry-run` checks passed, actual apply stored the rows, SQLite `integrity_check` returned `ok`, and `pnpm run build` passed.
