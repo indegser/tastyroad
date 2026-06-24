@@ -2,6 +2,48 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Remaining map-verified transcript ingest
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-map-verified`
+Branch: `codex/must-taste-map-verified`
+
+- [x] Read repository guide, lessons, and `$tastyroad-youtube-transcript-ingest`.
+- [x] Reuse the existing map-verified must-taste worktree for the same data pipeline task.
+- [x] Scope remaining map-verified videos missing preferred transcripts.
+- [x] Fetch missing transcripts through the Webshare/youtube_transcript_api path.
+- [x] Scope newly transcript-backed restaurant-video pairs for must-taste extraction.
+- [x] Run or queue must-taste extraction for newly eligible pairs.
+- [x] Verify stored transcripts/results and record review notes.
+
+### Review
+
+- Started from 388 map-verified videos without preferred transcripts; fetched 387 successfully through the Webshare-backed `youtube_transcript_api` workflow.
+- Map-verified transcript coverage is now 390/391 videos and 645/646 restaurant-video pairs. The sole remaining video is `lz91mB8kxB4` (`김사원세끼`, `청량리 고흥아줌매`), which returned `TranscriptsDisabled`.
+- Preferred transcript storage now has 390 tracks and 117030 preferred timed segments for the map-verified scope.
+- Scoped 634 transcript-backed map-verified restaurant-video pairs that still have no `video_must_taste_items` rows, generated must-taste context/task/coverage/chunk/pass artifacts for all 634 under `data/work/must_taste/`, and wrote `data/work/must_taste/map_verified_missing_queue.json`.
+- Verification: queued context check returned `queued_pairs=634`, `missing_required_files=0`, `bad_coverage_files=0`; SQLite `pragma integrity_check` returned `ok`; `git diff --check` and `pnpm run build` passed.
+- Actual menu result rows were not fabricated for the 634 newly queued pairs; the strict must-taste pass artifacts still need attention events, candidates, reviews, arbiter results, and `apply_must_taste_result.py` validation before DB writes.
+
+## Current Task - 2026-06-24 - Map-verified must-taste extraction
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-map-verified`
+Branch: `codex/must-taste-map-verified`
+
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Create isolated worktree for the map-verified must-taste extraction run.
+- [x] Scope map-verified restaurant-video pairs with stored preferred transcripts and current must-taste coverage.
+- [x] Prepare transcript contexts for missing scoped pairs.
+- [x] Run the must-taste extraction passes and apply validated results.
+- [x] Verify stored rows and record review/result notes.
+
+### Review
+
+- Scoped 646 map-verified restaurant-video pairs; 11 currently have stored preferred transcripts and are eligible for `$tastyroad-transcript-must-taste` without running transcript ingest.
+- Prepared context/coverage/chunk artifacts and generated full must-taste artifact chains for all 11 eligible pairs.
+- Stored validated menu results for all 11 transcript-backed map-verified pairs; pairs missing items is now 0.
+- Re-ran the existing 3 pairs as well as the 8 missing pairs. `1.5닭갈비 본점` now keeps only `닭갈비`; the previous `볶음밥` row used a later same-video restaurant segment and was removed.
+- Verification: all 11 `apply_must_taste_result.py --dry-run` checks passed, SQLite `pragma integrity_check` returned `ok`, scoped coverage query returned `transcript_pairs=11`, `pairs_with_items=11`, `pairs_missing_items=0`, and `pnpm run build` passed after installing dependencies from the frozen lockfile.
+
 ## Current Task - 2026-06-24 - Restaurant search facets
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-search-facets`

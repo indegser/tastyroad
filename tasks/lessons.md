@@ -26,6 +26,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Store public `reason` as a short exact quote from `evidence` or `supporting_evidence`; keep generated judgment in `quality.check` and `review.decision_reason`, not in the displayed text.
 - Trigger: The user pointed out that over-trimmed quotes like `진짜 0.1도 안나요` lose their subject.
   Rule: Direct subtitle quotes should be long enough to keep the subject and claim understandable while remaining an exact evidence substring.
+- Trigger: Re-running must-taste extraction for map-verified restaurants found an existing item whose evidence segment belonged to a later restaurant in the same multi-restaurant video.
+  Rule: Before preserving existing must-taste rows in multi-restaurant videos, verify the cited segment belongs to the target restaurant portion; re-run or reject stale items that only pass by using another restaurant's segment.
+- Trigger: Must-taste context preparation failed for YouTube IDs that begin with `-` because argparse treated the ID as another option.
+  Rule: When passing YouTube IDs to repo CLIs from loops, use `--video-id=<id>` rather than `--video-id <id>` so dash-prefixed video IDs are handled correctly.
 
 ## 2026-06-22
 
