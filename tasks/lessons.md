@@ -38,6 +38,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: For schema smoke tests, copy the DB to `/tmp` and import/call the schema function with an explicit temp path; do not run root-default schema CLIs against tracked data unless updating the DB is intentional.
 - Trigger: The user defined design "weeds" as redundant visible words such as labeling an already familiar filter area as `필터`.
   Rule: In Tastyroad UI work, remove visible explanatory labels when the layout/control pattern already carries the meaning; keep accessible labels for assistive technology.
+- Trigger: The must-taste list inherited restaurant-card divider spacing because `.restaurant-list li + li` matched nested list items.
+  Rule: Scope restaurant list spacing/divider selectors to direct children (`.restaurant-list > li`) so nested content lists keep their own layout.
+- Trigger: The must-taste section felt like a plain data label rather than a visitor-facing menu choice.
+  Rule: Present must-taste items as an action-oriented menu block, e.g. `먼저 맛볼 메뉴`, with rank-led rows and compact transcript quotes; verify at least one multi-item example.
 
 ## 2026-06-22
 

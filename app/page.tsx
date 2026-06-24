@@ -131,17 +131,26 @@ export default async function Home({
                         ) : null}
                       </dl>
                       {restaurant.mustTasteItems.length > 0 ? (
-                        <section className="must-taste-section" aria-label="꼭 맛볼 메뉴">
-                          <h4 className="section-label">꼭 맛볼 메뉴</h4>
+                        <section
+                          className="must-taste-section"
+                          aria-labelledby={`must-taste-${restaurant.id}`}
+                        >
+                          <h4 id={`must-taste-${restaurant.id}`} className="section-label">
+                            먼저 맛볼 메뉴
+                          </h4>
                           <ol className="must-taste-list">
                             {restaurant.mustTasteItems.map((item) => (
                               <li key={`${item.rank}-${item.menuItem}`}>
-                                <div className="must-taste-heading">
-                                  <span>{item.rank}</span>
-                                  <strong>{item.menuItem}</strong>
-                                  <time>{item.timestamp}</time>
+                                <span className="must-taste-rank" aria-label={`${item.rank}순위`}>
+                                  {item.rank}
+                                </span>
+                                <div className="must-taste-body">
+                                  <div className="must-taste-heading">
+                                    <strong>{item.menuItem}</strong>
+                                    <time>{item.timestamp}</time>
+                                  </div>
+                                  <p>“{item.reason}”</p>
                                 </div>
-                                <p>“{item.reason}”</p>
                               </li>
                             ))}
                           </ol>

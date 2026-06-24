@@ -456,11 +456,11 @@ h1 {
   padding: 0;
 }
 
-.restaurant-list li {
+.restaurant-list > li {
   padding: 0;
 }
 
-.restaurant-list li + li {
+.restaurant-list > li + li {
   margin-top: 34px;
   padding-top: 28px;
   border-top: 1px solid var(--border);
@@ -549,22 +549,24 @@ h1 {
 
 .must-taste-section {
   margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px solid var(--soft-border);
+  padding: 12px 14px 13px;
+  border: 1px solid var(--soft-border);
+  border-radius: 8px;
+  background: var(--panel);
 }
 
 .section-label {
-  margin: 0 0 6px;
-  color: var(--text-secondary);
+  margin: 0 0 8px;
+  color: var(--story);
   font-size: 0.8125rem;
-  font-weight: 560;
+  font-weight: 650;
   line-height: 1.35;
   letter-spacing: 0;
 }
 
 .must-taste-list {
   display: grid;
-  gap: 8px;
+  gap: 0;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -572,28 +574,43 @@ h1 {
 
 .must-taste-list li {
   display: grid;
-  gap: 3px;
+  grid-template-columns: 1.45rem minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: start;
 }
 
-.must-taste-heading {
-  display: flex;
-  align-items: baseline;
-  gap: 7px;
-  min-width: 0;
+.must-taste-list li + li {
+  margin-top: 9px;
+  padding-top: 9px;
+  border-top: 1px solid var(--soft-border);
 }
 
-.must-taste-heading span {
+.must-taste-rank {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   width: 1.35rem;
   height: 1.35rem;
+  margin-top: 1px;
   border: 1px solid var(--border);
   border-radius: 999px;
+  background: var(--panel-muted);
   color: var(--text-secondary);
   font-size: 0.72rem;
   font-weight: 650;
   line-height: 1;
+}
+
+.must-taste-body {
+  min-width: 0;
+}
+
+.must-taste-heading {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 7px;
+  min-width: 0;
 }
 
 .must-taste-heading strong {
@@ -613,8 +630,9 @@ h1 {
 }
 
 .must-taste-list p {
+  margin: 1px 0 0;
   color: var(--text-secondary);
-  line-height: 1.72;
+  line-height: 1.62;
   overflow-wrap: anywhere;
 }
 
@@ -704,7 +722,7 @@ h1 {
     line-height: 1.04;
   }
 
-  .restaurant-list li + li {
+  .restaurant-list > li + li {
     margin-top: 46px;
     padding-top: 36px;
   }
@@ -734,7 +752,7 @@ h1 {
   }
 
   .must-taste-list p {
-    line-height: 1.72;
+    line-height: 1.62;
   }
 }
 

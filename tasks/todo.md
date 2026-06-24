@@ -2,6 +2,29 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-24 - Must-taste layout tune
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+
+- [x] Read repository guide, lessons, and relevant browser/Next.js skill guidance.
+- [x] Inspect current must-taste rendering and data cases with two or more items.
+- [x] Verify the awkward layout in browser on desktop and mobile.
+- [x] Tighten the must-taste item layout without changing data semantics.
+- [x] Verify build and browser layout after the change.
+- [x] Record review/result notes.
+- [x] Iterate on the visual treatment and naming for the must-taste section.
+- [x] Re-check two-item examples after each design pass.
+- [x] Finalize the design and verify build/browser layout.
+
+### Review
+
+- Root cause: the restaurant-card divider selector `.restaurant-list li + li` also matched nested must-taste `<li>` elements, so the second menu inherited a large top gap, border, and inset shadow.
+- Changed restaurant list spacing/divider rules to direct-child selectors (`.restaurant-list > li`) so nested lists use only their own compact spacing.
+- Verification: desktop and mobile agent-browser screenshots for `?q=1966정원`, DOM checks confirmed no nested border/padding/box-shadow, mobile overflow check passed, `git diff --check` passed, and `pnpm run build` passed.
+- Iterated the final presentation into a compact `먼저 맛볼 메뉴` block with rank-led rows, transcript quote text, and subtle separators between multiple items.
+- Rechecked two-item examples `1966정원` and `학곡리막국수닭갈비` on mobile, plus the desktop `1966정원` view; no horizontal overflow.
+
 ## Current Task - 2026-06-24 - Design weed cleanup
 
 Worktree: `/Users/indegser/Github/tastyroad`
