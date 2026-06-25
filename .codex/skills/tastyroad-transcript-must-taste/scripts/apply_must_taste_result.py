@@ -14,7 +14,8 @@ from must_taste_schema import DEFAULT_SQLITE, ensure_must_taste_schema
 
 
 SPACE_RE = re.compile(r"\s+")
-REASON_MAX_CHARS = 60
+REASON_MAX_CHARS = 360
+REPAIRED_REASON_MAX_CHARS = 280
 QUALITY_MIN_SCORE = 80
 REVIEW_MIN_SCORE = 82
 QUALIFYING_SIGNALS = {
@@ -38,8 +39,6 @@ ATTENTION_EVENT_TYPES = QUALIFYING_SIGNALS | {
     "ordering_advice",
 }
 REQUIRED_REVIEWERS = {"evidence_skeptic", "visitor_judge"}
-
-
 def normalize_text(value: object) -> str:
     return SPACE_RE.sub(" ", str(value or "")).strip()
 
@@ -55,7 +54,16 @@ def timestamp_label(seconds: float) -> str:
 
 def validate_reason_text(rank: int, reason: str) -> None:
     if len(reason) > REASON_MAX_CHARS:
-        raise ValueError(f"rank {rank}: reason must be a short transcript quote.")
+        raise ValueError(f"rank {rank}: reason must be concise expanded transcript context.")
+
+
+def validate_repaired_reason_text(
+    rank: int,
+    repaired_reason: str,
+    raw_reason: str | None = None,
+) -> None:
+    if len(repaired_reason) > REPAIRED_REASON_MAX_CHARS:
+        raise ValueError(f"rank {rank}: repaired_reason is too long for display.")
 
 
 def validate_reason_quote(
@@ -64,11 +72,11 @@ def validate_reason_quote(
     evidence_texts: list[str],
 ) -> None:
     normalized_reason = normalize_text(reason)
-    for evidence_text in evidence_texts:
-        if normalized_reason in normalize_text(evidence_text):
-            return
+    joined_evidence = normalize_text(" ".join(evidence_texts))
+    if normalized_reason in joined_evidence:
+        return
     raise ValueError(
-        f"rank {rank}: reason must be an exact quote from evidence or supporting_evidence."
+        f"rank {rank}: reason must be copied from evidence/supporting_evidence in source order."
     )
 
 
@@ -574,6 +582,7 @@ def validate_result(
 
         menu_item = normalize_text(item.get("menu_item"))
         reason = normalize_text(item.get("reason"))
+        repaired_reason = normalize_text(item.get("repaired_reason"))
         if not menu_item:
             raise ValueError(f"rank {rank}: menu_item is required.")
         if menu_item.casefold() in seen_menu_items:
@@ -584,6 +593,11 @@ def validate_result(
         if "\n" in str(item.get("reason") or ""):
             raise ValueError(f"rank {rank}: reason must be one line.")
         validate_reason_text(rank, reason)
+        if not repaired_reason:
+            raise ValueError(f"rank {rank}: repaired_reason is required.")
+        if "\n" in str(item.get("repaired_reason") or ""):
+            raise ValueError(f"rank {rank}: repaired_reason must be one line.")
+        validate_repaired_reason_text(rank, repaired_reason, reason)
 
         quality = validate_quality(rank, item.get("quality"))
         review = validate_review(rank, item.get("review"))
@@ -597,11 +611,14 @@ def validate_result(
             validate_evidence_object(rank, entry, segments, "supporting_evidence")
             for entry in supporting_evidence
         ]
+        source_evidence = sorted(
+            [primary_evidence] + normalized_supporting_evidence,
+            key=lambda entry: int(entry["segment_index"]),
+        )
         validate_reason_quote(
             rank,
             reason,
-            [primary_evidence["evidence_text"]]
-            + [entry["evidence_text"] for entry in normalized_supporting_evidence],
+            [entry["evidence_text"] for entry in source_evidence],
         )
         selected_segments = {int(primary_evidence["segment_index"])}
         selected_segments.update(int(entry["segment_index"]) for entry in normalized_supporting_evidence)
@@ -630,6 +647,7 @@ def validate_result(
                 "candidate_id": candidate_id,
                 "menu_item": menu_item,
                 "reason": reason,
+                "repaired_reason": repaired_reason,
                 "quality": quality,
                 "review": review,
                 "segment_index": primary_evidence["segment_index"],
@@ -751,6 +769,7 @@ def apply_result(
                 "quality": item["quality"],
                 "review": item["review"],
                 "candidate_id": item["candidate_id"],
+                "repaired_reason": item["repaired_reason"],
                 "pipeline": result.get("pipeline", {}),
                 "rejected_candidates": result.get("rejected_candidates", []),
                 "supporting_evidence": item["supporting_evidence"],
@@ -764,6 +783,7 @@ def apply_result(
                   rank,
                   item_name,
                   reason,
+                  repaired_reason,
                   segment_index,
                   start_seconds,
                   end_seconds,
@@ -773,7 +793,7 @@ def apply_result(
                   reviewer,
                   generated_at,
                   evidence_json
-                ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                ) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
                 """,
                 (
                     restaurant_id,
@@ -782,6 +802,7 @@ def apply_result(
                     item["rank"],
                     item["menu_item"],
                     item["reason"],
+                    item["repaired_reason"],
                     item["segment_index"],
                     item["start_seconds"],
                     item["end_seconds"],

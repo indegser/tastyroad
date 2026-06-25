@@ -2,6 +2,110 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Must-taste selector prompt final test
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-context-tests`
+Branch: `codex/must-taste-context-tests`
+
+- [x] Re-read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Inspect the current source-window/editor prompt and previous two-agent comparison output.
+- [x] Update the source-window selection prompt without adding new style gates.
+- [x] Re-run the DB-backed two-agent test on the same broader sample.
+- [x] Produce a side-by-side comparison against existing reason and the previous run.
+- [x] Record final findings and verification.
+
+### Review
+
+- Adopted the balanced two-agent direction: source-window selector chooses focused raw subtitle context, then subtitle editor lightly repairs it into `repaired_reason`.
+- Tested a wider "do not cut too short" selector on the same 30-row DB sample. It pulled in price/order/background too often; previous balanced output beat it in 14 rows, with the wider prompt better in only 3 and similar in 13.
+- Tested a narrower selector on the later 15-row half. It collapsed back to short/flat snippets such as `상위권 감자튀김이다` and `근데 고기가 대박이야`, so it is not adopted.
+- Final skill prompt keeps the balanced selector and adds only a small caution not to force adjacent fragments when the next fragment shifts into price, order, a new menu, background, or a different claim.
+- Comparison artifact: `/tmp/tastyroad_input_selector_test/adopted_selector_comparison.md`.
+- Verification: `python3 -m py_compile` for must-taste scripts and `git diff --check` passed.
+
+## Current Task - 2026-06-25 - Must-taste repair quality tightening
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-context-tests`
+Branch: `codex/must-taste-context-tests`
+
+- [x] Re-read current must-taste skill and relevant lessons after user rejection.
+- [x] Tighten the repair workflow so `pass` means publishable complete Korean copy, not merely close enough.
+- [x] Add broader validation for incomplete clauses and duplicated structures without overfitting only one sample.
+- [x] Re-run blind `codex exec` and compare publishable pass rate.
+- [x] Run a broader DB-backed sample comparing existing reason against subtitle-editor repaired copy.
+- [x] Record broader-sample findings.
+- [x] Record the revised result.
+
+### Review
+
+- Tightened the skill away from late-stage "repair a broken joined fragment" behavior and back toward the simpler successful behavior: choose a coherent source context window first, then minimally repair only awkward ASR/subtitle boundaries.
+- Removed `repair_quality_gate` from the final result contract. The model should not self-label copy quality; final items must simply provide a validator-passing `repaired_reason`.
+- Added stronger source-preserving repair instructions for complete Korean copy, connective/adverbial joins, and repeated conditional scaffolding.
+- Re-ran blind `codex exec` as `source_preserving_blind_codex_output_v5.json`; repaired copy quality improved, but the result confirmed self-gating labels were the wrong abstraction.
+- Final decision: use deterministic validation plus source-context reselection/retry; if a candidate cannot produce publishable repaired copy, move it to `rejected_candidates`.
+- Verification: Python compile, `git diff --check`, focused repaired-text validation, SQLite integrity/schema check, and `pnpm run build` passed.
+- Re-ran source-context-window blind tests after removing model self-gating. The "complete sentence" wording caused unsupported predicate completions (`않습니다`, `들어갑니다`, `입니다`), so the skill now allows natural quote-like phrases and prefers deletion/narrowing over invented finite endings.
+- Final validator comparison on the three source-window runs: v1 passed 8/11, v2 passed 10/11, v3 passed 10/11. Remaining failures were exactly unsupported predicate completion or stranded connector endings, which should force source supplement/retry rather than publishing.
+- Latest verification: Python compile, `git diff --check`, and focused repaired-text validator cases passed.
+- Reworked the repaired-copy direction away from accumulated allow/deny gates and into a prompt-only subtitle editor pass. `apply_must_taste_result.py` now only checks `repaired_reason` structurally for display length; style is produced by the editor prompt.
+- Ran prompt-only editor tests on the same 11 samples. The best behavior came from giving the editor a curated raw `reason`; giving it the widest raw context made it pull in setup/price/noisy tails. Final direction: arbiter chooses a focused raw source context, then the subtitle editor prompt lightly repairs it.
+- Latest verification after the prompt-only rewrite: Python compile and `git diff --check` passed.
+- Ran a broader DB-backed sample of 30 rows across 김사원세끼, 성시경의 먹을텐데, and 또간집, comparing existing stored `reason` with subtitle-editor output from evidence/supporting context.
+- Broader sample result: prompt-only repair improves many overly short existing reasons, but blindly joining all supporting evidence often over-expands the copy, especially for 김사원세끼 rows with price/setup/context fragments. This confirms the editor prompt is useful only after a focused source-window selection step.
+- Verification: parsed the generated sample/output/comparison JSON files and `git diff --check` passed.
+
+## Current Task - 2026-06-25 - Must-taste source-preserving skill rewrite
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-context-tests`
+Branch: `codex/must-taste-context-tests`
+
+- [x] Re-read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Inspect current skill, generated pass prompts, validation, DB reference, and public display path.
+- [x] Update the skill contract so raw expanded transcript context and source-preserving repaired display text are separate fields.
+- [x] Add fragment-selection and repair-quality gates to generated task/pass prompts.
+- [x] Run a fresh blind `codex exec` test using the rewritten skill guidance.
+- [x] Record the blind test result and remaining risk.
+
+### Review
+
+- Changed the must-taste contract so `reason` is expanded raw transcript context and `repaired_reason` is the source-preserving public display copy.
+- Updated `SKILL.md`, generated pass/task prompts, DB reference, validation/storage, SQLite schema, and the public restaurant query fallback to display `repaired_reason` when present.
+- Added validator gates for analyst-style prose, dangling final fragments, mid-sentence clipped fragments, and duplicated conditionals such as `주문하시면 ... 드시면`.
+- Ran blind `codex exec` tests from `/tmp` with only the rewritten prompt as input. The corrected prompt eliminated `/` separators in raw `reason` and avoided analyst-summary phrases, but the model still self-labeled several broken copies as `pass`.
+- Focused validator check on the last blind output passed 7/11 and rejected 4/11: clipped `계란까지`, clipped `미나리와 함께`, duplicated `주문하시면 ... 드시면`, and clipped `먹으러`/`살짝` style fragments. This confirms the skill must rely on validation/retry, not prompt compliance alone.
+- Verification: Python compile, `git diff --check`, SQLite integrity/schema check, and `pnpm run build` passed after installing worktree-local dependencies.
+
+## Current Task - 2026-06-25 - Must-taste context quote experiments
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-context-tests`
+Branch: `codex/must-taste-context-tests`
+
+- [x] Run a blind `codex exec` prompt test without previous repaired outputs in the input.
+- [x] Re-test a source-preserving repair prompt against the same examples.
+- [x] Validate the generalized normalization prompt against the prior hand-made normalized examples.
+- [x] Compare direct context quotes with lightly naturalized context copy.
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Create an isolated worktree for analysis artifacts.
+- [x] Inspect stored must-taste rows, evidence JSON, and transcript context availability.
+- [x] Generate real-data samples for several quote/context expansion directions.
+- [x] Compare which direction improves variety without inventing unsupported claims.
+- [x] Record review/result notes.
+
+### Review
+
+- Created `data/work/must_taste_context_reason_samples.md` with 11 real-data samples comparing current reason, full evidence segment, supporting-evidence pack, and compact direct-fragment candidates.
+- Current DB has 94 must-taste rows; 66 rows have `evidence_text` longer than `reason`, and 89 rows already have `evidence_json.supporting_evidence`, so more context can often be shown without re-extraction.
+- The safest direction is not failing flat rows, but rendering/storing a second context layer from existing support lines while keeping public claims as direct subtitle fragments.
+- Reverted an unintended SQLite change caused by a failed context-preparation attempt and tightened the reusable lesson about running context/schema helpers against tracked DBs.
+- Added `data/work/must_taste_context_copy_comparison.md` comparing direct subtitle context against lightly naturalized copy for the same 11 samples.
+- Naturalized copy is consistently better for browsing when ASR breaks fragment sentences, but it should be stored/displayed as normalized context rather than direct quote because it repairs ASR and sentence boundaries.
+- Added `data/work/must_taste_normalization_prompt_validation.md` to validate the generalized prompt against the previous hand-made normalized examples.
+- Prompt validation returned 10 pass, 1 pass-with-caution, 0 fail; add a small guardrail to prefer natural browsing copy over meta-reporting phrases like `반응입니다` when a direct grounded sentence is available.
+- Added `data/work/must_taste_source_preserving_prompt_test.md` with the corrected source-preserving prompt and actual outputs for the same 11 examples.
+- Corrected test result: 11 pass, 0 caution, 0 fail. The key prompt change is to repair the expanded subtitle quote with minimal edits, not summarize evidence into analyst prose.
+- Added `data/work/must_taste_blind_codex_prompt_eval.md` after running separate `codex exec` blind tests with no previous repaired outputs in the prompt.
+- Blind result: prompt-only repair avoids analyst-summary drift, but is not reliable enough for publishable copy; it leaves clipped endings, duplicated conditional structures, and unrelated asides. Skill change should include source-fragment completeness and repair-quality gates.
+
 ## Current Task - 2026-06-25 - Vercel Blob transcript migration to Supabase
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/vercel-blob-to-supabase-latest`

@@ -29,6 +29,7 @@ export type MustTasteItem = {
   rank: number;
   menuItem: string;
   reason: string;
+  rawReason: string;
   timestamp: string;
   evidence: string;
 };

@@ -44,6 +44,7 @@ def ensure_must_taste_schema(connection: sqlite3.Connection) -> None:
           rank integer not null check(rank between 1 and 3),
           item_name text not null check(trim(item_name) != ''),
           reason text not null check(trim(reason) != ''),
+          repaired_reason text not null default '',
           segment_index integer not null,
           start_seconds real not null,
           end_seconds real not null,
@@ -80,6 +81,12 @@ def ensure_must_taste_schema(connection: sqlite3.Connection) -> None:
         group by r.id, r.display_name, y.id, y.video_id, s.name, y.title, y.url;
         """
     )
+
+    if "repaired_reason" not in column_names(connection, "video_must_taste_items"):
+        connection.execute(
+            "alter table video_must_taste_items "
+            "add column repaired_reason text not null default ''"
+        )
 
 
 def main() -> int:
