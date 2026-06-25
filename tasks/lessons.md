@@ -13,6 +13,21 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 - Trigger: A Vercel Blob CLI failure traceback included the subprocess argv with `--rw-token`.
   Rule: Scripts that invoke CLIs with secrets in argv must suppress exception chaining or redact command arguments before raising/logging errors.
 
+- Trigger: Must-taste selector prompt tests got worse when instructions were tightened around clipped endings.
+  Rule: For must-taste `reason`/`repaired_reason`, prefer a balanced source-window selector plus flexible subtitle editor; test prompt changes against DB-backed samples before adding narrow rules, because "not too short" over-expands into setup while "narrowest" collapses back to flat snippets.
+- Trigger: Must-taste normalization prompt drifted from source-preserving subtitle repair into analyst-style summary prose.
+  Rule: For must-taste display copy, treat repaired text as a minimally edited subtitle quote: preserve source wording/order/voice, only fix fragment boundaries and clear ASR/readability issues, and avoid report phrases such as `반응입니다` unless the source cannot be repaired directly.
+- Trigger: Blind `codex exec` testing showed a source-preserving repair prompt can still leave clipped ASR fragments such as dangling endings, duplicated conditionals, and unrelated asides.
+  Rule: Must-taste repaired display text needs a flexible subtitle-editor prompt and enough raw context; avoid turning every observed failure into another validation gate.
+- Trigger: A blind must-taste repair run self-labeled broken outputs as `pass` even after the prompt named the bad patterns.
+  Rule: Do not ask the model to self-label repair quality; keep `repaired_reason` as the editor output and judge examples by reading the copy.
+- Trigger: The user rejected a solution that made the skill depend on model self-gating labels instead of the simpler human-like editing behavior that worked initially.
+  Rule: Do not put model self-evaluation fields such as `repair_quality_gate` in final must-taste items; final selection should simply require a validator-passing `repaired_reason`, and candidates that cannot produce one after source-context reselection should move to `rejected_candidates`.
+- Trigger: A source-window repair retest showed that requiring "complete Korean copy" made the model invent predicates such as `않습니다`, `들어갑니다`, or `입니다` for clipped subtitle tails.
+  Rule: For must-taste repaired display copy, allow natural quote-like phrases when they preserve source text better; prefer deleting/narrowing clipped tails over inventing a finite ending not anchored in the raw reason.
+- Trigger: The user corrected repeated attempts to add repaired-copy gates and asked for the original flexible thinking as a prompt instead.
+  Rule: For must-taste repaired display copy, do not build a pile of allow/deny gates. Use a concise subtitle-editor role prompt: lightly repair the raw subtitle, preserve tone/order/wording, avoid summary/ad prose, and edit less when uncertain.
+
 ## 2026-06-24
 
 - Trigger: The user clarified that transcript post-processing should extract must-taste Top 3 items, not story prose.
@@ -61,6 +76,11 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Keep transcript object storage provider configurable, prefer the private `tastyroad-transcripts` Supabase Storage bucket for the current archive path, and use `--replace-existing` before dropping legacy rows when existing tracks point at an unavailable provider.
 - Trigger: `apply_patch` created generated must-taste artifacts in the shared main checkout while the active task was running in a dedicated worktree.
   Rule: When editing files for a task-specific worktree, pass absolute worktree paths to `apply_patch` or verify the file location before validation; clean up any files accidentally created in the shared checkout.
+
+- Trigger: Running schema/context preparation helpers during verification altered tracked `data/tastyroad.sqlite`.
+  Rule: For schema smoke tests or read-only transcript context experiments, copy the DB to `/tmp` or pass an explicit temp path; do not run root-default schema/context CLIs against tracked data unless updating the DB is intentional.
+- Trigger: The user defined design "weeds" as redundant visible words such as labeling an already familiar filter area as `필터`.
+  Rule: In Tastyroad UI work, remove visible explanatory labels when the layout/control pattern already carries the meaning; keep accessible labels for assistive technology.
 
 ## 2026-06-22
 

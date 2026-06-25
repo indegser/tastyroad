@@ -157,7 +157,8 @@ function loadRestaurantItems(): RestaurantItem[] {
                 json_object(
                   'rank', rank,
                   'menuItem', item_name,
-                  'reason', reason,
+                  'reason', coalesce(nullif(repaired_reason, ''), reason),
+                  'rawReason', reason,
                   'timestamp', timestamp_label,
                   'evidence', evidence_text
                 )
@@ -169,6 +170,7 @@ function loadRestaurantItems(): RestaurantItem[] {
                 rank,
                 item_name,
                 reason,
+                repaired_reason,
                 timestamp_label,
                 evidence_text
               from video_must_taste_items
@@ -281,6 +283,7 @@ function filterRestaurants(
       ...item.mustTasteItems.flatMap((mustTasteItem) => [
         mustTasteItem.menuItem,
         mustTasteItem.reason,
+        mustTasteItem.rawReason,
         mustTasteItem.timestamp,
         mustTasteItem.evidence,
       ]),
@@ -375,6 +378,7 @@ function parseMustTasteItems(value: string | null): MustTasteItem[] {
           rank: normalizePositiveInteger(String(entry.rank || ""), 0),
           menuItem: normalizeText(String(entry.menuItem || "")),
           reason: normalizeText(String(entry.reason || "")),
+          rawReason: normalizeText(String(entry.rawReason || "")),
           timestamp: normalizeText(String(entry.timestamp || "")),
           evidence: normalizeText(String(entry.evidence || "")),
         };

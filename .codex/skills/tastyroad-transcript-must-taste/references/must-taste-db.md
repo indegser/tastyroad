@@ -31,7 +31,8 @@ Important columns:
 - `youtube_video_id`, `video_id`: source video identity.
 - `rank`: sequential rank from 1 to 3 when recommendations exist.
 - `item_name`: menu item chosen from transcript evidence after passing the quality and visitor-review gates.
-- `reason`: short direct subtitle quote used for display; it must be copied from the cited primary/supporting transcript evidence, not generated ad copy.
+- `reason`: expanded raw subtitle context copied from cited primary/supporting transcript evidence in source order. This is the auditable raw source, not public polished copy.
+- `repaired_reason`: source-preserving repaired display copy derived from `reason` by the subtitle editor prompt. It should feel like a lightly edited subtitle quote, not a summary, explanation, ad phrase, or generated review.
 - `segment_index`, `start_seconds`, `end_seconds`, `timestamp_label`: timed evidence location.
 - `evidence_text`: exact transcript segment text copied from `context.json`.
 - `transcript_track_id`: preferred transcript track used for extraction.
@@ -42,7 +43,7 @@ Important columns:
 Recommendations for one restaurant/video pair:
 
 ```bash
-sqlite3 -header -column data/tastyroad.sqlite "select rank, item_name, reason, timestamp_label, evidence_text from video_must_taste_items where restaurant_id=<restaurant_id> and video_id='<video_id>' order by rank;"
+sqlite3 -header -column data/tastyroad.sqlite "select rank, item_name, repaired_reason, reason as raw_reason, timestamp_label, evidence_text from video_must_taste_items where restaurant_id=<restaurant_id> and video_id='<video_id>' order by rank;"
 ```
 
 Coverage:
