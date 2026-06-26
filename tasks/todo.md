@@ -30,9 +30,11 @@ Branch: `codex/sungsikyung-must-taste-fill`
 - [x] Confirm the missing scope and whether it is taste-eligible.
 - [x] Promote verified Naver place IDs for Sung Si-kyung transcript-backed videos without mappings.
 - [x] Attempt must-taste extraction for newly mapped transcript-backed restaurant-video pairs.
-- [ ] Apply only semantically valid must-taste results to `data/tastyroad.sqlite`.
+- [x] Apply only semantically valid must-taste results to `data/tastyroad.sqlite`.
 - [x] Verify the final transcript-without-taste count, DB integrity, and app build.
 - [x] Record review/result notes.
+- [x] Continue with official must-taste extraction for mapped/no-taste pairs in reviewable batches.
+- [x] Run remaining 152 mapped transcript-backed pairs through parallel `$tastyroad-transcript-must-taste` batches until pair count is 0.
 
 ### Notes
 
@@ -41,13 +43,18 @@ Branch: `codex/sungsikyung-must-taste-fill`
 - Therefore closing the gap requires map verification first; `video_must_taste_items` cannot be written without a `restaurant_id`.
 - Resolved 161 of 179 domestic `needs_review` candidates through Naver mobile search address matching and promoted them. Post-promotion, 161 transcript-backed mapped restaurant-video pairs need must-taste rows; 23 captioned videos still have no verified map row.
 - Attempted deterministic transcript-signal extraction for all 161 newly mapped pairs. The generated artifacts passed structural validator dry-runs, but spot checks showed semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments. Removed the attempted `codex-transcript-signal` rows and did not keep the unsafe generator.
+- Continuation target after pushing/merging the mapping commit: first reduce the 161 mapped transcript-backed restaurant-video pairs without taste using the full artifact workflow; leave the 23 no-map captioned videos for separate map verification.
+- Continuation batch progress: applied validated must-taste rows for 압구정진주 한남직영점, 우래옥, 뱃고동, 돈푸짐감자탕, and 상무암뽕순대국밥. Current remaining mapped transcript-backed pairs without taste: 152.
+- Current completion target: no `성시경의 먹을텐데` pair with verified map plus preferred transcript may remain without a stored `video_must_taste_items` row.
+- Final official extraction batch processed 152 mapped transcript-backed pairs through `$tastyroad-transcript-must-taste`; the 3 initially insufficient 신림정 pairs were retried and converted to transcript-backed success artifacts.
+- Final DB application dry-ran and applied all 152 selected result artifacts. `성시경의 먹을텐데` verified-map plus preferred-transcript coverage is now 180 pairs with 180 pairs having must-taste rows, 422 total Sung Si-kyung must-taste items, and 0 remaining pairs without taste.
 
 ### Review
 
 - Promoted 161 Naver Map place IDs for transcript-backed `성시경의 먹을텐데` videos, raising verified map coverage to 180 links across 172 videos and 171 restaurants.
-- Did not apply new must-taste rows: automated transcript-signal extraction was structurally valid but semantically unsafe, so the temporary rows were deleted and the unsafe generator was removed.
-- Current captioned Sung Si-kyung video distribution remains: `has_map=0/has_taste=0` 23 videos, `has_map=1/has_taste=0` 153 videos, `has_map=1/has_taste=1` 19 videos.
-- Verification: `resolve_naver_search_candidates.py` compiles, `pragma integrity_check` returned `ok`, `git diff --check` passed, and `pnpm run build` passed after installing lockfile dependencies in the worktree.
+- Rejected the unsafe deterministic transcript-signal attempt, then ran the official transcript-grounded must-taste workflow for the remaining 152 mapped transcript-backed pairs.
+- Applied 152 validation-passing result artifacts to `data/tastyroad.sqlite`; the final query for verified-map plus preferred-transcript `성시경의 먹을텐데` pairs without must-taste rows returned 0.
+- Verification: all 152 final artifacts passed `apply_must_taste_result.py --dry-run`; final coverage is 180 scoped pairs / 180 pairs with items / 422 items / 0 remaining pairs without taste; SQLite `pragma integrity_check` returned `ok`; `git diff --check` passed; `pnpm run build` passed.
 
 ## Current Task - 2026-06-25 - Sung Si-kyung must-taste full rerun
 
