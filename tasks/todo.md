@@ -14,6 +14,7 @@ Branch: `codex/sungsikyung-must-taste-fill`
 - [ ] Apply only semantically valid must-taste results to `data/tastyroad.sqlite`.
 - [x] Verify the final transcript-without-taste count, DB integrity, and app build.
 - [x] Record review/result notes.
+- [ ] Continue with official must-taste extraction for mapped/no-taste pairs in reviewable batches.
 
 ### Notes
 
@@ -22,6 +23,8 @@ Branch: `codex/sungsikyung-must-taste-fill`
 - Therefore closing the gap requires map verification first; `video_must_taste_items` cannot be written without a `restaurant_id`.
 - Resolved 161 of 179 domestic `needs_review` candidates through Naver mobile search address matching and promoted them. Post-promotion, 161 transcript-backed mapped restaurant-video pairs need must-taste rows; 23 captioned videos still have no verified map row.
 - Attempted deterministic transcript-signal extraction for all 161 newly mapped pairs. The generated artifacts passed structural validator dry-runs, but spot checks showed semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments. Removed the attempted `codex-transcript-signal` rows and did not keep the unsafe generator.
+- Continuation target after pushing/merging the mapping commit: first reduce the 161 mapped transcript-backed restaurant-video pairs without taste using the full artifact workflow; leave the 23 no-map captioned videos for separate map verification.
+- Continuation batch progress: applied validated must-taste rows for 압구정진주 한남직영점, 우래옥, 뱃고동, 돈푸짐감자탕, and 상무암뽕순대국밥. Current remaining mapped transcript-backed pairs without taste: 152.
 
 ### Review
 
