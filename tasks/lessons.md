@@ -6,6 +6,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-06-26
 
+- Trigger: The user questioned why many rows still lacked taste after the agent said it had run the must-taste skill.
+  Rule: Report must-taste progress by exact applied restaurant-video pairs and remaining counts; do not imply that preparing contexts or running a small reviewed batch means the full remaining scope has been extracted and stored.
 - Trigger: A deterministic must-taste extractor passed artifact validation but produced semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments.
   Rule: Do not apply heuristic-generated must-taste rows just because `apply_must_taste_result.py --dry-run` passes; semantic review or the full skill extraction workflow is required before DB writes.
 
