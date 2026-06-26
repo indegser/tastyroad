@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-06-26
+
+- Trigger: A deterministic must-taste extractor passed artifact validation but produced semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments.
+  Rule: Do not apply heuristic-generated must-taste rows just because `apply_must_taste_result.py --dry-run` passes; semantic review or the full skill extraction workflow is required before DB writes.
+
 ## 2026-06-25
 
 - Trigger: The user clarified that the oversized address issue was specifically the visible `지도` action text, not the whole address row.

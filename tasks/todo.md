@@ -2,6 +2,34 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-26 - Sung Si-kyung transcript-to-taste gap closure
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-must-taste-fill`
+Branch: `codex/sungsikyung-must-taste-fill`
+
+- [x] Read repository guide, lessons, `$tastyroad-transcript-must-taste`, and `$tastyroad-map-video-restaurants`.
+- [x] Confirm the missing scope and whether it is taste-eligible.
+- [x] Promote verified Naver place IDs for Sung Si-kyung transcript-backed videos without mappings.
+- [x] Attempt must-taste extraction for newly mapped transcript-backed restaurant-video pairs.
+- [ ] Apply only semantically valid must-taste results to `data/tastyroad.sqlite`.
+- [x] Verify the final transcript-without-taste count, DB integrity, and app build.
+- [x] Record review/result notes.
+
+### Notes
+
+- Current source scope: `성시경의 먹을텐데` has 195 videos with preferred transcripts.
+- The 176 videos with transcript but no must-taste rows all have no verified restaurant mapping yet (`has_map=0`, `has_taste=0`), while the 19 mapped transcript videos already have must-taste rows.
+- Therefore closing the gap requires map verification first; `video_must_taste_items` cannot be written without a `restaurant_id`.
+- Resolved 161 of 179 domestic `needs_review` candidates through Naver mobile search address matching and promoted them. Post-promotion, 161 transcript-backed mapped restaurant-video pairs need must-taste rows; 23 captioned videos still have no verified map row.
+- Attempted deterministic transcript-signal extraction for all 161 newly mapped pairs. The generated artifacts passed structural validator dry-runs, but spot checks showed semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments. Removed the attempted `codex-transcript-signal` rows and did not keep the unsafe generator.
+
+### Review
+
+- Promoted 161 Naver Map place IDs for transcript-backed `성시경의 먹을텐데` videos, raising verified map coverage to 180 links across 172 videos and 171 restaurants.
+- Did not apply new must-taste rows: automated transcript-signal extraction was structurally valid but semantically unsafe, so the temporary rows were deleted and the unsafe generator was removed.
+- Current captioned Sung Si-kyung video distribution remains: `has_map=0/has_taste=0` 23 videos, `has_map=1/has_taste=0` 153 videos, `has_map=1/has_taste=1` 19 videos.
+- Verification: `resolve_naver_search_candidates.py` compiles, `pragma integrity_check` returned `ok`, `git diff --check` passed, and `pnpm run build` passed after installing lockfile dependencies in the worktree.
+
 ## Current Task - 2026-06-25 - Sung Si-kyung must-taste full rerun
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-must-taste-rerun`
