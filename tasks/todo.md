@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-25 - Sung Si-kyung must-taste full rerun
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-must-taste-rerun`
+Branch: `codex/sungsikyung-must-taste-rerun`
+
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Scope all current `성시경의 먹을텐데` restaurant-video pairs with usable transcripts and existing must-taste rows.
+- [x] Regenerate full must-taste artifacts for the entire current Sung Si-kyung scope, including already stored pairs.
+- [x] Apply only validation-passing rerun results to `data/tastyroad.sqlite`.
+- [x] Verify DB integrity, coverage counts, generated artifacts, and app build.
+- [x] Record review/result notes.
+
+### Review
+
+- Regenerated full `$tastyroad-transcript-must-taste` artifacts for all 19 current transcript-backed `성시경의 먹을텐데` restaurant-video pairs, including pairs that already had stored rows.
+- Replaced the previous 33 stored Sung Si-kyung must-taste rows with 52 validation-passing rows, keeping every pair at 2-3 selected items and preserving rejected-candidate lineage in `evidence_json`.
+- Verified all 19 `apply_must_taste_result.py --dry-run` runs before actual apply.
+- Verification: Sung Si-kyung view coverage is `restaurant_video_pairs=19`, `items=52`; SQLite `pragma integrity_check` returned `ok`; `git diff --check` passed; `pnpm run build` passed after `pnpm install --frozen-lockfile` restored the worktree's missing `node_modules`.
+
 ## Current Task - 2026-06-25 - Must-taste selector prompt final test
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-context-tests`
