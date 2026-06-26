@@ -91,6 +91,17 @@ When the agent created a task-specific worktree, clean it up automatically only 
 - For Tastyroad data, release, YouTube collection, transcript ingest, transcript must-taste extraction, or Naver Map workflows, read and follow the matching `.codex/skills` instructions before running commands.
 - Record what was verified in the final response and, for non-trivial work, in `tasks/todo.md`.
 
+## Skill Design Defaults
+
+When creating or updating Tastyroad skills, first decide whether the workflow should be script-centered, agent-centered, or hybrid.
+
+- Default to script-centered workflows for data movement, storage, schema changes, DB writes, release steps, external UI side effects, idempotent batch operations, and validation gates.
+- Use agent-centered stages only when the hard part is broad context exploration, subjective judgment, candidate discovery, semantic review, or conflict resolution across messy artifacts.
+- Prefer hybrid designs for complex data workflows: scripts prepare context and perform final writes; agents scout, review, and arbitrate ambiguous evidence through explicit artifacts.
+- Do not let parallel agents mutate shared DBs, production services, saved lists, or deployment state. Have them write review artifacts, then use a sequential arbiter and deterministic script for state changes.
+- Require lineage and validation contracts whenever agent judgment feeds a write step: record inputs, candidates, accepted/rejected decisions, evidence, and failure reasons before applying changes.
+- Keep `SKILL.md` concise. Put long prompts, schemas, and examples into `references/`, and put repeated deterministic operations into `scripts/`.
+
 ## Repository Context
 
 - This is a Next.js project for a source-backed Korean restaurant listing.
@@ -99,7 +110,7 @@ When the agent created a task-specific worktree, clean it up automatically only 
   - `$tastyroad-youtube-channel-collect`: YouTube collection and refresh.
   - `$tastyroad-youtube-transcript-ingest`: Webshare-backed YouTube transcript download and SQLite track/segment storage.
   - `$tastyroad-transcript-must-taste`: Restaurant-scoped, multi-pass transcript must-taste extraction with whole-transcript coverage, attention candidates, candidate reviews, rejection tracking, quality validation, and SQLite storage.
-  - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` inspection, Naver place ID verification, and `restaurants`/`youtube_video_restaurants` writes.
+  - `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` inspection, agent-assisted candidate/place review for ambiguous mappings, Naver place ID verification, and `restaurants`/`youtube_video_restaurants` writes.
   - `$tastyroad-site-release`: build, commit/push, and Vercel deployment verification.
 - Do not reintroduce a generic `tastyroad-data-pipeline` user-facing skill; route work by user intent to the purpose-specific skill that owns it.
 - App data and artifacts live under `data/`.

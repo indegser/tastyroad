@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-26 - Skill agent design guidelines
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/skill-agent-guidelines`
+Branch: `codex/skill-agent-guidelines`
+
+- [x] Read repository guide, lessons, and `skill-creator`.
+- [x] Inspect current Tastyroad skills and mapping skill resources.
+- [x] Add repository skill-design guidance for script-centered vs agent-centered workflows.
+- [x] Update `$tastyroad-map-video-restaurants` to use an agent-assisted mapping review flow while keeping deterministic writes.
+- [x] Verify skill metadata and markdown consistency.
+- [x] Record review/result notes.
+
+### Review
+
+- Added `AGENTS.md` skill design defaults so future skill creation starts by choosing script-centered, agent-centered, or hybrid architecture.
+- Reworked `$tastyroad-map-video-restaurants` as a hybrid workflow: subagents may scout candidates, verify Naver places, and review conflicts, while final `verified_places` promotion and DB checks remain deterministic.
+- Updated README, skill UI metadata, and lessons to match the new guidance.
+- Verification: `quick_validate.py .codex/skills/tastyroad-map-video-restaurants` passed and `git diff --check` passed.
+
 ## Current Task - 2026-06-26 - Sung Si-kyung transcript-to-taste gap closure
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/sungsikyung-must-taste-fill`

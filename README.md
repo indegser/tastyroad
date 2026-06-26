@@ -16,6 +16,7 @@
 - `data/verified_places/*.json`: 검증된 장소 승격 입력
 - `data/work/`: 멀티 에이전트 작업 artifact
 - `data/work/must_taste/`: 자막 기반 필수 맛보기 추천 추출 작업 artifact
+- `data/work/map_video_restaurants/`: 식당 매핑 후보/장소 검토 작업 artifact
 - `data/naver_map_list_target.json`: Naver Map 저장 리스트 설정
 - `data/naver_map_list_synced_ids.json`: Naver Map 저장 완료 상태
 
@@ -24,7 +25,7 @@
 - `$tastyroad-youtube-channel-collect`: YouTube 소스 수집/갱신, full-channel 감사, channel_id 확인
 - `$tastyroad-youtube-transcript-ingest`: Webshare 기반 YouTube 자막 다운로드, Supabase Storage raw/segment 아카이브, SQLite metadata 저장
 - `$tastyroad-transcript-must-taste`: object-storage-backed 또는 SQLite cached 자막 segment 전체 스캔, attention 후보 집계, 후보 리뷰, 탈락 사유까지 거쳐 식당별 꼭 맛볼 추천 메뉴 최대 3개와 직접 자막 인용 추출/검증/저장
-- `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` 조회, Naver place ID 검증, `restaurants`/`youtube_video_restaurants` 반영
+- `$tastyroad-map-video-restaurants`: `mapping_pending`/`needs_review` 조회, 애매한 매핑의 에이전트 후보/장소 검토, Naver place ID 검증, `restaurants`/`youtube_video_restaurants` 반영
 - `$tastyroad-naver-map-sync`: 공개 식당을 Naver Map `Tastyroad` 리스트에 동기화
 - `$tastyroad-site-release`: GitHub push 기반 Vercel 배포, 배포 상태/응답 확인, 배포 후 API 검증
 

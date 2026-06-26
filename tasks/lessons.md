@@ -6,6 +6,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-06-26
 
+- Trigger: The user asked to make the script-centered vs agent-centered skill design tradeoff explicit for future skill creation.
+  Rule: When creating or updating Tastyroad skills, decide up front whether the workflow should be script-centered, agent-centered, or hybrid; use agents for broad semantic review/candidate discovery and deterministic scripts for validation and state-changing writes.
 - Trigger: A deterministic must-taste extractor passed artifact validation but produced semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments.
   Rule: Do not apply heuristic-generated must-taste rows just because `apply_must_taste_result.py --dry-run` passes; semantic review or the full skill extraction workflow is required before DB writes.
 
