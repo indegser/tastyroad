@@ -14,6 +14,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Describe must-taste work as stages inside the one skill, using plain terms such as candidate-finding stage, candidate-review stage, final-selection stage, and validation/apply script; do not present internal stage labels as separate skills.
 - Trigger: A deterministic must-taste extractor passed artifact validation but produced semantic false positives from ordering-only, comparison, and wrong-restaurant transcript moments.
   Rule: Do not apply heuristic-generated must-taste rows just because `apply_must_taste_result.py --dry-run` passes; semantic review or the full skill extraction workflow is required before DB writes.
+- Trigger: A large must-taste gap closure took too long because batch planning, retry override, and final apply were handled manually while workers were running.
+  Rule: For source-level must-taste backfills, use the skill's batch planning and final apply scripts; let agents create semantic artifacts only, close all workers before SQLite writes, and apply retry completion files as pair-level overrides.
+- Trigger: Signal-term must-taste prefiltering looked cheaper until benchmarked against completed Sung Si-kyung rows with conservative range-based chunk accounting.
+  Rule: Before adopting transcript prefilters, benchmark against stored Sung Si-kyung must-taste evidence; prefer video-once full-transcript scouting for multi-restaurant sources unless a prefilter proves both high recall and real chunk savings.
 
 ## 2026-06-25
 

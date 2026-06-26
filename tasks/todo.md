@@ -2,6 +2,79 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-26 - Must-taste video context compression
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-batch-orchestration`
+Branch: `codex/must-taste-batch-orchestration`
+
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Add a video-level context preparation script with compact transcript blocks and restaurant metadata.
+- [x] Add worker instructions for restaurant boundary finding, shared candidate-finding, and combined candidate reviews.
+- [x] Smoke test on a 또간집 video and compare block count/input size against segment chunks.
+- [x] Verify scripts and update task notes.
+
+### Notes
+
+- Goal: preserve full-transcript coverage but reduce worker input by grouping ASR segments into auditable blocks.
+- Final pair artifacts and SQLite writes must still use the existing pair-level `apply_must_taste_result.py` validator.
+
+### Review
+
+- Added `prepare_must_taste_video_context.py`, a read-only video-level context builder that writes compact `blocks.json`, full `segment_lookup.json`, `video_context.json`, `restaurant_windows.json`, `video_attention_events.jsonl`, `task.md`, and `combined_candidate_review.md`.
+- Smoke-tested `또간집` video `9LdSGv5wHec`: `1425` transcript segments became `104` compact blocks; the video has `4` restaurants, so pairwise scout would be `80` chunks while video-once scout is `20` chunks. `blocks.json` was `100K`; full `segment_lookup.json` stayed separate at `304K`.
+- Updated the skill docs so video-grouped workers prepare compact video context first, use block input for boundary/shared candidate-finding, and may emit both candidate review perspectives from one combined call while preserving the existing `candidate_reviews.json` contract.
+- Verification: video context smoke test passed; Python compile passed for must-taste scripts; `git diff --check` passed; `pnpm run build` passed.
+
+## Current Task - 2026-06-26 - Must-taste low-cost quality benchmark
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-batch-orchestration`
+Branch: `codex/must-taste-batch-orchestration`
+
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Inspect the existing batch orchestration changes before editing.
+- [x] Add a read-only benchmark that uses `성시경의 먹을텐데` stored must-taste rows as gold quality comparison.
+- [x] Measure candidate-window recall and token/chunk savings against the current pairwise whole-transcript workflow.
+- [x] Update the must-taste skill docs with the benchmark-first optimization path.
+- [x] Verify scripts and record results.
+
+### Notes
+
+- Goal: reduce token/time cost without repeating the unsafe heuristic-only DB write pattern.
+- Quality comparison: existing Sung Si-kyung rows are treated as gold; a low-cost prefilter is acceptable only if it keeps high recall for stored evidence segments.
+- Finding: signal-window prefilter is not yet worth adopting. With conservative range-based chunk accounting on Sung Si-kyung, signal recall was `95.26%` item / `91.11%` pair-all and the fragmented windows estimated `1562` chunks versus `1236` current pairwise chunks.
+- Finding: video-once whole-transcript scouting is the safe optimization. Sung Si-kyung only saves `5.10%` because most videos have one restaurant, but `또간집` saves `68.93%` chunks (`3441` pairwise -> `1069` video-once) while preserving full-transcript scout coverage.
+
+### Review
+
+- Added `benchmark_must_taste_prefilter.py` to compare proposed low-cost transcript windows against stored must-taste rows without writing SQLite.
+- Extended `plan_must_taste_batches.py` with `--group-by-video`, producing `videos.json` and video-grouped batches for multi-restaurant sources.
+- Updated `$tastyroad-transcript-must-taste` bulk workflow to require Sung Si-kyung benchmark checks before risky prefilters and to route `또간집` through video-first scouting.
+- Verification: `python3 -m py_compile` passed for must-taste scripts; grouped `또간집` planning produced `276` missing pairs as `88` video units / `44` batches; `git diff --check` passed; `pnpm run build` passed.
+
+## Current Task - 2026-06-26 - Must-taste batch orchestration improvement
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-batch-orchestration`
+Branch: `codex/must-taste-batch-orchestration`
+
+- [x] Read repository guide, lessons, `$skill-creator`, and `$tastyroad-transcript-must-taste`.
+- [x] Add a script to plan missing transcript-backed must-taste pairs into worker-sized batch files.
+- [x] Add a script to collect done/retry files, dry-run validate, and apply all successful artifacts sequentially.
+- [x] Update the must-taste skill docs to route large backfills through the scripts.
+- [x] Verify scripts with focused checks plus build.
+- [x] Record review/result notes.
+
+### Notes
+
+- Improvement target: reduce manual wave handling and prevent DB writes while workers are still running.
+- Design: keep semantic 후보 찾기/후보 검토/최종 선택 agent-centered, but move batch planning and final validation/apply into deterministic scripts.
+
+### Review
+
+- Added `plan_must_taste_batches.py` to query verified-map plus preferred-transcript pairs for a source, write `pairs.json`, and split work into `batch_001.json` style worker inputs.
+- Added `apply_must_taste_batch.py` to collect completion files, let `retry_*_done.json` override earlier insufficient rows, dry-run every selected artifact, and optionally apply all rows sequentially with a zero-missing coverage check.
+- Updated `$tastyroad-transcript-must-taste` with a bulk backfill workflow that keeps agents on semantic stages only and keeps final SQLite writes single-process.
+- Verification: Python compile passed for all must-taste scripts; `quick_validate.py` passed for the skill; planning produced 0 missing and 180 include-existing Sung Si-kyung pairs as expected; empty done-dir apply dry-run reported current coverage 180/180/422/0; `git diff --check` and `pnpm run build` passed.
+
 ## Current Task - 2026-06-26 - Skill agent design guidelines
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/skill-agent-guidelines`

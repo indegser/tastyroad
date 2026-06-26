@@ -9,7 +9,7 @@ description: Run a multi-pass, transcript-grounded "must taste" recommendation p
 
 Use this skill after `$tastyroad-youtube-transcript-ingest` has stored timed captions. Captions may live in Supabase Storage or Vercel Blob with SQLite metadata, or in the legacy SQLite segment cache. The output is not a story and not video-level: it is a multi-pass artifact pipeline that scans the whole transcript, surfaces attention events, aggregates menu candidates, reviews each candidate, rejects weak candidates, and stores zero to three genuinely recommended transcript-supported menu items for one target restaurant.
 
-## Workflow
+## Single Pair Workflow
 
 1. Prepare the timed transcript context:
 
@@ -104,6 +104,76 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_r
   --context data/work/must_taste/<youtube_id>/<restaurant_id>/context.json \
   --result data/work/must_taste/<youtube_id>/<restaurant_id>/result.json
 ```
+
+## Bulk Backfill Workflow
+
+For source-level or large gap-closure work, do not hand-roll SQL, batch JSON, or final apply loops. Use deterministic scripts for planning and final writes; use agents only for the semantic 후보 찾기 / 후보 검토 / 최종 선택 work inside each planned batch.
+
+Before optimizing prompts or narrowing transcript input, benchmark the proposed shortcut against the completed `성시경의 먹을텐데` rows:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/benchmark_must_taste_prefilter.py \
+  --source-name "성시경의 먹을텐데" \
+  --output /tmp/sungsikyung_prefilter_benchmark.json \
+  --markdown-output /tmp/sungsikyung_prefilter_benchmark.md
+```
+
+Treat existing Sung Si-kyung `video_must_taste_items` as the quality comparison set. Do not use a signal/prefilter shortcut for DB writes unless the benchmark shows high recall for stored evidence segments. A lower-risk cost reduction is video-first scouting: read each full transcript once per video, write shared candidate-finding notes under `data/work/must_taste_video/<video_id>/`, then split filtered events into each restaurant's normal `data/work/must_taste/<video_id>/<restaurant_id>/` artifacts so `apply_must_taste_result.py` still validates the ordinary pair-level contract.
+
+1. Plan missing verified-map plus preferred-transcript pairs. For sources with multiple restaurants per video such as `또간집`, prefer `--group-by-video` so workers can scout each transcript once:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/plan_must_taste_batches.py \
+  --source-name "또간집" \
+  --output-dir /tmp/ddoganjip_must_taste_batches \
+  --batch-size 2 \
+  --group-by-video
+```
+
+This writes `manifest.json`, `pairs.json`, optional `videos.json`, and `batch_001.json` style worker inputs. Without `--group-by-video`, each batch item is one restaurant-video pair. With `--group-by-video`, each batch item is one video plus a `restaurants` list. Use `--include-existing` only when intentionally re-running already stored pairs.
+
+2. Send each batch file to a worker/subagent. The worker owns only that batch's `data/work/must_taste/<video>/<restaurant>/` artifacts, optional `data/work/must_taste_video/<video>/` scout notes, and its `<batch>_done.json` completion file. The worker must not write `data/tastyroad.sqlite`; it should run `apply_must_taste_result.py --dry-run` only.
+
+For video-grouped batches, the worker flow is:
+
+- Prepare the compact video context once:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/prepare_must_taste_video_context.py \
+  --video-id <youtube_id>
+```
+
+This writes `data/work/must_taste_video/<video_id>/video_context.json`, `blocks.json`, `segment_lookup.json`, `task.md`, `restaurant_windows.json`, `video_attention_events.jsonl`, and `combined_candidate_review.md`. Use `blocks.json` for candidate-finding and restaurant-boundary work. Use `segment_lookup.json` only when exact segment text is needed for pair artifacts.
+
+- Prepare normal pair contexts for every restaurant in the video so final validation remains unchanged.
+- Run the candidate-finding stage once over the compact video blocks and write shared notes/events under `data/work/must_taste_video/<video_id>/`.
+- For each target restaurant, copy only same-restaurant events into that pair's `attention_events.jsonl` with a concrete `restaurant_scope_note`, then run pair-specific candidate aggregation, reviews, arbiter result, and dry-run validation.
+- Candidate reviews may be produced with one combined call per candidate, as long as the output still contains separate `evidence_skeptic` and `visitor_judge` review objects matching the existing `candidate_reviews.json` contract.
+- If restaurant boundaries are ambiguous, widen the restaurant window or fall back to the ordinary single-pair whole-transcript workflow for that pair. Do not guess wrong-restaurant events into a result.
+
+3. If a completion row is `insufficient_evidence` but the product goal requires zero missing pairs, run a focused retry for that pair and write `retry_<video_id>_<restaurant_id>_done.json`. Retry files intentionally override earlier batch completion rows for the same pair.
+
+4. After all workers are done and closed, collect completion files and validate every selected artifact:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_batch.py \
+  --done-dir /tmp/sungsikyung_must_taste_batches \
+  --expected-count 152 \
+  --source-name "성시경의 먹을텐데"
+```
+
+5. Apply only after the dry-run-only command passes:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_batch.py \
+  --done-dir /tmp/sungsikyung_must_taste_batches \
+  --expected-count 152 \
+  --source-name "성시경의 먹을텐데" \
+  --apply \
+  --require-zero-missing
+```
+
+Never run final DB apply while worker/subagent tasks are still active. Parallel workers may prepare artifacts, but the final SQLite write must be single-process and sequential.
 
 ## Selection Rules
 
