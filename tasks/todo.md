@@ -2,6 +2,166 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-26 - Ddoganjip must-taste batches 031-036
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`
+Branch: `codex/ddoganjip-must-taste-backfill`
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs and prepared artifact locations.
+- [x] Build video-level restaurant windows and shared attention events for batches `031`-`036`.
+- [x] Build pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair result without writing SQLite.
+- [x] Write batch completion files for `031`-`036`.
+- [x] Record result counts and blockers.
+
+### Notes
+
+- Assigned scope: `/tmp/ddoganjip_must_taste_batches/batch_031.json` through `batch_036.json`, totaling 12 video units and 38 restaurant-video pairs.
+- Worker stage is dry-run only; do not run SQLite apply without `--dry-run`.
+
+### Review
+
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for all 12 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 38 assigned restaurant-video pairs.
+- Result: 36 success rows and 2 insufficient_evidence rows (`F7PN-1EmJbI` / `894` 제주객주리조림, `u9Y3hZ9UP9I` / `902` 대복추어탕).
+- Wrote `/tmp/ddoganjip_must_taste_batches/batch_031_done.json` through `batch_036_done.json`.
+- Verification: each assigned pair passed `apply_must_taste_result.py --dry-run` against `/tmp/ddoganjip_must_taste_031_036_dryrun.sqlite`; full logs are under `/tmp/ddoganjip_must_taste_batches/validation_logs_031_036_tmp_sqlite`. The tracked SQLite file is clean.
+
+## Current Task - 2026-06-26 - Ddoganjip must-taste batches 001-006
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`
+Branch: `codex/ddoganjip-must-taste-backfill`
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch scope and prepared artifact locations.
+- [x] Write video-level restaurant windows and attention events for batches 001-006.
+- [x] Write pair-level attention, candidates, reviews, and results for assigned pairs.
+- [x] Dry-run validate every assigned pair without writing SQLite.
+- [x] Write batch_001_done.json through batch_006_done.json.
+- [x] Record review/result notes.
+
+### Notes
+
+- Assigned scope: `/tmp/ddoganjip_must_taste_batches/batch_001.json` through `batch_006.json`, totaling 12 video units and 41 restaurant-video pairs.
+- Worker stage is dry-run only; do not run SQLite apply without `--dry-run`.
+
+### Review
+
+- Result: 40 success rows and 1 insufficient_evidence row (`vAKeY1t_bLI` / `1029` 류정닭개장).
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for all 12 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 41 assigned restaurant-video pairs.
+- Wrote `/tmp/ddoganjip_must_taste_batches/batch_001_done.json` through `batch_006_done.json`.
+- Verification: each assigned pair passed `apply_must_taste_result.py --dry-run` with `--sqlite /tmp/ddoganjip_must_taste_dryrun.sqlite`; `data/tastyroad.sqlite` is not modified.
+
+## Current Task - 2026-06-26 - Ddoganjip must-taste batches 019-024
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`
+Branch: `codex/ddoganjip-must-taste-backfill`
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs and worktree status.
+- [x] Build video-level restaurant windows and shared attention events for batches `019`-`024`.
+- [x] Build pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair result without writing SQLite.
+- [x] Write batch completion files for `019`-`024`.
+- [x] Record result counts and blockers.
+
+### Notes
+
+- Assigned scope: `/tmp/ddoganjip_must_taste_batches/batch_019.json` through `batch_024.json`, totaling 12 video units and 36 restaurant-video pairs.
+- Worker stage is dry-run only; do not run SQLite apply without `--dry-run`.
+
+### Review
+
+- Wrote restaurant windows and shared video attention events for 12 assigned videos.
+- Wrote pair-level attention events, menu candidates, separate evidence_skeptic/visitor_judge reviews, and result artifacts for 36 restaurant-video pairs.
+- Result count: 36 success rows, 0 insufficient_evidence rows, 0 failures, 48 total selected items.
+- Verification: every pair passed `apply_must_taste_result.py --dry-run` against `/tmp/ddoganjip_must_taste_dryrun.sqlite`; collector dry-run over the six done files passed with `dry_run_ok=36` and `apply_skipped=true`.
+
+## Current Task - 2026-06-26 - Ddoganjip must-taste batches 025-030
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`
+Branch: `codex/ddoganjip-must-taste-backfill`
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, prepared artifacts, and worktree status.
+- [x] Build video-level restaurant windows and shared attention events for batches `025`-`030`.
+- [x] Build pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair result without writing SQLite.
+- [x] Write batch completion files for `025`-`030`.
+- [x] Record result counts and blockers.
+
+### Notes
+
+- Assigned scope: `/tmp/ddoganjip_must_taste_batches/batch_025.json` through `batch_030.json`, totaling 12 video units and 38 restaurant-video pairs.
+- Worker stage is dry-run only; do not run SQLite apply without `--dry-run`.
+
+### Review
+
+- Wrote video-level `restaurant_windows.json` and `video_attention_events.jsonl` for 12 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 38 assigned restaurant-video pairs.
+- Completion files written: `/tmp/ddoganjip_must_taste_batches/batch_025_done.json` through `batch_030_done.json`.
+- Results: 37 success rows with one item each, 1 insufficient-evidence row (`htg6NcCa3UE` / restaurant `842`) because transcript evidence names a different 곱창 restaurant than the assigned mapped restaurant.
+- Verification: all 38 results passed `apply_must_taste_result.py --dry-run` against `/tmp/ddoganjip_must_taste_dryrun.sqlite`; no final SQLite apply was run.
+
+## Current Task - 2026-06-26 - Ddoganjip must-taste backfill
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`
+Branch: `codex/ddoganjip-must-taste-backfill`
+
+- [x] Read repository guide, lessons, `$tastyroad-site-release`, and `$tastyroad-transcript-must-taste`.
+- [x] Deploy must-taste workflow improvements to production from `main`.
+- [x] Create a dedicated data backfill worktree and provision `.env.local`.
+- [x] Plan `또간집` missing verified-map plus preferred-transcript pairs with video grouping.
+- [x] Prepare video-level compact contexts and pair-level validation contexts.
+- [x] Process assigned semantic worker batches 013-018 only and write dry-run completion files.
+- [x] Run semantic candidate-finding/review/arbiter artifacts for all planned pairs.
+- [x] Apply only validation-passing results sequentially to SQLite.
+- [x] Verify coverage, DB integrity, and build.
+- [ ] Deploy updated taste data.
+
+### Notes
+
+- Production deploy commit for workflow improvements: `b7323c9 tools: optimize must-taste backfill workflow`.
+- Final DB writes must be single-process through `apply_must_taste_batch.py`; worker stages must not write SQLite.
+- Planned scope: `276` missing restaurant-video pairs grouped into `88` video units and `44` two-video batches under `/tmp/ddoganjip_must_taste_batches`.
+- Prepared contexts: `88` video-level compact contexts and `276` pair-level validation contexts generated with no failures.
+- Current blocker: semantic candidate-finding/review/arbiter work needs explicit permission to use parallel worker agents for the 44 planned batches; deterministic preparation is complete.
+- Final extraction result: all `44` planned batches / `276` pairs produced validator-compatible result artifacts.
+- Applied result: `269` success pairs were applied sequentially to SQLite; `7` pairs were left without taste because they did not pass the quality/restaurant-scope gate.
+- Final `또간집` coverage: `287` scoped verified-map transcript pairs, `280` pairs with must-taste rows, `344` item rows, `7` remaining insufficient-evidence pairs.
+- Remaining insufficient pairs: `vAKeY1t_bLI/1029`, `V-NzxlwdBPk/989`, `wV3fFBdJ-OA/1035`, `htg6NcCa3UE/842`, `F7PN-1EmJbI/894`, `u9Y3hZ9UP9I/902`, `9F9a_fFx45o/912`.
+- Verification: `apply_must_taste_batch.py` dry-run passed for `269` success pairs before apply; actual sequential apply stored `269` pairs; SQLite `integrity_check` returned `ok`; coverage query returned `scoped_pairs=287`, `pairs_with_items=280`, `item_rows=344`; `pnpm run build` passed after worktree-local install with temporary `sharp` build approval.
+- Assigned worker scope in this session: batches `013`-`018` only, using existing prepared video and pair contexts, writing only scoped artifact files plus `/tmp/ddoganjip_must_taste_batches/batch_013_done.json` through `batch_018_done.json`.
+- Assigned worker scope in this session: video-grouped batches `007`-`012` only, `12` videos and `39` restaurant-video pairs. Write only the corresponding `data/work/must_taste_video/<video_id>/`, `data/work/must_taste/<video_id>/<restaurant_id>/`, and `/tmp/ddoganjip_must_taste_batches/batch_00{7..9}_done.json` / `batch_01{0..2}_done.json` artifacts; run `apply_must_taste_result.py --dry-run` only.
+
+### Batch 007-012 Worker Checklist
+
+- [x] Read AGENTS.md, relevant lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs and worktree status.
+- [x] Build video-level restaurant windows and shared attention events for batches `007`-`012`.
+- [x] Build pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair result without writing SQLite.
+- [x] Write batch completion files for `007`-`012`.
+- [x] Record result counts and blockers.
+
+### Batch 007-012 Review
+
+- Wrote restaurant windows and shared video attention events for 12 assigned videos.
+- Wrote pair-level attention events, menu candidates, separate evidence_skeptic/visitor_judge reviews, and result artifacts for 39 restaurant-video pairs.
+- Result count: 37 success rows, 2 insufficient_evidence rows, 0 failures.
+- Insufficient evidence rows: `V-NzxlwdBPk` / `989` 시전돌곱창, `wV3fFBdJ-OA` / `1035` 심학산닭갈비.
+- Verification: every assigned pair passed `apply_must_taste_result.py --dry-run` against `/tmp/ddoganjip_must_taste_dryrun_007_012.sqlite`; worker did not run the non-dry-run apply command.
+
+### Batch 013-018 Review
+
+- Wrote restaurant windows and shared video attention events for 12 assigned videos.
+- Wrote pair-level attention events, menu candidates, separate evidence_skeptic/visitor_judge reviews, and result artifacts for 35 restaurant-video pairs.
+- Result count: 35 success rows, 0 insufficient_evidence rows, 0 failures, 54 total selected items.
+- Wrote `/tmp/ddoganjip_must_taste_batches/batch_013_done.json` through `batch_018_done.json`.
+- Verification: every assigned pair passed `apply_must_taste_result.py --dry-run`; worker did not run the non-dry-run apply command.
+
 ## Current Task - 2026-06-26 - Must-taste video context compression
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-batch-orchestration`

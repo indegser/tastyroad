@@ -18,6 +18,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: For source-level must-taste backfills, use the skill's batch planning and final apply scripts; let agents create semantic artifacts only, close all workers before SQLite writes, and apply retry completion files as pair-level overrides.
 - Trigger: Signal-term must-taste prefiltering looked cheaper until benchmarked against completed Sung Si-kyung rows with conservative range-based chunk accounting.
   Rule: Before adopting transcript prefilters, benchmark against stored Sung Si-kyung must-taste evidence; prefer video-once full-transcript scouting for multi-restaurant sources unless a prefilter proves both high recall and real chunk savings.
+- Trigger: `apply_must_taste_result.py --dry-run` still modified the default tracked SQLite file through schema setup during a worker-only must-taste batch.
+  Rule: For worker dry-runs that must not edit `data/tastyroad.sqlite`, copy the DB to `/tmp` and pass `--sqlite /tmp/<task>.sqlite` to `apply_must_taste_result.py --dry-run`; restore the tracked DB immediately if it was touched accidentally.
 
 ## 2026-06-25
 
