@@ -8,7 +8,9 @@
       "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
       "official_url": "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg",
       "enabled": true,
-      "title_include_any": ["먹을텐데"],
+      "title_include_any": [
+        "먹을텐데"
+      ],
       "title_exclude_any": [],
       "title_cleanup_patterns": [
         "^\\[?sub\\]?\\s*",
@@ -81,6 +83,60 @@
         "\\s*[|lㅣ]\\s*(?:\\(?Rewriting\\)?\\s*)?(?:(?:NEW\\s*)?최자로드|CHOIZA ROAD|Choiza Road|Choi Ja(?:-ro)?(?: Road)?|Choiza)(?:\\s+.*)?$",
         "^\\[[^]]+\\]\\s*",
         "\\s*#.*$"
+      ]
+    },
+    {
+      "key": "junhyunmoo_plan",
+      "name": "전현무계획",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UCYyLIlOJyqkAFKlVjzX5img",
+      "feed_url": "https://www.youtube.com/feeds/videos.xml?playlist_id=PL272srkmrzAFu_V90EKmMjs8QCyrY3OqV",
+      "official_url": "https://www.youtube.com/playlist?list=PL272srkmrzAEBkVpjEk7NJ3or4pf-cC4L",
+      "playlist_url": "https://www.youtube.com/playlist?list=PL272srkmrzAEBkVpjEk7NJ3or4pf-cC4L",
+      "playlist_urls": [
+        "https://www.youtube.com/playlist?list=PL272srkmrzAEQ_x8r2-kNSmEGN8NVlLqS",
+        "https://www.youtube.com/playlist?list=PL272srkmrzAFu_V90EKmMjs8QCyrY3OqV"
+      ],
+      "enabled": true,
+      "title_include_any": [],
+      "title_exclude_any": [
+        "티저",
+        "예고",
+        "선공개",
+        "shorts",
+        "쇼츠"
+      ],
+      "title_cleanup_patterns": [
+        "^\\[[^]]+\\]\\s*",
+        "^#+전현무계획\\s*",
+        "\\s*[|｜]\\s*전현무계획\\d*\\s*$",
+        "\\s*MBN\\s*\\d{6}\\s*방송\\s*$",
+        "\\s*#.*$"
+      ]
+    },
+    {
+      "key": "baekban_gihaeng",
+      "name": "식객 허영만의 백반기행",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UCtQZCFX4trYiFc3d3psq0KA",
+      "official_url": "https://www.youtube.com/channel/UCtQZCFX4trYiFc3d3psq0KA",
+      "enabled": false,
+      "title_include_any": [
+        "백반기행"
+      ],
+      "title_exclude_any": [
+        "Shorts",
+        "shorts",
+        "쇼츠"
+      ],
+      "title_cleanup_patterns": [
+        "^\\[#?이거땡겨\\]\\s*",
+        "^\\[FOOD\\s*#?Shorts\\]\\s*",
+        "\\s*#백반기행.*$",
+        "\\s*\\(TV\\s*CHOSUN\\s*\\d{6}\\s*방송(?:\\s*외)?\\)\\s*$",
+        "\\s*TV\\s*CHOSUNFOOD\\s*$"
       ]
     }
   ]

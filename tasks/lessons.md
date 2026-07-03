@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-04
+
+- Trigger: The user interrupted full collection after `백반기행` expanded to 1,090 candidates and asked to skip it.
+  Rule: Before running full-channel collection for a newly added broad broadcast/archive source, enumerate or estimate candidate count first and report it if the source is much larger than the current target scope.
+
 ## 2026-06-26
 
 - Trigger: The user corrected a proposed GitHub Actions scheduler and asked to use Codex automation for recurring Tastyroad runs.
