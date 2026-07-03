@@ -119,7 +119,7 @@ Branch: `codex/ddoganjip-must-taste-backfill`
 - [x] Run semantic candidate-finding/review/arbiter artifacts for all planned pairs.
 - [x] Apply only validation-passing results sequentially to SQLite.
 - [x] Verify coverage, DB integrity, and build.
-- [ ] Deploy updated taste data.
+- [x] Deploy updated taste data.
 
 ### Notes
 
@@ -133,6 +133,7 @@ Branch: `codex/ddoganjip-must-taste-backfill`
 - Final `또간집` coverage: `287` scoped verified-map transcript pairs, `280` pairs with must-taste rows, `344` item rows, `7` remaining insufficient-evidence pairs.
 - Remaining insufficient pairs: `vAKeY1t_bLI/1029`, `V-NzxlwdBPk/989`, `wV3fFBdJ-OA/1035`, `htg6NcCa3UE/842`, `F7PN-1EmJbI/894`, `u9Y3hZ9UP9I/902`, `9F9a_fFx45o/912`.
 - Verification: `apply_must_taste_batch.py` dry-run passed for `269` success pairs before apply; actual sequential apply stored `269` pairs; SQLite `integrity_check` returned `ok`; coverage query returned `scoped_pairs=287`, `pairs_with_items=280`, `item_rows=344`; `pnpm run build` passed after worktree-local install with temporary `sharp` build approval.
+- Deployment: committed `3b2ca27 data: fill ddoganjip must-taste items`, pushed `main`, Vercel production deployment `tastyroad-h4qzsodv1-jaekwon-hans-projects.vercel.app` reached `READY`, and `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned an `items` array.
 - Assigned worker scope in this session: batches `013`-`018` only, using existing prepared video and pair contexts, writing only scoped artifact files plus `/tmp/ddoganjip_must_taste_batches/batch_013_done.json` through `batch_018_done.json`.
 - Assigned worker scope in this session: video-grouped batches `007`-`012` only, `12` videos and `39` restaurant-video pairs. Write only the corresponding `data/work/must_taste_video/<video_id>/`, `data/work/must_taste/<video_id>/<restaurant_id>/`, and `/tmp/ddoganjip_must_taste_batches/batch_00{7..9}_done.json` / `batch_01{0..2}_done.json` artifacts; run `apply_must_taste_result.py --dry-run` only.
 
