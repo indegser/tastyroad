@@ -1,0 +1,3 @@
+display_name: Tastyroad Regular Source Automation
+short_description: Run recurring Tastyroad source checks through Codex Automation.
+default_prompt: Use $tastyroad-regular-source-automation to check all enabled YouTube sources, process safe data updates, and report any release blockers.

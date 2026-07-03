@@ -102,11 +102,19 @@ When creating or updating Tastyroad skills, first decide whether the workflow sh
 - Require lineage and validation contracts whenever agent judgment feeds a write step: record inputs, candidates, accepted/rejected decisions, evidence, and failure reasons before applying changes.
 - Keep `SKILL.md` concise. Put long prompts, schemas, and examples into `references/`, and put repeated deterministic operations into `scripts/`.
 
+## Recurring Automation Defaults
+
+- For recurring Tastyroad source checks, use Codex app Automation with a repo-local skill and a dedicated automation worktree.
+- Do not default to GitHub Actions for scheduled Tastyroad maintenance unless the user explicitly asks for GitHub Actions or Codex Automation is unavailable.
+- Route recurring source maintenance through `$tastyroad-regular-source-automation`.
+- Treat deployment as gated: unresolved mapping, transcript, or must-taste blockers should produce a Triage finding instead of an automatic release.
+
 ## Repository Context
 
 - This is a Next.js project for a source-backed Korean restaurant listing.
 - Repeated task logic lives under purpose-specific `.codex/skills`, not root-level `scripts/`.
 - User-facing Tastyroad workflow skills are:
+  - `$tastyroad-regular-source-automation`: Codex Automation orchestration for recurring all-source checks, deterministic safe updates, gate reports, and release handoff.
   - `$tastyroad-youtube-channel-collect`: YouTube collection and refresh.
   - `$tastyroad-youtube-transcript-ingest`: Webshare-backed YouTube transcript download and SQLite track/segment storage.
   - `$tastyroad-transcript-must-taste`: Restaurant-scoped, multi-pass transcript must-taste extraction with whole-transcript coverage, attention candidates, candidate reviews, rejection tracking, quality validation, and SQLite storage.

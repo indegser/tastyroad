@@ -2,6 +2,30 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-06-26 - Regular source automation
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
+Branch: `codex/regular-source-automation`
+
+- [x] Read repository guide, lessons, and relevant source/transcript/map/must-taste/release skills.
+- [x] Create a task-specific worktree and provision local env from the linked main checkout.
+- [x] Inspect existing pipeline scripts and DB status to identify safe automation boundaries.
+- [x] Record the Codex Automation preference as a durable lesson.
+- [x] Add a regular source automation skill/script that orchestrates all enabled channels.
+- [x] Add a Codex Automation prompt/entrypoint for periodic new-video checks.
+- [x] Document required secrets, review gates, and deployment behavior.
+- [x] Verify scripts, dry-run behavior, and app build where relevant.
+- [x] Record review/result notes.
+
+### Review
+
+- Added `$tastyroad-regular-source-automation` as the Codex app Automation entrypoint for recurring all-source maintenance.
+- Added an executable deterministic runner that plans/runs enabled-source collection, deterministic mapping candidate handling, transcript ingestion, gate checks, and ignored JSON reports under `data/work/regular_source_automation/`.
+- Added a reusable Codex Automation prompt at `.codex/skills/tastyroad-regular-source-automation/scripts/automation_prompt.md`.
+- Updated `AGENTS.md`, `README.md`, and `tasks/lessons.md` so future recurring checks default to Codex app Automation with a dedicated worktree instead of GitHub Actions.
+- Registered the local Codex app Automation at `~/.codex/automations/tastyroad-regular-source-maintenance/automation.toml`, enabled daily at 07:00 local time, using `/Users/indegser/Github/tastyroad` as the cwd.
+- Verification: `python3 -m py_compile` passed for the new runner, `quick_validate.py` passed for the new skill, runner `--dry-run` produced a report, skip-mode non-dry gate calculation produced a report without external collection/DB writes, and `git diff --check` passed. App build was not run because no app runtime code changed.
+
 ## Current Task - 2026-06-26 - Ddoganjip must-taste batches 031-036
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/ddoganjip-must-taste-backfill`

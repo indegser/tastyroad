@@ -6,6 +6,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-06-26
 
+- Trigger: The user corrected a proposed GitHub Actions scheduler and asked to use Codex automation for recurring Tastyroad runs.
+  Rule: For recurring Tastyroad checks, prefer Codex app Automation with a repo-local skill and dedicated automation worktree; use GitHub Actions only when explicitly requested or when Codex Automation is unavailable.
 - Trigger: The user asked to make the script-centered vs agent-centered skill design tradeoff explicit for future skill creation.
   Rule: When creating or updating Tastyroad skills, decide up front whether the workflow should be script-centered, agent-centered, or hybrid; use agents for broad semantic review/candidate discovery and deterministic scripts for validation and state-changing writes.
 - Trigger: The user questioned why many rows still lacked taste after the agent said it had run the must-taste skill.
