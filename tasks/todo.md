@@ -13,9 +13,9 @@ Target: production `main`
 - [x] Upsert `전현무계획` collected videos into the current `main` SQLite DB without replacing unrelated DB changes.
 - [x] Apply verified `전현무계획` place mappings and review rows on `main`.
 - [x] Verify mapped counts, blank Naver IDs, and SQLite integrity.
-- [ ] Run production build verification.
-- [ ] Commit and push `main`.
-- [ ] Verify Vercel production deployment and public API response.
+- [x] Run production build verification.
+- [x] Commit and push `main`.
+- [x] Verify Vercel production deployment and public API response.
 
 ### Review
 
@@ -23,6 +23,7 @@ Target: production `main`
 - Collected `전현무계획` into 279 video rows; metadata is complete for 272 rows, with 7 detail-enrichment failures remaining from the 2024-05-24 cluster.
 - Applied 45 verified `전현무계획` video mappings across 27 restaurants using official MBN records plus concrete Naver place IDs.
 - Verification before build: `전현무계획` status is 45 `mapping_verified` and 234 `not_ready_for_mapping`; blank restaurant `naver_map_id` count is 0; SQLite `pragma integrity_check` returned `ok`.
+- Production release: `pnpm run build` passed, commit `8e3f311` reached Vercel `READY`, and `https://taste.indegser.com/api/restaurants?source=전현무계획&limit=3&includeFacets=true` returned `전현무계획` restaurants.
 
 ## Current Task - 2026-06-26 - Regular source automation
 
