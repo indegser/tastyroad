@@ -188,7 +188,9 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
                 select v.video_id, s.name as source, v.title
                 from youtube_videos v
                 join sources s on s.id = v.source_id
+                left join video_pipeline_status ps on ps.video_id = v.video_id
                 where v.video_id in ({placeholders})
+                  and coalesce(ps.mapping_status, 'not_ready_for_mapping') != 'not_applicable'
                   and not exists (
                     select 1 from preferred_youtube_transcripts p
                     where p.youtube_video_id = v.id

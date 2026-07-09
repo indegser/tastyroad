@@ -2,6 +2,62 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-09 - Resolve gates and deploy source update
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now`
+Branch: `codex/run-regular-source-now`
+Target: production `main`
+
+- [x] Read AGENTS.md, lessons, and transcript/must-taste/release skills.
+- [x] Reuse the existing source-run worktree with pending collected data.
+- [x] Retry transcript blockers and confirm remaining transcript gate state.
+- [x] Generate and apply transcript-grounded must-taste rows for remaining pairs.
+- [x] Re-run the regular source automation gate report.
+- [ ] Build, commit, integrate to `main`, push, and verify Vercel production.
+- [ ] Clean up the task worktree if safe.
+- [ ] Record final verification/result notes.
+
+## Current Task - 2026-07-09 - Deploy collected source update
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now`
+Branch: `codex/run-regular-source-now`
+Target: production `main`
+
+- [x] Read `$tastyroad-site-release` and release lessons.
+- [x] Inspect `main`, worktrees, and the pending source-automation run.
+- [x] Check the pending automation gate before production release.
+- [x] Confirm current `main` deployment status and production API response.
+- [x] Record blocked release result.
+
+### Review
+
+- Pending collected source update is not deployable yet: `data/work/regular_source_automation/latest.json` has `deploy_ready=false` with 9 blockers.
+- Blockers are 6 transcript items and 3 must-taste items (`iJOvdh_LAgY` / 샐러드킹, `tZmWw9l-Thc` / 5 오마카세, `Wj_7fiFawMQ` / 만리향).
+- No commit, push, or production deployment was attempted for the pending data changes.
+- Current `main` SHA `0f8dd51` already has Vercel production deployment `tastyroad-q96dx3fgf-jaekwon-hans-projects.vercel.app` in `READY`.
+- Production API verification passed: `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned an `items` array.
+
+## Current Task - 2026-07-05 - Manual regular source run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now`
+Branch: `codex/run-regular-source-now`
+
+- [x] Read repository guide, lessons, and `$tastyroad-regular-source-automation`.
+- [x] Create a fresh task-specific worktree from `origin/main`.
+- [x] Provision `.env.local` from the linked main checkout.
+- [x] Run the regular source automation dry-run.
+- [x] Run deterministic collection to query enabled sources.
+- [x] Inspect latest automation report and blockers.
+- [x] Record verification/result notes.
+
+### Review
+
+- Manual regular source run completed at `2026-07-04T16:38:20Z` (`2026-07-05 01:38:20 KST`) in `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now`.
+- New videos collected: 33 total: `성시경의 먹을텐데` 2, `김사원세끼` 2, `또간집` 15, `최자로드` 14, `전현무계획` 0.
+- Transcript ingestion ran for all enabled sources; `전현무계획` backfilled 261 transcript tracks and left 18 failed attempts, mostly 429/retry blockers.
+- Release gate is blocked: 6 transcript blockers and 3 must-taste blockers remain, so no deployment was attempted.
+- Verification: `pragma integrity_check` returned `ok`.
+
 ## Current Task - 2026-07-04 - Broadcast sources production release
 
 Worktree: `/Users/indegser/Github/tastyroad`
