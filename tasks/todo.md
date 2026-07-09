@@ -13,9 +13,17 @@ Target: production `main`
 - [x] Retry transcript blockers and confirm remaining transcript gate state.
 - [x] Generate and apply transcript-grounded must-taste rows for remaining pairs.
 - [x] Re-run the regular source automation gate report.
-- [ ] Build, commit, integrate to `main`, push, and verify Vercel production.
-- [ ] Clean up the task worktree if safe.
-- [ ] Record final verification/result notes.
+- [x] Build, commit, integrate to `main`, push, and verify Vercel production.
+- [x] Clean up the task worktree if safe.
+- [x] Record final verification/result notes.
+
+### Review
+
+- Resolved the pending 2026-07-05 manual source-run gate for the original 33 collected videos: transcript retry added tracks for `6255xH_Ygs4` and `Yr4FcPy6YPk`; the remaining transcript-disabled videos are reviewed `not_applicable`/unmapped, so the regular-source gate now skips them instead of blocking release.
+- Added transcript-grounded must-taste rows for `샐러드킹` (`iJOvdh_LAgY`), `5 오마카세` (`tZmWw9l-Thc`), and `만리향` (`Wj_7fiFawMQ`), with 3 items per restaurant-video pair.
+- Verification: must-taste dry-runs passed before apply; SQLite `pragma integrity_check` returned `ok`; original 33-video gate recalculation returned `deploy_ready=true`; `python3 -m py_compile` passed for the regular-source automation runner; `git diff --check` passed; `pnpm run build` passed after approving the worktree-local `sharp` build script.
+- Production release: committed `90abf1d data: publish regular source update`, fast-forwarded `main`, pushed to GitHub, Vercel deployment `tastyroad-bcy0zpxom-jaekwon-hans-projects.vercel.app` reached `READY`, and `https://taste.indegser.com/api/restaurants?source=김사원세끼&limit=50&includeFacets=true` returned `샐러드킹` and `5 오마카세` with must-taste items.
+- Cleanup: removed `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now` after the release commit was integrated into `main` and pushed.
 
 ## Current Task - 2026-07-09 - Deploy collected source update
 
