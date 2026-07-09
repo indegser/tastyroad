@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-09
+
+- Trigger: The user clarified that failed restaurant mapping cannot rely only on video metadata or captions, especially for sources like `전현무계획`.
+  Rule: For mapping backlogs where metadata lacks concrete restaurant info, use an agent-assisted web search candidate discovery stage before Naver Map verification; captions are supporting evidence, not the primary discovery path.
+
 ## 2026-07-04
 
 - Trigger: The user interrupted full collection after `백반기행` expanded to 1,090 candidates and asked to skip it.
