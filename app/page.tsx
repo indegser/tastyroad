@@ -336,8 +336,8 @@ function RegionFacetGroup({
         <small>{activeCount > 0 ? `${activeCount} 선택` : `${regionClusters.length}개`}</small>
       </summary>
       <div className="facet-options">
-        <section className="facet-option-section" aria-label="지역권">
-          <h3>지역권</h3>
+        <section className="facet-option-section" aria-label="시도">
+          <h3>시도</h3>
           <div className="facet-option-list">
             {regionClusters.map((facet) => {
               const active = facet.value === activeRegionCluster;
@@ -359,8 +359,8 @@ function RegionFacetGroup({
         </section>
 
         {activeRegionCluster || activeRegion ? (
-          <section className="facet-option-section" aria-label="세부 지역">
-            <h3>세부 지역</h3>
+          <section className="facet-option-section" aria-label="시군구">
+            <h3>시군구</h3>
             <div className="facet-option-list">
               {regions.map((facet) => {
                 const active = facet.value === activeRegion;
@@ -511,14 +511,14 @@ function getActiveFilters(
   }
   if (params.regionCluster) {
     filters.push({
-      label: "지역권",
+      label: "시도",
       value: params.regionCluster,
       href: hrefWith(searchParams, { regionCluster: "", region: "", page: "" }),
     });
   }
   if (params.region) {
     filters.push({
-      label: "세부 지역",
+      label: "시군구",
       value: params.region,
       href: hrefWith(searchParams, { region: "", page: "" }),
     });

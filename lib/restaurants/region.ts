@@ -13,34 +13,6 @@ type RegionInput = {
   countryCode: string | null;
 };
 
-const SEOUL_CLUSTERS: Record<string, string> = {
-  강남구: "서울 강남권",
-  서초구: "서울 강남권",
-  송파구: "서울 강남권",
-  종로구: "서울 도심권",
-  중구: "서울 도심권",
-  용산구: "서울 도심권",
-  마포구: "서울 서북권",
-  서대문구: "서울 서북권",
-  은평구: "서울 서북권",
-  영등포구: "서울 서남권",
-  구로구: "서울 서남권",
-  금천구: "서울 서남권",
-  강서구: "서울 서남권",
-  양천구: "서울 서남권",
-  관악구: "서울 서남권",
-  동작구: "서울 서남권",
-  동대문구: "서울 동북권",
-  중랑구: "서울 동북권",
-  성북구: "서울 동북권",
-  강북구: "서울 동북권",
-  노원구: "서울 동북권",
-  도봉구: "서울 동북권",
-  강동구: "서울 동남권",
-  광진구: "서울 동남권",
-  성동구: "서울 동남권",
-};
-
 const PROVINCE_ALIASES: Record<string, string> = {
   서울특별시: "서울",
   서울시: "서울",
@@ -177,16 +149,8 @@ function parseDomestic(value: string): NormalizedRegion | null {
     city,
     district,
     region,
-    cluster: clusterForDomestic(province, district),
+    cluster: province,
   };
-}
-
-function clusterForDomestic(province: string, district: string) {
-  if (province === "서울") {
-    return SEOUL_CLUSTERS[district] || "서울 기타";
-  }
-
-  return province;
 }
 
 function normalizeProvince(value: string) {

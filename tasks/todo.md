@@ -2,6 +2,27 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-09 - Improve region facets
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/map-filter-gyeonggi`
+Branch: `codex/map-filter-gyeonggi`
+
+- [x] Read AGENTS.md, lessons, and relevant Next.js UI guidance.
+- [x] Create a task-specific worktree from `origin/main`.
+- [x] Inspect region normalization, facet query, and filter UI.
+- [x] Reframe region clustering as administrative 시도 instead of intermediate 권역.
+- [x] Keep 시군구 as the detailed region facet for dense drill-down.
+- [x] Verify facet behavior and app build.
+- [x] Record final review/result notes.
+
+### Review
+
+- Replaced intermediate region clusters with administrative 시도 values such as `서울`, `경기`, and `부산`.
+- The region facet now drills from `경기` into 시군구 values such as `경기 남양주시`, `경기 성남시`, and `경기 수원시`.
+- Current verified 경기 rows group as `경기:54`, with `경기 남양주시:3` visible in the 시군구 facet.
+- Added `pnpm-workspace.yaml` with `sharp` build approval so `pnpm run build` remains repeatable under the current pnpm policy.
+- Verification: DB-backed 경기 facet grouping check passed, local page/API checks showed `경기 → 경기 남양주시`, `git diff --check` passed, and `pnpm run build` passed.
+
 ## Current Task - 2026-07-09 - Resolve gates and deploy source update
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/run-regular-source-now`
