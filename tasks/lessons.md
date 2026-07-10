@@ -8,6 +8,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 - Trigger: The user clarified that restaurants should still be deployed and web-visible even when captions cannot be fetched or must-taste extraction is incomplete.
   Rule: Treat verified restaurant mapping with a non-empty Naver place ID as the public exposure gate; transcript and must-taste gaps are follow-up warnings, not deployment blockers.
+- Trigger: Naver Map sync through Edge 150 could not use the default profile for CDP, and the saved-list modal coordinates in the bundled script did not match the current UI.
+  Rule: For Naver Map sync, verify CDP with a non-default `--user-data-dir`, confirm target-list coordinates by screenshot before bulk clicking, and treat `agent-browser --cdp`/fixed-coordinate scripts as version-sensitive.
 
 ## 2026-07-09
 
