@@ -14,7 +14,7 @@ Branch: `codex/choizaroad-taste-naver-sync`
 - [x] Run/apply transcript-grounded must-taste results for eligible `최자로드` pairs.
 - [x] Sync newly public `최자로드` restaurants to the Naver Map `Tastyroad` list.
 - [x] Verify SQLite integrity, taste coverage, Naver sync count, build, and production deployment if data changed.
-- [ ] Record final review/result notes.
+- [x] Record final review/result notes.
 
 ### Notes
 
@@ -24,6 +24,13 @@ Branch: `codex/choizaroad-taste-naver-sync`
 - Naver sync-state now records all `33` `최자로드` restaurant IDs (`1257`-`1286`, plus prior reused rows).
 - Naver Map UI screenshot `/private/tmp/choizaroad-naver-list-final.png` shows private `Tastyroad` list count `767` after safe verification and manual save of `마마리마켓`.
 - Verification so far: must-taste batch dry-run/apply, SQLite integrity `ok`, Naver sync-state `choi_missing=0`, `git diff --check`, and `pnpm run build`.
+
+### Review
+
+- Applied `33` transcript-grounded `최자로드` must-taste rows to `video_must_taste_items`; final production API check returned `source=최자로드 total=33` and a must-taste reason for the first item.
+- Synced/verified all `33` `최자로드` public restaurants against the Naver Map private `Tastyroad` list; local sync-state now records `789` total IDs and `choi_missing=0`.
+- Naver UI count for `Tastyroad` showed `767` in `/private/tmp/choizaroad-naver-list-final.png`; safe re-verification opened all `33` ChoiJaRoad places and either observed the Tastyroad checkbox already selected or selected/saved it.
+- Production deployment `tastyroad-qz7t1s79f-jaekwon-hans-projects.vercel.app` reached `READY` for commit `8530d08`; aliases include `https://taste.indegser.com`.
 
 ## Current Task - 2026-07-10 - Add ChoiJaRoad channel and deploy
 
