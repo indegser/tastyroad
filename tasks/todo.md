@@ -13,8 +13,8 @@ Branch: `codex/add-choijaroad-channel`
 - [x] Refresh `최자로드` collection if needed.
 - [x] Map verified `최자로드` restaurant rows with numeric Naver place IDs.
 - [x] Verify SQLite/public API/build.
-- [ ] Commit, integrate to `main`, push, and verify production deployment.
-- [ ] Record final review/result notes.
+- [x] Commit, integrate to `main`, push, and verify production deployment.
+- [x] Record final review/result notes.
 
 ### Notes
 
@@ -24,6 +24,14 @@ Branch: `codex/add-choijaroad-channel`
 - Applied `33` Naver-ID-verified `최자로드` restaurants from `data/verified_places/choizaroad_pin_verified_places.json`.
 - Left `스시702` unresolved because Naver search returned a mismatched `참치플러스 분당본점` result.
 - Verification so far: collector/parser/promoter `py_compile`, `process_pipeline_backlog.py --dry-run --source 최자로드 --skip-enrich-missing-metadata`, selected candidate count `33`, SQLite integrity `ok`, local production API `source=최자로드` returned `total=33`, `git diff --check`, and `pnpm run build`.
+
+### Review
+
+- Added/preserved `161` collected `최자로드` videos and `33` public verified restaurant mappings.
+- Patched full-channel collection so RSS/Shorts latest rows are merged before pruning.
+- Patched mapping helpers to prefer `📍` place lines, reject ChoiJaRoad season/schedule blocks, and let promotion refresh corrected addresses on existing rows.
+- Production deployment `tastyroad-duma3r82x-jaekwon-hans-projects.vercel.app` reached `READY` for commit `4bebdd8`.
+- Production alias check: `https://taste.indegser.com/api/restaurants?source=최자로드&limit=5&includeFacets=true` returned `total=33`, first item `도쿄 멘친테이 혼포`, and source facet `최자로드: 33`.
 
 ## Current Task - 2026-07-10 - Update Naver sync script
 
