@@ -53,6 +53,10 @@ NON_RESTAURANT_TITLE_RE = re.compile(
 NON_RESTAURANT_INFO_RE = re.compile(
     r"(김사원\s*세끼|김사원세끼|픽스|시크릿|한정특가|이벤트|노포\s*투어|구매\s*링크)"
 )
+NON_PLACE_BRACKET_RE = re.compile(
+    r"(최자로드\s*시즌|CHOIZA\s*ROAD|Video Source Support|매주\s*\([^)]*\)\s*오후|미식\s*에세이)",
+    re.IGNORECASE,
+)
 
 
 @dataclass(frozen=True)
@@ -74,6 +78,8 @@ def normalize_place_name(value: str) -> str:
 
 
 def is_address(value: str) -> bool:
+    if re.search(r"(매주|공개|시즌|에세이)", value):
+        return False
     return bool(ADDRESS_HINT_RE.search(value)) and not value.startswith(("http://", "https://"))
 
 
@@ -255,6 +261,8 @@ def parse_bracket_blocks(description: str) -> list[Place]:
         name = normalize_place_name(match.group(1))
         if name in {"식당정보", "BGM 정보", "BGM정보", "구매 링크", "사진 출처", "사진출처"}:
             continue
+        if NON_PLACE_BRACKET_RE.search(name):
+            continue
         if NON_RESTAURANT_INFO_RE.search(name):
             continue
         address = ""
@@ -308,6 +316,24 @@ def parse_plain_store_info(description: str) -> list[Place]:
     return places
 
 
+def parse_pin_name_lines(description: str) -> list[Place]:
+    places: list[Place] = []
+    for line in description.splitlines():
+        if "📍" not in line:
+            continue
+        for raw_name in line.split("📍", 1)[1].split("|"):
+            name = normalize_place_name(re.sub(r"^#", "", raw_name.strip()))
+            name = re.sub(r"\s+#.*$", "", name).strip()
+            name = re.sub(
+                r"^(?:월요일|화요일|수요일|목요일|금요일|토요일|일요일),\s*",
+                "",
+                name,
+            ).strip()
+            if name and name not in {"도쿄"}:
+                places.append(Place(name=name, notes="핀 식당정보"))
+    return places
+
+
 def parse_pin_lines(description: str) -> list[Place]:
     places: list[Place] = []
     for line in description.splitlines():
@@ -331,6 +357,7 @@ def extract_places(description: str) -> list[Place]:
         parse_numbered_blocks,
         parse_bracket_blocks,
         parse_plain_store_info,
+        parse_pin_name_lines,
         parse_pin_lines,
     ):
         for place in parser(description):

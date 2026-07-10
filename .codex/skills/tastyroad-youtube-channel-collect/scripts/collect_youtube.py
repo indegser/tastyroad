@@ -203,6 +203,22 @@ def collect_source_full_channel(
             if existing_candidate and has_enriched_video_details(existing_candidate):
                 skip_video_ids.add(video_id)
 
+    for rss_candidate in rss_candidates.values():
+        if rss_candidate.video_id in seen_video_ids:
+            continue
+
+        seen_video_ids.add(rss_candidate.video_id)
+        existing_candidate = existing_candidates.get(rss_candidate.video_id)
+        if existing_candidate is not None:
+            candidates.append(
+                merge_candidate_with_existing(rss_candidate, existing_candidate, collected_at)
+            )
+            if has_enriched_video_details(existing_candidate):
+                skip_video_ids.add(rss_candidate.video_id)
+            continue
+
+        candidates.append(rss_candidate)
+
     return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
 
 
@@ -278,6 +294,10 @@ def has_enriched_video_details(candidate: YoutubeVideo) -> bool:
     return bool(candidate.published_at) and candidate.duration_seconds is not None
 
 
+def has_collectable_video_metadata(candidate: YoutubeVideo) -> bool:
+    return bool(candidate.published_at)
+
+
 def filter_collectable_full_channel_candidates(
     candidates: list[YoutubeVideo],
     source: YoutubeSource,
@@ -287,7 +307,7 @@ def filter_collectable_full_channel_candidates(
     for candidate in candidates:
         if (
             candidate.title
-            and has_enriched_video_details(candidate)
+            and has_collectable_video_metadata(candidate)
             and should_include_title(candidate.title, source)
         ):
             filtered.append(candidate)

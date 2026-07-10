@@ -2,6 +2,29 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Add ChoiJaRoad channel and deploy
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/add-choijaroad-channel`
+Branch: `codex/add-choijaroad-channel`
+
+- [x] Read repository guide, lessons, and relevant YouTube collection/release instructions.
+- [x] Create a task-specific worktree from `origin/main`.
+- [x] Confirm current `최자로드` source, collection, and public mapping state.
+- [x] Refresh `최자로드` collection if needed.
+- [x] Map verified `최자로드` restaurant rows with numeric Naver place IDs.
+- [x] Verify SQLite/public API/build.
+- [ ] Commit, integrate to `main`, push, and verify production deployment.
+- [ ] Record final review/result notes.
+
+### Notes
+
+- `최자로드` source was already configured, but public rows were `0` because no verified restaurant mappings existed.
+- Full-channel collection initially pruned RSS/Shorts-only recent rows; patched the collector to merge RSS latest candidates into full-channel output.
+- Refreshed `choizaroad` to `161` collected videos.
+- Applied `33` Naver-ID-verified `최자로드` restaurants from `data/verified_places/choizaroad_pin_verified_places.json`.
+- Left `스시702` unresolved because Naver search returned a mismatched `참치플러스 분당본점` result.
+- Verification so far: collector/parser/promoter `py_compile`, `process_pipeline_backlog.py --dry-run --source 최자로드 --skip-enrich-missing-metadata`, selected candidate count `33`, SQLite integrity `ok`, local production API `source=최자로드` returned `total=33`, `git diff --check`, and `pnpm run build`.
+
 ## Current Task - 2026-07-10 - Update Naver sync script
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/sync-naver-verified-restaurants`

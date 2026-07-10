@@ -6,6 +6,10 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-07-10
 
+- Trigger: Full-channel collection for `최자로드` initially pruned RSS/Shorts-only recent uploads because `/videos` and official playlists did not include them.
+  Rule: For YouTube sources with Shorts/latest uploads, full-channel collection must merge RSS latest candidates before pruning, or it can silently remove recent collected rows.
+- Trigger: Metadata backlog parsing treated `최자로드 시즌 9`/schedule description blocks as restaurant candidates.
+  Rule: Mapping parsers should reject source/season/schedule bracket blocks and prefer explicit `📍` place lines for ChoiJaRoad-style descriptions.
 - Trigger: The user clarified that restaurants should still be deployed and web-visible even when captions cannot be fetched or must-taste extraction is incomplete.
   Rule: Treat verified restaurant mapping with a non-empty Naver place ID as the public exposure gate; transcript and must-taste gaps are follow-up warnings, not deployment blockers.
 - Trigger: Naver Map sync through Edge 150 could not use the default profile for CDP, and the saved-list modal coordinates in the bundled script did not match the current UI.
