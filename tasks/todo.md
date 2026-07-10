@@ -2,6 +2,200 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Jun Hyun-moo Plan must-taste current run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/junhyunmoo-must-taste-20260710`
+Branch: `codex/junhyunmoo-must-taste-20260710`
+
+- [x] Read repository guide, lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Create a task-specific worktree from `origin/main` and provision `.env.local`.
+- [x] Inspect current `전현무계획` verified-map and transcript/taste coverage.
+- [x] Plan missing must-taste pairs from verified restaurants with preferred transcripts.
+- [x] Run must-taste semantic artifacts for planned pairs.
+- [x] Apply validator-passing results sequentially to SQLite.
+- [x] Verify coverage, SQLite integrity, and build risk.
+- [x] Record review/result notes.
+
+### Notes
+
+- Worker assignment: batches `001`-`010` only, in this worktree on branch `codex/junhyunmoo-must-taste-20260710`.
+- This worker must not write final `data/tastyroad.sqlite`; validate with `/tmp/junhyunmoo_must_taste_001_010_dryrun.sqlite`.
+- Batch 001-010 scope is 20 video units and 22 restaurant-video pairs.
+- Worker checklist:
+  - [x] Read repository guide, relevant lessons, and `$tastyroad-transcript-must-taste`.
+  - [x] Inspect assigned batch files and validator shape.
+  - [x] Review assigned transcript blocks and restaurant windows.
+  - [x] Write video-level attention artifacts for batches 001-010.
+  - [x] Write pair-level attention/candidates/reviews/results for all 22 pairs.
+  - [x] Dry-run validate every pair against temp SQLite.
+  - [x] Write `batch_001_done.json` through `batch_010_done.json`.
+  - [x] Record worker result counts and blockers.
+
+#### Worker 001-010 Review
+
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for 22 assigned restaurant-video pairs.
+- Result: 19 success rows and 3 insufficient_evidence rows.
+- Wrote `/tmp/junhyunmoo_must_taste_20260710_batches/batch_001_done.json` through `batch_010_done.json`.
+- Verification: each assigned pair passed `apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_001_010_dryrun.sqlite`; tracked SQLite was not used for worker validation.
+
+- Current public `전현무계획` scope is 196 `verified`/`metadata_verified` restaurant-video pairs with Naver IDs.
+- 186 pairs have preferred transcripts and are planned under `/tmp/junhyunmoo_must_taste_20260710_batches` as 160 video units / 80 batches.
+- 10 public pairs currently lack a preferred transcript and are outside this must-taste run until transcript ingest succeeds.
+- Prepared 160 video-level contexts under `data/work/must_taste_video/` and 186 pair contexts under `data/work/must_taste/`.
+- The older 2026-07-04 result artifacts are not reusable because their `context_hash` values differ from the current prepared contexts.
+- Semantic workers completed all 80 batches: 164 success pairs and 22 insufficient-evidence pairs.
+
+### Review
+
+- Applied 164 validator-passing `전현무계획` restaurant-video pairs to `video_must_taste_items`, creating 295 item rows.
+- Left 22 transcript-scoped public pairs without must-taste rows because the transcript did not support a visitor-useful menu recommendation for the target restaurant.
+- Final coverage: 196 public `verified`/`metadata_verified` pairs, 186 transcript-scoped pairs, 164 pairs with must-taste rows, 295 item rows, and 22 transcript-scoped insufficient-evidence pairs.
+- Verification: all 164 success artifacts passed final batch dry-run before apply, final sequential apply passed, SQLite `pragma integrity_check` returned `ok`, and `pnpm run build` passed.
+
+### Worker 031-040
+
+- Assignment: batches `031`-`040` only, in this shared worktree on branch `codex/junhyunmoo-must-taste-20260710`.
+- This worker must not write final `data/tastyroad.sqlite`; validate with `/tmp/junhyunmoo_must_taste_031_040_dryrun.sqlite`.
+- Batch 031-040 scope is 20 video units and 27 restaurant-video pairs.
+- Worker checklist:
+  - [x] Read repository guide, relevant lessons, and `$tastyroad-transcript-must-taste`.
+  - [x] Inspect assigned batch files and validator shape.
+  - [x] Review assigned transcript blocks and restaurant windows.
+  - [x] Write video-level attention artifacts for batches 031-040.
+  - [x] Write pair-level attention/candidates/reviews/results for all 27 pairs.
+  - [x] Dry-run validate every pair against temp SQLite.
+  - [x] Write `batch_031_done.json` through `batch_040_done.json`.
+  - [x] Record worker result counts and blockers.
+
+#### Worker 031-040 Review
+
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for 27 assigned restaurant-video pairs.
+- Result: 26 success rows and 1 insufficient_evidence row (`b5XBTA1iycw` / `1226` 물레방아 즉석구이).
+- Wrote `/tmp/junhyunmoo_must_taste_20260710_batches/batch_031_done.json` through `batch_040_done.json`.
+- Verification: each assigned pair passed `apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_031_040_dryrun.sqlite`; logs are under `/tmp/junhyunmoo_must_taste_20260710_batches/validation_logs_031_040_tmp_sqlite`. Temp SQLite `pragma integrity_check` returned `ok`.
+
+### Worker slice: batches 021-030
+
+- [x] Confirm assigned batch scope and artifact paths.
+- [x] Rebuild current-context artifacts for videos with older semantic references.
+- [x] Scout and write artifacts for videos without older references.
+- [x] Dry-run validate every assigned pair with `/tmp/junhyunmoo_must_taste_021_030_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_021_done.json` through `batch_030_done.json`.
+- [x] Record worker result counts and blockers.
+
+#### Worker 021-030 Review
+
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for 20 assigned restaurant-video pairs.
+- Result: 20 success rows, 0 insufficient_evidence rows, 0 failures; selected 44 total must-taste items.
+- Wrote `/tmp/junhyunmoo_must_taste_20260710_batches/batch_021_done.json` through `batch_030_done.json`.
+- Verification: each assigned pair passed `apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_021_030_dryrun.sqlite`; logs are under `/tmp/junhyunmoo_must_taste_20260710_batches/validation_logs_021_030_tmp_sqlite`. Temp SQLite `pragma integrity_check` returned `ok`.
+
+### Batch 011-020 Worker Checklist
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, pair count, and worktree status.
+- [x] Build reviewed video attention events for batches `011`-`020`.
+- [x] Build pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair against `/tmp/junhyunmoo_must_taste_011_020_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_011_done.json` through `batch_020_done.json`.
+- [x] Record result counts and blockers.
+
+### Batch 011-020 Review
+
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for the 20 assigned video units.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 21 assigned restaurant-video pairs.
+- Result count: 16 success rows and 5 insufficient_evidence rows (`RruvMQwvCnM/1193`, `dHAyBfp5HDc/1214`, `NxEQmGdw7i4/1214`, `ZnOOL_3yH9U/1214`, `qdLvZJ38Yn0/1193`).
+- Wrote `/tmp/junhyunmoo_must_taste_20260710_batches/batch_011_done.json` through `batch_020_done.json`.
+- Verification: every assigned pair passed `apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_011_020_dryrun.sqlite`; logs are under `/tmp/junhyunmoo_must_taste_20260710_batches/validation_logs_011_020_tmp_sqlite`; temp SQLite integrity check returned `ok`. No final batch apply was run.
+
+### Batch 041-050 Worker Checklist
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, pair count, worktree, and dirty DB constraint.
+- [x] Review prepared video contexts, transcript blocks, and pair contexts for batches `041`-`050`.
+- [x] Write video-level candidate-finding artifacts for batches `041`-`050`.
+- [x] Write pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair against `/tmp/junhyunmoo_must_taste_041_050_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_041_done.json` through `batch_050_done.json`.
+- [x] Record result counts and blockers.
+
+#### Review
+
+- Assigned scope: 10 batch files, 20 video units, 24 restaurant-video pairs.
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for all 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 24 pairs.
+- Result counts: 19 `success`, 5 `insufficient_evidence`, 0 validation failures, 39 selected items.
+- `insufficient_evidence`: `XRR49kXAfWg`/`1226`, `qTTpxnmXOgU`/`1228`, `pHXLUniqwto`/`923`, `U2bSMzgau6A`/`1231`, `6Cqu-Qi9ZRA`/`1231`.
+- Verification: each pair passed `python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_041_050_dryrun.sqlite --context <context> --result <result>`; temp SQLite integrity check returned `ok`.
+- Wrote completion files `/tmp/junhyunmoo_must_taste_20260710_batches/batch_041_done.json` through `batch_050_done.json`.
+- No final batch apply was run; tracked `data/tastyroad.sqlite` was not used as the validation target.
+
+### Batch 051-060 Worker Checklist
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, pair count, worktree, and dirty DB constraint.
+- [x] Review prepared video contexts, transcript blocks, and pair contexts for batches `051`-`060`.
+- [x] Write video-level candidate-finding artifacts for batches `051`-`060`.
+- [x] Write pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair against `/tmp/junhyunmoo_must_taste_051_060_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_051_done.json` through `batch_060_done.json`.
+- [x] Record result counts and blockers.
+
+#### Review
+
+- Assigned scope: 10 batch files, 20 video units, 20 restaurant-video pairs.
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for all 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 20 pairs.
+- Result counts: 16 `success`, 4 `insufficient_evidence`, 0 validation failures.
+- `insufficient_evidence`: `BF1pXahJP4Y`/`1231`, `CjZlzIIWuVY`/`1238`, `rXbo46oOfx4`/`1242`, `mriRGK3jlhU`/`1240`.
+- Verification: each pair passed `python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_result.py --sqlite /tmp/junhyunmoo_must_taste_051_060_dryrun.sqlite --dry-run --context <context> --result <result>`.
+- Wrote completion files `/tmp/junhyunmoo_must_taste_20260710_batches/batch_051_done.json` through `batch_060_done.json`.
+- No final batch apply was run; tracked `data/tastyroad.sqlite` was not used as the validation target.
+
+### Batch 061-070 Worker Checklist
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, pair count, worktree, and dirty DB constraint.
+- [x] Review prepared video contexts, transcript blocks, and pair contexts for batches `061`-`070`.
+- [x] Write video-level candidate-finding artifacts for batches `061`-`070`.
+- [x] Write pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair against `/tmp/junhyunmoo_must_taste_061_070_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_061_done.json` through `batch_070_done.json`.
+- [x] Record result counts and blockers.
+
+#### Batch 061-070 Review
+
+- Wrote semantic artifacts for 30 assigned restaurant-video pairs only.
+- Result counts: 27 `success`, 3 `insufficient_evidence`, 0 validation failures; selected 40 total menu items.
+- Insufficient evidence pairs: `T5vlcx2b8PU`/738 영광보쌈, `_zyhRAjCu5s`/1250 송골횟집, `3XO045-Eb6I`/1250 송골횟집.
+- Validation command pattern: `python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_result.py --dry-run --sqlite /tmp/junhyunmoo_must_taste_061_070_dryrun.sqlite --context <context> --result <result>`.
+- Completion files written: `/tmp/junhyunmoo_must_taste_20260710_batches/batch_061_done.json` through `batch_070_done.json`.
+- No final batch apply was run.
+
+### Batch 071-080 Worker Checklist
+
+- [x] Read AGENTS.md, relevant must-taste lessons, and `$tastyroad-transcript-must-taste`.
+- [x] Confirm assigned batch inputs, pair count, worktree, and dirty DB constraint.
+- [x] Review prepared video contexts, transcript blocks, and pair contexts for batches `071`-`080`.
+- [x] Write video-level candidate-finding artifacts for batches `071`-`080`.
+- [x] Write pair-level attention events, candidates, reviews, and result artifacts.
+- [x] Dry-run validate every pair against `/tmp/junhyunmoo_must_taste_071_080_dryrun.sqlite`.
+- [x] Write `/tmp/junhyunmoo_must_taste_20260710_batches/batch_071_done.json` through `batch_080_done.json`.
+- [x] Record result counts and blockers.
+
+#### Review
+
+- Assigned scope: 10 batch files, 20 video units, 22 restaurant-video pairs.
+- Wrote reviewed `restaurant_windows.json` and `video_attention_events.jsonl` for all 20 assigned videos.
+- Wrote pair-level `attention_events.jsonl`, `menu_candidates.json`, `candidate_reviews.json`, and `result.json` for all 22 pairs.
+- Result counts: 21 `success`, 1 `insufficient_evidence`, 0 validation failures; the insufficient pair is `cVqviRXBivM` / `1252`.
+- Verification: every assigned pair passed `python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_result.py --sqlite /tmp/junhyunmoo_must_taste_071_080_dryrun.sqlite --dry-run --context <context> --result <result>`, and `/tmp/junhyunmoo_must_taste_071_080_dryrun.sqlite` returned SQLite `pragma integrity_check = ok`.
+- Wrote completion files `/tmp/junhyunmoo_must_taste_20260710_batches/batch_071_done.json` through `batch_080_done.json`.
+- No final batch apply was run; tracked `data/tastyroad.sqlite` was not used as the validation target.
+
 ## Current Task - 2026-07-10 - Deploy Junhyunmoo web recovery
 
 Worktree: `/Users/indegser/Github/tastyroad`
