@@ -2,6 +2,29 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - ChoiJaRoad taste and Naver sync
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/choizaroad-taste-naver-sync`
+Branch: `codex/choizaroad-taste-naver-sync`
+
+- [x] Read repository guide, lessons, and transcript/taste/Naver sync skill instructions.
+- [x] Create a task-specific worktree from `origin/main` and provision `.env.local`.
+- [x] Inspect `최자로드` public pair, transcript, must-taste, and Naver sync coverage.
+- [x] Fetch missing transcripts needed for `최자로드` public mapped restaurants.
+- [x] Run/apply transcript-grounded must-taste results for eligible `최자로드` pairs.
+- [x] Sync newly public `최자로드` restaurants to the Naver Map `Tastyroad` list.
+- [x] Verify SQLite integrity, taste coverage, Naver sync count, build, and production deployment if data changed.
+- [ ] Record final review/result notes.
+
+### Notes
+
+- `최자로드` public scope: `33` verified restaurant-video pairs, `31` videos, `33` restaurants.
+- Preferred transcripts already existed for all `33` pairs, so no transcript fetch was needed.
+- Applied `33` validator-passing must-taste rows, one representative item per pair; final `최자로드` must-taste remaining count is `0`.
+- Naver sync-state now records all `33` `최자로드` restaurant IDs (`1257`-`1286`, plus prior reused rows).
+- Naver Map UI screenshot `/private/tmp/choizaroad-naver-list-final.png` shows private `Tastyroad` list count `767` after safe verification and manual save of `마마리마켓`.
+- Verification so far: must-taste batch dry-run/apply, SQLite integrity `ok`, Naver sync-state `choi_missing=0`, `git diff --check`, and `pnpm run build`.
+
 ## Current Task - 2026-07-10 - Add ChoiJaRoad channel and deploy
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/add-choijaroad-channel`
