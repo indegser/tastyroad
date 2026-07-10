@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-11 - Naver sync selector-first controls
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-selector-sync`
+Branch: `codex/naver-map-selector-sync`
+
+- [x] Read repository guide, lessons, and Naver sync skill instructions.
+- [x] Create a task-specific worktree from `origin/main`.
+- [x] Add selector-first Naver save-modal controls with coordinate fallback.
+- [x] Update Naver sync skill docs for selector-first behavior.
+- [x] Verify syntax and dry-run behavior.
+- [x] Record result notes.
+
+### Review
+
+- Added selector-first control lookup for the place save button, target `Tastyroad` checkbox, modal save button, edit-list button, and modal close button.
+- Kept the existing screenshot/coordinate path as fallback because Naver Map still does not expose every save-list UI state reliably.
+- Adjusted `blind` mode so selector-success paths save once and do not run the legacy double-click coordinate recovery sequence.
+- Updated the Naver sync skill docs and lessons to describe selector-first behavior.
+- Verification: `python3 -m py_compile`, safe `--limit 0`, blind `--limit 0`, blind/include-synced guard, selector HTML smoke, and `git diff --check` passed.
+
 ## Current Task - 2026-07-10 - ChoiJaRoad taste and Naver sync
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/choizaroad-taste-naver-sync`

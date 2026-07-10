@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import re
 import sqlite3
 import sys
 import time
@@ -20,14 +21,19 @@ DEFAULT_FAILURE_LOG_PATH = ROOT / "data" / "work" / "naver_map_sync_failures.jso
 DEFAULT_LIST_NAME = "Tastyroad"
 DEFAULT_CDP_PORT = 9222
 
-# Coordinates verified against the Korean desktop Naver Map UI at 1280x900 CSS pixels.
-# Naver does not expose the saved-list modal reliably through accessibility roles.
+# Coordinate fallbacks verified against the Korean desktop Naver Map UI at 1280x900 CSS pixels.
+# Prefer selectors first; Naver does not expose the saved-list modal reliably in every state.
 PLACE_SAVE = (377, 104)
 TARGET_LIST_CHECK = (416, 617)
 MODAL_SAVE = (255, 861)
 MODAL_CLOSE = (416, 384)
 EDIT_SAVED_LIST = (254, 576)
 EDIT_SAVED_LIST_FALLBACKS = ((254, 552), (254, 603))
+
+BUTTON_SELECTOR = "button, a, [role='button']"
+CHECKBOX_SELECTOR = "button, label, [role='checkbox'], input[type='checkbox']"
+SELECTOR_POLL_MS = 150
+SELECTOR_CONTROL_LIMIT = 160
 
 
 @dataclass(frozen=True)
@@ -170,6 +176,192 @@ def click(page, point: tuple[int, int]) -> None:
     page.mouse.click(point[0], point[1])
 
 
+def normalize_text(value: str) -> str:
+    return re.sub(r"\s+", " ", value or "").strip()
+
+
+def control_text(locator) -> str:
+    try:
+        value = locator.evaluate(
+            """element => {
+                const parts = [
+                    element.getAttribute("aria-label"),
+                    element.getAttribute("title"),
+                    element.getAttribute("alt"),
+                    element.innerText,
+                    element.textContent
+                ];
+                if (element.matches('[role="checkbox"], input[type="checkbox"]')) {
+                    parts.push(element.closest("label")?.innerText);
+                    parts.push(element.parentElement?.innerText);
+                }
+                return parts.filter(Boolean).join(" ");
+            }"""
+        )
+    except Exception:
+        return ""
+    return normalize_text(str(value))
+
+
+def visible_control_candidates(page, selector: str, text_pattern: re.Pattern[str]):
+    for frame in page.frames:
+        try:
+            controls = frame.locator(selector)
+            count = min(controls.count(), SELECTOR_CONTROL_LIMIT)
+        except Exception:
+            continue
+        for index in range(count):
+            locator = controls.nth(index)
+            try:
+                if not locator.is_visible(timeout=150):
+                    continue
+                text = control_text(locator)
+                if not text_pattern.search(text):
+                    continue
+                box = locator.bounding_box(timeout=150)
+            except Exception:
+                continue
+            yield locator, text, box
+
+
+def click_control_by_text(
+    page,
+    selector: str,
+    text_pattern: re.Pattern[str],
+    timeout_ms: int,
+    *,
+    prefer_top: bool = False,
+    prefer_bottom: bool = False,
+    max_y: Optional[float] = None,
+    min_y: Optional[float] = None,
+) -> bool:
+    deadline = time.time() + timeout_ms / 1000
+    while time.time() < deadline:
+        candidates = list(visible_control_candidates(page, selector, text_pattern))
+        if max_y is not None:
+            preferred = [
+                candidate
+                for candidate in candidates
+                if candidate[2] is not None and candidate[2]["y"] <= max_y
+            ]
+            if preferred:
+                candidates = preferred
+        if min_y is not None:
+            candidates = [
+                candidate
+                for candidate in candidates
+                if candidate[2] is not None and candidate[2]["y"] >= min_y
+            ]
+        if prefer_top:
+            candidates.sort(
+                key=lambda candidate: candidate[2]["y"] if candidate[2] is not None else 99999
+            )
+        elif prefer_bottom:
+            candidates.sort(
+                key=lambda candidate: candidate[2]["y"] if candidate[2] is not None else -1,
+                reverse=True,
+            )
+        for locator, _text, _box in candidates:
+            try:
+                locator.click(timeout=1000)
+                return True
+            except Exception:
+                continue
+        page.wait_for_timeout(SELECTOR_POLL_MS)
+    return False
+
+
+def click_place_save_control(page) -> bool:
+    return click_control_by_text(
+        page,
+        BUTTON_SELECTOR,
+        re.compile(r"(^|\s)(저장|저장하기|저장됨)(\s|$)"),
+        900,
+        prefer_top=True,
+        max_y=260,
+    )
+
+
+def click_edit_saved_list_control(page) -> bool:
+    return click_control_by_text(
+        page,
+        BUTTON_SELECTOR,
+        re.compile(r"저장한\s*리스트|리스트\s*(수정|편집)|저장됨"),
+        700,
+        prefer_top=True,
+    )
+
+
+def click_modal_save_control(page) -> bool:
+    return click_control_by_text(
+        page,
+        BUTTON_SELECTOR,
+        re.compile(r"(^|\s)저장(\s|$)"),
+        900,
+        prefer_bottom=True,
+        min_y=400,
+    )
+
+
+def click_modal_close_control(page) -> bool:
+    return click_control_by_text(
+        page,
+        BUTTON_SELECTOR,
+        re.compile(r"(^|\s)(닫기|close)(\s|$)|닫기", re.IGNORECASE),
+        700,
+        prefer_top=True,
+    )
+
+
+def checkbox_state_from_selector(locator, text: str) -> Optional[CheckboxState]:
+    normalized = normalize_text(text)
+    if "선택해제됨" in normalized:
+        return "unselected"
+    if "선택됨" in normalized:
+        return "selected"
+
+    try:
+        if locator.is_checked(timeout=150):
+            return "selected"
+        return "unselected"
+    except Exception:
+        pass
+
+    try:
+        aria_checked = locator.get_attribute("aria-checked", timeout=150)
+    except Exception:
+        aria_checked = None
+    if aria_checked == "true":
+        return "selected"
+    if aria_checked == "false":
+        return "unselected"
+    return None
+
+
+def target_list_checkbox(page, list_name: str):
+    escaped_name = re.escape(list_name)
+    pattern = re.compile(
+        rf"({escaped_name}.*선택(?:해제)?됨|선택(?:해제)?됨.*{escaped_name}|{escaped_name})"
+    )
+    for locator, text, _box in visible_control_candidates(page, CHECKBOX_SELECTOR, pattern):
+        if list_name not in text:
+            continue
+        state = checkbox_state_from_selector(locator, text)
+        if state:
+            return locator, state
+    return None
+
+
+def wait_for_checkbox_selector(page, list_name: str, timeout_ms: int):
+    deadline = time.time() + timeout_ms / 1000
+    while time.time() < deadline:
+        target = target_list_checkbox(page, list_name)
+        if target:
+            return target
+        page.wait_for_timeout(SELECTOR_POLL_MS)
+    return None
+
+
 def checkbox_state(page) -> Optional[CheckboxState]:
     try:
         from PIL import Image
@@ -213,54 +405,104 @@ def wait_for_checkbox(page, timeout_ms: int) -> Optional[CheckboxState]:
     return None
 
 
-def open_save_modal_safe(page) -> Optional[CheckboxState]:
+def wait_for_checkbox_any(page, list_name: str, timeout_ms: int):
+    selector_timeout = min(900, max(250, timeout_ms // 2))
+    selector_result = wait_for_checkbox_selector(page, list_name, selector_timeout)
+    if selector_result:
+        locator, state = selector_result
+        return state, locator
+
+    remaining_timeout = max(250, timeout_ms - selector_timeout)
+    state = wait_for_checkbox(page, remaining_timeout)
+    if state:
+        return state, None
+    return None
+
+
+def open_save_modal_safe(page, list_name: str):
     edit_points = (EDIT_SAVED_LIST, *EDIT_SAVED_LIST_FALLBACKS)
     for attempt in range(2):
-        click(page, PLACE_SAVE)
-        state = wait_for_checkbox(page, 1400 if attempt == 0 else 2400)
-        if state:
-            return state
+        if not click_place_save_control(page):
+            click(page, PLACE_SAVE)
+        checkbox = wait_for_checkbox_any(page, list_name, 1400 if attempt == 0 else 2400)
+        if checkbox:
+            return checkbox
+        if click_edit_saved_list_control(page):
+            checkbox = wait_for_checkbox_any(page, list_name, 1100 if attempt == 0 else 1700)
+            if checkbox:
+                return checkbox
         for point in edit_points:
             click(page, point)
-            state = wait_for_checkbox(page, 1100 if attempt == 0 else 1700)
-            if state:
-                return state
+            checkbox = wait_for_checkbox_any(page, list_name, 1100 if attempt == 0 else 1700)
+            if checkbox:
+                return checkbox
         page.wait_for_timeout(700)
     return None
 
 
-def add_place_safe(page, place: Place) -> str:
-    state = open_save_modal_safe(page)
-    if not state:
+def add_place_safe(page, place: Place, list_name: str) -> str:
+    checkbox = open_save_modal_safe(page, list_name)
+    if not checkbox:
         raise RuntimeError("save modal checkbox not detected")
+    state, checkbox_locator = checkbox
     if state == "selected":
-        click(page, MODAL_CLOSE)
+        if not click_modal_close_control(page):
+            click(page, MODAL_CLOSE)
         page.wait_for_timeout(250)
         return "already"
 
-    click(page, TARGET_LIST_CHECK)
-    selected = wait_for_checkbox(page, 1400)
+    if checkbox_locator is not None:
+        checkbox_locator.click(timeout=1000)
+    else:
+        click(page, TARGET_LIST_CHECK)
+    selected_result = wait_for_checkbox_any(page, list_name, 1400)
+    selected = selected_result[0] if selected_result else None
     if selected != "selected":
         raise RuntimeError(f"target checkbox did not become selected: {selected}")
-    click(page, MODAL_SAVE)
+    if not click_modal_save_control(page):
+        click(page, MODAL_SAVE)
     page.wait_for_timeout(900)
     return "saved"
 
 
-def add_place_blind(page, place: Place) -> str:
+def add_place_blind(page, place: Place, list_name: str) -> str:
     # Use only for unsynced IDs. This does not inspect the checkbox state, so it
     # avoids screenshot hangs but relies on the sync-state skip list for toggle safety.
-    click(page, PLACE_SAVE)
+    if not click_place_save_control(page):
+        click(page, PLACE_SAVE)
     page.wait_for_timeout(900)
+    checkbox = wait_for_checkbox_selector(page, list_name, 500)
+    if not checkbox and click_edit_saved_list_control(page):
+        page.wait_for_timeout(700)
+        checkbox = wait_for_checkbox_selector(page, list_name, 700)
+    if checkbox:
+        checkbox_locator, _state = checkbox
+        checkbox_locator.click(timeout=1000)
+        page.wait_for_timeout(350)
+        if not click_modal_save_control(page):
+            click(page, MODAL_SAVE)
+        page.wait_for_timeout(900)
+        return "attempted"
+
+    # Legacy coordinate recovery path for UI states where the target list is not
+    # exposed to selector/text matching.
     click(page, TARGET_LIST_CHECK)
     page.wait_for_timeout(350)
-    click(page, MODAL_SAVE)
+    if not click_modal_save_control(page):
+        click(page, MODAL_SAVE)
     page.wait_for_timeout(900)
-    click(page, EDIT_SAVED_LIST)
+    if not click_edit_saved_list_control(page):
+        click(page, EDIT_SAVED_LIST)
     page.wait_for_timeout(900)
-    click(page, TARGET_LIST_CHECK)
+    checkbox = wait_for_checkbox_selector(page, list_name, 700)
+    if checkbox:
+        checkbox_locator, _state = checkbox
+        checkbox_locator.click(timeout=1000)
+    else:
+        click(page, TARGET_LIST_CHECK)
     page.wait_for_timeout(350)
-    click(page, MODAL_SAVE)
+    if not click_modal_save_control(page):
+        click(page, MODAL_SAVE)
     page.wait_for_timeout(900)
     return "attempted"
 
@@ -311,8 +553,8 @@ def parse_args() -> argparse.Namespace:
         choices=("safe", "blind"),
         default="safe",
         help=(
-            "safe verifies the target checkbox by screenshot before clicking; "
-            "blind skips screenshot verification and should only be used for unsynced IDs."
+            "safe verifies the target checkbox by selector or screenshot before clicking; "
+            "blind skips state verification and should only be used for unsynced IDs."
         ),
     )
     parser.add_argument(
@@ -374,9 +616,9 @@ def main() -> int:
                 page.wait_for_timeout(2600)
                 assert_place_loaded(page, place, require_place_name=not args.no_require_place_name)
                 if args.mode == "safe":
-                    result = add_place_safe(page, place)
+                    result = add_place_safe(page, place, args.list_name)
                 else:
-                    result = add_place_blind(page, place)
+                    result = add_place_blind(page, place, args.list_name)
                 synced_ids.add(place.id)
                 save_synced_ids(args.list_name, synced_ids)
                 elapsed = time.time() - started

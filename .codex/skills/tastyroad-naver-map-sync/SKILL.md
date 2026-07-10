@@ -89,9 +89,13 @@ Use chunking for large runs so Edge/Naver tab crashes do not poison a long batch
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --chunk-size 25
 ```
 
-Default `--mode safe` verifies the `Tastyroad` checkbox by screenshot before clicking, which
-avoids toggling an already selected place off. If Naver screenshot capture hangs or the safe
-checker is too brittle, use `--mode blind` only for IDs that are not already recorded as synced:
+Default `--mode safe` verifies the `Tastyroad` checkbox before clicking, which avoids
+toggling an already selected place off. It first tries selector/text/ARIA patterns for the
+place save button, target list checkbox, and modal actions; when Naver does not expose the
+modal reliably, it falls back to the verified screenshot/coordinate path.
+
+If Naver screenshot capture hangs or the safe checker is too brittle, use `--mode blind`
+only for IDs that are not already recorded as synced:
 
 ```bash
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --mode blind --chunk-size 25
@@ -107,7 +111,7 @@ subsequent runs. Use `--retry-failures` after refreshing Edge/CDP or changing mo
 - Do not recreate a repo-root Naver sync script.
 - Do not toggle already-synced places. Naver's save modal uses toggles, so reprocessing a saved restaurant can remove it from the target list.
 - Do not combine `--mode blind` with `--include-synced`; the script blocks this.
-- Before a bulk run after Naver UI changes, manually verify the current modal coordinates by screenshot. Current defaults assume a 1280x900 CSS-pixel desktop layout.
+- Before a bulk run after Naver UI changes, manually verify that selector-first detection can see the target checkbox or that the current modal coordinates still match by screenshot. Current coordinate fallbacks assume a 1280x900 CSS-pixel desktop layout.
 - Do not write directly to SQLite during map sync.
 - If `agent-browser` loses the Naver tab, recreate a Naver tab with CDP:
 

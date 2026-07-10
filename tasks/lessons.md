@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-11
+
+- Trigger: The user asked why Naver Map sync still depended on screen clicking instead of Playwright selector patterns.
+  Rule: For Naver Map sync, prefer selector/text/ARIA detection for stable controls first, and keep screenshot/coordinate clicks only as fallback for UI states that are not exposed reliably.
+
 ## 2026-07-10
 
 - Trigger: Full-channel collection for `최자로드` initially pruned RSS/Shorts-only recent uploads because `/videos` and official playlists did not include them.
