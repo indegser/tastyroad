@@ -107,7 +107,8 @@ When creating or updating Tastyroad skills, first decide whether the workflow sh
 - For recurring Tastyroad source checks, use Codex app Automation with a repo-local skill and a dedicated automation worktree.
 - Do not default to GitHub Actions for scheduled Tastyroad maintenance unless the user explicitly asks for GitHub Actions or Codex Automation is unavailable.
 - Route recurring source maintenance through `$tastyroad-regular-source-automation`.
-- Treat deployment as gated: unresolved mapping, transcript, or must-taste blockers should produce a Triage finding instead of an automatic release.
+- Treat deployment as gated by hard publishing blockers: unresolved verified-place mapping, failed non-transcript maintenance commands, build failures, or release verification failures should stop automatic release.
+- Do not block release only because transcript ingestion or must-taste extraction is incomplete. Verified mapped restaurants should still be deployed for web visibility, with transcript and must-taste gaps recorded as Triage warnings.
 
 ## Repository Context
 

@@ -22,7 +22,7 @@
 
 ## 스킬
 
-- `$tastyroad-regular-source-automation`: Codex app Automation에서 실행하는 정기 전체 소스 점검 오케스트레이션. 신규 영상 수집, 자막 수집, 결정적 지도 후보 처리, must-taste 큐/게이트 리포트, 배포 가능 여부 판단을 수행하고, 애매한 판단은 Triage findings로 남김
+- `$tastyroad-regular-source-automation`: Codex app Automation에서 실행하는 정기 전체 소스 점검 오케스트레이션. 신규 영상 수집, 자막 수집, 결정적 지도 후보 처리, must-taste 큐/게이트 리포트, 배포 가능 여부 판단을 수행하고, 자막/must-taste 미완료는 배포 차단이 아닌 Triage warnings로 남김
 - `$tastyroad-youtube-channel-collect`: YouTube 소스 수집/갱신, full-channel 감사, channel_id 확인
 - `$tastyroad-youtube-transcript-ingest`: Webshare 기반 YouTube 자막 다운로드, Supabase Storage raw/segment 아카이브, SQLite metadata 저장
 - `$tastyroad-transcript-must-taste`: object-storage-backed 또는 SQLite cached 자막 segment 전체 스캔, attention 후보 집계, 후보 리뷰, 탈락 사유까지 거쳐 식당별 꼭 맛볼 추천 메뉴 최대 3개와 직접 자막 인용 추출/검증/저장
@@ -34,7 +34,7 @@
 
 정기적인 신규 영상 점검은 GitHub Actions가 아니라 Codex app Automation을 기본 실행기로 사용합니다. Automation은 Tastyroad 프로젝트에 연결된 dedicated worktree에서 `$tastyroad-regular-source-automation`을 호출합니다.
 
-권장 Automation prompt는 `.codex/skills/tastyroad-regular-source-automation/scripts/automation_prompt.md`에 있습니다. 배포는 모든 게이트가 통과한 뒤 `$tastyroad-site-release`로만 진행합니다.
+권장 Automation prompt는 `.codex/skills/tastyroad-regular-source-automation/scripts/automation_prompt.md`에 있습니다. 배포는 지도 매핑과 빌드 같은 hard publishing gate가 통과한 뒤 `$tastyroad-site-release`로 진행합니다. 자막 수집 실패나 must-taste 미완료는 식당 공개 노출을 막지 않고 후속 Triage warning으로 남깁니다.
 
 ## 에이전트
 

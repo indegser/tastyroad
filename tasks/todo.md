@@ -2,6 +2,27 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Soften automation release gates
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/automation-release-soft-gates`
+Branch: `codex/automation-release-soft-gates`
+
+- [x] Read repository guide, lessons, and `$tastyroad-regular-source-automation`.
+- [x] Confirm public site can show mapped restaurants without must-taste rows.
+- [x] Change regular-source gate logic so transcript/must-taste gaps are warnings, not deployment blockers.
+- [x] Update automation prompt/docs to deploy mapped restaurants even when transcript or must-taste follow-up remains.
+- [x] Verify runner behavior and syntax.
+- [x] Record review/result notes.
+
+### Review
+
+- Changed the regular source runner so transcript gaps, transcript command failures, and missing must-taste rows are reported under `gates.warnings` instead of `gates.blockers`.
+- `deploy_ready` now depends on hard publishing blockers only: missing SQLite, mapping blockers, and non-transcript command failures.
+- Updated `$tastyroad-regular-source-automation`, its durable automation prompt, `AGENTS.md`, and `README.md` to say verified mapped restaurants should be released even when transcript/must-taste follow-up remains.
+- Updated the live Codex Automation prompt at `~/.codex/automations/tastyroad-regular-source-maintenance/automation.toml`.
+- Also applied the runner/prompt policy change to the live automation worktree `/Users/indegser/Github/tastyroad-worktrees/tastyroad-automation-runner`, because the daily schedule executes from that checkout.
+- Verification: `python3 -m py_compile` passed in both the canonical change worktree and the live automation worktree. Dry-run in the canonical worktree returned `deploy_ready=true`, `blocker_count=0`, `warning_count=25`. Dry-run in the live automation worktree returned `deploy_ready=true`, `blocker_count=0`, `warning_count=25`.
+
 ## Current Task - 2026-07-10 - Jun Hyun-moo Plan must-taste current run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/junhyunmoo-must-taste-20260710`

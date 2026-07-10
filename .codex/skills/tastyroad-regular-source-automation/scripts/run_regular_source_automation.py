@@ -163,8 +163,16 @@ def select_new_videos(sqlite_path: Path, new_ids_by_source: dict[str, set[str]])
 def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
     path = repo_path(sqlite_path)
     if not path.exists():
-        return {"deploy_ready": False, "blockers": [{"type": "sqlite_missing", "path": str(path)}]}
+        blockers = [{"type": "sqlite_missing", "path": str(path)}]
+        return {
+            "deploy_ready": False,
+            "blocker_count": len(blockers),
+            "warning_count": 0,
+            "blockers": blockers,
+            "warnings": [],
+        }
     blockers: list[dict[str, Any]] = []
+    warnings: list[dict[str, Any]] = []
     params = tuple(new_video_ids)
     placeholders = ",".join("?" for _ in new_video_ids)
     with sqlite3.connect(path) as connection:
@@ -200,7 +208,7 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
                 params,
             ).fetchall()
             for row in transcript_missing:
-                blockers.append({"type": "transcript", **dict(row)})
+                warnings.append({"type": "transcript", **dict(row)})
 
         if table_exists(connection, "preferred_youtube_transcripts") and table_exists(connection, "video_must_taste_items"):
             must_taste_query = """
@@ -230,12 +238,14 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
                 must_taste_query += " order by datetime(v.published_at) desc limit 25"
                 must_taste_rows = connection.execute(must_taste_query).fetchall()
             for row in must_taste_rows:
-                blockers.append({"type": "must_taste", **dict(row)})
+                warnings.append({"type": "must_taste", **dict(row)})
 
     return {
         "deploy_ready": not blockers,
         "blocker_count": len(blockers),
+        "warning_count": len(warnings),
         "blockers": blockers,
+        "warnings": warnings,
     }
 
 
@@ -373,13 +383,17 @@ def main() -> int:
     failed_commands = [command_payload(result) for result in commands if result.returncode != 0]
     gates = gate_status(args.sqlite, new_video_ids)
     if failed_commands:
-        gates["deploy_ready"] = False
         gates.setdefault("blockers", [])
-        gates["blockers"].extend(
-            {"type": "command_failed", "name": item["name"], "returncode": item["returncode"]}
-            for item in failed_commands
-        )
+        gates.setdefault("warnings", [])
+        for item in failed_commands:
+            failed_item = {"type": "command_failed", "name": item["name"], "returncode": item["returncode"]}
+            if str(item["name"]).startswith("transcripts:"):
+                gates["warnings"].append(failed_item)
+            else:
+                gates["blockers"].append(failed_item)
+        gates["deploy_ready"] = not gates["blockers"]
         gates["blocker_count"] = len(gates["blockers"])
+        gates["warning_count"] = len(gates["warnings"])
 
     report = {
         "checked_at": now_iso(),
@@ -402,17 +416,24 @@ def main() -> int:
 
 def next_actions(gates: dict[str, Any]) -> list[str]:
     blockers = gates.get("blockers", [])
+    warnings = gates.get("warnings", [])
+    findings = [*blockers, *warnings]
     if not blockers:
-        return ["Follow $tastyroad-site-release if data changed and pnpm run build passes."]
+        actions = ["Follow $tastyroad-site-release if data changed and pnpm run build passes."]
+        if warnings:
+            actions.append("Keep transcript and must-taste warnings as follow-up Triage; they do not block mapped restaurants from release.")
+        return actions
     actions: list[str] = []
     if any(item.get("type") == "mapping" for item in blockers):
         actions.append("Use $tastyroad-map-video-restaurants for mapping blockers.")
-    if any(item.get("type") == "transcript" for item in blockers):
-        actions.append("Use $tastyroad-youtube-transcript-ingest for transcript blockers.")
-    if any(item.get("type") == "must_taste" for item in blockers):
-        actions.append("Use $tastyroad-transcript-must-taste for must-taste blockers.")
+    if any(item.get("type") == "transcript" for item in findings):
+        actions.append("Use $tastyroad-youtube-transcript-ingest for transcript warnings.")
+    if any(item.get("type") == "must_taste" for item in findings):
+        actions.append("Use $tastyroad-transcript-must-taste for must-taste warnings.")
     if any(item.get("type") == "command_failed" for item in blockers):
         actions.append("Inspect failed command stdout/stderr in the JSON report before continuing.")
+    if any(item.get("type") == "command_failed" for item in warnings):
+        actions.append("Inspect failed transcript command stdout/stderr; transcript failures are follow-up warnings.")
     return actions
 
 
