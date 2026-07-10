@@ -227,6 +227,84 @@ def upsert_video_restaurant(
     )
 
 
+def parse_json_list(value: str) -> list[str]:
+    try:
+        parsed = json.loads(value)
+    except json.JSONDecodeError:
+        return []
+    if not isinstance(parsed, list):
+        return []
+    return [str(item).strip() for item in parsed if str(item).strip()]
+
+
+def upsert_video_review(
+    connection: sqlite3.Connection,
+    video_id: str,
+    names: list[str],
+    confidence: float,
+    reviewed_at: str,
+    input_path: Path,
+) -> None:
+    existing = connection.execute(
+        """
+        select decision, confidence, restaurant_names, detected_restaurant_count, reason
+        from agent_video_reviews
+        where external_id = ?
+        """,
+        (video_id,),
+    ).fetchone()
+
+    merged_names: list[str] = []
+    existing_count = 0
+    existing_confidence = 0.0
+    existing_reason = ""
+    if existing is not None:
+        existing_decision = str(existing[0])
+        existing_confidence = float(existing[1] or 0)
+        existing_reason = str(existing[4] or "")
+        if existing_decision == "restaurant_intro":
+            merged_names.extend(parse_json_list(str(existing[2] or "[]")))
+            existing_count = int(existing[3] or 0)
+
+    for name in names:
+        clean_name = name.strip()
+        if clean_name and clean_name not in merged_names:
+            merged_names.append(clean_name)
+
+    reason = (
+        existing_reason
+        if existing is not None and str(existing[0]) == "restaurant_intro" and existing_reason
+        else f"Verified place mappings promoted from {input_path}."
+    )
+    connection.execute(
+        """
+        insert into agent_video_reviews (
+          external_id, decision, confidence, restaurant_names,
+          detected_restaurant_count, reason, reviewer, reviewed_at
+        )
+        values (?, ?, ?, ?, ?, ?, ?, ?)
+        on conflict(external_id) do update set
+          decision = excluded.decision,
+          confidence = excluded.confidence,
+          restaurant_names = excluded.restaurant_names,
+          detected_restaurant_count = excluded.detected_restaurant_count,
+          reason = excluded.reason,
+          reviewer = excluded.reviewer,
+          reviewed_at = excluded.reviewed_at
+        """,
+        (
+            video_id,
+            "restaurant_intro",
+            max(existing_confidence, confidence),
+            json.dumps(merged_names, ensure_ascii=False),
+            max(existing_count, len(merged_names)),
+            reason,
+            "verified_places",
+            reviewed_at,
+        ),
+    )
+
+
 def upsert_place_resolution_candidate(
     connection: sqlite3.Connection,
     youtube_video_id: int,
@@ -298,6 +376,7 @@ def promote(sqlite_path: Path, input_path: Path) -> int:
     with sqlite3.connect(sqlite_path) as connection:
         ensure_schema(connection)
         count = 0
+        review_updates: dict[str, dict[str, Any]] = {}
         for item in payload["items"]:
             youtube_video_id = get_youtube_video_id(connection, item["video_id"])
             naver_map_id, resolved_map_url = resolve_naver_map_details(item)
@@ -317,7 +396,20 @@ def promote(sqlite_path: Path, input_path: Path) -> int:
             restaurant_id = upsert_restaurant(connection, resolved_item, now, naver_map_id)
             upsert_place_link(connection, restaurant_id, resolved_item, payload["verified_at"])
             upsert_video_restaurant(connection, restaurant_id, youtube_video_id, resolved_item, payload["verified_at"])
+            video_id = str(item["video_id"])
+            review_update = review_updates.setdefault(video_id, {"names": [], "confidence": 0.0})
+            review_update["names"].append(str(item.get("display_name") or item.get("resolved_name") or "").strip())
+            review_update["confidence"] = max(float(review_update["confidence"]), float(item["confidence"]))
             count += 1
+        for video_id, review_update in review_updates.items():
+            upsert_video_review(
+                connection,
+                video_id,
+                review_update["names"],
+                float(review_update["confidence"]),
+                payload["verified_at"],
+                input_path,
+            )
         ensure_pipeline_schema(connection)
 
     return count

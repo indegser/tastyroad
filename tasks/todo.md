@@ -2,6 +2,21 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Deploy Junhyunmoo web recovery
+
+Worktree: `/Users/indegser/Github/tastyroad`
+Branch: `main`
+Target: production `main`
+
+- [x] Read AGENTS.md, lessons, and `$tastyroad-site-release`.
+- [x] Inspect main and the `map-web-search-test` worktree.
+- [x] Integrate verified `전현무계획` web-search mapping recovery changes into main.
+- [x] Verify SQLite, scripts, and app build on main.
+- [ ] Commit and push production main.
+- [ ] Verify Vercel deployment and production API.
+- [ ] Clean up the released task worktree if safe.
+- [ ] Record final release notes.
+
 ## Current Task - 2026-07-09 - Improve region facets
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/map-filter-gyeonggi`

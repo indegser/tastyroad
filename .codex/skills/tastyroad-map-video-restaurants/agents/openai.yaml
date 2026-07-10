@@ -1,4 +1,14 @@
 interface:
   display_name: "Tastyroad Video Restaurant Mapper"
-  short_description: "Agent-assisted Naver place mapping"
-  default_prompt: "Use $tastyroad-map-video-restaurants to inspect mapping_pending or needs_review rows, review ambiguous restaurant candidates, verify Naver place IDs, and update restaurant mappings."
+  short_description: "Web-assisted Naver place mapping"
+  default_prompt: >-
+    Use $tastyroad-map-video-restaurants to inspect mapping_pending, needs_review,
+    reviewed_uncertain, and not_applicable rows. For metadata-poor broadcast clips
+    with food, menu, region, season, or episode clues, run web search candidate
+    discovery before deciding that no restaurant can be mapped. Compare web
+    candidates against existing restaurants first, reuse rows with matching
+    name/address/menu context and numeric Naver IDs, then verify new candidates
+    against concrete Naver Map place IDs. Preserve web evidence, rejected
+    candidates, existing-row matches, and unresolved reasons in review artifacts;
+    only apply final verified rows through the skill's deterministic promotion
+    script.
