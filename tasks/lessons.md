@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-10
+
+- Trigger: A local Codex Automation TOML was enabled, but the scheduled Tastyroad run did not fire.
+  Rule: Do not treat `~/.codex/automations/*/automation.toml` as proof that recurring automation is live; verify the standalone managed app-server daemon with `codex doctor` or `codex app-server daemon version`, and ensure the automation cwd points at a dedicated worktree.
+
 ## 2026-07-09
 
 - Trigger: The user clarified that failed restaurant mapping cannot rely only on video metadata or captions, especially for sources like `전현무계획`.

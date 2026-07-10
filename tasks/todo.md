@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Fix Codex automation runner
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/fix-codex-automation`
+Branch: `codex/fix-codex-automation`
+
+- [x] Read repository guide, lessons, and `$tastyroad-regular-source-automation`.
+- [x] Inspect Codex automation registration and app-server state.
+- [x] Install/start durable Codex app-server management for local automations.
+- [x] Verify app-server daemon health and automation registration.
+- [x] Run a Tastyroad automation check without leaving unintended tracked changes.
+- [x] Record result notes.
+
+### Review
+
+- Installed standalone Codex CLI `0.144.1` under `~/.codex/packages/standalone` because managed daemon bootstrap requires that fixed install path.
+- Bootstrapped and restarted the managed app-server daemon; `codex doctor --summary` now reports `Background Server: app-server running (persistent mode)`.
+- Disabled daemon remote-control after confirming the desktop Codex app was already online for remote control and the daemon was producing `409 Remote app server already online` warnings.
+- Created dedicated automation checkout `/Users/indegser/Github/tastyroad-worktrees/tastyroad-automation-runner` on `codex/tastyroad-automation-runner`, provisioned `.env.local`, and updated `~/.codex/automations/tastyroad-regular-source-maintenance/automation.toml` to use that cwd.
+- Verification: the regular source automation dry-run succeeded in the dedicated automation worktree and left tracked files clean. `main` also remained clean.
+
 ## Current Task - 2026-07-10 - Deploy Junhyunmoo web recovery
 
 Worktree: `/Users/indegser/Github/tastyroad`
