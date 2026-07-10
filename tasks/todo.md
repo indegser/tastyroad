@@ -12,10 +12,19 @@ Target: production `main`
 - [x] Inspect main and the `map-web-search-test` worktree.
 - [x] Integrate verified `전현무계획` web-search mapping recovery changes into main.
 - [x] Verify SQLite, scripts, and app build on main.
-- [ ] Commit and push production main.
-- [ ] Verify Vercel deployment and production API.
-- [ ] Clean up the released task worktree if safe.
-- [ ] Record final release notes.
+- [x] Commit and push production main.
+- [x] Verify Vercel deployment and production API.
+- [x] Clean up the released task worktree if safe.
+- [x] Record final release notes.
+
+### Review
+
+- Released `b0898d6 data: publish junhyunmoo web recovery` to production through the GitHub-to-Vercel integration.
+- Published the updated map skill/agent workflow, promotion-script review-status fix, `data/tastyroad.sqlite`, and 5 `junhyunmoo_web_recovery_*_20260709_places.json` lineage files.
+- Final local data check before release: `전현무계획` `mapping_verified=170`, `not_applicable=109`; blank restaurant `naver_map_id` count is `0`; SQLite `pragma integrity_check` returned `ok`.
+- Verification: `python3 -m py_compile`, `git diff --check`, and `pnpm run build` passed on main.
+- Vercel production deployment `tastyroad-o11fm6u32-jaekwon-hans-projects.vercel.app` reached `READY`, and `https://taste.indegser.com/api/restaurants?source=전현무계획&limit=1&includeFacets=true` returned HTTP 200 with an `items` array.
+- Cleanup: left `/Users/indegser/Github/tastyroad-worktrees/map-web-search-test` in place because it still has uncommitted local changes, even though the intended release changes are integrated into `main`.
 
 ## Current Task - 2026-07-09 - Improve region facets
 
