@@ -38,6 +38,33 @@ agent-browser --cdp 9222 snapshot -i
 
 Logged in means the snapshot shows `내 프로필 이미지 내정보 보기`.
 
+Microsoft Edge 150+ may reject remote debugging against the default user data directory. If
+`curl` cannot reach `9222` or Edge logs `DevTools remote debugging requires a non-default
+data directory`, launch a CDP-only copied profile instead:
+
+```bash
+osascript -e 'tell application "Microsoft Edge" to quit'
+rm -rf /tmp/tastyroad-edge-cdp-profile
+mkdir -p /tmp/tastyroad-edge-cdp-profile
+rsync -a --delete \
+  --exclude='*/Cache/***' \
+  --exclude='*/Code Cache/***' \
+  --exclude='*/GPUCache/***' \
+  --exclude='*/Service Worker/CacheStorage/***' \
+  --exclude='*/Session Storage/***' \
+  --exclude='Singleton*' \
+  "$HOME/Library/Application Support/Microsoft Edge/" \
+  /tmp/tastyroad-edge-cdp-profile/
+open -na "Microsoft Edge" --args \
+  --remote-debugging-port=9222 \
+  --remote-debugging-address=127.0.0.1 \
+  --user-data-dir=/tmp/tastyroad-edge-cdp-profile \
+  --profile-directory=Default
+```
+
+Do not ask for Naver credentials in chat. If the copied profile is logged out, ask the user to
+log in directly in the opened Edge window and re-check the login marker.
+
 2. Open the saved-place panel and verify the target list.
 
 ```bash
@@ -52,7 +79,26 @@ Verify `Tastyroad` appears with private visibility. If it does not exist, create
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py
 ```
 
-The runner skips IDs in `data/naver_map_list_synced_ids.json`, so normal re-runs should be no-ops unless new public restaurants were added.
+The runner uses one persistent Playwright CDP session instead of many single-command
+`agent-browser` calls. It skips IDs in `data/naver_map_list_synced_ids.json`, so normal
+re-runs should be no-ops unless new public restaurants were added.
+
+Use chunking for large runs so Edge/Naver tab crashes do not poison a long batch:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --chunk-size 25
+```
+
+Default `--mode safe` verifies the `Tastyroad` checkbox by screenshot before clicking, which
+avoids toggling an already selected place off. If Naver screenshot capture hangs or the safe
+checker is too brittle, use `--mode blind` only for IDs that are not already recorded as synced:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --mode blind --chunk-size 25
+```
+
+Failures are recorded in ignored `data/work/naver_map_sync_failures.json` and skipped on
+subsequent runs. Use `--retry-failures` after refreshing Edge/CDP or changing mode.
 
 4. Verify the final count in Naver Map and capture a screenshot when reporting completion.
 
@@ -60,6 +106,8 @@ The runner skips IDs in `data/naver_map_list_synced_ids.json`, so normal re-runs
 
 - Do not recreate a repo-root Naver sync script.
 - Do not toggle already-synced places. Naver's save modal uses toggles, so reprocessing a saved restaurant can remove it from the target list.
+- Do not combine `--mode blind` with `--include-synced`; the script blocks this.
+- Before a bulk run after Naver UI changes, manually verify the current modal coordinates by screenshot. Current defaults assume a 1280x900 CSS-pixel desktop layout.
 - Do not write directly to SQLite during map sync.
 - If `agent-browser` loses the Naver tab, recreate a Naver tab with CDP:
 
@@ -73,4 +121,5 @@ agent-browser --cdp 9222 tab list
 ```bash
 python3 -m py_compile .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --limit 0
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --mode blind --limit 0
 ```

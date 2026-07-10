@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-10
+
+- Trigger: Naver Map sync through Edge 150 could not use the default profile for CDP, and the saved-list modal coordinates in the bundled script did not match the current UI.
+  Rule: For Naver Map sync, verify CDP with a non-default `--user-data-dir`, confirm target-list coordinates by screenshot before bulk clicking, and treat `agent-browser --cdp`/fixed-coordinate scripts as version-sensitive.
+
 ## 2026-07-09
 
 - Trigger: The user clarified that failed restaurant mapping cannot rely only on video metadata or captions, especially for sources like `전현무계획`.

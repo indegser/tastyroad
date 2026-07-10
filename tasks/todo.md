@@ -2,6 +2,55 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-10 - Update Naver sync script
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sync-naver-verified-restaurants`
+Branch: `codex/sync-naver-verified-restaurants`
+
+- [x] Re-read `$tastyroad-naver-map-sync` and inspect current runner.
+- [x] Replace brittle `agent-browser` single-command clicks with a persistent CDP runner.
+- [x] Add safe/blind modes, chunking, and failure logging for reruns.
+- [x] Update skill docs for Edge 150 non-default profile and current UI verification.
+- [x] Verify compile and dry-run behavior.
+- [x] Record result notes.
+
+### Review
+
+- Replaced the Naver sync runner's repeated `agent-browser --cdp` subprocess calls with a persistent Playwright `connect_over_cdp` session.
+- Added `--mode safe` as the default screenshot-verified checkbox path and `--mode blind` for unsynced-ID recovery when screenshot capture is unstable.
+- Added `--chunk-size`, `--failure-log`, `--retry-failures`, and `--no-require-place-name` options so large syncs can be resumed without reprocessing known failures.
+- Added a guard blocking `--mode blind --include-synced`, because Naver saved-list controls are toggles.
+- Updated `$tastyroad-naver-map-sync` docs for Edge 150's non-default user-data-dir requirement and current coordinate verification.
+- Verification: `python3 -m py_compile`, safe `--limit 0`, blind `--limit 0`, blind/include-synced guard, and `git diff --check` all passed.
+
+## Current Task - 2026-07-10 - Sync verified restaurants to Naver Map
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/sync-naver-verified-restaurants`
+Branch: `codex/sync-naver-verified-restaurants`
+
+- [x] Read AGENTS.md, lessons, `$tastyroad-naver-map-sync`, and `naver-map-lists`.
+- [x] Create a task-specific worktree from `origin/main`.
+- [x] Inspect Naver Map target/synced data and script verification commands.
+- [x] Confirm Edge CDP and Naver login/list state.
+- [x] Run the Naver Map sync for all unsynced verified restaurants.
+- [x] Verify final saved-list count and capture evidence.
+- [x] Record final result notes.
+
+### Notes
+
+- Edge 150 blocks CDP on the default profile directory, so a local CDP-only profile copy is running from `/tmp/tastyroad-edge-cdp-profile`.
+- CDP is available on port `9222`; user completed Naver login and Naver Map shows `내정보 보기`.
+- Verified target list exists as private `Tastyroad`; visible count was `39`, then first test save changed local synced state to `40`.
+- Current UI target-list checkbox coordinate is approximately `(416, 617)`, not the older script coordinate.
+
+### Review
+
+- Naver Map `Tastyroad` list is still private and now shows `750` saved places in the UI screenshot `/private/tmp/tastyroad-naver-list-after-sync.png`.
+- Source scope was `854` eligible verified public restaurant rows. Local sync state now records `759` restaurant IDs as attempted/synced.
+- `95` rows remained unsynced because their Naver place page did not load through the logged-in Map UI; details are in `/private/tmp/tastyroad-naver-sync-failures.json`.
+- Because Edge 150 blocks default-profile CDP, sync ran through `/tmp/tastyroad-edge-cdp-profile` with a copied logged-in session.
+- The bundled script coordinates did not fit the current UI, so the run used temporary Playwright chunk runners under `/tmp`.
+
 ## Current Task - 2026-07-10 - Deploy Junhyunmoo web recovery
 
 Worktree: `/Users/indegser/Github/tastyroad`
