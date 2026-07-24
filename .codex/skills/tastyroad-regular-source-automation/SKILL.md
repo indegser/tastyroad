@@ -25,6 +25,8 @@ Use $tastyroad-regular-source-automation.
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
 
+Before maintenance, run `vercel integration list tastyroad --scope jaekwon-hans-projects` and require the connected `supabase-aqua-engine` resource to have status `Available`. If it is suspended, unavailable, missing, or the check fails, stop before data mutation, push, or deployment and report the exact external-resource blocker.
+
 Always run the non-dry deterministic runner so YouTube is actually queried. Do not use `--dry-run` to decide that there are no new videos: dry-run plans commands but skips collection and therefore reports `new_video_detection.status=not_checked`.
 
 If the actual run reports no new videos, no tracked changes, and empty work queues, archive the run with a short no-op report.
@@ -43,6 +45,8 @@ Deploy when every hard publishing gate is clean:
 - pnpm run build passes.
 
 Recalculate the original release scope after semantic review with `--scope-report <original-report>`. Do not lose the new-video scope merely because a later run collects zero additional IDs.
+
+Immediately before push and deployment, repeat the Vercel integration check and require `supabase-aqua-engine` status `Available`.
 
 Follow `$tastyroad-site-release` completely: commit intended changes, integrate them into production main, push main through GitHub, wait for the matching Vercel deployment to reach READY, and verify the production API.
 
@@ -91,6 +95,7 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 
 ## Rules
 
+- Treat a non-`Available` Supabase Marketplace resource as a hard external-resource blocker; do not retry application builds as a substitute for restoring it.
 - Do not deploy from a scheduled automation when any hard publishing gate is blocked.
 - Do deploy verified mapped restaurants even when transcript or must-taste warnings remain.
 - Do not add restaurants without numeric `naver_map_id`.

@@ -4,6 +4,14 @@ Use $tastyroad-site-release for the final production release.
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
 
+Before maintenance, run:
+
+```bash
+vercel integration list tastyroad --scope jaekwon-hans-projects
+```
+
+Require the connected `supabase-aqua-engine` resource to have status `Available`. If it is suspended, unavailable, missing, or the check fails, stop before data mutation, push, or deployment. Report the exact external-resource blocker and direct the user to the Supabase recovery dashboard. Do not retry application builds as a substitute for restoring the resource.
+
 Always run the non-dry deterministic runner so YouTube is actually queried:
 
 ```bash
@@ -41,6 +49,8 @@ Release only when the scoped report has:
 - no public verified restaurant with a blank Naver place ID,
 - no failed non-transcript maintenance command.
 
+Immediately before push and deployment, repeat the Vercel integration check and require `supabase-aqua-engine` status `Available`.
+
 Then run `pnpm run build`, commit only intended tracked files, integrate the intended commit into production `main`, push `main`, wait for the matching GitHub-triggered Vercel deployment to reach `READY`, and verify the production restaurants API. Do not use direct `vercel deploy`.
 
-Report new video IDs, mapping decisions, taste-menu results, transcript warnings, production commit, deployment URL/status, and production API verification.
+Report new video IDs, mapping decisions, taste-menu results, transcript warnings, both Supabase preflight results, production commit, deployment URL/status, and production API verification.

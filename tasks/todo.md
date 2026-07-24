@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Harden and publish daily automation spec
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/harden-daily-automation`
+Branch: `codex/harden-daily-automation`
+Target: production `main`
+
+- [x] Confirm the active and legacy Codex automation states.
+- [x] Pause the legacy dry-run-first automation.
+- [x] Add Supabase `Available` preflight checks to the active automation.
+- [x] Mirror the checks in the repository skill, durable prompt, agent guide, and lessons.
+- [x] Validate the scoped changes.
+- [ ] Commit, push, integrate into `main`, and update the local checkout.
+
+### Review
+
+- The active Codex automation now checks Supabase before maintenance and immediately before release.
+- The legacy dry-run-first automation is paused.
+- The repository skill, durable automation prompt, agent guide, and lessons carry the same external-resource hard gate.
+- `git diff --check` and `pnpm run build` passed; `pnpm lint` is unavailable because the repository has no lint script.
+
 ## Current Task - 2026-07-24 - Release after Supabase recovery
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/release-after-supabase-restore`

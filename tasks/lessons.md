@@ -129,6 +129,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-07-24
 
+- Trigger: Vercel production deployments repeatedly failed before build-container creation because the connected Supabase Marketplace resource was suspended.
+  Rule: Recurring release automation must check `vercel integration list` before maintenance and immediately before release, require the Supabase resource to be `Available`, and report a hard external-resource blocker instead of retrying builds.
 - Trigger: A scheduled dry-run skipped collection but its zero delta was treated as proof that no new videos existed.
   Rule: Never use a collection-skipping dry-run to decide a recurring source run is a no-op; report discovery as `not_checked` unless collection actually ran.
 - Trigger: YouTube RSS returned 404 for active channels, causing the daily run to miss uploads.
