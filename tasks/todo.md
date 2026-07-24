@@ -2,6 +2,30 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Release after Supabase recovery
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/release-after-supabase-restore`
+Branch: `codex/release-after-supabase-restore`
+Target: production `main`
+
+- [x] Confirm the connected Supabase resource recovered to `Available`.
+- [x] Read repository lessons and the regular automation/release skills.
+- [x] Run the non-dry recurring maintenance and inspect scoped map/taste gates.
+- [x] Resolve any hard publishing blockers and recalculate the release gate.
+- [x] Verify SQLite integrity and `pnpm run build`.
+- [ ] Commit intended changes, integrate into `main`, and push GitHub.
+- [ ] Wait for the matching Vercel deployment and verify the production API.
+- [ ] Record the final release result and clean up the worktree if safe.
+
+### Review
+
+- The real daily collection found one new `최자로드` video: `zjWA1VFKH2Q`.
+- Supabase transcript ingest succeeded with 28 Korean timed segments.
+- Verified `싱싱뽈락회 수성못점` against Naver place ID `16154308` and promoted the video mapping.
+- The full-transcript must-taste workflow validated and stored one item, `볼락회 쌈`.
+- Final scoped gate: `deploy_ready=true`, zero blockers, zero warnings, and empty map/transcript/must-taste queues.
+- SQLite integrity returned `ok`; `git diff --check` and `pnpm run build` passed.
+
 ## Current Task - 2026-07-24 - Make daily maintenance deterministic and release-complete
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`

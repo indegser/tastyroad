@@ -1,0 +1,24 @@
+{
+  "source": "최자로드",
+  "verified_at": "2026-07-24",
+  "items": [
+    {
+      "video_id": "zjWA1VFKH2Q",
+      "resolved_name": "싱싱뽈락회 수성못점",
+      "display_name": "싱싱뽈락회 수성못점",
+      "local_name": "싱싱뽈락회 수성못점",
+      "country_code": "KR",
+      "region": "대구 수성구",
+      "address": "대구광역시 수성구 수성못2길 17",
+      "phone": "053-762-0010",
+      "category": "생선회",
+      "map_provider": "naver_map",
+      "naver_map_id": "16154308",
+      "map_url": "https://map.naver.com/p/entry/place/16154308?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=zjWA1VFKH2Q",
+      "confidence": 0.98,
+      "status": "verified",
+      "notes": "The clip identifies a Daegu rockfish sashimi restaurant; transcript context and Naver name, address, phone, and category match 싱싱뽈락회 수성못점."
+    }
+  ]
+}
