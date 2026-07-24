@@ -142,6 +142,11 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 - Trigger: Naver Map moved place content into a `pcmap.place.naver.com` iframe, causing valid places to fail the main-document name check.
   Rule: Naver place-load validation must inspect all page frames before classifying a URL as missing or mismatched.
 
+## 2026-07-25
+
+- Trigger: A generic text-based click reported a Naver saved-list write as successful even though the modal confirmation did not persist.
+  Rule: Prefer the modal's enabled `button.swt-save-btn`, then audit the visible list count and re-open any discrepant place to confirm its target-list checkbox is selected before recording completion.
+
 ## 2026-06-22
 
 - Trigger: The user clarified that new transcript ingestion should ignore legacy story compatibility but keep the existing Webshare/youtube_transcript_api fetch path.

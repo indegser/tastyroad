@@ -98,6 +98,18 @@ python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
   --chunk-size 25
 ```
 
+When one saved list reaches Naver Map's 1,000-place limit, keep each list's
+state separate and exclude IDs recorded for earlier lists:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
+  --list-name "Tastyroad 2" \
+  --sync-state data/naver_map_list_synced_ids_2.json \
+  --exclude-state data/naver_map_list_synced_ids.json \
+  --source-name "식객 허영만의 백반기행" \
+  --chunk-size 25
+```
+
 Default `--mode safe` verifies the `Tastyroad` checkbox before clicking, which avoids
 toggling an already selected place off. It first tries selector/text/ARIA patterns for the
 place save button, target list checkbox, and modal actions; when Naver does not expose the

@@ -2,6 +2,28 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-25 - Continue Baekban Gihaeng in Tastyroad 2
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/baekban-naver-sync-2`
+Branch: `codex/baekban-naver-sync-2`
+Target: production `main`
+
+- [x] Read repository lessons and the Naver Map sync/list, browser, and release skills.
+- [x] Add separate multi-list sync-state support and verify the remaining source scope.
+- [x] Create and verify the private Naver Map list `Tastyroad 2`.
+- [x] Sync the remaining verified Baekban Gihaeng restaurants in safe chunks.
+- [x] Verify final list count, remaining exceptions, and capture a screenshot.
+- [x] Validate, commit, deploy through `main`, and verify production.
+
+### Review
+
+- Created `Tastyroad 2` as a private Naver Map list and confirmed 466 visible saved places.
+- The two list state files cover 647 of 649 verified Baekban Gihaeng restaurants without restaurant-ID overlap: 181 in `Tastyroad`, 466 in `Tastyroad 2`.
+- Naver reports deleted/unavailable pages for the two remaining exceptions: `베쓰 푸틴` (1647) and `하조대순대국전문점` (1751).
+- Added explicit per-list state and cross-list exclusion options, plus a direct modal-save-button preference for reliable confirmation.
+- Final Naver Map screenshot: `/private/tmp/tastyroad-2-final-466.png`.
+- Verification passed: Python compile, source-scoped dry-run, SQLite integrity, `git diff --check`, and `pnpm run build`; the connected Supabase resource was `Available` before release.
+
 ## Current Task - 2026-07-24 - Sync Baekban Gihaeng to Naver Map and deploy
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/baekban-naver-sync`

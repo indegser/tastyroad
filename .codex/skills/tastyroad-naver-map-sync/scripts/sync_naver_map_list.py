@@ -129,26 +129,35 @@ def default_list_name() -> str:
     return str(config.get("list_name") or DEFAULT_LIST_NAME)
 
 
-def load_synced_ids(list_name: str) -> set[int]:
-    if not SYNC_STATE_PATH.exists():
+def load_synced_ids(list_name: str, path: Path = SYNC_STATE_PATH) -> set[int]:
+    if not path.exists():
         return set()
-    with SYNC_STATE_PATH.open() as file:
+    with path.open() as file:
         state = json.load(file)
     if state.get("list_name") != list_name:
         return set()
     return {int(restaurant_id) for restaurant_id in state.get("restaurant_ids", [])}
 
 
-def save_synced_ids(list_name: str, restaurant_ids: set[int]) -> None:
+def load_state_ids(path: Path) -> set[int]:
+    if not path.exists():
+        return set()
+    with path.open() as file:
+        state = json.load(file)
+    return {int(restaurant_id) for restaurant_id in state.get("restaurant_ids", [])}
+
+
+def save_synced_ids(list_name: str, restaurant_ids: set[int], path: Path) -> None:
     payload = {
         "list_name": list_name,
         "restaurant_ids": sorted(restaurant_ids),
     }
-    tmp_path = SYNC_STATE_PATH.with_suffix(".json.tmp")
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
     with tmp_path.open("w") as file:
         json.dump(payload, file, ensure_ascii=False, indent=2)
         file.write("\n")
-    tmp_path.replace(SYNC_STATE_PATH)
+    tmp_path.replace(path)
 
 
 def load_failure_ids(path: Path) -> set[int]:
@@ -313,6 +322,16 @@ def click_edit_saved_list_control(page) -> bool:
 
 
 def click_modal_save_control(page) -> bool:
+    for frame in page.frames:
+        try:
+            buttons = frame.locator("button.swt-save-btn")
+            for index in range(buttons.count()):
+                button = buttons.nth(index)
+                if button.is_visible(timeout=150) and button.is_enabled(timeout=150):
+                    button.click(timeout=1000)
+                    return True
+        except Exception:
+            continue
     return click_control_by_text(
         page,
         BUTTON_SELECTOR,
@@ -528,12 +547,15 @@ def add_place_blind(page, place: Place, list_name: str) -> str:
 
 
 def assert_place_loaded(page, place: Place, require_place_name: bool) -> None:
-    text = body_text(page)
-    if "요청하신 페이지를 찾을 수 없습니다" in text:
-        raise RuntimeError("Naver place page not found")
-    if "내정보 보기" not in text:
-        page.wait_for_timeout(1000)
+    deadline = time.time() + 8
+    text = ""
+    while time.time() < deadline:
         text = body_text(page)
+        if "요청하신 페이지를 찾을 수 없습니다" in text:
+            raise RuntimeError("Naver place page not found")
+        if "내정보 보기" in text and (not require_place_name or place.name in text):
+            return
+        page.wait_for_timeout(500)
     if "내정보 보기" not in text:
         raise RuntimeError("Naver login marker missing")
     if require_place_name and place.name not in text:
@@ -564,6 +586,19 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument(
         "--source-name",
         help="Only process restaurants mapped to this exact sources.name value.",
+    )
+    parser.add_argument(
+        "--sync-state",
+        type=Path,
+        default=SYNC_STATE_PATH,
+        help="State file for IDs confirmed in the target list.",
+    )
+    parser.add_argument(
+        "--exclude-state",
+        type=Path,
+        action="append",
+        default=[],
+        help="State file whose restaurant IDs should be excluded. Repeatable.",
     )
     parser.add_argument("--skip-id", type=int, action="append", default=[])
     parser.add_argument("--limit", type=int)
@@ -610,10 +645,12 @@ def main() -> int:
     if args.mode == "blind" and args.include_synced:
         raise RuntimeError("--mode blind cannot be combined with --include-synced")
 
-    synced_ids = load_synced_ids(args.list_name)
+    synced_ids = load_synced_ids(args.list_name, args.sync_state)
     skip_ids = set(args.skip_id)
     if not args.include_synced:
         skip_ids.update(synced_ids)
+    for exclude_state in args.exclude_state:
+        skip_ids.update(load_state_ids(exclude_state))
     if not args.retry_failures:
         skip_ids.update(load_failure_ids(args.failure_log))
 
@@ -648,7 +685,7 @@ def main() -> int:
                 else:
                     result = add_place_blind(page, place, args.list_name)
                 synced_ids.add(place.id)
-                save_synced_ids(args.list_name, synced_ids)
+                save_synced_ids(args.list_name, synced_ids, args.sync_state)
                 elapsed = time.time() - started
                 print(
                     f"[{index}/{len(places)}] {result}; synced_count={len(synced_ids)} "
