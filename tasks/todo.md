@@ -11,10 +11,18 @@ Target: production `main`
 - [x] Read release guidance and confirm Supabase is `Available`.
 - [x] Confirm clean `main`, `origin/main`, and the intended task commit.
 - [x] Run the production build in the task worktree.
-- [ ] Fast-forward the intended commit into `main` and push GitHub.
-- [ ] Wait for the matching Vercel production deployment to reach `READY`.
-- [ ] Verify the production restaurants API.
-- [ ] Record the result and remove the clean task worktree.
+- [x] Fast-forward the intended commit into `main` and push GitHub.
+- [x] Wait for the matching Vercel production deployment to reach `READY`.
+- [x] Verify the production restaurants API.
+- [x] Record the result and remove the clean task worktree.
+
+### Review
+
+- Supabase Marketplace resource `supabase-aqua-engine` was `Available`.
+- `pnpm run build` passed before release.
+- Naver Map sync commits were fast-forwarded into production `main` and pushed through GitHub.
+- Vercel deployment `tastyroad-6oqvrl7aj-jaekwon-hans-projects.vercel.app` reached `READY` for commit `5b68ead`.
+- `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array and `total=892`.
 
 ## Current Task - 2026-07-24 - Sync verified restaurants to Naver Map
 
