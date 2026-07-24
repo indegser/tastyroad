@@ -350,7 +350,6 @@ def parse_pin_lines(description: str) -> list[Place]:
 
 
 def extract_places(description: str) -> list[Place]:
-    seen: set[tuple[str, str, str]] = set()
     result: list[Place] = []
     for parser in (
         parse_company_blocks,
@@ -361,19 +360,51 @@ def extract_places(description: str) -> list[Place]:
         parse_pin_lines,
     ):
         for place in parser(description):
-            key = (normalize_place_name(place.name), place.address, place.map_url)
-            if place.name and key not in seen:
-                seen.add(key)
-                result.append(
-                    Place(
-                        name=normalize_place_name(place.name),
-                        address=place.address,
-                        phone=place.phone,
-                        category=place.category,
-                        map_url=place.map_url,
-                        notes=place.notes,
+            normalized_name = normalize_place_name(place.name)
+            if not normalized_name:
+                continue
+            alias_index = next(
+                (
+                    index
+                    for index, existing in enumerate(result)
+                    if (
+                        normalized_name == existing.name
+                        or normalized_name.endswith(f" {existing.name}")
+                        or existing.name.endswith(f" {normalized_name}")
                     )
-                )
+                    and (
+                        not place.address
+                        or not existing.address
+                        or place.address == existing.address
+                    )
+                ),
+                None,
+            )
+            normalized_place = Place(
+                name=normalized_name,
+                address=place.address,
+                phone=place.phone,
+                category=place.category,
+                map_url=place.map_url,
+                notes=place.notes,
+            )
+            if alias_index is None:
+                result.append(normalized_place)
+                continue
+            existing = result[alias_index]
+            preferred_name = (
+                normalized_name
+                if len(normalized_name) < len(existing.name)
+                else existing.name
+            )
+            result[alias_index] = Place(
+                name=preferred_name,
+                address=existing.address or normalized_place.address,
+                phone=existing.phone or normalized_place.phone,
+                category=existing.category or normalized_place.category,
+                map_url=existing.map_url or normalized_place.map_url,
+                notes=existing.notes or normalized_place.notes,
+            )
     return result
 
 
@@ -724,7 +755,9 @@ def process_backlog(
             ]
             counts["skipped_overseas_places"] += len(overseas_places)
 
-            if str(review_status) == "unreviewed":
+            if str(review_status) == "unreviewed" or (
+                places and str(review_status).startswith("reviewed_restaurant")
+            ):
                 counts["reviewed"] += 1
                 if not dry_run:
                     upsert_review(connection, str(video_id), places, str(title), now)

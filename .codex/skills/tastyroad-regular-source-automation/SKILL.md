@@ -25,33 +25,41 @@ Use $tastyroad-regular-source-automation.
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
 
-First run the deterministic runner in dry-run/report mode. If there are no new videos and no actionable findings, archive the run with a short no-op report.
-If new videos exist, collect them, ingest missing transcripts, run deterministic map candidate processing, and prepare the must-taste work queue.
+Always run the non-dry deterministic runner so YouTube is actually queried. Do not use `--dry-run` to decide that there are no new videos: dry-run plans commands but skips collection and therefore reports `new_video_detection.status=not_checked`.
 
-For any unresolved Naver place mapping, transcript warning, or must-taste warning, use the owning Tastyroad skills to resolve it:
+If the actual run reports no new videos, no tracked changes, and empty work queues, archive the run with a short no-op report.
+If new videos exist, collect them, ingest missing transcripts, run deterministic map candidate processing, and process the explicit mapping/transcript/must-taste work queues.
+
+For every queued Naver place mapping, transcript warning, or must-taste warning, use the owning Tastyroad skill:
 - $tastyroad-map-video-restaurants for ambiguous place verification.
 - $tastyroad-youtube-transcript-ingest for transcript fetch warnings.
 - $tastyroad-transcript-must-taste for transcript-grounded menu/reason extraction.
 
 Deploy when every hard publishing gate is clean:
 - no new collected video remains mapping_pending or mapping_partial,
+- every verified public restaurant has a numeric Naver place ID,
+- SQLite integrity_check returns ok,
 - non-transcript maintenance commands did not fail,
 - pnpm run build passes.
 
-Do not block release only because transcript ingestion failed or a mapped restaurant-video pair lacks must-taste rows. Leave concise Triage warnings with exact source/video IDs and the next command or skill to run, then release verified mapped restaurants so they are visible on the web.
+Recalculate the original release scope after semantic review with `--scope-report <original-report>`. Do not lose the new-video scope merely because a later run collects zero additional IDs.
+
+Follow `$tastyroad-site-release` completely: commit intended changes, integrate them into production main, push main through GitHub, wait for the matching Vercel deployment to reach READY, and verify the production API.
+
+Do not block release only because transcript ingestion failed or a mapped restaurant-video pair has validator-confirmed insufficient taste evidence. Leave concise Triage warnings with exact source/video IDs, then release verified mapped restaurants so they are visible on the web.
 ```
 
 Recommended cadence: daily at a stable morning time in Asia/Seoul. Add a weekly or manual full-channel audit run when missed historical uploads are a concern.
 
 ## Workflow
 
-1. Inspect the run plan without mutating data:
+1. Optional: inspect the run plan without mutating data. This cannot detect new videos:
 
 ```bash
 python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py --dry-run
 ```
 
-2. Run the deterministic maintenance stages:
+2. Always run the deterministic maintenance stages for the scheduled check:
 
 ```bash
 python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py
@@ -63,7 +71,7 @@ Use `--full-channel` for a weekly/manual audit:
 python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py --full-channel
 ```
 
-3. Read the report printed by the runner and the JSON report under `data/work/regular_source_automation/`.
+3. Read the report and the explicit `work_queues` under `data/work/regular_source_automation/`.
 
 4. If gates are blocked, use the owning skill:
 
@@ -71,7 +79,15 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 - Transcript warnings: `$tastyroad-youtube-transcript-ingest`
 - Must-taste warnings: `$tastyroad-transcript-must-taste`
 
-5. Re-run the deterministic runner after resolving hard blockers. When the report says `deploy_ready: true`, follow `$tastyroad-site-release`; transcript and must-taste warnings can remain as follow-up work.
+5. Recalculate the original scope after resolving review work:
+
+```bash
+python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py \
+  --skip-collect --skip-map --skip-naver-resolution --skip-transcripts \
+  --scope-report data/work/regular_source_automation/<original-report>.json
+```
+
+6. When the scoped report says `deploy_ready: true`, run `pnpm run build` and follow `$tastyroad-site-release`; transcript failures or validator-confirmed insufficient taste evidence can remain as follow-up warnings.
 
 ## Rules
 

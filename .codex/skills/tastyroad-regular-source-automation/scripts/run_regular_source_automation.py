@@ -7,6 +7,7 @@ import json
 import os
 import sqlite3
 import subprocess
+import sys
 from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
@@ -160,6 +161,16 @@ def select_new_videos(sqlite_path: Path, new_ids_by_source: dict[str, set[str]])
     return result
 
 
+def load_scope_video_ids(report_path: Path | None) -> list[str]:
+    if report_path is None:
+        return []
+    payload = json.loads(repo_path(report_path).read_text(encoding="utf-8"))
+    video_ids = payload.get("release_scope_video_ids")
+    if video_ids is None:
+        video_ids = [item.get("video_id") for item in payload.get("new_videos", [])]
+    return sorted({str(video_id) for video_id in video_ids if video_id})
+
+
 def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
     path = repo_path(sqlite_path)
     if not path.exists():
@@ -177,6 +188,24 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
     placeholders = ",".join("?" for _ in new_video_ids)
     with sqlite3.connect(path) as connection:
         connection.row_factory = sqlite3.Row
+        integrity = str(connection.execute("pragma integrity_check").fetchone()[0])
+        if integrity != "ok":
+            blockers.append({"type": "sqlite_integrity", "result": integrity})
+
+        if table_exists(connection, "restaurants") and table_exists(connection, "youtube_video_restaurants"):
+            blank_naver_count = count_rows(
+                connection,
+                """
+                select count(distinct r.id)
+                from restaurants r
+                join youtube_video_restaurants yvr on yvr.restaurant_id = r.id
+                where yvr.status in ('verified', 'metadata_verified')
+                  and trim(coalesce(r.naver_map_id, '')) = ''
+                """,
+            )
+            if blank_naver_count:
+                blockers.append({"type": "blank_naver_map_id", "restaurant_count": blank_naver_count})
+
         if table_exists(connection, "video_pipeline_status") and new_video_ids:
             for row in connection.execute(
                 f"""
@@ -189,6 +218,18 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
                 params,
             ):
                 blockers.append({"type": "mapping", **dict(row)})
+            for row in connection.execute(
+                f"""
+                select video_id, source, title, mapping_status, review_status
+                from video_pipeline_status
+                where video_id in ({placeholders})
+                  and review_status = 'reviewed_uncertain'
+                  and mapping_status = 'not_applicable'
+                order by published_at desc
+                """,
+                params,
+            ):
+                warnings.append({"type": "mapping_review", **dict(row)})
 
         if table_exists(connection, "preferred_youtube_transcripts") and new_video_ids:
             transcript_missing = connection.execute(
@@ -249,6 +290,17 @@ def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
     }
 
 
+def work_queues(gates: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+    findings = [*gates.get("blockers", []), *gates.get("warnings", [])]
+    return {
+        "map_verification": [
+            item for item in findings if item.get("type") in {"mapping", "mapping_review"}
+        ],
+        "transcript_ingest": [item for item in findings if item.get("type") == "transcript"],
+        "must_taste_validation": [item for item in findings if item.get("type") == "must_taste"],
+    }
+
+
 def write_report(report_dir: Path, report: dict[str, Any]) -> Path:
     path = repo_path(report_dir)
     path.mkdir(parents=True, exist_ok=True)
@@ -281,6 +333,11 @@ def main() -> int:
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
     parser.add_argument("--report-dir", type=Path, default=DEFAULT_REPORT_DIR)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument(
+        "--scope-report",
+        type=Path,
+        help="Recalculate gates for the release_scope_video_ids from an earlier non-dry report.",
+    )
     parser.add_argument("--full-channel", action="store_true")
     parser.add_argument("--workers", type=int, default=4)
     parser.add_argument("--transcript-request-delay", type=float, default=1.0)
@@ -300,7 +357,7 @@ def main() -> int:
     for source in sources:
         if not args.skip_collect:
             command = [
-                "python3",
+                sys.executable,
                 str(COLLECT_SCRIPT),
                 "--source",
                 source.key,
@@ -319,26 +376,39 @@ def main() -> int:
         for source in sources
     }
     new_videos = [] if args.dry_run else select_new_videos(args.sqlite, new_ids_by_source)
-    new_video_ids = [str(item["video_id"]) for item in new_videos]
+    discovered_video_ids = [str(item["video_id"]) for item in new_videos]
+    scoped_video_ids = load_scope_video_ids(args.scope_report)
+    release_scope_video_ids = sorted({*discovered_video_ids, *scoped_video_ids})
+
+    scoped_source_keys = {
+        source_key for source_key, video_ids in new_ids_by_source.items() if video_ids
+    }
+    scoped_sources = [source for source in sources if source.key in scoped_source_keys]
 
     if not args.skip_map:
-        commands.append(
-            run_command(
-                "map:process-backlog",
-                ["python3", str(MAP_BACKLOG_SCRIPT)],
-                dry_run=args.dry_run,
+        for source in scoped_sources:
+            commands.append(
+                run_command(
+                    f"map:process-backlog:{source.key}",
+                    [
+                        sys.executable,
+                        str(MAP_BACKLOG_SCRIPT),
+                        "--source",
+                        source.name,
+                    ],
+                    dry_run=args.dry_run,
+                )
             )
-        )
 
     if not args.skip_naver_resolution:
-        for source in sources:
+        for source in scoped_sources:
             output = Path("data/work/regular_source_automation") / f"{source.key}_resolved_places.json"
             unresolved = Path("data/work/regular_source_automation") / f"{source.key}_unresolved_places.json"
             commands.append(
                 run_command(
                     f"map:resolve-naver:{source.key}",
                     [
-                        "python3",
+                        sys.executable,
                         str(NAVER_RESOLVE_SCRIPT),
                         "--source",
                         source.name,
@@ -355,33 +425,35 @@ def main() -> int:
                 commands.append(
                     run_command(
                         f"map:promote-resolved:{source.key}",
-                        ["python3", str(PROMOTE_PLACES_SCRIPT), "--input", str(output)],
+                        [sys.executable, str(PROMOTE_PLACES_SCRIPT), "--input", str(output)],
                         dry_run=False,
                     )
                 )
 
     if not args.skip_transcripts:
-        for source in sources:
+        if release_scope_video_ids:
+            transcript_command = [
+                sys.executable,
+                str(TRANSCRIPT_SCRIPT),
+                "--missing-only",
+                "--storage-provider",
+                "supabase_storage",
+                "--request-delay",
+                str(args.transcript_request_delay),
+            ]
+            transcript_command.extend(
+                f"--video-id={video_id}" for video_id in release_scope_video_ids
+            )
             commands.append(
                 run_command(
-                    f"transcripts:{source.key}",
-                    [
-                        "python3",
-                        str(TRANSCRIPT_SCRIPT),
-                        "--source",
-                        source.key,
-                        "--missing-only",
-                        "--storage-provider",
-                        "supabase_storage",
-                        "--request-delay",
-                        str(args.transcript_request_delay),
-                    ],
+                    "transcripts:release_scope",
+                    transcript_command,
                     dry_run=args.dry_run,
                 )
             )
 
     failed_commands = [command_payload(result) for result in commands if result.returncode != 0]
-    gates = gate_status(args.sqlite, new_video_ids)
+    gates = gate_status(args.sqlite, release_scope_video_ids)
     if failed_commands:
         gates.setdefault("blockers", [])
         gates.setdefault("warnings", [])
@@ -398,15 +470,26 @@ def main() -> int:
     report = {
         "checked_at": now_iso(),
         "dry_run": args.dry_run,
+        "collection_performed": not args.dry_run and not args.skip_collect,
+        "new_video_detection": {
+            "status": "not_checked" if args.dry_run else "completed",
+            "reason": (
+                "Dry-run plans commands but does not query YouTube; it cannot determine whether new videos exist."
+                if args.dry_run
+                else ""
+            ),
+        },
         "full_channel": args.full_channel,
         "sources": [source.__dict__ for source in sources],
         "before_counts": source_counts(before_ids),
         "after_counts": source_counts(SOURCE_AFTER_IDS),
         "new_ids_by_source": {key: sorted(values) for key, values in new_ids_by_source.items() if values},
-        "new_video_count": len(new_videos),
+        "new_video_count": None if args.dry_run else len(new_videos),
         "new_videos": new_videos,
+        "release_scope_video_ids": release_scope_video_ids,
         "commands": [command_payload(result) for result in commands],
         "gates": gates,
+        "work_queues": work_queues(gates),
         "next_actions": next_actions(gates),
     }
     report_path = write_report(args.report_dir, report)

@@ -9,6 +9,7 @@ import sqlite3
 import subprocess
 import sys
 import time
+import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from dataclasses import asdict, dataclass
@@ -25,6 +26,7 @@ DEFAULT_OUTPUT_DIR = Path("data/raw/youtube")
 DEFAULT_SQLITE = Path("data/tastyroad.sqlite")
 VIDEO_DETAIL_RETRIES = 5
 VIDEO_DETAIL_RETRY_BACKOFF_SECONDS = 5
+LATEST_PLAYLIST_LIMIT = 15
 
 ATOM_NS = "{http://www.w3.org/2005/Atom}"
 YT_NS = "{http://www.youtube.com/xml/schemas/2015}"
@@ -134,8 +136,16 @@ def collect_source(
     workers: int = 1,
     existing_candidates: dict[str, YoutubeVideo] | None = None,
 ) -> list[YoutubeVideo]:
-    xml_bytes = fetch_feed(source.resolved_feed_url)
-    candidates = parse_feed(xml_bytes, source, collected_at)
+    try:
+        candidates = parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
+    except urllib.error.HTTPError as error:
+        if error.code != 404:
+            raise
+        print(
+            f"warning: RSS feed unavailable for {source.key}; using recent playlist fallback",
+            file=sys.stderr,
+        )
+        candidates = collect_recent_playlist_candidates(source, collected_at)
     candidates, skip_video_ids = apply_existing_candidates(
         candidates,
         existing_candidates or {},
@@ -150,6 +160,50 @@ def collect_source(
     return filter_collectable_full_channel_candidates(enriched_candidates, source)
 
 
+def collect_recent_playlist_candidates(
+    source: YoutubeSource,
+    collected_at: str,
+) -> list[YoutubeVideo]:
+    candidates: list[YoutubeVideo] = []
+    seen_video_ids: set[str] = set()
+    for full_channel_url in source.resolved_full_channel_urls:
+        command = [
+            sys.executable,
+            "-m",
+            "yt_dlp",
+            "--dump-json",
+            "--flat-playlist",
+            "--playlist-end",
+            str(LATEST_PLAYLIST_LIMIT),
+            "--extractor-args",
+            "youtube:lang=ko",
+            full_channel_url,
+        ]
+        completed = subprocess.run(command, check=True, capture_output=True, text=True, timeout=120)
+        for line in completed.stdout.splitlines():
+            if not line.startswith("{"):
+                continue
+            item = json.loads(line)
+            title = str(item.get("title") or "").strip()
+            video_id = str(item.get("id") or "").strip()
+            if (
+                not video_id
+                or video_id in seen_video_ids
+                or not title
+                or not should_include_title(title, source)
+            ):
+                continue
+            seen_video_ids.add(video_id)
+            candidates.append(
+                make_candidate_from_yt_dlp_item(
+                    item=item,
+                    source=source,
+                    collected_at=collected_at,
+                )
+            )
+    return candidates
+
+
 def collect_source_full_channel(
     source: YoutubeSource,
     collected_at: str,
@@ -157,10 +211,14 @@ def collect_source_full_channel(
     workers: int = 1,
     existing_candidates: dict[str, YoutubeVideo] | None = None,
 ) -> list[YoutubeVideo]:
-    rss_candidates = {
-        candidate.video_id: candidate
-        for candidate in parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
-    }
+    try:
+        rss_rows = parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
+    except urllib.error.HTTPError as error:
+        if error.code != 404:
+            raise
+        print(f"warning: RSS feed unavailable for {source.key}; continuing full-channel collection", file=sys.stderr)
+        rss_rows = []
+    rss_candidates = {candidate.video_id: candidate for candidate in rss_rows}
     candidates: list[YoutubeVideo] = []
     existing_candidates = existing_candidates or {}
     skip_video_ids: set[str] = set()
@@ -168,7 +226,9 @@ def collect_source_full_channel(
 
     for full_channel_url in source.resolved_full_channel_urls:
         command = [
-            "yt-dlp",
+            sys.executable,
+            "-m",
+            "yt_dlp",
             "--dump-json",
             "--flat-playlist",
             "--extractor-args",
@@ -450,7 +510,9 @@ def enrich_candidates_parallel(
 
 def fetch_video_details(url: str) -> dict[str, Any]:
     command = [
-        "yt-dlp",
+        sys.executable,
+        "-m",
+        "yt_dlp",
         "--dump-json",
         "--skip-download",
         "--no-playlist",
@@ -860,6 +922,19 @@ def write_json(output_dir: Path, source: YoutubeSource, candidates: list[Youtube
     return path
 
 
+def merge_snapshot_candidates(
+    existing_candidates: dict[str, YoutubeVideo],
+    candidates: list[YoutubeVideo],
+) -> list[YoutubeVideo]:
+    merged = dict(existing_candidates)
+    merged.update({candidate.video_id: candidate for candidate in candidates})
+    return sorted(
+        merged.values(),
+        key=lambda candidate: (candidate.published_at, candidate.video_id),
+        reverse=True,
+    )
+
+
 def write_sqlite(
     path: Path,
     source: YoutubeSource,
@@ -991,6 +1066,11 @@ def collect_sources(
             if reuse_existing
             else {}
         )
+        snapshot_existing_candidates = (
+            load_existing_candidates_from_json(output_dir / f"{source.key}.json", source)
+            if reuse_existing
+            else {}
+        )
         candidates = (
             collect_source_full_channel(
                 source,
@@ -1006,10 +1086,18 @@ def collect_sources(
                 existing_candidates=existing_candidates,
             )
         )
-        output_path = write_json(output_dir, source, candidates)
+        snapshot_candidates = (
+            candidates
+            if use_full_channel
+            else merge_snapshot_candidates(snapshot_existing_candidates, candidates)
+        )
+        output_path = write_json(output_dir, source, snapshot_candidates)
         write_sqlite(sqlite_path, source, candidates, prune_missing=use_full_channel)
-        counts[source.key] = len(candidates)
-        print(f"{source.key}: collected {len(candidates)} candidates -> {output_path}")
+        counts[source.key] = len(snapshot_candidates)
+        print(
+            f"{source.key}: collected {len(candidates)} recent candidates, "
+            f"wrote {len(snapshot_candidates)} total -> {output_path}"
+        )
 
     return counts
 

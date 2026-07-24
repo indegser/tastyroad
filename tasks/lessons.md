@@ -127,6 +127,15 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 - Trigger: The user defined design "weeds" as redundant visible words such as labeling an already familiar filter area as `필터`.
   Rule: In Tastyroad UI work, remove visible explanatory labels when the layout/control pattern already carries the meaning; keep accessible labels for assistive technology.
 
+## 2026-07-24
+
+- Trigger: A scheduled dry-run skipped collection but its zero delta was treated as proof that no new videos existed.
+  Rule: Never use a collection-skipping dry-run to decide a recurring source run is a no-op; report discovery as `not_checked` unless collection actually ran.
+- Trigger: YouTube RSS returned 404 for active channels, causing the daily run to miss uploads.
+  Rule: Fall back to a bounded flat-playlist scan when a configured channel RSS feed fails, and merge the recent window into the existing raw snapshot.
+- Trigger: A daily run retried the entire historical transcript backlog and obscured the current release scope.
+  Rule: Carry explicit release-scope video IDs across gate recalculations and limit transcript, mapping, and must-taste queues to that scope.
+
 ## 2026-06-22
 
 - Trigger: The user clarified that new transcript ingestion should ignore legacy story compatibility but keep the existing Webshare/youtube_transcript_api fetch path.
