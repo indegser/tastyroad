@@ -13,7 +13,7 @@ Target: production `main`
 - [x] Add Supabase `Available` preflight checks to the active automation.
 - [x] Mirror the checks in the repository skill, durable prompt, agent guide, and lessons.
 - [x] Validate the scoped changes.
-- [ ] Commit, push, integrate into `main`, and update the local checkout.
+- [x] Commit, push, integrate into `main`, and update the local checkout.
 
 ### Review
 
@@ -21,6 +21,7 @@ Target: production `main`
 - The legacy dry-run-first automation is paused.
 - The repository skill, durable automation prompt, agent guide, and lessons carry the same external-resource hard gate.
 - `git diff --check` and `pnpm run build` passed; `pnpm lint` is unavailable because the repository has no lint script.
+- Commit `c72b0b2` was pushed on `codex/harden-daily-automation`, fast-forwarded into `main`, and pushed to GitHub.
 
 ## Current Task - 2026-07-24 - Release after Supabase recovery
 
