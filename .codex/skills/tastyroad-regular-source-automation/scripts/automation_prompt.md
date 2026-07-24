@@ -16,7 +16,7 @@ Read `data/work/regular_source_automation/latest.json`.
 
 If `new_video_count=0`, there are no tracked changes, and all work queues are empty, archive the run with a short no-op report.
 
-For every item in `work_queues.map_verification`, use `$tastyroad-map-video-restaurants`. Do not release until every scoped new video is `mapping_verified` or explicitly reviewed `not_applicable`; verified restaurants require a numeric Naver place ID.
+For every item in `work_queues.map_verification`, use `$tastyroad-map-video-restaurants`. A `mapping_pending` or `mapping_partial` result is a hard blocker. A metadata-poor `mapping_review` item may remain a warning only after a concrete web-search review records that no safe place match is available. Verified restaurants require a numeric Naver place ID.
 
 For every item in `work_queues.transcript_ingest`, use `$tastyroad-youtube-transcript-ingest`. Transcript failures remain warnings after a concrete retry.
 
@@ -36,7 +36,7 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 Release only when the scoped report has:
 
 - `gates.deploy_ready=true`,
-- zero `work_queues.map_verification` items,
+- zero hard mapping blockers (`mapping_pending` or `mapping_partial`),
 - SQLite `integrity_check=ok`,
 - no public verified restaurant with a blank Naver place ID,
 - no failed non-transcript maintenance command.
