@@ -1,0 +1,24 @@
+{
+  "source": "전현무계획",
+  "verified_at": "2026-07-25",
+  "items": [
+    {
+      "video_id": "kkUsuZQoHJU",
+      "resolved_name": "합천삼가명품한우",
+      "display_name": "합천삼가명품한우",
+      "local_name": "합천삼가명품한우",
+      "country_code": "KR",
+      "region": "경남 합천군",
+      "address": "경상남도 합천군 삼가면 서부로 39",
+      "phone": "055-931-5004",
+      "category": "소고기구이",
+      "map_provider": "naver_map",
+      "naver_map_id": "32063978",
+      "map_url": "https://map.naver.com/p/entry/place/32063978?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%ED%95%A9%EC%B2%9C%EC%82%BC%EA%B0%80%EB%AA%85%ED%92%88%ED%95%9C%EC%9A%B0",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `합천삼가명품한우` from video metadata; match score 95."
+    }
+  ]
+}

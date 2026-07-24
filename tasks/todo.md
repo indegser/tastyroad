@@ -2,6 +2,21 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-25 - Regular source maintenance automation
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260725`
+Branch: `codex/regular-source-maintenance-20260725`
+Target: production `main` if gates pass
+
+- [x] Read repository guide, lessons, automation memory, and required Tastyroad skills.
+- [x] Create a dedicated automation worktree from fresh `origin/main`.
+- [x] Confirm pre-maintenance Supabase Marketplace status is `Available`.
+- [x] Run the non-dry deterministic all-source maintenance runner.
+- [x] Inspect `latest.json` and process scoped mapping/transcript/must-taste queues.
+- [x] Recalculate the original release scope and verify hard data gates.
+- [ ] Repeat Supabase preflight, build, commit, integrate to `main`, push, and verify Vercel production if deploy-ready.
+- [ ] Record the final result and preserve or clean up the worktree according to the release outcome.
+
 ## Current Task - 2026-07-25 - Continue Baekban Gihaeng in Tastyroad 2
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/baekban-naver-sync-2`
