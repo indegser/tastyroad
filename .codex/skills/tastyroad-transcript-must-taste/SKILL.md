@@ -132,6 +132,11 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/plan_must_taste_ba
 
 This writes `manifest.json`, `pairs.json`, optional `videos.json`, and `batch_001.json` style worker inputs. Without `--group-by-video`, each batch item is one restaurant-video pair. With `--group-by-video`, each batch item is one video plus a `restaurants` list. Use `--include-existing` only when intentionally re-running already stored pairs.
 
+For incremental ingest while an earlier batch still has intentionally
+insufficient pairs, pass its `pairs.json` with `--exclude-pairs-file`. This
+plans only newly transcript-eligible pairs instead of repeating already
+reviewed insufficiencies. Repeat the option for every prior incremental plan.
+
 2. Send each batch file to a worker/subagent. The worker owns only that batch's `data/work/must_taste/<video>/<restaurant>/` artifacts, optional `data/work/must_taste_video/<video>/` scout notes, and its `<batch>_done.json` completion file. The worker must not write `data/tastyroad.sqlite`; it should run `apply_must_taste_result.py --dry-run` only.
 
 For video-grouped batches, the worker flow is:
@@ -161,6 +166,11 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_b
   --expected-count 152 \
   --source-name "성시경의 먹을텐데"
 ```
+
+If the reviewed set intentionally contains transcript-insufficient pairs, keep
+them in `--expected-count` and pass `--allow-insufficient`. The collector still
+validates the full completion set, skips only explicit
+`insufficient_evidence` rows, and reports the exact skipped count.
 
 5. Apply only after the dry-run-only command passes:
 

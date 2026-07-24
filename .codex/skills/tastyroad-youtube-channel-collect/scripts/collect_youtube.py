@@ -135,6 +135,7 @@ def collect_source(
     *,
     workers: int = 1,
     existing_candidates: dict[str, YoutubeVideo] | None = None,
+    enrich_details: bool = True,
 ) -> list[YoutubeVideo]:
     try:
         candidates = parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
@@ -151,11 +152,15 @@ def collect_source(
         existing_candidates or {},
         collected_at,
     )
-    enriched_candidates = enrich_candidates(
-        candidates,
-        source,
-        workers=workers,
-        skip_video_ids=skip_video_ids,
+    enriched_candidates = (
+        enrich_candidates(
+            candidates,
+            source,
+            workers=workers,
+            skip_video_ids=skip_video_ids,
+        )
+        if enrich_details
+        else candidates
     )
     return filter_collectable_full_channel_candidates(enriched_candidates, source)
 
@@ -210,6 +215,7 @@ def collect_source_full_channel(
     *,
     workers: int = 1,
     existing_candidates: dict[str, YoutubeVideo] | None = None,
+    enrich_details: bool = True,
 ) -> list[YoutubeVideo]:
     try:
         rss_rows = parse_feed(fetch_feed(source.resolved_feed_url), source, collected_at)
@@ -279,6 +285,8 @@ def collect_source_full_channel(
 
         candidates.append(rss_candidate)
 
+    if not enrich_details:
+        return candidates
     return enrich_candidates(candidates, source, workers=workers, skip_video_ids=skip_video_ids)
 
 
@@ -1054,6 +1062,7 @@ def collect_sources(
     full_channel_keys: set[str] | None = None,
     workers: int = 1,
     reuse_existing: bool = False,
+    enrich_details: bool = True,
 ) -> dict[str, int]:
     collected_at = datetime.now(timezone.utc).isoformat()
     counts: dict[str, int] = {}
@@ -1077,6 +1086,7 @@ def collect_sources(
                 collected_at,
                 workers=workers,
                 existing_candidates=existing_candidates,
+                enrich_details=enrich_details,
             )
             if use_full_channel
             else collect_source(
@@ -1084,6 +1094,7 @@ def collect_sources(
                 collected_at,
                 workers=workers,
                 existing_candidates=existing_candidates,
+                enrich_details=enrich_details,
             )
         )
         snapshot_candidates = (
@@ -1112,6 +1123,11 @@ def main() -> int:
     parser.add_argument("--full-channel", action="store_true", help="Collect the full YouTube channel video list with yt-dlp instead of the RSS window.")
     parser.add_argument("--workers", type=int, default=1, help="Number of parallel per-video detail fetches.")
     parser.add_argument(
+        "--skip-details",
+        action="store_true",
+        help="Keep RSS/playlist metadata without per-video detail requests.",
+    )
+    parser.add_argument(
         "--reuse-existing",
         "--missing-only",
         dest="reuse_existing",
@@ -1129,6 +1145,7 @@ def main() -> int:
         full_channel=args.full_channel,
         workers=args.workers,
         reuse_existing=args.reuse_existing,
+        enrich_details=not args.skip_details,
     )
 
     print(f"Updated {args.sqlite}")

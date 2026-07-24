@@ -22,6 +22,17 @@ The key distinction is that normal collection reads the YouTube RSS feed and onl
 python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py --source <source_key> --full-channel --reuse-existing --workers 4
 ```
 
+If YouTube is returning repeated HTTP 429 responses during per-video detail
+enrichment, stop the detail requests and preserve the official playlist
+IDs/titles first:
+
+```bash
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py \
+  --source <source_key> --full-channel --reuse-existing --skip-details
+```
+
+Rows without detail fields remain retryable in a later `--reuse-existing` run.
+
 3. For a normal latest-window refresh, run:
 
 ```bash

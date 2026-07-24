@@ -90,6 +90,23 @@ python3 .codex/skills/tastyroad-map-video-restaurants/scripts/process_pipeline_b
 
 Metadata candidate generation is insufficient for broadcast clips whose descriptions omit restaurant names. For those rows, use the web search candidate discovery flow above and keep review artifacts before creating the final verified places file.
 
+When agent-reviewed JSONL already contains concrete names, addresses, and collected
+`video_id`/`video_ids`, resolve it to numeric Naver place IDs without first
+inserting search candidates into SQLite:
+
+```bash
+python3 .codex/skills/tastyroad-map-video-restaurants/scripts/resolve_naver_search_candidates.py \
+  --sqlite data/tastyroad.sqlite \
+  --source "식객 허영만의 백반기행" \
+  --input-jsonl data/work/map_video_restaurants/reviewed_candidates.jsonl \
+  --output data/verified_places/baekban_gihaeng_places.json \
+  --unresolved-output data/work/map_video_restaurants/naver_unresolved.json
+```
+
+This mode reads `candidate_name`, `region_address_clues`, and the video IDs from
+the review artifact. It only writes the requested result files; promotion remains
+a separate sequential step.
+
 ## Web Search Recovery Heuristics
 
 Use web search recovery when a row is already `reviewed_uncertain`, `reviewed_not_restaurant`, or `not_applicable`, but the title still contains credible restaurant clues such as a dish, neighborhood/region, episode label, "맛집", "식당", "노포", "구이", "짬짜면", or similar menu/location words.
@@ -109,6 +126,30 @@ For agent-assisted mapping, keep review artifacts under `data/work/map_video_res
 - `conflict_review.json`: list missed-place risks, duplicate/branch risks, rejected candidates, unresolved candidates, and the recommended final items.
 
 The final `data/verified_places/*.json` file is the only promotion input. Review artifacts explain the judgment but do not replace the verified places output contract.
+
+When several reviewed batches use the `place_verifications.json` contract, combine
+only their `verified` rows into one promotion input:
+
+```bash
+python3 .codex/skills/tastyroad-map-video-restaurants/scripts/build_verified_places_from_reviews.py \
+  --source "식객 허영만의 백반기행" \
+  --input data/work/map_video_restaurants/batch_1/place_verifications.json \
+  --input data/work/map_video_restaurants/batch_2/place_verifications.json \
+  --audit data/work/map_video_restaurants/baekban_global_conflict_audit.json \
+  --output data/verified_places/baekban_gihaeng_places.json
+```
+
+When `--audit` is present, the builder removes every pair explicitly marked
+`exclude_this_video_link`, plus any `warning_resolutions[].exclude_pairs`.
+Pass transcript-informed mapping audits with repeatable `--mapping-audit`;
+their explicit `remove_mapping` video/place pairs are removed as well.
+Pass reviewed replacements with repeatable `--recovery`; each artifact must
+contain one complete verified-place output item under `new_pair`.
+
+After the reviewed final file has been regenerated, remove already-promoted
+disproved pairs sequentially with `apply_mapping_audit_removals.py`, then
+promote any verified recovery mappings. The removal script also clears
+pair-specific taste rows and stale review names.
 
 ## Output Contract
 

@@ -33,6 +33,13 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--batch-size", type=positive_int, default=3)
     parser.add_argument(
+        "--exclude-pairs-file",
+        type=Path,
+        action="append",
+        default=[],
+        help="Prior pairs.json whose video_id/restaurant_id pairs should not be planned again. Repeatable.",
+    )
+    parser.add_argument(
         "--include-existing",
         action="store_true",
         help="Plan every scoped pair instead of only pairs without must-taste rows.",
@@ -151,6 +158,24 @@ def main() -> int:
     connection = sqlite3.connect(args.sqlite)
     connection.row_factory = sqlite3.Row
     pairs = fetch_pairs(connection, args.source_name, args.include_existing)
+    excluded_pair_count = 0
+    if args.exclude_pairs_file:
+        excluded_rows = [
+            row
+            for path in args.exclude_pairs_file
+            for row in json.loads(path.read_text(encoding="utf-8"))
+        ]
+        excluded_keys = {
+            (str(row["video_id"]), int(row["restaurant_id"]))
+            for row in excluded_rows
+        }
+        before_count = len(pairs)
+        pairs = [
+            pair
+            for pair in pairs
+            if (str(pair["video_id"]), int(pair["restaurant_id"])) not in excluded_keys
+        ]
+        excluded_pair_count = before_count - len(pairs)
 
     mode = "all_scoped" if args.include_existing else "missing_only"
     write_json(output_dir / "pairs.json", pairs)
@@ -193,6 +218,8 @@ def main() -> int:
         "pair_count": len(pairs),
         "unit_count": len(plan_units),
         "batch_count": len(batches),
+        "excluded_pair_count": excluded_pair_count,
+        "exclude_pairs_files": [str(path) for path in args.exclude_pairs_file],
         "pairs_path": str(output_dir / "pairs.json"),
         "videos_path": str(output_dir / "videos.json") if args.group_by_video else None,
         "batches": batches,
@@ -205,6 +232,7 @@ def main() -> int:
     print(f"pair_count={len(pairs)}")
     print(f"unit_count={len(plan_units)}")
     print(f"batch_count={len(batches)}")
+    print(f"excluded_pair_count={excluded_pair_count}")
     print(f"output_dir={output_dir}")
     return 0
 

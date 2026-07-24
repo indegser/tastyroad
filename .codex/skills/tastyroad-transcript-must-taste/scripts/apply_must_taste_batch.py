@@ -47,6 +47,11 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="After --apply, fail unless source scoped map+transcript pairs without taste is zero.",
     )
+    parser.add_argument(
+        "--allow-insufficient",
+        action="store_true",
+        help="Validate the full expected pair set but skip explicit insufficient_evidence rows during apply.",
+    )
     return parser.parse_args()
 
 
@@ -119,7 +124,8 @@ def validate_selected_rows(
     selected: dict[tuple[str, int], dict[str, Any]],
     selected_source: dict[tuple[str, int], str],
     expected_count: int | None,
-) -> list[tuple[str, int, Path, Path, str]]:
+    allow_insufficient: bool,
+) -> tuple[list[tuple[str, int, Path, Path, str]], list[tuple[str, int]]]:
     if expected_count is not None and len(selected) != expected_count:
         raise SystemExit(f"expected {expected_count} selected pairs, got {len(selected)}")
 
@@ -128,15 +134,23 @@ def validate_selected_rows(
         for key, row in sorted(selected.items())
         if not success_like(row)
     ]
-    if not_success:
+    invalid_non_success = [
+        entry
+        for entry in not_success
+        if (entry[2].get("status") or "").lower() != "insufficient_evidence"
+    ]
+    if invalid_non_success or (not_success and not allow_insufficient):
+        reported = invalid_non_success or not_success
         preview = "\n".join(
             f"{source}: {key[0]}/{key[1]} status={row.get('status')!r} items={row_item_count(row)}"
-            for key, source, row in not_success[:20]
+            for key, source, row in reported[:20]
         )
         raise SystemExit(f"selected rows still include non-success entries:\n{preview}")
 
     artifact_rows = []
     for (video_id, restaurant_id), row in sorted(selected.items()):
+        if not success_like(row):
+            continue
         context_path, result_path = artifact_paths(video_id, restaurant_id)
         if not context_path.exists() or not result_path.exists():
             raise SystemExit(
@@ -149,7 +163,7 @@ def validate_selected_rows(
         artifact_rows.append(
             (video_id, restaurant_id, context_path, result_path, selected_source[(video_id, restaurant_id)])
         )
-    return artifact_rows
+    return artifact_rows, [key for key, _, _ in not_success]
 
 
 def run_apply(
@@ -232,9 +246,15 @@ def source_coverage(connection: sqlite3.Connection, source_name: str) -> dict[st
 def main() -> int:
     args = parse_args()
     selected, selected_source = collect_selected_rows(args.done_dir, args.done_glob)
-    artifact_rows = validate_selected_rows(selected, selected_source, args.expected_count)
+    artifact_rows, insufficient_rows = validate_selected_rows(
+        selected,
+        selected_source,
+        args.expected_count,
+        args.allow_insufficient,
+    )
 
     print(f"selected_pairs={len(artifact_rows)}")
+    print(f"insufficient_pairs={len(insufficient_rows)}")
     print("dry_run_start")
     for _, _, context_path, result_path, _ in artifact_rows:
         run_apply(args.sqlite, context_path, result_path, args.reviewer, apply=False)

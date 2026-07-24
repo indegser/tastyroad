@@ -28,7 +28,7 @@ USER_AGENT = (
 
 @dataclass(frozen=True)
 class Candidate:
-    candidate_id: int
+    candidate_id: int | str
     youtube_video_id: int
     video_id: str
     title: str
@@ -189,6 +189,71 @@ def load_candidates(sqlite_path: Path, source: str, missing_only: bool, limit: i
     return candidates
 
 
+def load_jsonl_candidates(sqlite_path: Path, input_path: Path, limit: int | None) -> list[Candidate]:
+    with sqlite3.connect(sqlite_path) as connection:
+        videos = {
+            str(row[1]): (int(row[0]), str(row[2]), str(row[3]))
+            for row in connection.execute("select id, video_id, title, url from youtube_videos")
+        }
+
+    candidates: list[Candidate] = []
+    seen: set[tuple[str, str, str]] = set()
+    for line_number, line in enumerate(input_path.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.strip():
+            continue
+        item = json.loads(line)
+        status = str(item.get("candidate_status") or item.get("verdict") or "candidate")
+        if status not in {
+            "candidate",
+            "needs_review",
+            "candidate_only_no_collected_clip_match",
+            "candidate_matched_to_collected_clip",
+            "candidate_linked",
+        }:
+            continue
+        video_ids = item.get("video_ids") or item.get("matched_video_ids") or [item.get("video_id")]
+        for video_id_value in video_ids:
+            video_id = clean(str(video_id_value or ""))
+            if not video_id or video_id not in videos:
+                continue
+            youtube_video_id, title, video_url = videos[video_id]
+            result_name = clean(str(item.get("candidate_name") or item.get("result_name") or ""))
+            result_address = clean(
+                str(
+                    item.get("region_address_clues")
+                    or item.get("address_region_clues")
+                    or item.get("full_address_clue")
+                    or item.get("result_address")
+                    or ""
+                )
+            )
+            if not result_name or not result_address:
+                continue
+            key = (video_id, result_name, result_address)
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append(
+                Candidate(
+                    candidate_id=str(item.get("candidate_id") or f"{input_path.name}:{line_number}"),
+                    youtube_video_id=youtube_video_id,
+                    video_id=video_id,
+                    title=title,
+                    video_url=video_url,
+                    query=clean(str(item.get("query") or f"{result_name} {result_address}")),
+                    result_name=result_name,
+                    result_address=result_address,
+                    result_phone=clean(str(item.get("result_phone") or item.get("phone") or "")),
+                    result_category=clean(
+                        str(item.get("result_category") or item.get("category") or "음식점")
+                    ),
+                )
+            )
+            if limit and len(candidates) >= limit:
+                return candidates
+    return candidates
+
+
 def fetch_search_html(query: str) -> str:
     url = f"{NAVER_SEARCH_URL}?{urllib.parse.urlencode({'query': query})}"
     request = urllib.request.Request(url, headers={"User-Agent": USER_AGENT})
@@ -346,6 +411,11 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Resolve Naver Map /p/search candidates to numeric place IDs.")
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
     parser.add_argument("--source", default="성시경의 먹을텐데")
+    parser.add_argument(
+        "--input-jsonl",
+        type=Path,
+        help="Resolve reviewed JSONL candidates instead of loading place_resolution_candidates.",
+    )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--unresolved-output", type=Path, default=DEFAULT_UNRESOLVED)
     parser.add_argument("--limit", type=int)
@@ -357,11 +427,15 @@ def main() -> int:
     )
     args = parser.parse_args()
 
-    candidates = load_candidates(
-        args.sqlite,
-        args.source,
-        missing_only=not args.all_candidates,
-        limit=args.limit,
+    candidates = (
+        load_jsonl_candidates(args.sqlite, args.input_jsonl, args.limit)
+        if args.input_jsonl
+        else load_candidates(
+            args.sqlite,
+            args.source,
+            missing_only=not args.all_candidates,
+            limit=args.limit,
+        )
     )
     resolved: list[dict[str, Any]] = []
     unresolved: list[dict[str, Any]] = []

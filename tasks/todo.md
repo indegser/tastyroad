@@ -46,6 +46,33 @@ Branch: `codex/naver-map-list-sync-20260724`
 - Final screenshot: `/private/tmp/tastyroad-naver-list-final-20260724.png`.
 - Verification passed: Python compile, safe/blind `--limit 0`, `git diff --check`, final candidate audit, and visual private-list/count check.
 
+## Current Task - 2026-07-24 - Collect and process Baekban Gihaeng
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/baekban-full-pipeline`
+Branch: `codex/baekban-full-pipeline`
+
+- [x] Read repository lessons and the collection, transcript, mapping, and must-taste skills.
+- [x] Enable the `baekban_gihaeng` source and estimate the current collection scope.
+- [x] Collect eligible videos and verify raw/SQLite coverage.
+- [x] Fetch missing timed transcripts into Supabase Storage and verify coverage/failures.
+- [x] Review broadcast evidence, verify Naver place IDs, and promote valid restaurant mappings.
+- [x] Run the full transcript-grounded must-taste workflow for eligible mapped pairs.
+- [x] Verify SQLite integrity, exact pair coverage, and scoped diffs.
+- [x] Record final results and any unresolved exceptions.
+
+### Review
+
+- Official full-channel audit found 1,151 eligible `백반기행` videos.
+- Per-video detail enrichment hit YouTube HTTP 429, so the collector now has a documented `--skip-details` fallback that preserves official playlist IDs/titles and leaves incomplete rows retryable.
+- Collected all 1,151 IDs/titles into `data/raw/youtube/baekban_gihaeng.json` and `data/tastyroad.sqlite`; five RSS rows retained published dates while the remaining detail fields await a later safe enrichment retry.
+- Official TV CHOSUN episode metadata covers 353 episodes; review artifacts now cover candidate discovery for episodes 1-353.
+- Completed Naver place review for episodes 1-164 and 247-353; the currently verified artifacts yield 411 unique video-place mappings before conflict retries and the remaining 165-246 review.
+- Stored preferred timed transcripts for 1,148 of 1,151 collected videos in Supabase Storage; all transient block/SSL failures succeeded on retry, while `-Md73_s5cDk`, `YTEI-4ydH_8`, and `mxIuruH15LA` have captions disabled by YouTube.
+- Promoted 691 audited video-place mappings covering 690 collected videos and 649 restaurants; every promoted restaurant has a numeric Naver place ID.
+- Full-transcript taste review exposed and corrected two otherwise plausible metadata mappings: `TsHJcaRs914` now maps to 진미본가, and `bwFDXCcq22A` now maps to 울진참가자미.
+- Applied 445 transcript-supported restaurant-video taste results with 473 menu items after five reviewed rounds. Of 690 mapped pairs with transcripts, 245 remain intentionally empty because the full multi-pass review found insufficient direct recommendation evidence.
+- Final checks passed: all 691 mappings retain numeric Naver IDs, SQLite integrity is `ok`, modified Python scripts compile, `git diff --check` is clean, and `pnpm run build` succeeds.
+
 ## Current Task - 2026-07-24 - Harden and publish daily automation spec
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/harden-daily-automation`
