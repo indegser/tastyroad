@@ -89,6 +89,15 @@ Use chunking for large runs so Edge/Naver tab crashes do not poison a long batch
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --chunk-size 25
 ```
 
+For a source-scoped sync, pass the exact `sources.name` value so unrelated
+unsynced restaurants are not included:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
+  --source-name "식객 허영만의 백반기행" \
+  --chunk-size 25
+```
+
 Default `--mode safe` verifies the `Tastyroad` checkbox before clicking, which avoids
 toggling an already selected place off. It first tries selector/text/ARIA patterns for the
 place save button, target list checkbox, and modal actions; when Naver does not expose the

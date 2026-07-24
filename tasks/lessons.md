@@ -129,6 +129,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-07-24
 
+- Trigger: The private Naver Map `Tastyroad` list stopped accepting new checkbox selections when its visible place count reached exactly 1,000.
+  Rule: Before large Naver Map syncs, calculate remaining list capacity; stop at 1,000 and require an explicit second-list naming/partition decision rather than repeatedly logging checkbox failures.
 - Trigger: Vercel production deployments repeatedly failed before build-container creation because the connected Supabase Marketplace resource was suspended.
   Rule: Recurring release automation must check `vercel integration list` before maintenance and immediately before release, require the Supabase resource to be `Available`, and report a hard external-resource blocker instead of retrying builds.
 - Trigger: A scheduled dry-run skipped collection but its zero delta was treated as proof that no new videos existed.

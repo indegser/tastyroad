@@ -61,6 +61,20 @@ with ranked_mentions as (
   join youtube_videos c on c.id = m.youtube_video_id
   where trim(r.naver_map_id) != ''
     and m.status in ('verified', 'metadata_verified')
+    and (
+      :source_name is null
+      or exists (
+        select 1
+        from youtube_video_restaurants source_mapping
+        join youtube_videos source_video
+          on source_video.id = source_mapping.youtube_video_id
+        join sources source
+          on source.id = source_video.source_id
+        where source_mapping.restaurant_id = r.id
+          and source_mapping.status in ('verified', 'metadata_verified')
+          and source.name = :source_name
+      )
+    )
 ),
 ranked_links as (
   select
@@ -88,9 +102,12 @@ order by ranked_mentions.name asc, ranked_mentions.id asc
 """
 
 
-def load_places(skip_ids: set[int]) -> list[Place]:
+def load_places(skip_ids: set[int], source_name: Optional[str] = None) -> list[Place]:
     with sqlite3.connect(DB_PATH) as db:
-        rows = db.execute(PUBLIC_RESTAURANTS_SQL).fetchall()
+        rows = db.execute(
+            PUBLIC_RESTAURANTS_SQL,
+            {"source_name": source_name},
+        ).fetchall()
 
     places = []
     for restaurant_id, name, url in rows:
@@ -544,6 +561,10 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--cdp-port", type=int, default=DEFAULT_CDP_PORT)
     parser.add_argument("--list-name", default=default_list_name())
+    parser.add_argument(
+        "--source-name",
+        help="Only process restaurants mapped to this exact sources.name value.",
+    )
     parser.add_argument("--skip-id", type=int, action="append", default=[])
     parser.add_argument("--limit", type=int)
     parser.add_argument(
@@ -596,13 +617,17 @@ def main() -> int:
     if not args.retry_failures:
         skip_ids.update(load_failure_ids(args.failure_log))
 
-    places = load_places(skip_ids)
+    places = load_places(skip_ids, source_name=args.source_name)
     if args.limit is not None:
         places = places[: args.limit]
     if args.chunk_size is not None:
         places = places[: args.chunk_size]
 
-    print(f"target_list={args.list_name} places={len(places)} mode={args.mode}")
+    source_scope = args.source_name or "all"
+    print(
+        f"target_list={args.list_name} source={source_scope} "
+        f"places={len(places)} mode={args.mode}"
+    )
     if not places:
         return 0
 

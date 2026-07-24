@@ -2,6 +2,27 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Sync Baekban Gihaeng to Naver Map and deploy
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/baekban-naver-sync`
+Branch: `codex/baekban-naver-sync`
+Target: production `main`
+
+- [x] Read repository lessons and the Naver Map sync/list, browser, and release skills.
+- [x] Confirm Edge CDP login, private `Tastyroad` list, and current candidate scope.
+- [x] Sync verified Baekban Gihaeng restaurants until the external list capacity is reached.
+- [x] Verify the final saved-list count and capture a screenshot.
+- [x] Validate the sync-state changes and production build.
+
+### Review
+
+- Confirmed the logged-in Edge CDP session and private `Tastyroad` list at 839 saved places.
+- Added a source-scoped sync option so unrelated unsynced restaurants are not processed.
+- The source scope contains 649 verified restaurants; 19 were already present in local sync state and 630 were initial candidates.
+- Naver Map stopped accepting selections when the UI count reached exactly 1,000. The local sync state now covers 181 Baekban Gihaeng restaurants, leaving 468 for a second-list decision.
+- Final capacity screenshot: `/private/tmp/baekban-naver-list-capacity.png`.
+- Verification passed: source-scoped dry-run, Python compile, SQLite integrity, `git diff --check`, and `pnpm run build`.
+
 ## Current Task - 2026-07-24 - Release Naver Map sync update
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-list-sync-20260724`
