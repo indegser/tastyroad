@@ -13,9 +13,9 @@ Target: production `main`
 - [x] Run the non-dry recurring maintenance and inspect scoped map/taste gates.
 - [x] Resolve any hard publishing blockers and recalculate the release gate.
 - [x] Verify SQLite integrity and `pnpm run build`.
-- [ ] Commit intended changes, integrate into `main`, and push GitHub.
-- [ ] Wait for the matching Vercel deployment and verify the production API.
-- [ ] Record the final release result and clean up the worktree if safe.
+- [x] Commit intended changes, integrate into `main`, and push GitHub.
+- [x] Wait for the matching Vercel deployment and verify the production API.
+- [x] Record the final release result and clean up the worktree if safe.
 
 ### Review
 
@@ -25,6 +25,9 @@ Target: production `main`
 - The full-transcript must-taste workflow validated and stored one item, `볼락회 쌈`.
 - Final scoped gate: `deploy_ready=true`, zero blockers, zero warnings, and empty map/transcript/must-taste queues.
 - SQLite integrity returned `ok`; `git diff --check` and `pnpm run build` passed.
+- Commit `3a17f35` was fast-forwarded to `main` and pushed through GitHub.
+- Vercel production deployment `tastyroad-18c5zq8r9-jaekwon-hans-projects.vercel.app` reached `READY`.
+- `https://taste.indegser.com/api/restaurants` returned HTTP 200 and exposed restaurant `1294` with Naver place ID `16154308` and the `볼락회 쌈` must-taste item.
 
 ## Current Task - 2026-07-24 - Make daily maintenance deterministic and release-complete
 
