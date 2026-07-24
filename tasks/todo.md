@@ -2,6 +2,28 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Sync verified restaurants to Naver Map
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-list-sync-20260724`
+Branch: `codex/naver-map-list-sync-20260724`
+
+- [x] Read repository guidance, lessons, and Naver Map sync/list skills.
+- [x] Inspect the target config, sync state, worktrees, and CDP availability.
+- [x] Launch the copied Edge CDP profile and verify Naver login.
+- [x] Verify the private `Tastyroad` list and current count.
+- [x] Run safe chunked sync for all usable unsynced public verified restaurants.
+- [x] Verify final list count, sync-state coverage, and capture a screenshot.
+- [x] Record the final review/result.
+
+### Review
+
+- Naver Map login marker was present and the target `Tastyroad` list remained private.
+- Fixed the runner's place-load check to inspect the `pcmap.place.naver.com` frame as well as the main map document.
+- Safely added 68 places; the Naver list count increased from 771 to 839 and local synced IDs increased from 789 to 857.
+- Left 35 candidates unsynced: 31 deleted/unavailable Naver place links and 4 clear or unresolved place-name mismatches.
+- Final screenshot: `/private/tmp/tastyroad-naver-list-final-20260724.png`.
+- Verification passed: Python compile, safe/blind `--limit 0`, `git diff --check`, final candidate audit, and visual private-list/count check.
+
 ## Current Task - 2026-07-24 - Harden and publish daily automation spec
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/harden-daily-automation`

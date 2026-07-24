@@ -137,6 +137,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Fall back to a bounded flat-playlist scan when a configured channel RSS feed fails, and merge the recent window into the existing raw snapshot.
 - Trigger: A daily run retried the entire historical transcript backlog and obscured the current release scope.
   Rule: Carry explicit release-scope video IDs across gate recalculations and limit transcript, mapping, and must-taste queues to that scope.
+- Trigger: Naver Map moved place content into a `pcmap.place.naver.com` iframe, causing valid places to fail the main-document name check.
+  Rule: Naver place-load validation must inspect all page frames before classifying a URL as missing or mismatched.
 
 ## 2026-06-22
 

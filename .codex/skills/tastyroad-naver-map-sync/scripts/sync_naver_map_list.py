@@ -166,10 +166,13 @@ def append_failure(path: Path, place: Place, error: Exception) -> None:
 
 
 def body_text(page) -> str:
-    try:
-        return page.locator("body").first.inner_text(timeout=1800)
-    except Exception:
-        return ""
+    texts = []
+    for frame in page.frames:
+        try:
+            texts.append(frame.locator("body").first.inner_text(timeout=1800))
+        except Exception:
+            continue
+    return "\n".join(texts)
 
 
 def click(page, point: tuple[int, int]) -> None:
