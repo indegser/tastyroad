@@ -2,6 +2,73 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Make daily maintenance deterministic and release-complete
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
+Branch: `codex/regular-source-automation`
+Target: production `main`
+
+- [x] Read repository guide, lessons, and collection/map/transcript/must-taste/release skills.
+- [x] Confirm the false no-op root cause and inspect the current automation runner/prompt.
+- [x] Fix `yt-dlp` invocation and prevent dry-run reports from claiming zero new videos without collection.
+- [x] Add explicit mapping, transcript, and must-taste work queues plus deterministic release gates.
+- [x] Add regression tests and update the durable automation prompt/skill.
+- [x] Run actual latest collection and resolve new-video map verification.
+- [x] Ingest available transcripts and validate/apply taste menu results for newly mapped pairs.
+- [x] Verify SQLite integrity, release gates, and `pnpm run build`.
+- [ ] Commit intended changes, integrate into `main`, push, and verify Vercel production.
+- [ ] Update the active daily automation and record final results.
+
+### Review
+
+- Actual non-dry collection found 22 release-scope videos across the five enabled sources.
+- Verified and promoted seven restaurants with numeric Naver place IDs: 시미베, 일선화, 만천리상회 서울청담점, 밥도사술도사, 주차매점, 대성 콩국수, and 덕합반점.
+- Locally retried transcripts and validator-applied one source-grounded must-taste item for six new restaurant-video pairs; 만천리상회 remains a transcript warning because the premiere was not playable yet.
+- Final scoped gate report: `deploy_ready=true`, zero blockers, 17 warnings (16 metadata-poor mapping reviews and one not-yet-playable transcript).
+- Verification passed: three runner regression tests, Python compile checks, SQLite integrity, `git diff --check`, and `pnpm run build`.
+
+## Current Task - 2026-07-24 - Add production release to daily automation
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
+Branch: `codex/regular-source-automation`
+
+- [x] Read repository guide, lessons, `$tastyroad-regular-source-automation`, and `$tastyroad-site-release`.
+- [x] Inspect the active Codex automation and repository state.
+- [x] Update the active routine with an explicit GitHub-to-Vercel production release sequence.
+- [x] Verify the saved automation remains active on the daily schedule.
+- [x] Record the result and release safety gates.
+
+### Review
+
+- Updated active automation `tastyroad-regular-source-maintenance-2` to invoke both `$tastyroad-regular-source-automation` and `$tastyroad-site-release`.
+- The routine now builds, commits only intended tracked changes, integrates them into production `main`, pushes through GitHub, waits for the matching Vercel deployment to become `READY`, and verifies the production restaurants API.
+- Production release remains gated by mapping completion, numeric Naver IDs, successful non-transcript maintenance, SQLite integrity, and `pnpm run build`.
+- Transcript and must-taste gaps remain warnings and do not prevent verified mapped restaurants from being published.
+- No-op runs do not create empty commits or deployments; failures preserve the worktree and report the exact blocker.
+- The schedule remains active daily at 07:00 local time.
+- The Codex app automation API returned a missing-handler error during this update, so the persisted automation TOML was updated directly and checked for the expected id, active status, schedule, release skill, main push, Vercel READY wait, and production API verification text.
+
+## Current Task - 2026-07-24 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
+Branch: `codex/regular-source-automation`
+
+- [x] Read repository guide, lessons, automation memory, and `$tastyroad-regular-source-automation`.
+- [x] Rebase the automation worktree onto current `origin/main`.
+- [x] Run the deterministic automation dry-run with the required Python scripts path.
+- [x] Run the non-dry maintenance runner only if the dry-run shows new videos or actionable work.
+- [x] Read `data/work/regular_source_automation/latest.json` and classify blockers vs warnings.
+- [x] Verify release gates and deploy only if hard gates are clean.
+- [x] Record the final run result and update automation memory.
+
+### Review
+
+- Dry-run command: `export PATH="/Users/indegser/Library/Python/3.9/bin:$PATH"; python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py --dry-run`.
+- Result: `0` new videos across enabled sources (`성시경의 먹을텐데`, `김사원세끼`, `또간집`, `최자로드`, `전현무계획`).
+- Hard publishing gates: clean (`deploy_ready=true`, `blocker_count=0`).
+- Follow-up warnings: `25` existing must-taste gaps (`김사원세끼` 16, `전현무계획` 8, `또간집` 1).
+- No non-dry maintenance run, build, or deployment was performed because no source count changed and no new verified mapped restaurants were collected.
+
 ## Current Task - 2026-07-11 - Naver sync selector-first controls
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-selector-sync`

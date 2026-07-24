@@ -1,34 +1,46 @@
 Use $tastyroad-regular-source-automation.
+Use $tastyroad-site-release for the final production release.
 
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
 
-First run:
-
-```bash
-python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py --dry-run
-```
-
-If there are no new videos and no actionable findings, archive the run with a short no-op report.
-
-If there may be new videos, run:
+Always run the non-dry deterministic runner so YouTube is actually queried:
 
 ```bash
 python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py
 ```
 
-Then read `data/work/regular_source_automation/latest.json`.
+Never use `--dry-run` to decide that there are no new videos. Dry-run only plans commands and reports `new_video_detection.status=not_checked`.
 
-For any unresolved Naver place mapping, transcript warning, or must-taste warning, use the owning Tastyroad skills:
+Read `data/work/regular_source_automation/latest.json`.
 
-- `$tastyroad-map-video-restaurants` for ambiguous place verification.
-- `$tastyroad-youtube-transcript-ingest` for transcript fetch warnings.
-- `$tastyroad-transcript-must-taste` for transcript-grounded menu/reason extraction.
+If `new_video_count=0`, there are no tracked changes, and all work queues are empty, archive the run with a short no-op report.
 
-Deploy when every hard publishing gate is clean:
+For every item in `work_queues.map_verification`, use `$tastyroad-map-video-restaurants`. Do not release until every scoped new video is `mapping_verified` or explicitly reviewed `not_applicable`; verified restaurants require a numeric Naver place ID.
 
-- no new collected video remains `mapping_pending` or `mapping_partial`,
-- non-transcript maintenance commands did not fail,
-- `pnpm run build` passes.
+For every item in `work_queues.transcript_ingest`, use `$tastyroad-youtube-transcript-ingest`. Transcript failures remain warnings after a concrete retry.
 
-Do not block release only because transcript ingestion failed or a mapped restaurant-video pair lacks must-taste rows. Leave concise Triage warnings with exact source/video IDs and the next command or skill to run, then release verified mapped restaurants so they are visible on the web.
+For every item in `work_queues.must_taste_validation`, use the complete `$tastyroad-transcript-must-taste` workflow. Validate every result with `apply_must_taste_result.py --dry-run` before the single-process apply. Insufficient transcript evidence may produce zero items and remains a warning.
+
+After review work, recalculate the original release scope without collecting again:
+
+```bash
+python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_source_automation.py \
+  --skip-collect \
+  --skip-map \
+  --skip-naver-resolution \
+  --skip-transcripts \
+  --scope-report data/work/regular_source_automation/<original-report>.json
+```
+
+Release only when the scoped report has:
+
+- `gates.deploy_ready=true`,
+- zero `work_queues.map_verification` items,
+- SQLite `integrity_check=ok`,
+- no public verified restaurant with a blank Naver place ID,
+- no failed non-transcript maintenance command.
+
+Then run `pnpm run build`, commit only intended tracked files, integrate the intended commit into production `main`, push `main`, wait for the matching GitHub-triggered Vercel deployment to reach `READY`, and verify the production restaurants API. Do not use direct `vercel deploy`.
+
+Report new video IDs, mapping decisions, taste-menu results, transcript warnings, production commit, deployment URL/status, and production API verification.

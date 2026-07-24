@@ -6,8 +6,53 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg/videos"
   ],
-  "count": 2,
+  "count": 4,
   "items": [
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "mTOWU4Mtm44",
+      "title": "성시경의 먹을텐데 l 청담동 만천리상회",
+      "url": "https://www.youtube.com/watch?v=mTOWU4Mtm44",
+      "thumbnail_url": "https://i2.ytimg.com/vi/mTOWU4Mtm44/hqdefault.jpg",
+      "published_at": "2026-07-24T03:37:44+00:00",
+      "updated_at": "2026-07-24T06:56:07+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "청담동 만천리상회"
+      ],
+      "collected_at": "2026-07-24T07:30:51.188300+00:00"
+    },
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "BY3BY_7ZYSk",
+      "title": "성시경의 먹을텐데 l 신당동 시미베",
+      "url": "https://www.youtube.com/watch?v=BY3BY_7ZYSk",
+      "thumbnail_url": "https://i3.ytimg.com/vi/BY3BY_7ZYSk/hqdefault.jpg",
+      "published_at": "2026-07-16T09:00:06+00:00",
+      "updated_at": "2026-07-17T20:55:38+00:00",
+      "description": "[신당동 시미베]\n서울 중구 퇴계로 386-1 2층(서울 중구 신당동 247-14)\n\n#성시경 #먹을텐데 #신당동맛집",
+      "duration_seconds": 1968,
+      "tags": [
+        "성시경",
+        "성시경유튜브",
+        "SUNGSIKYUNG",
+        "SSK",
+        "ソンシギョン",
+        "成始璄"
+      ],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "신당동 시미베"
+      ],
+      "collected_at": "2026-07-24T07:30:51.188300+00:00"
+    },
     {
       "source_key": "sungsikyung_mukeultende",
       "source": "성시경의 먹을텐데",

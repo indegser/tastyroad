@@ -15,8 +15,274 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 161,
+  "count": 175,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "Z6hYt9okaoQ",
+      "title": "야구도 음식도, 결국 인생은 체인지업 ⚾️ w/ 오승환, 김용무",
+      "url": "https://www.youtube.com/shorts/Z6hYt9okaoQ",
+      "thumbnail_url": "https://i3.ytimg.com/vi/Z6hYt9okaoQ/hqdefault.jpg",
+      "published_at": "2026-07-23T09:02:46+00:00",
+      "updated_at": "2026-07-23T09:02:46+00:00",
+      "description": "",
+      "duration_seconds": 66,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "야구도 음식도, 결국 인생은 체인지업 ⚾️ w/ 오승환, 김용무"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "sZlyTbEm8MU",
+      "title": "프랜차이즈화 성공 공식 - 완벽한 준비와 책임감",
+      "url": "https://www.youtube.com/shorts/sZlyTbEm8MU",
+      "thumbnail_url": "https://i4.ytimg.com/vi/sZlyTbEm8MU/hqdefault.jpg",
+      "published_at": "2026-07-22T09:00:13+00:00",
+      "updated_at": "2026-07-23T07:08:31+00:00",
+      "description": "",
+      "duration_seconds": 62,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "프랜차이즈화 성공 공식 - 완벽한 준비와 책임감"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "__94AVUNWMs",
+      "title": "안 물려받으실 거면 제발 저요",
+      "url": "https://www.youtube.com/shorts/__94AVUNWMs",
+      "thumbnail_url": "https://i4.ytimg.com/vi/__94AVUNWMs/hqdefault.jpg",
+      "published_at": "2026-07-21T09:00:06+00:00",
+      "updated_at": "2026-07-22T09:41:34+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "안 물려받으실 거면 제발 저요"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "1g6f1m__rgg",
+      "title": "앞으로가 더 기대되는 미래의 뉴포집들",
+      "url": "https://www.youtube.com/shorts/1g6f1m__rgg",
+      "thumbnail_url": "https://i2.ytimg.com/vi/1g6f1m__rgg/hqdefault.jpg",
+      "published_at": "2026-07-20T09:01:09+00:00",
+      "updated_at": "2026-07-21T08:51:36+00:00",
+      "description": "",
+      "duration_seconds": 85,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "앞으로가 더 기대되는 미래의 뉴포집들"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "Dl3s9j-oRJw",
+      "title": "하라주쿠의 곰 손 카페",
+      "url": "https://www.youtube.com/shorts/Dl3s9j-oRJw",
+      "thumbnail_url": "https://i1.ytimg.com/vi/Dl3s9j-oRJw/hqdefault.jpg",
+      "published_at": "2026-07-18T14:50:49+00:00",
+      "updated_at": "2026-07-19T06:51:47+00:00",
+      "description": "",
+      "duration_seconds": 26,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "하라주쿠의 곰 손 카페"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "n-Gxrt7vZ_8",
+      "title": "도쿄에서 요즘 엄청 핫하다는 Tea 베이스 칵테일 바. CHA 恵比寿",
+      "url": "https://www.youtube.com/shorts/n-Gxrt7vZ_8",
+      "thumbnail_url": "https://i3.ytimg.com/vi/n-Gxrt7vZ_8/hqdefault.jpg",
+      "published_at": "2026-07-18T14:42:30+00:00",
+      "updated_at": "2026-07-19T06:06:19+00:00",
+      "description": "",
+      "duration_seconds": 45,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "도쿄에서 요즘 엄청 핫하다는 Tea 베이스 칵테일 바. CHA 恵比寿"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "Lxdo0BSK5jw",
+      "title": "사라지는 노포 특 - 애도 기간도 없이 폐업",
+      "url": "https://www.youtube.com/shorts/Lxdo0BSK5jw",
+      "thumbnail_url": "https://i1.ytimg.com/vi/Lxdo0BSK5jw/hqdefault.jpg",
+      "published_at": "2026-07-16T09:07:12+00:00",
+      "updated_at": "2026-07-23T20:00:20+00:00",
+      "description": "",
+      "duration_seconds": 54,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "사라지는 노포 특 - 애도 기간도 없이 폐업"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "6KgMyDlRjxE",
+      "title": "진한 돈코츠 베이스 국물에 어분이 들어간 교카이 츠케멘의 정석.",
+      "url": "https://www.youtube.com/shorts/6KgMyDlRjxE",
+      "thumbnail_url": "https://i3.ytimg.com/vi/6KgMyDlRjxE/hqdefault.jpg",
+      "published_at": "2026-07-16T01:27:42+00:00",
+      "updated_at": "2026-07-19T20:00:43+00:00",
+      "description": "",
+      "duration_seconds": 43,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "진한 돈코츠 베이스 국물에 어분이 들어간 교카이 츠케멘의 정석"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "6NEcD5irhvk",
+      "title": "작은 노포의 매력 - 무뚝뚝한 츤데레",
+      "url": "https://www.youtube.com/shorts/6NEcD5irhvk",
+      "thumbnail_url": "https://i3.ytimg.com/vi/6NEcD5irhvk/hqdefault.jpg",
+      "published_at": "2026-07-15T09:00:03+00:00",
+      "updated_at": "2026-07-16T09:11:15+00:00",
+      "description": "",
+      "duration_seconds": 60,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "작은 노포의 매력 - 무뚝뚝한 츤데레"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "9jU3i-aLHIw",
+      "title": "도쿄에 가면 꼭 들리는 리쿼샵",
+      "url": "https://www.youtube.com/shorts/9jU3i-aLHIw",
+      "thumbnail_url": "https://i2.ytimg.com/vi/9jU3i-aLHIw/hqdefault.jpg",
+      "published_at": "2026-07-14T09:33:40+00:00",
+      "updated_at": "2026-07-18T01:41:52+00:00",
+      "description": "",
+      "duration_seconds": 38,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "도쿄에 가면 꼭 들리는 리쿼샵"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "LabKom1rbvo",
+      "title": "진짜 노포의 맛 - 낡아 보이지만 청결함",
+      "url": "https://www.youtube.com/shorts/LabKom1rbvo",
+      "thumbnail_url": "https://i1.ytimg.com/vi/LabKom1rbvo/hqdefault.jpg",
+      "published_at": "2026-07-14T09:00:23+00:00",
+      "updated_at": "2026-07-18T01:39:01+00:00",
+      "description": "",
+      "duration_seconds": 72,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "진짜 노포의 맛 - 낡아 보이지만 청결함"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "mnoLKNqhyvA",
+      "title": "힙지로 붐의 주역 JY투어 최애 충무로 노포집",
+      "url": "https://www.youtube.com/shorts/mnoLKNqhyvA",
+      "thumbnail_url": "https://i2.ytimg.com/vi/mnoLKNqhyvA/hqdefault.jpg",
+      "published_at": "2026-07-13T09:00:02+00:00",
+      "updated_at": "2026-07-17T00:12:51+00:00",
+      "description": "",
+      "duration_seconds": 76,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "힙지로 붐의 주역 JY투어 최애 충무로 노포집"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "BUmKxoNdSO8",
+      "title": "육즙 폭발하는 바나나만한 교자!",
+      "url": "https://www.youtube.com/shorts/BUmKxoNdSO8",
+      "thumbnail_url": "https://i3.ytimg.com/vi/BUmKxoNdSO8/hqdefault.jpg",
+      "published_at": "2026-07-10T12:33:01+00:00",
+      "updated_at": "2026-07-14T02:06:29+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "육즙 폭발하는 바나나만한 교자!"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "kpOVayjPmGM",
+      "title": "노포 전문가 소주안주의 진짜 노포 기준",
+      "url": "https://www.youtube.com/shorts/kpOVayjPmGM",
+      "thumbnail_url": "https://i4.ytimg.com/vi/kpOVayjPmGM/hqdefault.jpg",
+      "published_at": "2026-07-10T09:00:03+00:00",
+      "updated_at": "2026-07-14T02:07:52+00:00",
+      "description": "",
+      "duration_seconds": 56,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "노포 전문가 소주안주의 진짜 노포 기준"
+      ],
+      "collected_at": "2026-07-24T07:32:07.746296+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
