@@ -17,7 +17,7 @@ Target: production `main`
 - [x] Ingest available transcripts and validate/apply taste menu results for newly mapped pairs.
 - [x] Verify SQLite integrity, release gates, and `pnpm run build`.
 - [ ] Commit intended changes, integrate into `main`, push, and verify Vercel production.
-- [ ] Update the active daily automation and record final results.
+- [x] Update the active daily automation and record final results.
 
 ### Review
 
@@ -26,6 +26,8 @@ Target: production `main`
 - Locally retried transcripts and validator-applied one source-grounded must-taste item for six new restaurant-video pairs; 만천리상회 remains a transcript warning because the premiere was not playable yet.
 - Final scoped gate report: `deploy_ready=true`, zero blockers, 17 warnings (16 metadata-poor mapping reviews and one not-yet-playable transcript).
 - Verification passed: three runner regression tests, Python compile checks, SQLite integrity, `git diff --check`, and `pnpm run build`.
+- Active automation `tastyroad-regular-source-maintenance-2` now runs the real non-dry collection, scoped map/transcript/must-taste review, gated `main` release, and production API verification every day at 07:00.
+- GitHub `main` was pushed, but three matching Vercel production attempts stopped at 0 ms with `BUILD_FAILED: Resource provisioning failed`; production verification remains incomplete and the task worktree is intentionally preserved.
 
 ## Current Task - 2026-07-24 - Add production release to daily automation
 
