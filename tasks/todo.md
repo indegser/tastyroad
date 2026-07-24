@@ -14,8 +14,20 @@ Target: production `main` if gates pass
 - [x] Run the non-dry deterministic all-source maintenance runner.
 - [x] Inspect `latest.json` and process scoped mapping/transcript/must-taste queues.
 - [x] Recalculate the original release scope and verify hard data gates.
-- [ ] Repeat Supabase preflight, build, commit, integrate to `main`, push, and verify Vercel production if deploy-ready.
-- [ ] Record the final result and preserve or clean up the worktree according to the release outcome.
+- [x] Repeat Supabase preflight, build, commit, integrate to `main`, push, and verify Vercel production if deploy-ready.
+- [x] Record the final result and preserve or clean up the worktree according to the release outcome.
+
+### Review
+
+- Pre-maintenance Supabase Marketplace check: `supabase-aqua-engine` was `Available`.
+- The real non-dry run found one new `전현무계획` video: `kkUsuZQoHJU`.
+- Web-search-assisted mapping review verified `합천삼가명품한우` at Naver place ID `32063978`.
+- Transcript ingestion succeeded for `kkUsuZQoHJU` with 241 Korean timed segments in Supabase Storage.
+- Full must-taste workflow stored two validated items: `한우 특수부위 모둠` and `갈비`.
+- Final scoped gate: `deploy_ready=true`, zero blockers, zero warnings, and empty work queues.
+- Verification passed: SQLite integrity, blank Naver ID check, `git diff --check`, and `pnpm run build`.
+- Immediate pre-push Supabase Marketplace check: `supabase-aqua-engine` was `Available`.
+- Commit `46f8a33` was fast-forwarded to `main`, pushed, deployed through GitHub/Vercel, and production API verification returned HTTP 200 with an `items` array.
 
 ## Current Task - 2026-07-25 - Continue Baekban Gihaeng in Tastyroad 2
 
