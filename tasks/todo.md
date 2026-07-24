@@ -2,6 +2,20 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-24 - Release Naver Map sync update
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-list-sync-20260724`
+Branch: `codex/naver-map-list-sync-20260724`
+Target: production `main`
+
+- [x] Read release guidance and confirm Supabase is `Available`.
+- [x] Confirm clean `main`, `origin/main`, and the intended task commit.
+- [x] Run the production build in the task worktree.
+- [ ] Fast-forward the intended commit into `main` and push GitHub.
+- [ ] Wait for the matching Vercel production deployment to reach `READY`.
+- [ ] Verify the production restaurants API.
+- [ ] Record the result and remove the clean task worktree.
+
 ## Current Task - 2026-07-24 - Sync verified restaurants to Naver Map
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-list-sync-20260724`
