@@ -1,0 +1,24 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-07-26",
+  "items": [
+    {
+      "video_id": "V_t70Etmrl8",
+      "resolved_name": "무한쌈밥집",
+      "display_name": "무한쌈밥집",
+      "local_name": "무한쌈밥집",
+      "country_code": "KR",
+      "region": "서울 서초구",
+      "address": "서울 서초구 강남대로93길 23-10",
+      "phone": "02-3444-6920",
+      "category": "쌈밥",
+      "map_provider": "naver_map",
+      "naver_map_id": "18760353",
+      "map_url": "https://map.naver.com/p/entry/place/18760353?placePath=%2Fhome",
+      "evidence_url": "https://tmi-attack.tistory.com/2210",
+      "confidence": 0.98,
+      "status": "verified",
+      "notes": "Web review matched the Baekban 192 추성훈 신사동 우삼겹 쌈밥 clip to the existing verified 무한쌈밥집 row."
+    }
+  ]
+}

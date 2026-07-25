@@ -2,6 +2,33 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
+Branch: `codex/regular-source-automation`
+Target: production `main`
+
+- [x] Read repository guide, lessons, automation memory, and required Tastyroad skills.
+- [x] Fast-forward the dedicated automation worktree to current `origin/main`.
+- [x] Run pre-maintenance Vercel integration gate and confirm `supabase-aqua-engine` is `Available`.
+- [x] Run the non-dry deterministic source maintenance runner.
+- [x] Read `data/work/regular_source_automation/latest.json` and classify work queues.
+- [x] Process mapping, transcript, and must-taste queues with owning skills where needed.
+- [x] Recalculate scoped release gates without collecting again.
+- [ ] If gates pass, repeat Supabase preflight, build, integrate to `main`, push, and verify Vercel production.
+- [ ] After production API verification, sync new verified restaurants to Naver Map `Tastyroad 2`.
+- [ ] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Pre-maintenance Supabase Marketplace gate passed: `supabase-aqua-engine` was `Available`.
+- Non-dry runner found one new video: `baekban_gihaeng` / `V_t70Etmrl8`.
+- Web-search-assisted mapping review matched the clip to existing restaurant `무한쌈밥집` (`restaurant_id=463`, Naver place ID `18760353`) and promoted the new video mapping.
+- Transcript ingest succeeded for `V_t70Etmrl8` with Korean captions in Supabase Storage.
+- Must-taste workflow prepared full transcript coverage, validator dry-ran against a temp SQLite copy, and stored one item: `우삼겹`.
+- Final scoped gate report: `deploy_ready=true`, zero blockers, zero warnings, all scoped work queues empty.
+- Verification so far: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, and `pnpm run build` passed.
+
 ## Current Task - 2026-07-26 - Improve Naver Map sync reliability
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/improve-naver-map-sync`
