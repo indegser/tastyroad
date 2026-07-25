@@ -80,8 +80,10 @@ python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py
 ```
 
 The runner uses one persistent Playwright CDP session instead of many single-command
-`agent-browser` calls. It skips IDs in `data/naver_map_list_synced_ids.json`, so normal
-re-runs should be no-ops unless new public restaurants were added.
+`agent-browser` calls. It scopes every action to the `pcmap.place.naver.com` place frame
+and the saved-list modal, and never uses screenshots or coordinates to control the UI.
+It skips IDs in `data/naver_map_list_synced_ids.json`, so normal re-runs should be no-ops
+unless new public restaurants were added.
 
 Use chunking for large runs so Edge/Naver tab crashes do not poison a long batch:
 
@@ -110,20 +112,16 @@ python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
   --chunk-size 25
 ```
 
-Default `--mode safe` verifies the `Tastyroad` checkbox before clicking, which avoids
-toggling an already selected place off. It first tries selector/text/ARIA patterns for the
-place save button, target list checkbox, and modal actions; when Naver does not expose the
-modal reliably, it falls back to the verified screenshot/coordinate path.
+The runner reads the target list's Playwright checkbox state before clicking, verifies
+the state again after saving, and records the restaurant ID only after persistence is
+confirmed. It retries transient navigation and unstable-element failures three times by
+default. It stops before the visible list count reaches the default 1,000-place limit.
 
-If Naver screenshot capture hangs or the safe checker is too brittle, use `--mode blind`
-only for IDs that are not already recorded as synced:
-
-```bash
-python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --mode blind --chunk-size 25
-```
-
-Failures are recorded in ignored `data/work/naver_map_sync_failures.json` and skipped on
-subsequent runs. Use `--retry-failures` after refreshing Edge/CDP or changing mode.
+Final failures are recorded in ignored `data/work/naver_map_sync_failures.json`, with a
+diagnostic screenshot captured only after retries are exhausted. A later success removes
+the stale failure entry. Use `--retry-failures` after resolving permanent failures or
+refreshing Edge/CDP. The structured run summary is written to
+`data/work/naver_map_sync_result.json`; partial runs exit with status 2.
 
 4. Verify the final count in Naver Map and capture a screenshot when reporting completion.
 
@@ -131,8 +129,8 @@ subsequent runs. Use `--retry-failures` after refreshing Edge/CDP or changing mo
 
 - Do not recreate a repo-root Naver sync script.
 - Do not toggle already-synced places. Naver's save modal uses toggles, so reprocessing a saved restaurant can remove it from the target list.
-- Do not combine `--mode blind` with `--include-synced`; the script blocks this.
-- Before a bulk run after Naver UI changes, manually verify that selector-first detection can see the target checkbox or that the current modal coordinates still match by screenshot. Current coordinate fallbacks assume a 1280x900 CSS-pixel desktop layout.
+- Do not add screenshot-color or coordinate-click control paths. Screenshots are failure evidence only.
+- Before a bulk run after Naver UI changes, verify that the place frame exposes `a[href="#bookmark"]` and the modal exposes `button.swt-save-group-info[role="checkbox"]`.
 - Do not write directly to SQLite during map sync.
 - If `agent-browser` loses the Naver tab, recreate a Naver tab with CDP:
 
@@ -145,6 +143,6 @@ agent-browser --cdp 9222 tab list
 
 ```bash
 python3 -m py_compile .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py
+python3 -m unittest discover -s .codex/skills/tastyroad-naver-map-sync/tests -p 'test_*.py'
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --limit 0
-python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --mode blind --limit 0
 ```
