@@ -2,6 +2,38 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-25 - Add 홍석천이원일 YouTube source
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/add-hong-won-channel`
+Branch: `codex/add-hong-won-channel`
+Target: production `main`, then private Naver Map lists
+
+- [x] Read repository guidance, lessons, and the YouTube collection skill.
+- [x] Verify the official channel ID and estimate the full-channel scope.
+- [x] Add the source with focused non-restaurant title filtering.
+- [x] Run full-channel collection and audit source coverage.
+- [x] Provision the task worktree environment and confirm Supabase is `Available`.
+- [x] Fetch missing transcripts for the full source and audit failures.
+- [x] Review every video, verify concrete Naver place IDs, and promote valid mappings.
+- [x] Run the full transcript-grounded must-taste workflow for eligible mapped pairs.
+- [x] Verify source gates, SQLite integrity, and the production build.
+- [ ] Commit intended changes, integrate into `main`, push, and verify Vercel production.
+- [ ] Sync newly public source restaurants into the available private Naver Map lists and verify counts. (Paused at the user's request after 166 new registrations; 41 remain.)
+- [ ] Record the final result and clean up the task worktree if safe.
+
+### Review
+
+- Added enabled source `hongseokcheon_leewonil` for official channel `UCIP3hSJruPL4dIi95lsuCZA`.
+- Excluded the channel-introduction video and collected 232 unique videos: 224 eligible `/videos` entries plus 8 current RSS-only Shorts.
+- Repeated per-video detail failures triggered the documented safe fallback; all official IDs/titles were preserved, 15 RSS rows have publication dates, and missing detail fields remain retryable.
+- Full-channel audit reports `remote_total=224`, `local_collected=232`, and `missing=0`.
+- Updated the audit helper to invoke the available `yt_dlp` Python module consistently with the collector.
+- Stored preferred timed transcripts for 231 of 232 videos; `ZSFq3JO1a_o` has captions disabled by YouTube.
+- Promoted 260 verified video-place mappings across 180 videos and 230 restaurants, all with numeric Naver place IDs.
+- Applied 226 transcript-supported restaurant-video results with 341 must-taste items; 33 eligible pairs remain intentionally empty for insufficient direct evidence.
+- Added 166 new source restaurants to private Naver Map list `Tastyroad 2`; 19 source restaurants were already in `Tastyroad`, four were already in `Tastyroad 2`, and 41 remain after the user asked to prioritize deployment.
+- Verification passed: SQLite integrity, zero blank Naver IDs, Python compilation, `git diff --check`, `pnpm run build`, and immediate pre-release Supabase Marketplace status `Available`.
+
 ## Current Task - 2026-07-25 - Regular source maintenance automation
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260725`

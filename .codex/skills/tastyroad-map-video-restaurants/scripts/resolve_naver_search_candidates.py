@@ -209,6 +209,8 @@ def load_jsonl_candidates(sqlite_path: Path, input_path: Path, limit: int | None
             "candidate_only_no_collected_clip_match",
             "candidate_matched_to_collected_clip",
             "candidate_linked",
+            "ready_for_place_verification",
+            "existing_restaurant_match",
         }:
             continue
         video_ids = item.get("video_ids") or item.get("matched_video_ids") or [item.get("video_id")]
@@ -249,6 +251,25 @@ def load_jsonl_candidates(sqlite_path: Path, input_path: Path, limit: int | None
                     ),
                 )
             )
+            if limit and len(candidates) >= limit:
+                return candidates
+    return candidates
+
+
+def load_jsonl_candidate_files(
+    sqlite_path: Path,
+    input_paths: list[Path],
+    limit: int | None,
+) -> list[Candidate]:
+    candidates: list[Candidate] = []
+    seen: set[tuple[str, str, str]] = set()
+    for input_path in input_paths:
+        for candidate in load_jsonl_candidates(sqlite_path, input_path, None):
+            key = (candidate.video_id, candidate.result_name, candidate.result_address)
+            if key in seen:
+                continue
+            seen.add(key)
+            candidates.append(candidate)
             if limit and len(candidates) >= limit:
                 return candidates
     return candidates
@@ -414,7 +435,8 @@ def main() -> int:
     parser.add_argument(
         "--input-jsonl",
         type=Path,
-        help="Resolve reviewed JSONL candidates instead of loading place_resolution_candidates.",
+        action="append",
+        help="Resolve reviewed JSONL candidates instead of loading place_resolution_candidates. Repeat for multiple files.",
     )
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--unresolved-output", type=Path, default=DEFAULT_UNRESOLVED)
@@ -428,7 +450,7 @@ def main() -> int:
     args = parser.parse_args()
 
     candidates = (
-        load_jsonl_candidates(args.sqlite, args.input_jsonl, args.limit)
+        load_jsonl_candidate_files(args.sqlite, args.input_jsonl, args.limit)
         if args.input_jsonl
         else load_candidates(
             args.sqlite,

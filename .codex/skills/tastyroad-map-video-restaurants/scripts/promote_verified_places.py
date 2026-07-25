@@ -251,35 +251,39 @@ def upsert_video_review(
 ) -> None:
     existing = connection.execute(
         """
-        select decision, confidence, restaurant_names, detected_restaurant_count, reason
+        select decision, confidence, restaurant_names, detected_restaurant_count, reason, reviewer
         from agent_video_reviews
         where external_id = ?
         """,
         (video_id,),
     ).fetchone()
 
-    merged_names: list[str] = []
-    existing_count = 0
+    merged_names = [
+        str(row[0]).strip()
+        for row in connection.execute(
+            """
+            select distinct r.display_name
+            from youtube_video_restaurants yvr
+            join youtube_videos v on v.id = yvr.youtube_video_id
+            join restaurants r on r.id = yvr.restaurant_id
+            where v.video_id = ?
+              and yvr.status in ('verified', 'metadata_verified')
+            order by r.id
+            """,
+            (video_id,),
+        ).fetchall()
+        if str(row[0]).strip()
+    ]
     existing_confidence = 0.0
-    existing_reason = ""
     if existing is not None:
-        existing_decision = str(existing[0])
         existing_confidence = float(existing[1] or 0)
-        existing_reason = str(existing[4] or "")
-        if existing_decision == "restaurant_intro":
-            merged_names.extend(parse_json_list(str(existing[2] or "[]")))
-            existing_count = int(existing[3] or 0)
 
     for name in names:
         clean_name = name.strip()
         if clean_name and clean_name not in merged_names:
             merged_names.append(clean_name)
 
-    reason = (
-        existing_reason
-        if existing is not None and str(existing[0]) == "restaurant_intro" and existing_reason
-        else f"Verified place mappings promoted from {input_path}."
-    )
+    reason = f"Verified place mappings promoted from {input_path}."
     connection.execute(
         """
         insert into agent_video_reviews (
@@ -301,7 +305,7 @@ def upsert_video_review(
             "restaurant_intro",
             max(existing_confidence, confidence),
             json.dumps(merged_names, ensure_ascii=False),
-            max(existing_count, len(merged_names)),
+            len(merged_names),
             reason,
             "verified_places",
             reviewed_at,

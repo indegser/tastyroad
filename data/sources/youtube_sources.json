@@ -34,6 +34,24 @@
       ]
     },
     {
+      "key": "hongseokcheon_leewonil",
+      "name": "홍석천이원일",
+      "type": "youtube",
+      "trust_tier": "A",
+      "channel_id": "UCIP3hSJruPL4dIi95lsuCZA",
+      "official_url": "https://www.youtube.com/channel/UCIP3hSJruPL4dIi95lsuCZA",
+      "enabled": true,
+      "title_include_any": [],
+      "title_exclude_any": [
+        "유튜브를 한다고 해서 길바닥에 내던졌습니다"
+      ],
+      "title_cleanup_patterns": [
+        "\\s*\\[ENG\\]\\s*$",
+        "\\s*\\[홍석천\\s*이원일의\\s*줄\\s*서는\\s*맛집\\s*앞\\]\\s*$",
+        "\\s*#.*$"
+      ]
+    },
+    {
       "key": "ttoganjip",
       "name": "또간집",
       "type": "youtube",
