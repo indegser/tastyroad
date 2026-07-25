@@ -2,6 +2,38 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Add a public restaurant read database
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-query-performance`
+Branch: `codex/restaurant-query-performance`
+
+- [x] Confirm the performance branch is pushed and based on current `origin/main`.
+- [x] Capture full-response hashes for listing, filters, search, and later pages.
+- [x] Build a deterministic public-only SQLite artifact from the source database.
+- [x] Move filtering, facet counts, totals, and pagination into indexed SQL queries.
+- [x] Compare response hashes and tune the new query path in measured iterations.
+- [x] Verify build output tracing and browser navigation.
+- [x] Commit, push, and record final performance/size results.
+
+### Review
+
+- `pnpm run build` now atomically derives `data/tastyroad-public.sqlite` from the tracked
+  source DB before Next.js builds; the generated DB contains 1,730 public rows and is
+  4.37MB versus the 49MB source DB.
+- Runtime filtering, totals, facet counts, ordering, and `LIMIT/OFFSET` pagination execute
+  against indexed public columns. Production output traces include only the public DB.
+- Seven full API response SHA-256 hashes matched the pre-change implementation exactly,
+  covering unfiltered pages 1/2, filtered pages 1/4, multi-source, region, and search.
+- Three measured query iterations reduced repeated-search p50 from 33.2ms in the first SQL
+  version to 9.8ms through one-time substring matching, bounded LRU reuse, prepared statements,
+  and SQLite mmap/cache settings.
+- Seven fresh-process runs measured cold-request median at 141.1ms versus 236.8ms before the
+  public DB change (40% faster). Warm representative p50 remained 9.4-11.1ms.
+- SQL pagination stayed flat at page 2/50/80 (10.2/9.5/8.8ms p50); page 999 correctly clamped
+  to page 87 and returned the final 10 rows.
+- Browser verification passed for channel selection and page 2 navigation with 20 cards and
+  no Next.js error overlay.
+
 ## Current Task - 2026-07-26 - Tune restaurant filtering performance
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-query-performance`

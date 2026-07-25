@@ -6,7 +6,9 @@
 
 ## 데이터
 
-- `data/tastyroad.sqlite`: 사이트가 읽는 기준 SQLite DB 및 파이프라인 메타데이터 DB
+- `data/tastyroad.sqlite`: 수집·검토·게시 데이터를 보관하는 기준 SQLite DB
+- `data/tastyroad-public.sqlite`: 빌드할 때 기준 DB에서 생성하는 웹 전용 읽기 모델. Git에는
+  저장하지 않으며 공개 식당, 검색 문서, facet 컬럼과 인덱스만 포함
 - Supabase Storage `tastyroad-transcripts`: YouTube 자막 raw track/segment 원천 아카이브
 - `data/sources/youtube_sources.json`: YouTube 소스 설정
 - `data/raw/youtube/*.json`: 수집 결과 mirror
@@ -48,5 +50,8 @@
 ```bash
 pnpm run build
 ```
+
+빌드 전 단계가 `data/tastyroad-public.sqlite`를 원자적으로 재생성합니다. 개발 서버도
+같은 읽기 모델을 사용하므로 `pnpm run dev`로 실행합니다.
 
 GitHub 연동 Vercel 배포와 배포 후 응답 확인은 `$tastyroad-site-release` 스킬을 사용합니다.

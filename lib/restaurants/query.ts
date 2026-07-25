@@ -1,22 +1,19 @@
-import { DatabaseSync } from "node:sqlite";
+import { DatabaseSync, type StatementSync } from "node:sqlite";
 import path from "node:path";
-import { normalizeRegion } from "./region";
 import type {
   FacetValue,
   MustTasteItem,
+  RestaurantFacets,
   RestaurantItem,
   RestaurantSearchParams,
   RestaurantSearchResponse,
 } from "./types";
 
-const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad.sqlite");
+const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad-public.sqlite");
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
-let database: DatabaseSync | undefined;
-let restaurantItems: RestaurantItem[] | undefined;
-const restaurantSearchText = new Map<number, string>();
-const restaurantNameInitial = new Map<number, string>();
+const MAX_SEARCH_CACHE_ENTRIES = 100;
 const NAME_INITIAL_FACETS = [
   "ㄱ",
   "ㄴ",
@@ -34,55 +31,40 @@ const NAME_INITIAL_FACETS = [
   "ㅎ",
   "#",
 ];
-const HANGUL_INITIALS = [
-  "ㄱ",
-  "ㄲ",
-  "ㄴ",
-  "ㄷ",
-  "ㄸ",
-  "ㄹ",
-  "ㅁ",
-  "ㅂ",
-  "ㅃ",
-  "ㅅ",
-  "ㅆ",
-  "ㅇ",
-  "ㅈ",
-  "ㅉ",
-  "ㅊ",
-  "ㅋ",
-  "ㅌ",
-  "ㅍ",
-  "ㅎ",
-];
-const HANGUL_INITIAL_GROUPS: Record<string, string> = {
-  "ㄲ": "ㄱ",
-  "ㄸ": "ㄷ",
-  "ㅃ": "ㅂ",
-  "ㅆ": "ㅅ",
-  "ㅉ": "ㅈ",
-};
-const HANGUL_SYLLABLE_START = 0xac00;
-const HANGUL_SYLLABLE_END = 0xd7a3;
-const HANGUL_SYLLABLES_PER_INITIAL = 588;
 
-type RestaurantRow = {
+let database: DatabaseSync | undefined;
+const statements = new Map<string, StatementSync>();
+const searchIdsCache = new Map<string, string>();
+
+type PublicRestaurantRow = {
   id: number;
   name: string;
-  country_code: string;
-  raw_region: string | null;
   address: string;
-  category: string | null;
+  category: string;
   status: string;
-  naver_map_id: string;
-  source: string | null;
-  source_title: string | null;
-  source_url: string | null;
-  source_thumbnail_url: string | null;
-  source_published_at: string | null;
-  map_url: string | null;
-  must_taste_json: string | null;
+  source: string;
+  source_title: string;
+  source_url: string;
+  source_thumbnail_url: string;
+  source_published_at: string;
+  map_url: string;
+  must_taste_json: string;
+  country: string;
+  province: string;
+  city: string;
+  district: string;
+  region: string;
+  region_cluster: string;
 };
+
+type FacetRow = {
+  value: string;
+  count: number;
+};
+
+type FilterDimension = "source" | "region" | "regionCluster" | "nameInitial";
+type FacetColumn = "name_initial" | "source" | "region_cluster" | "region";
+type SqlValue = string | number;
 
 export function normalizeRestaurantSearchParams(
   params: URLSearchParams,
@@ -102,285 +84,212 @@ export function normalizeRestaurantSearchParams(
 export function searchRestaurants(
   params: RestaurantSearchParams,
 ): RestaurantSearchResponse {
-  const allItems = loadRestaurantItems();
-  const { filteredItems, facets } = analyzeRestaurants(allItems, params);
-  const total = filteredItems.length;
+  const database = getDatabase();
+  const searchIdsJson = loadSearchIdsJson(database, params.q);
+  const filters = buildWhere(params, new Set(), searchIdsJson);
+  const totalRow = prepare(
+    database,
+    `select count(*) as total from public_restaurants ${filters.sql}`,
+  )
+    .get(...filters.values) as { total: number };
+  const total = totalRow.total;
   const totalPages = total > 0 ? Math.ceil(total / params.limit) : 0;
   const page = Math.min(params.page, Math.max(totalPages, 1));
   const offset = (page - 1) * params.limit;
-  const items = filteredItems.slice(offset, offset + params.limit);
+
+  const rows = prepare(
+    database,
+    `
+      select
+        id,
+        name,
+        address,
+        category,
+        status,
+        source,
+        source_title,
+        source_url,
+        source_thumbnail_url,
+        source_published_at,
+        map_url,
+        must_taste_json,
+        country,
+        province,
+        city,
+        district,
+        region,
+        region_cluster
+      from public_restaurants
+      ${filters.sql}
+      order by sort_rank
+      limit ? offset ?
+    `,
+  )
+    .all(...filters.values, params.limit, offset) as PublicRestaurantRow[];
 
   return {
-    items,
+    items: rows.map(toRestaurantItem),
     page,
     limit: params.limit,
     total,
     totalPages,
-    facets,
-  };
-}
-
-function loadRestaurantItems(): RestaurantItem[] {
-  if (restaurantItems) {
-    return restaurantItems;
-  }
-
-  const rows = getDatabase()
-    .prepare(
-      `
-        with ranked_mentions as (
-          select
-            r.id,
-            r.display_name as name,
-            r.country_code,
-            r.region as raw_region,
-            r.address,
-            r.category,
-            r.status,
-            r.naver_map_id,
-            s.name as source,
-            c.title as source_title,
-            c.url as source_url,
-            c.thumbnail_url as source_thumbnail_url,
-            c.published_at as source_published_at,
-            c.id as source_video_row_id,
-            top3.must_taste_json,
-            row_number() over (
-              partition by r.id
-              order by c.published_at desc, c.id desc
-            ) as mention_rank
-          from restaurants r
-          join youtube_video_restaurants m on m.restaurant_id = r.id
-          join youtube_videos c on c.id = m.youtube_video_id
-          join sources s on s.id = c.source_id
-          left join (
-            select
-              restaurant_id,
-              youtube_video_id,
-              json_group_array(
-                json_object(
-                  'rank', rank,
-                  'menuItem', item_name,
-                  'reason', coalesce(nullif(repaired_reason, ''), reason),
-                  'rawReason', reason,
-                  'timestamp', timestamp_label,
-                  'evidence', evidence_text
-                )
-              ) as must_taste_json
-            from (
-              select
-                restaurant_id,
-                youtube_video_id,
-                rank,
-                item_name,
-                reason,
-                repaired_reason,
-                timestamp_label,
-                evidence_text
-              from video_must_taste_items
-              order by restaurant_id, youtube_video_id, rank
-            )
-            group by restaurant_id, youtube_video_id
-          ) top3 on top3.restaurant_id = r.id
-            and top3.youtube_video_id = c.id
-          where trim(r.naver_map_id) != ''
-            and m.status in ('verified', 'metadata_verified')
-        ),
-        ranked_links as (
-          select
-            restaurant_id,
-            url,
-            row_number() over (
-              partition by restaurant_id
-              order by
-                case provider when 'naver_map' then 0 when 'google_maps' then 1 else 2 end,
-                confidence desc,
-                verified_at desc
-            ) as link_rank
-          from place_links
-          where status in ('verified', 'metadata_verified')
-            and url not like '%/p/search/%'
-        )
-        select
-          ranked_mentions.id,
-          ranked_mentions.name,
-          ranked_mentions.country_code,
-          ranked_mentions.raw_region,
-          ranked_mentions.address,
-          ranked_mentions.category,
-          ranked_mentions.status,
-          ranked_mentions.source,
-          ranked_mentions.source_title,
-          ranked_mentions.source_url,
-          ranked_mentions.source_thumbnail_url,
-          ranked_mentions.source_published_at,
-          coalesce(
-            ranked_links.url,
-            'https://map.naver.com/p/entry/place/' || ranked_mentions.naver_map_id
-          ) as map_url,
-          ranked_mentions.must_taste_json
-        from ranked_mentions
-        left join ranked_links on ranked_links.restaurant_id = ranked_mentions.id
-          and ranked_links.link_rank = 1
-        where ranked_mentions.mention_rank = 1
-        order by
-          ranked_mentions.source_published_at desc,
-          ranked_mentions.source_video_row_id desc,
-          ranked_mentions.id asc
-      `,
-    )
-    .all() as RestaurantRow[];
-
-  restaurantItems = rows.map((row) => {
-    const item: RestaurantItem = {
-      id: row.id,
-      name: row.name,
-      address: row.address,
-      category: row.category || "",
-      status: row.status,
-      source: row.source || "",
-      sourceTitle: row.source_title || "",
-      sourceUrl: row.source_url || "",
-      sourceThumbnailUrl: row.source_thumbnail_url || "",
-      sourcePublishedAt: row.source_published_at || "",
-      mapUrl: row.map_url || "",
-      mustTasteItems: parseMustTasteItems(row.must_taste_json),
-      region: normalizeRegion({
-        region: row.raw_region,
-        address: row.address,
-        countryCode: row.country_code,
-      }),
-    };
-
-    return item;
-  });
-
-  return restaurantItems;
-}
-
-function getDatabase() {
-  database ??= new DatabaseSync(SQLITE_PATH, { readOnly: true });
-  return database;
-}
-
-function analyzeRestaurants(
-  items: RestaurantItem[],
-  params: RestaurantSearchParams,
-) {
-  const query = params.q.toLocaleLowerCase("ko-KR");
-  const filteredItems: RestaurantItem[] = [];
-  const nameInitialCounts = new Map<string, number>();
-  const sourceCounts = new Map<string, number>();
-  const regionClusterCounts = new Map<string, number>();
-  const regionCounts = new Map<string, number>();
-
-  for (const item of items) {
-    if (query && !getRestaurantSearchText(item).includes(query)) {
-      continue;
-    }
-
-    const nameInitial = getCachedRestaurantNameInitial(item);
-    const sourceMatches =
-      params.sources.length === 0 || params.sources.includes(item.source);
-    const regionMatches = !params.region || item.region.region === params.region;
-    const regionClusterMatches =
-      !params.regionCluster || item.region.cluster === params.regionCluster;
-    const nameInitialMatches =
-      !params.nameInitial || nameInitial === params.nameInitial;
-
-    if (
-      sourceMatches &&
-      regionMatches &&
-      regionClusterMatches &&
-      nameInitialMatches
-    ) {
-      filteredItems.push(item);
-    }
-
-    if (!params.includeFacets) {
-      continue;
-    }
-    if (sourceMatches && regionMatches && regionClusterMatches) {
-      incrementCount(nameInitialCounts, nameInitial);
-    }
-    if (regionMatches && regionClusterMatches && nameInitialMatches) {
-      incrementCount(sourceCounts, item.source);
-    }
-    if (sourceMatches && nameInitialMatches) {
-      incrementCount(regionClusterCounts, item.region.cluster);
-    }
-    if (sourceMatches && regionClusterMatches && nameInitialMatches) {
-      incrementCount(regionCounts, item.region.region);
-    }
-  }
-
-  return {
-    filteredItems,
     facets: params.includeFacets
-      ? {
-          nameInitials: sortNameInitialFacets(toFacetValues(nameInitialCounts)),
-          sources: toFacetValues(sourceCounts),
-          regionClusters: toFacetValues(regionClusterCounts),
-          regions: toFacetValues(regionCounts),
-        }
+      ? loadFacets(database, params, searchIdsJson)
       : undefined,
   };
 }
 
-function getRestaurantSearchText(item: RestaurantItem) {
-  const cached = restaurantSearchText.get(item.id);
-  if (cached !== undefined) {
+function getDatabase() {
+  if (!database) {
+    database = new DatabaseSync(SQLITE_PATH, { readOnly: true });
+    database.exec(`
+      pragma query_only = on;
+      pragma cache_size = -8192;
+      pragma mmap_size = 8388608;
+    `);
+  }
+  return database;
+}
+
+function prepare(database: DatabaseSync, sql: string) {
+  const cached = statements.get(sql);
+  if (cached) {
     return cached;
   }
 
-  const searchText = buildRestaurantSearchText(item);
-  restaurantSearchText.set(item.id, searchText);
-  return searchText;
+  const statement = database.prepare(sql);
+  statements.set(sql, statement);
+  return statement;
 }
 
-function buildRestaurantSearchText(item: RestaurantItem) {
-  return [
-    item.name,
-    item.address,
-    item.category,
-    item.source,
-    item.sourceTitle,
-    ...item.mustTasteItems.flatMap((mustTasteItem) => [
-      mustTasteItem.menuItem,
-      mustTasteItem.reason,
-      mustTasteItem.rawReason,
-      mustTasteItem.timestamp,
-      mustTasteItem.evidence,
-    ]),
-    item.region.region,
-    item.region.cluster,
-  ]
-    .join(" ")
-    .toLocaleLowerCase("ko-KR");
-}
+function buildWhere(
+  params: RestaurantSearchParams,
+  excluded: ReadonlySet<FilterDimension>,
+  searchIdsJson: string | undefined,
+) {
+  const clauses: string[] = [];
+  const values: SqlValue[] = [];
 
-function getCachedRestaurantNameInitial(item: RestaurantItem) {
-  const cached = restaurantNameInitial.get(item.id);
-  if (cached !== undefined) {
-    return cached;
+  if (searchIdsJson !== undefined) {
+    clauses.push("id in (select value from json_each(?))");
+    values.push(searchIdsJson);
+  }
+  if (params.sources.length > 0 && !excluded.has("source")) {
+    clauses.push(`source in (${params.sources.map(() => "?").join(", ")})`);
+    values.push(...params.sources);
+  }
+  if (params.region && !excluded.has("region")) {
+    clauses.push("region = ?");
+    values.push(params.region);
+  }
+  if (params.regionCluster && !excluded.has("regionCluster")) {
+    clauses.push("region_cluster = ?");
+    values.push(params.regionCluster);
+  }
+  if (params.nameInitial && !excluded.has("nameInitial")) {
+    clauses.push("name_initial = ?");
+    values.push(params.nameInitial);
   }
 
-  const initial = getRestaurantNameInitial(item.name);
-  restaurantNameInitial.set(item.id, initial);
-  return initial;
+  return {
+    sql: clauses.length > 0 ? `where ${clauses.join(" and ")}` : "",
+    values,
+  };
 }
 
-function incrementCount(counts: Map<string, number>, value: string) {
-  const key = value.trim();
-  if (key) {
-    counts.set(key, (counts.get(key) || 0) + 1);
-  }
+function loadFacets(
+  database: DatabaseSync,
+  params: RestaurantSearchParams,
+  searchIdsJson: string | undefined,
+): RestaurantFacets {
+  return {
+    nameInitials: sortNameInitialFacets(
+      loadFacet(
+        database,
+        params,
+        "name_initial",
+        new Set(["nameInitial"]),
+        searchIdsJson,
+      ),
+    ),
+    sources: loadFacet(
+      database,
+      params,
+      "source",
+      new Set(["source"]),
+      searchIdsJson,
+    ),
+    regionClusters: loadFacet(
+      database,
+      params,
+      "region_cluster",
+      new Set(["region", "regionCluster"]),
+      searchIdsJson,
+    ),
+    regions: loadFacet(
+      database,
+      params,
+      "region",
+      new Set(["region"]),
+      searchIdsJson,
+    ),
+  };
 }
 
-function toFacetValues(counts: Map<string, number>): FacetValue[] {
-  return Array.from(counts.entries())
-    .map(([value, count]) => ({ value, count }))
+function loadFacet(
+  database: DatabaseSync,
+  params: RestaurantSearchParams,
+  column: FacetColumn,
+  excluded: ReadonlySet<FilterDimension>,
+  searchIdsJson: string | undefined,
+) {
+  const filters = buildWhere(params, excluded, searchIdsJson);
+  const rows = prepare(
+    database,
+    `
+      select ${column} as value, count(*) as count
+      from public_restaurants
+      ${filters.sql}
+      group by ${column}
+    `,
+  )
+    .all(...filters.values) as FacetRow[];
+
+  return rows
+    .map(({ value, count }) => ({ value: value.trim(), count }))
+    .filter(({ value }) => Boolean(value))
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "ko-KR"));
+}
+
+function loadSearchIdsJson(database: DatabaseSync, query: string) {
+  if (!query) {
+    return undefined;
+  }
+
+  const normalizedQuery = query.toLocaleLowerCase("ko-KR");
+  const cached = searchIdsCache.get(normalizedQuery);
+  if (cached !== undefined) {
+    searchIdsCache.delete(normalizedQuery);
+    searchIdsCache.set(normalizedQuery, cached);
+    return cached;
+  }
+
+  const rows = prepare(
+    database,
+    "select id from public_restaurants where instr(search_text, ?) > 0 order by id",
+  )
+    .all(normalizedQuery) as Array<{ id: number }>;
+  const searchIdsJson = JSON.stringify(rows.map(({ id }) => id));
+
+  searchIdsCache.set(normalizedQuery, searchIdsJson);
+  if (searchIdsCache.size > MAX_SEARCH_CACHE_ENTRIES) {
+    const oldestKey = searchIdsCache.keys().next().value;
+    if (oldestKey !== undefined) {
+      searchIdsCache.delete(oldestKey);
+    }
+  }
+
+  return searchIdsJson;
 }
 
 function sortNameInitialFacets(values: FacetValue[]) {
@@ -394,8 +303,29 @@ function sortNameInitialFacets(values: FacetValue[]) {
   );
 }
 
-function normalizeText(value: string | null) {
-  return (value || "").replace(/\s+/g, " ").trim();
+function toRestaurantItem(row: PublicRestaurantRow): RestaurantItem {
+  return {
+    id: row.id,
+    name: row.name,
+    address: row.address,
+    category: row.category,
+    status: row.status,
+    source: row.source,
+    sourceTitle: row.source_title,
+    sourceUrl: row.source_url,
+    sourceThumbnailUrl: row.source_thumbnail_url,
+    sourcePublishedAt: row.source_published_at,
+    mapUrl: row.map_url,
+    mustTasteItems: parseMustTasteItems(row.must_taste_json),
+    region: {
+      country: row.country,
+      province: row.province,
+      city: row.city,
+      district: row.district,
+      region: row.region,
+      cluster: row.region_cluster,
+    },
+  };
 }
 
 function parseMustTasteItems(value: string | null): MustTasteItem[] {
@@ -440,6 +370,10 @@ function parseMustTasteItems(value: string | null): MustTasteItem[] {
   }
 }
 
+function normalizeText(value: string | null) {
+  return (value || "").replace(/\s+/g, " ").trim();
+}
+
 function normalizeSourceParams(params: URLSearchParams) {
   const values = params.getAll("source").flatMap((value) => value.split(","));
   const deduped = new Set<string>();
@@ -458,25 +392,6 @@ function normalizeNameInitial(value: string | null) {
   const normalized = normalizeText(value);
 
   return NAME_INITIAL_FACETS.includes(normalized) ? normalized : "";
-}
-
-function getRestaurantNameInitial(name: string) {
-  const firstCharacter = normalizeText(name).charAt(0);
-  const codePoint = firstCharacter.charCodeAt(0);
-
-  if (codePoint >= HANGUL_SYLLABLE_START && codePoint <= HANGUL_SYLLABLE_END) {
-    const initialIndex = Math.floor(
-      (codePoint - HANGUL_SYLLABLE_START) / HANGUL_SYLLABLES_PER_INITIAL,
-    );
-    const initial = HANGUL_INITIALS[initialIndex] || "#";
-    return HANGUL_INITIAL_GROUPS[initial] || initial;
-  }
-
-  if (NAME_INITIAL_FACETS.includes(firstCharacter)) {
-    return firstCharacter;
-  }
-
-  return "#";
 }
 
 function normalizePositiveInteger(value: string | null, fallback: number) {

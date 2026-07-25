@@ -5,6 +5,9 @@
     "node": ">=22.5.0"
   },
   "scripts": {
+    "prepare:public-db": "node lib/restaurants/build-public-database.mjs",
+    "prebuild": "pnpm run prepare:public-db",
+    "dev": "pnpm run prepare:public-db && next dev",
     "build": "next build"
   },
   "dependencies": {
