@@ -53,6 +53,9 @@ Branch: `codex/restaurant-query-performance`
   to page 87 and returned the final 10 rows.
 - Browser verification passed for channel selection and page 2 navigation with 20 cards and
   no Next.js error overlay.
+- Production release merged the performance branch into current `main`, passed the build and
+  Supabase availability gate, and deployed through GitHub integration. Production verification
+  returned HTTP 200 for the home page, the default API, and channel-filter page 2.
 
 ## Current Task - 2026-07-26 - Tune restaurant filtering performance
 
