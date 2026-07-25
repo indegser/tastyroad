@@ -2,6 +2,35 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Tune restaurant filtering performance
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-query-performance`
+Branch: `codex/restaurant-query-performance`
+
+- [x] Read repository lessons and the Next.js App Router skill.
+- [x] Create a dedicated worktree from current `origin/main`.
+- [x] Establish a repeatable baseline for representative filter/search requests.
+- [x] Run five measured optimization iterations, preserving response semantics.
+- [x] Compare representative API totals, first-page IDs, and facet cardinalities.
+- [x] Verify the production build and browser navigation behavior.
+- [x] Record benchmark results, tradeoffs, and remaining risks.
+
+### Review
+
+- Reused the immutable deployment SQLite connection and materialized restaurant rows per
+  server instance instead of reopening, aggregating, normalizing, and parsing every request.
+- Built search documents lazily per restaurant and combined result/facet calculation into one
+  pass; rejected eager search indexing after measurement showed a cold-request regression.
+- Replaced internal filter and pagination anchors with non-prefetching Next.js `Link` navigation.
+- Production-server warm p50 across default/source/multi-source/region/search requests improved
+  from 92.6/82.0/53.5/111.7/86.5ms to 10.3/10.8/9.3/9.0/8.4ms.
+- Baseline and final API checks matched totals, first 20 restaurant IDs, and facet cardinalities
+  for all five representative requests.
+- `pnpm run build`, browser content/error checks, and a live channel-filter navigation passed.
+- Remaining tradeoff: the first request in a new server instance still performs the full source
+  query (261ms locally on the latest 51MB DB); a generated public read model is deferred until production cold-start
+  telemetry shows that this remaining cost warrants the added release-pipeline complexity.
+
 ## Current Task - 2026-07-25 - Sync unsynced Naver Map places
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-sync-unsynced`

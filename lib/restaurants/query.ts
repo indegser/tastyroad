@@ -4,7 +4,6 @@ import { normalizeRegion } from "./region";
 import type {
   FacetValue,
   MustTasteItem,
-  RestaurantFacets,
   RestaurantItem,
   RestaurantSearchParams,
   RestaurantSearchResponse,
@@ -14,6 +13,10 @@ const SQLITE_PATH = path.join(process.cwd(), "data/tastyroad.sqlite");
 const DEFAULT_PAGE = 1;
 const DEFAULT_LIMIT = 20;
 const MAX_LIMIT = 100;
+let database: DatabaseSync | undefined;
+let restaurantItems: RestaurantItem[] | undefined;
+const restaurantSearchText = new Map<number, string>();
+const restaurantNameInitial = new Map<number, string>();
 const NAME_INITIAL_FACETS = [
   "ㄱ",
   "ㄴ",
@@ -100,7 +103,7 @@ export function searchRestaurants(
   params: RestaurantSearchParams,
 ): RestaurantSearchResponse {
   const allItems = loadRestaurantItems();
-  const filteredItems = filterRestaurants(allItems, params);
+  const { filteredItems, facets } = analyzeRestaurants(allItems, params);
   const total = filteredItems.length;
   const totalPages = total > 0 ? Math.ceil(total / params.limit) : 0;
   const page = Math.min(params.page, Math.max(totalPages, 1));
@@ -113,17 +116,18 @@ export function searchRestaurants(
     limit: params.limit,
     total,
     totalPages,
-    facets: params.includeFacets ? buildFacets(allItems, params) : undefined,
+    facets,
   };
 }
 
 function loadRestaurantItems(): RestaurantItem[] {
-  const db = new DatabaseSync(SQLITE_PATH, { readOnly: true });
+  if (restaurantItems) {
+    return restaurantItems;
+  }
 
-  try {
-    const rows = db
-      .prepare(
-        `
+  const rows = getDatabase()
+    .prepare(
+      `
         with ranked_mentions as (
           select
             r.id,
@@ -223,11 +227,12 @@ function loadRestaurantItems(): RestaurantItem[] {
           ranked_mentions.source_published_at desc,
           ranked_mentions.source_video_row_id desc,
           ranked_mentions.id asc
-        `,
-      )
-      .all() as RestaurantRow[];
+      `,
+    )
+    .all() as RestaurantRow[];
 
-    return rows.map((row) => ({
+  restaurantItems = rows.map((row) => {
+    const item: RestaurantItem = {
       id: row.id,
       name: row.name,
       address: row.address,
@@ -245,98 +250,134 @@ function loadRestaurantItems(): RestaurantItem[] {
         address: row.address,
         countryCode: row.country_code,
       }),
-    }));
-  } finally {
-    db.close();
-  }
+    };
+
+    return item;
+  });
+
+  return restaurantItems;
 }
 
-function filterRestaurants(
+function getDatabase() {
+  database ??= new DatabaseSync(SQLITE_PATH, { readOnly: true });
+  return database;
+}
+
+function analyzeRestaurants(
   items: RestaurantItem[],
   params: RestaurantSearchParams,
 ) {
   const query = params.q.toLocaleLowerCase("ko-KR");
+  const filteredItems: RestaurantItem[] = [];
+  const nameInitialCounts = new Map<string, number>();
+  const sourceCounts = new Map<string, number>();
+  const regionClusterCounts = new Map<string, number>();
+  const regionCounts = new Map<string, number>();
 
-  return items.filter((item) => {
-    if (params.sources.length > 0 && !params.sources.includes(item.source)) {
-      return false;
-    }
-    if (params.region && item.region.region !== params.region) {
-      return false;
-    }
-    if (params.regionCluster && item.region.cluster !== params.regionCluster) {
-      return false;
-    }
-    if (params.nameInitial && getRestaurantNameInitial(item.name) !== params.nameInitial) {
-      return false;
-    }
-    if (!query) {
-      return true;
+  for (const item of items) {
+    if (query && !getRestaurantSearchText(item).includes(query)) {
+      continue;
     }
 
-    return [
-      item.name,
-      item.address,
-      item.category,
-      item.source,
-      item.sourceTitle,
-      ...item.mustTasteItems.flatMap((mustTasteItem) => [
-        mustTasteItem.menuItem,
-        mustTasteItem.reason,
-        mustTasteItem.rawReason,
-        mustTasteItem.timestamp,
-        mustTasteItem.evidence,
-      ]),
-      item.region.region,
-      item.region.cluster,
-    ]
-      .join(" ")
-      .toLocaleLowerCase("ko-KR")
-      .includes(query);
-  });
-}
+    const nameInitial = getCachedRestaurantNameInitial(item);
+    const sourceMatches =
+      params.sources.length === 0 || params.sources.includes(item.source);
+    const regionMatches = !params.region || item.region.region === params.region;
+    const regionClusterMatches =
+      !params.regionCluster || item.region.cluster === params.regionCluster;
+    const nameInitialMatches =
+      !params.nameInitial || nameInitial === params.nameInitial;
 
-function buildFacets(
-  items: RestaurantItem[],
-  params: RestaurantSearchParams,
-): RestaurantFacets {
+    if (
+      sourceMatches &&
+      regionMatches &&
+      regionClusterMatches &&
+      nameInitialMatches
+    ) {
+      filteredItems.push(item);
+    }
+
+    if (!params.includeFacets) {
+      continue;
+    }
+    if (sourceMatches && regionMatches && regionClusterMatches) {
+      incrementCount(nameInitialCounts, nameInitial);
+    }
+    if (regionMatches && regionClusterMatches && nameInitialMatches) {
+      incrementCount(sourceCounts, item.source);
+    }
+    if (sourceMatches && nameInitialMatches) {
+      incrementCount(regionClusterCounts, item.region.cluster);
+    }
+    if (sourceMatches && regionClusterMatches && nameInitialMatches) {
+      incrementCount(regionCounts, item.region.region);
+    }
+  }
+
   return {
-    nameInitials: sortNameInitialFacets(
-      countFacet(
-        filterRestaurants(items, { ...params, nameInitial: "" }).map((item) =>
-          getRestaurantNameInitial(item.name),
-        ),
-      ),
-    ),
-    sources: countFacet(
-      filterRestaurants(items, { ...params, sources: [] }).map((item) => item.source),
-    ),
-    regionClusters: countFacet(
-      filterRestaurants(items, {
-        ...params,
-        region: "",
-        regionCluster: "",
-      }).map((item) => item.region.cluster),
-    ),
-    regions: countFacet(
-      filterRestaurants(items, { ...params, region: "" }).map(
-        (item) => item.region.region,
-      ),
-    ),
+    filteredItems,
+    facets: params.includeFacets
+      ? {
+          nameInitials: sortNameInitialFacets(toFacetValues(nameInitialCounts)),
+          sources: toFacetValues(sourceCounts),
+          regionClusters: toFacetValues(regionClusterCounts),
+          regions: toFacetValues(regionCounts),
+        }
+      : undefined,
   };
 }
 
-function countFacet(values: string[]): FacetValue[] {
-  const counts = new Map<string, number>();
-
-  for (const value of values) {
-    const key = value.trim();
-    if (!key) {
-      continue;
-    }
-    counts.set(key, (counts.get(key) || 0) + 1);
+function getRestaurantSearchText(item: RestaurantItem) {
+  const cached = restaurantSearchText.get(item.id);
+  if (cached !== undefined) {
+    return cached;
   }
 
+  const searchText = buildRestaurantSearchText(item);
+  restaurantSearchText.set(item.id, searchText);
+  return searchText;
+}
+
+function buildRestaurantSearchText(item: RestaurantItem) {
+  return [
+    item.name,
+    item.address,
+    item.category,
+    item.source,
+    item.sourceTitle,
+    ...item.mustTasteItems.flatMap((mustTasteItem) => [
+      mustTasteItem.menuItem,
+      mustTasteItem.reason,
+      mustTasteItem.rawReason,
+      mustTasteItem.timestamp,
+      mustTasteItem.evidence,
+    ]),
+    item.region.region,
+    item.region.cluster,
+  ]
+    .join(" ")
+    .toLocaleLowerCase("ko-KR");
+}
+
+function getCachedRestaurantNameInitial(item: RestaurantItem) {
+  const cached = restaurantNameInitial.get(item.id);
+  if (cached !== undefined) {
+    return cached;
+  }
+
+  const initial = getRestaurantNameInitial(item.name);
+  restaurantNameInitial.set(item.id, initial);
+  return initial;
+}
+
+function incrementCount(counts: Map<string, number>, value: string) {
+  const key = value.trim();
+  if (key) {
+    counts.set(key, (counts.get(key) || 0) + 1);
+  }
+}
+
+function toFacetValues(counts: Map<string, number>): FacetValue[] {
   return Array.from(counts.entries())
     .map(([value, count]) => ({ value, count }))
     .sort((a, b) => b.count - a.count || a.value.localeCompare(b.value, "ko-KR"));
