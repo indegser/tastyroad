@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-07-26
+
+- Trigger: The user rejected screenshot-driven Naver Map control after a large sync spent most of its time on brittle fallback checks.
+  Rule: Control Naver Map saves entirely with Playwright locators scoped to the place iframe and save modal; use screenshots only as final failure evidence, never for checkbox state or coordinate clicks.
+
 ## 2026-07-11
 
 - Trigger: The user asked why Naver Map sync still depended on screen clicking instead of Playwright selector patterns.

@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Improve Naver Map sync reliability
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/improve-naver-map-sync`
+Branch: `codex/improve-naver-map-sync`
+
+- [x] Confirm the current Naver saved-list DOM and existing sync contracts.
+- [x] Replace safe-mode screenshot/coordinate control with scoped Playwright locators.
+- [x] Add persisted-save verification, transient retries, resolved failure cleanup, capacity guard, and clean interruption.
+- [x] Add deterministic tests and run a small logged-in browser verification.
+- [x] Record exact results and remaining tradeoffs.
+
+### Review
+
+- Scoped every save action to the `pcmap.place.naver.com` frame and the modal's exact `Tastyroad 2` checkbox; removed screenshot-color, fixed-coordinate, and blind-mode control paths.
+- Added a 700ms DOM-settle window because Naver first renders list rows as unselected before asynchronously applying membership state.
+- Added three-attempt transient retries, permanent error classification, stale failure cleanup after success, final-failure-only screenshots, structured result JSON, non-zero partial/capacity exits, and clean interruption summaries.
+- Added a visible 1,000-place capacity guard and exact list-name matching so `Tastyroad` cannot be confused with `Tastyroad 2`.
+- Live verification reconciled already-saved `유즈라멘`, persisted and re-open-verified `차린한식`, and confirmed `Tastyroad 2` at 637 visible places. The source now has 39 restaurants left for a later sync run.
+- Verification passed: four unit tests, Python compilation, `git diff --check`, dry no-op, real already/saved flows, capacity-stop flow, and visible-list count audit.
+
 ## Current Task - 2026-07-25 - Sync unsynced Naver Map places
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-sync-unsynced`

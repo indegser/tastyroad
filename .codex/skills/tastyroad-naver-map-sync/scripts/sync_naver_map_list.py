@@ -8,7 +8,7 @@ import sqlite3
 import sys
 import time
 from dataclasses import dataclass
-from io import BytesIO
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Literal, Optional
 
@@ -18,22 +18,19 @@ DB_PATH = ROOT / "data" / "tastyroad.sqlite"
 TARGET_CONFIG_PATH = ROOT / "data" / "naver_map_list_target.json"
 SYNC_STATE_PATH = ROOT / "data" / "naver_map_list_synced_ids.json"
 DEFAULT_FAILURE_LOG_PATH = ROOT / "data" / "work" / "naver_map_sync_failures.json"
+DEFAULT_RESULT_PATH = ROOT / "data" / "work" / "naver_map_sync_result.json"
+DEFAULT_FAILURE_ARTIFACTS_DIR = ROOT / "data" / "work" / "naver_map_sync_failures"
 DEFAULT_LIST_NAME = "Tastyroad"
 DEFAULT_CDP_PORT = 9222
+DEFAULT_MAX_LIST_SIZE = 1000
+DEFAULT_ATTEMPTS = 3
 
-# Coordinate fallbacks verified against the Korean desktop Naver Map UI at 1280x900 CSS pixels.
-# Prefer selectors first; Naver does not expose the saved-list modal reliably in every state.
-PLACE_SAVE = (377, 104)
-TARGET_LIST_CHECK = (416, 617)
-MODAL_SAVE = (255, 861)
-MODAL_CLOSE = (416, 384)
-EDIT_SAVED_LIST = (254, 576)
-EDIT_SAVED_LIST_FALLBACKS = ((254, 552), (254, 603))
-
-BUTTON_SELECTOR = "button, a, [role='button']"
-CHECKBOX_SELECTOR = "button, label, [role='checkbox'], input[type='checkbox']"
 SELECTOR_POLL_MS = 150
-SELECTOR_CONTROL_LIMIT = 160
+PLACE_FRAME_HOST = "pcmap.place.naver.com"
+SAVE_MODAL_CHECKBOX_SELECTOR = "button.swt-save-group-info[role='checkbox']"
+SAVE_MODAL_SAVE_SELECTOR = "button.swt-save-btn"
+SAVE_MODAL_CLOSE_SELECTOR = "button.swt-close-btn"
+PLACE_SAVE_SELECTOR = 'a[href="#bookmark"][role="button"]'
 
 
 @dataclass(frozen=True)
@@ -43,8 +40,23 @@ class Place:
     url: str
 
 
-FailureMode = Literal["safe", "blind"]
 CheckboxState = Literal["selected", "unselected"]
+
+
+class PermanentSyncError(RuntimeError):
+    pass
+
+
+class PlacePageNotFound(PermanentSyncError):
+    pass
+
+
+class PlaceNameMismatch(PermanentSyncError):
+    pass
+
+
+class ListCapacityReached(PermanentSyncError):
+    pass
 
 
 PUBLIC_RESTAURANTS_SQL = """
@@ -168,188 +180,87 @@ def load_failure_ids(path: Path) -> set[int]:
     return {int(failure["id"]) for failure in failures if "id" in failure}
 
 
-def append_failure(path: Path, place: Place, error: Exception) -> None:
+def save_json(path: Path, payload: object) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    failures = []
+    tmp_path = path.with_suffix(path.suffix + ".tmp")
+    with tmp_path.open("w") as file:
+        json.dump(payload, file, ensure_ascii=False, indent=2)
+        file.write("\n")
+    tmp_path.replace(path)
+
+
+def load_failures(path: Path) -> list[dict[str, object]]:
     if path.exists():
         with path.open() as file:
-            failures = json.load(file)
-    if any(int(failure.get("id")) == place.id for failure in failures):
-        return
+            value = json.load(file)
+        if isinstance(value, list):
+            return [item for item in value if isinstance(item, dict)]
+    return []
+
+
+def record_failure(
+    path: Path,
+    place: Place,
+    error: Exception,
+    attempts: int,
+    screenshot_path: Optional[Path],
+) -> None:
+    failures = [
+        failure
+        for failure in load_failures(path)
+        if int(failure.get("id") or 0) != place.id
+    ]
     failures.append(
         {
             "id": place.id,
             "name": place.name,
             "url": place.url,
             "error": str(error),
+            "attempts": attempts,
+            "permanent": isinstance(error, PermanentSyncError),
+            "screenshot": str(screenshot_path) if screenshot_path else None,
+            "failed_at": datetime.now(timezone.utc).isoformat(),
         }
     )
-    tmp_path = path.with_suffix(path.suffix + ".tmp")
-    with tmp_path.open("w") as file:
-        json.dump(failures, file, ensure_ascii=False, indent=2)
-        file.write("\n")
-    tmp_path.replace(path)
+    save_json(path, failures)
 
 
-def body_text(page) -> str:
-    texts = []
-    for frame in page.frames:
-        try:
-            texts.append(frame.locator("body").first.inner_text(timeout=1800))
-        except Exception:
-            continue
-    return "\n".join(texts)
-
-
-def click(page, point: tuple[int, int]) -> None:
-    page.mouse.click(point[0], point[1])
+def clear_failure(path: Path, restaurant_id: int) -> None:
+    if not path.exists():
+        return
+    failures = [
+        failure
+        for failure in load_failures(path)
+        if int(failure.get("id") or 0) != restaurant_id
+    ]
+    save_json(path, failures)
 
 
 def normalize_text(value: str) -> str:
     return re.sub(r"\s+", " ", value or "").strip()
 
 
-def control_text(locator) -> str:
-    try:
-        value = locator.evaluate(
-            """element => {
-                const parts = [
-                    element.getAttribute("aria-label"),
-                    element.getAttribute("title"),
-                    element.getAttribute("alt"),
-                    element.innerText,
-                    element.textContent
-                ];
-                if (element.matches('[role="checkbox"], input[type="checkbox"]')) {
-                    parts.push(element.closest("label")?.innerText);
-                    parts.push(element.parentElement?.innerText);
-                }
-                return parts.filter(Boolean).join(" ");
-            }"""
-        )
-    except Exception:
-        return ""
-    return normalize_text(str(value))
+def normalize_place_name(value: str) -> str:
+    return re.sub(r"[^0-9a-z가-힣]", "", normalize_text(value).casefold())
 
 
-def visible_control_candidates(page, selector: str, text_pattern: re.Pattern[str]):
-    for frame in page.frames:
-        try:
-            controls = frame.locator(selector)
-            count = min(controls.count(), SELECTOR_CONTROL_LIMIT)
-        except Exception:
-            continue
-        for index in range(count):
-            locator = controls.nth(index)
-            try:
-                if not locator.is_visible(timeout=150):
-                    continue
-                text = control_text(locator)
-                if not text_pattern.search(text):
-                    continue
-                box = locator.bounding_box(timeout=150)
-            except Exception:
-                continue
-            yield locator, text, box
+def place_name_matches(expected: str, page_text: str) -> bool:
+    normalized_expected = normalize_place_name(expected)
+    normalized_page = normalize_place_name(page_text)
+    return bool(normalized_expected and normalized_expected in normalized_page)
 
 
-def click_control_by_text(
-    page,
-    selector: str,
-    text_pattern: re.Pattern[str],
-    timeout_ms: int,
-    *,
-    prefer_top: bool = False,
-    prefer_bottom: bool = False,
-    max_y: Optional[float] = None,
-    min_y: Optional[float] = None,
-) -> bool:
-    deadline = time.time() + timeout_ms / 1000
-    while time.time() < deadline:
-        candidates = list(visible_control_candidates(page, selector, text_pattern))
-        if max_y is not None:
-            preferred = [
-                candidate
-                for candidate in candidates
-                if candidate[2] is not None and candidate[2]["y"] <= max_y
-            ]
-            if preferred:
-                candidates = preferred
-        if min_y is not None:
-            candidates = [
-                candidate
-                for candidate in candidates
-                if candidate[2] is not None and candidate[2]["y"] >= min_y
-            ]
-        if prefer_top:
-            candidates.sort(
-                key=lambda candidate: candidate[2]["y"] if candidate[2] is not None else 99999
-            )
-        elif prefer_bottom:
-            candidates.sort(
-                key=lambda candidate: candidate[2]["y"] if candidate[2] is not None else -1,
-                reverse=True,
-            )
-        for locator, _text, _box in candidates:
-            try:
-                locator.click(timeout=1000)
-                return True
-            except Exception:
-                continue
-        page.wait_for_timeout(SELECTOR_POLL_MS)
-    return False
-
-
-def click_place_save_control(page) -> bool:
-    return click_control_by_text(
-        page,
-        BUTTON_SELECTOR,
-        re.compile(r"(^|\s)(저장|저장하기|저장됨)(\s|$)"),
-        900,
-        prefer_top=True,
-        max_y=260,
+def list_name_pattern(list_name: str) -> re.Pattern[str]:
+    return re.compile(
+        rf"^폴더명\s*{re.escape(list_name)}\s*장소수\s*[\d,]+\s*선택(?:해제)?됨$"
     )
 
 
-def click_edit_saved_list_control(page) -> bool:
-    return click_control_by_text(
-        page,
-        BUTTON_SELECTOR,
-        re.compile(r"저장한\s*리스트|리스트\s*(수정|편집)|저장됨"),
-        700,
-        prefer_top=True,
-    )
-
-
-def click_modal_save_control(page) -> bool:
-    for frame in page.frames:
-        try:
-            buttons = frame.locator("button.swt-save-btn")
-            for index in range(buttons.count()):
-                button = buttons.nth(index)
-                if button.is_visible(timeout=150) and button.is_enabled(timeout=150):
-                    button.click(timeout=1000)
-                    return True
-        except Exception:
-            continue
-    return click_control_by_text(
-        page,
-        BUTTON_SELECTOR,
-        re.compile(r"(^|\s)저장(\s|$)"),
-        900,
-        prefer_bottom=True,
-        min_y=400,
-    )
-
-
-def click_modal_close_control(page) -> bool:
-    return click_control_by_text(
-        page,
-        BUTTON_SELECTOR,
-        re.compile(r"(^|\s)(닫기|close)(\s|$)|닫기", re.IGNORECASE),
-        700,
-        prefer_top=True,
-    )
+def parse_list_count(text: str) -> int:
+    match = re.search(r"장소수\s*([\d,]+)", normalize_text(text))
+    if not match:
+        raise RuntimeError(f"target list count is unavailable: {normalize_text(text)!r}")
+    return int(match.group(1).replace(",", ""))
 
 
 def checkbox_state_from_selector(locator, text: str) -> Optional[CheckboxState]:
@@ -377,189 +288,177 @@ def checkbox_state_from_selector(locator, text: str) -> Optional[CheckboxState]:
     return None
 
 
-def target_list_checkbox(page, list_name: str):
-    escaped_name = re.escape(list_name)
-    pattern = re.compile(
-        rf"({escaped_name}.*선택(?:해제)?됨|선택(?:해제)?됨.*{escaped_name}|{escaped_name})"
-    )
-    for locator, text, _box in visible_control_candidates(page, CHECKBOX_SELECTOR, pattern):
-        if list_name not in text:
+def target_list_checkbox(frame, list_name: str):
+    candidates = frame.locator(SAVE_MODAL_CHECKBOX_SELECTOR)
+    pattern = list_name_pattern(list_name)
+    for index in range(candidates.count()):
+        locator = candidates.nth(index)
+        try:
+            if not locator.is_visible(timeout=100):
+                continue
+            text = normalize_text(locator.inner_text(timeout=300))
+        except Exception:
+            continue
+        if not pattern.fullmatch(text):
             continue
         state = checkbox_state_from_selector(locator, text)
         if state:
-            return locator, state
+            return locator, state, parse_list_count(text)
     return None
 
 
-def wait_for_checkbox_selector(page, list_name: str, timeout_ms: int):
+def wait_for_target_list(
+    frame,
+    list_name: str,
+    timeout_ms: int,
+    settle_ms: int = 700,
+):
+    deadline = time.time() + timeout_ms / 1000
+    first_seen_at: Optional[float] = None
+    while time.time() < deadline:
+        target = target_list_checkbox(frame, list_name)
+        if target:
+            if first_seen_at is None:
+                first_seen_at = time.time()
+            if (time.time() - first_seen_at) * 1000 >= settle_ms:
+                return target
+        else:
+            first_seen_at = None
+        frame.page.wait_for_timeout(SELECTOR_POLL_MS)
+    return None
+
+
+def wait_for_target_list_state(
+    frame,
+    list_name: str,
+    expected: CheckboxState,
+    timeout_ms: int,
+) -> bool:
     deadline = time.time() + timeout_ms / 1000
     while time.time() < deadline:
-        target = target_list_checkbox(page, list_name)
+        target = target_list_checkbox(frame, list_name)
+        if target and target[1] == expected:
+            return True
+        frame.page.wait_for_timeout(SELECTOR_POLL_MS)
+    return False
+
+
+def find_place_frame(page):
+    return next((frame for frame in page.frames if PLACE_FRAME_HOST in frame.url), None)
+
+
+def assert_place_loaded(page, place: Place, require_place_name: bool):
+    deadline = time.time() + 10
+    frame = None
+    text = ""
+    login_visible = False
+    while time.time() < deadline:
+        frame = find_place_frame(page)
+        try:
+            login_visible = page.locator("a").filter(
+                has_text=re.compile(r"내정보\s*보기")
+            ).first.is_visible(timeout=200)
+        except Exception:
+            login_visible = False
+        if frame is None:
+            page.wait_for_timeout(SELECTOR_POLL_MS)
+            continue
+        try:
+            text = frame.locator("body").inner_text(timeout=500)
+        except Exception:
+            text = ""
+        if "요청하신 페이지를 찾을 수 없습니다" in text:
+            raise PlacePageNotFound("Naver place page not found")
+        if login_visible and (not require_place_name or place_name_matches(place.name, text)):
+            return frame
+        page.wait_for_timeout(SELECTOR_POLL_MS)
+    if not login_visible:
+        raise RuntimeError("Naver login marker missing")
+    if frame is None:
+        raise RuntimeError("Naver place frame not loaded")
+    if require_place_name and not place_name_matches(place.name, text):
+        raise PlaceNameMismatch(f"Naver place name mismatch: expected {place.name!r}")
+    raise RuntimeError("Naver place page not loaded")
+
+
+def open_save_modal(frame, list_name: str):
+    modal_save = frame.locator(SAVE_MODAL_SAVE_SELECTOR).first
+    try:
+        modal_open = modal_save.is_visible(timeout=100)
+    except Exception:
+        modal_open = False
+    if modal_open:
+        target = wait_for_target_list(frame, list_name, 5000)
         if target:
             return target
-        page.wait_for_timeout(SELECTOR_POLL_MS)
-    return None
+    save_control = frame.locator(PLACE_SAVE_SELECTOR).first
+    save_control.wait_for(state="visible", timeout=5000)
+    save_control.click(timeout=4000)
+    target = wait_for_target_list(frame, list_name, 5000)
+    if not target:
+        raise RuntimeError(f"save modal target list not found: {list_name}")
+    return target
 
 
-def checkbox_state(page) -> Optional[CheckboxState]:
-    try:
-        from PIL import Image
-    except ImportError as exc:
-        raise RuntimeError("safe mode requires Pillow: python3 -m pip install pillow") from exc
-
-    try:
-        png = page.screenshot(full_page=False, timeout=5000)
-    except Exception:
-        return None
-
-    image = Image.open(BytesIO(png)).convert("RGB")
-    device_pixel_ratio = page.evaluate("window.devicePixelRatio") or 1
-    x = int(TARGET_LIST_CHECK[0] * device_pixel_ratio)
-    y = int(TARGET_LIST_CHECK[1] * device_pixel_ratio)
-    if x >= image.width or y >= image.height:
-        return None
-
-    pixels = [
-        image.getpixel((x + dx, y + dy))
-        for dx in range(-8, 9)
-        for dy in range(-8, 9)
-        if 0 <= x + dx < image.width and 0 <= y + dy < image.height
-    ]
-    blue = sum(1 for r, g, b in pixels if b > 170 and 50 < g < 190 and r < 90)
-    grey = sum(1 for r, g, b in pixels if abs(r - g) < 10 and abs(g - b) < 10 and 145 < r < 230)
-    if blue >= 20:
-        return "selected"
-    if grey >= 20:
-        return "unselected"
-    return None
+def close_save_modal(frame) -> None:
+    close_button = frame.locator(SAVE_MODAL_CLOSE_SELECTOR).first
+    if close_button.is_visible(timeout=300):
+        close_button.click(timeout=3000)
+        close_button.wait_for(state="hidden", timeout=3000)
 
 
-def wait_for_checkbox(page, timeout_ms: int) -> Optional[CheckboxState]:
-    deadline = time.time() + timeout_ms / 1000
-    while time.time() < deadline:
-        state = checkbox_state(page)
-        if state:
-            return state
-        page.wait_for_timeout(150)
-    return None
-
-
-def wait_for_checkbox_any(page, list_name: str, timeout_ms: int):
-    selector_timeout = min(900, max(250, timeout_ms // 2))
-    selector_result = wait_for_checkbox_selector(page, list_name, selector_timeout)
-    if selector_result:
-        locator, state = selector_result
-        return state, locator
-
-    remaining_timeout = max(250, timeout_ms - selector_timeout)
-    state = wait_for_checkbox(page, remaining_timeout)
-    if state:
-        return state, None
-    return None
-
-
-def open_save_modal_safe(page, list_name: str):
-    edit_points = (EDIT_SAVED_LIST, *EDIT_SAVED_LIST_FALLBACKS)
-    for attempt in range(2):
-        if not click_place_save_control(page):
-            click(page, PLACE_SAVE)
-        checkbox = wait_for_checkbox_any(page, list_name, 1400 if attempt == 0 else 2400)
-        if checkbox:
-            return checkbox
-        if click_edit_saved_list_control(page):
-            checkbox = wait_for_checkbox_any(page, list_name, 1100 if attempt == 0 else 1700)
-            if checkbox:
-                return checkbox
-        for point in edit_points:
-            click(page, point)
-            checkbox = wait_for_checkbox_any(page, list_name, 1100 if attempt == 0 else 1700)
-            if checkbox:
-                return checkbox
-        page.wait_for_timeout(700)
-    return None
-
-
-def add_place_safe(page, place: Place, list_name: str) -> str:
-    checkbox = open_save_modal_safe(page, list_name)
-    if not checkbox:
-        raise RuntimeError("save modal checkbox not detected")
-    state, checkbox_locator = checkbox
+def add_place_playwright(
+    frame,
+    place: Place,
+    list_name: str,
+    max_list_size: int,
+) -> str:
+    checkbox, state, list_count = open_save_modal(frame, list_name)
     if state == "selected":
-        if not click_modal_close_control(page):
-            click(page, MODAL_CLOSE)
-        page.wait_for_timeout(250)
+        close_save_modal(frame)
         return "already"
+    if list_count >= max_list_size:
+        close_save_modal(frame)
+        raise ListCapacityReached(
+            f"target list {list_name!r} is full: {list_count}/{max_list_size}"
+        )
 
-    if checkbox_locator is not None:
-        checkbox_locator.click(timeout=1000)
-    else:
-        click(page, TARGET_LIST_CHECK)
-    selected_result = wait_for_checkbox_any(page, list_name, 1400)
-    selected = selected_result[0] if selected_result else None
-    if selected != "selected":
-        raise RuntimeError(f"target checkbox did not become selected: {selected}")
-    if not click_modal_save_control(page):
-        click(page, MODAL_SAVE)
-    page.wait_for_timeout(900)
+    checkbox.locator(".swt-save-group-check-area").click(timeout=4000)
+    if not wait_for_target_list_state(frame, list_name, "selected", 3000):
+        raise RuntimeError("target checkbox did not become selected")
+
+    save_button = frame.locator(SAVE_MODAL_SAVE_SELECTOR).first
+    save_button.wait_for(state="visible", timeout=3000)
+    save_button.click(timeout=4000)
+    save_button.wait_for(state="hidden", timeout=5000)
+
+    verified_checkbox, verified_state, _verified_count = open_save_modal(frame, list_name)
+    if verified_state != "selected":
+        raise RuntimeError("target checkbox selection did not persist after save")
+    close_save_modal(frame)
     return "saved"
 
 
-def add_place_blind(page, place: Place, list_name: str) -> str:
-    # Use only for unsynced IDs. This does not inspect the checkbox state, so it
-    # avoids screenshot hangs but relies on the sync-state skip list for toggle safety.
-    if not click_place_save_control(page):
-        click(page, PLACE_SAVE)
-    page.wait_for_timeout(900)
-    checkbox = wait_for_checkbox_selector(page, list_name, 500)
-    if not checkbox and click_edit_saved_list_control(page):
-        page.wait_for_timeout(700)
-        checkbox = wait_for_checkbox_selector(page, list_name, 700)
-    if checkbox:
-        checkbox_locator, _state = checkbox
-        checkbox_locator.click(timeout=1000)
-        page.wait_for_timeout(350)
-        if not click_modal_save_control(page):
-            click(page, MODAL_SAVE)
-        page.wait_for_timeout(900)
-        return "attempted"
-
-    # Legacy coordinate recovery path for UI states where the target list is not
-    # exposed to selector/text matching.
-    click(page, TARGET_LIST_CHECK)
-    page.wait_for_timeout(350)
-    if not click_modal_save_control(page):
-        click(page, MODAL_SAVE)
-    page.wait_for_timeout(900)
-    if not click_edit_saved_list_control(page):
-        click(page, EDIT_SAVED_LIST)
-    page.wait_for_timeout(900)
-    checkbox = wait_for_checkbox_selector(page, list_name, 700)
-    if checkbox:
-        checkbox_locator, _state = checkbox
-        checkbox_locator.click(timeout=1000)
-    else:
-        click(page, TARGET_LIST_CHECK)
-    page.wait_for_timeout(350)
-    if not click_modal_save_control(page):
-        click(page, MODAL_SAVE)
-    page.wait_for_timeout(900)
-    return "attempted"
+def capture_failure_screenshot(page, place: Place, directory: Path) -> Optional[Path]:
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"{place.id}.png"
+    try:
+        page.screenshot(path=str(path), full_page=False, timeout=5000)
+    except Exception:
+        return None
+    return path
 
 
-def assert_place_loaded(page, place: Place, require_place_name: bool) -> None:
-    deadline = time.time() + 8
-    text = ""
-    while time.time() < deadline:
-        text = body_text(page)
-        if "요청하신 페이지를 찾을 수 없습니다" in text:
-            raise RuntimeError("Naver place page not found")
-        if "내정보 보기" in text and (not require_place_name or place.name in text):
-            return
-        page.wait_for_timeout(500)
-    if "내정보 보기" not in text:
-        raise RuntimeError("Naver login marker missing")
-    if require_place_name and place.name not in text:
-        raise RuntimeError("Naver place page not loaded")
+def process_place(
+    page,
+    place: Place,
+    list_name: str,
+    require_place_name: bool,
+    max_list_size: int,
+) -> str:
+    page.goto(place.url, wait_until="domcontentloaded", timeout=35000)
+    frame = assert_place_loaded(page, place, require_place_name=require_place_name)
+    return add_place_playwright(frame, place, list_name, max_list_size)
 
 
 def connect_browser(cdp_port: int):
@@ -608,13 +507,22 @@ def parse_args() -> argparse.Namespace:
         help="Process at most this many places in one browser session, then exit cleanly.",
     )
     parser.add_argument(
-        "--mode",
-        choices=("safe", "blind"),
-        default="safe",
-        help=(
-            "safe verifies the target checkbox by selector or screenshot before clicking; "
-            "blind skips state verification and should only be used for unsynced IDs."
-        ),
+        "--attempts",
+        type=int,
+        default=DEFAULT_ATTEMPTS,
+        help="Maximum attempts per place for transient navigation or UI failures.",
+    )
+    parser.add_argument(
+        "--retry-delay-ms",
+        type=int,
+        default=700,
+        help="Base delay between transient retries; multiplied by the attempt number.",
+    )
+    parser.add_argument(
+        "--max-list-size",
+        type=int,
+        default=DEFAULT_MAX_LIST_SIZE,
+        help="Stop before adding to a target list at this visible Naver count.",
     )
     parser.add_argument(
         "--include-synced",
@@ -633,6 +541,18 @@ def parse_args() -> argparse.Namespace:
         help="JSON file for rows that could not be processed.",
     )
     parser.add_argument(
+        "--result-json",
+        type=Path,
+        default=DEFAULT_RESULT_PATH,
+        help="Write a structured completion, partial-failure, or interruption summary.",
+    )
+    parser.add_argument(
+        "--failure-artifacts-dir",
+        type=Path,
+        default=DEFAULT_FAILURE_ARTIFACTS_DIR,
+        help="Capture a screenshot only after a place exhausts all attempts.",
+    )
+    parser.add_argument(
         "--no-require-place-name",
         action="store_true",
         help="Do not require the restaurant display name to appear in the Naver page text.",
@@ -642,8 +562,12 @@ def parse_args() -> argparse.Namespace:
 
 def main() -> int:
     args = parse_args()
-    if args.mode == "blind" and args.include_synced:
-        raise RuntimeError("--mode blind cannot be combined with --include-synced")
+    if args.attempts < 1:
+        raise RuntimeError("--attempts must be at least 1")
+    if args.retry_delay_ms < 0:
+        raise RuntimeError("--retry-delay-ms cannot be negative")
+    if args.max_list_size < 1:
+        raise RuntimeError("--max-list-size must be at least 1")
 
     synced_ids = load_synced_ids(args.list_name, args.sync_state)
     skip_ids = set(args.skip_id)
@@ -663,47 +587,164 @@ def main() -> int:
     source_scope = args.source_name or "all"
     print(
         f"target_list={args.list_name} source={source_scope} "
-        f"places={len(places)} mode={args.mode}"
+        f"places={len(places)} attempts={args.attempts} control=playwright"
     )
     if not places:
+        save_json(
+            args.result_json,
+            {
+                "status": "complete",
+                "target_list": args.list_name,
+                "source": source_scope,
+                "planned": 0,
+                "saved": 0,
+                "already": 0,
+                "failed": 0,
+                "remaining": 0,
+                "finished_at": datetime.now(timezone.utc).isoformat(),
+            },
+        )
         return 0
 
     playwright, browser = connect_browser(args.cdp_port)
-    failures = 0
+    saved = 0
+    already = 0
+    failures: list[int] = []
+    processed = 0
+    interrupted = False
+    capacity_reached = False
+    page = None
     try:
         context = browser.contexts[0]
-        page = context.pages[0] if context.pages else context.new_page()
+        page = context.new_page()
         for index, place in enumerate(places, start=1):
             started = time.time()
-            try:
-                print(f"[{index}/{len(places)}] {place.name} ({place.id})", flush=True)
-                page.goto(place.url, wait_until="domcontentloaded", timeout=35000)
-                page.wait_for_timeout(2600)
-                assert_place_loaded(page, place, require_place_name=not args.no_require_place_name)
-                if args.mode == "safe":
-                    result = add_place_safe(page, place, args.list_name)
-                else:
-                    result = add_place_blind(page, place, args.list_name)
+            print(f"[{index}/{len(places)}] {place.name} ({place.id})", flush=True)
+            final_error: Optional[Exception] = None
+            attempts_used = 0
+            result = ""
+            for attempt in range(1, args.attempts + 1):
+                attempts_used = attempt
+                try:
+                    result = process_place(
+                        page,
+                        place,
+                        args.list_name,
+                        require_place_name=not args.no_require_place_name,
+                        max_list_size=args.max_list_size,
+                    )
+                    final_error = None
+                    break
+                except PermanentSyncError as exc:
+                    final_error = exc
+                    break
+                except Exception as exc:
+                    final_error = exc
+                    if attempt >= args.attempts:
+                        break
+                    delay_ms = args.retry_delay_ms * attempt
+                    print(
+                        f"[{index}/{len(places)}] retry={attempt + 1}/{args.attempts} "
+                        f"after={delay_ms}ms error={exc}",
+                        flush=True,
+                    )
+                    page.wait_for_timeout(delay_ms)
+
+            if final_error is None:
                 synced_ids.add(place.id)
                 save_synced_ids(args.list_name, synced_ids, args.sync_state)
+                clear_failure(args.failure_log, place.id)
+                if result == "saved":
+                    saved += 1
+                else:
+                    already += 1
                 elapsed = time.time() - started
+                processed += 1
                 print(
                     f"[{index}/{len(places)}] {result}; synced_count={len(synced_ids)} "
                     f"elapsed={elapsed:.1f}s",
                     flush=True,
                 )
-            except Exception as exc:
-                failures += 1
-                if "Page crashed" in str(exc) or "Target page" in str(exc):
-                    raise RuntimeError(f"Naver tab crashed while processing {place.id} {place.name}") from exc
-                append_failure(args.failure_log, place, exc)
-                print(f"[{index}/{len(places)}] ERROR {place.id}: {exc}", flush=True)
-    finally:
-        browser.close()
-        playwright.stop()
+                continue
 
-    if failures:
-        print(f"completed_with_failures={failures} failure_log={args.failure_log}", flush=True)
+            screenshot_path = capture_failure_screenshot(
+                page,
+                place,
+                args.failure_artifacts_dir,
+            )
+            record_failure(
+                args.failure_log,
+                place,
+                final_error,
+                attempts_used,
+                screenshot_path,
+            )
+            failures.append(place.id)
+            processed += 1
+            print(
+                f"[{index}/{len(places)}] ERROR {place.id} "
+                f"attempts={attempts_used}: {final_error}",
+                flush=True,
+            )
+            if isinstance(final_error, ListCapacityReached):
+                capacity_reached = True
+                break
+    except KeyboardInterrupt:
+        interrupted = True
+        print(
+            f"interrupted processed={processed} saved={saved} already={already} "
+            f"failed={len(failures)}",
+            flush=True,
+        )
+    finally:
+        if page is not None:
+            try:
+                page.close()
+            except Exception:
+                pass
+        try:
+            browser.close()
+        except Exception:
+            pass
+        try:
+            playwright.stop()
+        except Exception:
+            pass
+
+    remaining = max(0, len(places) - processed)
+    if interrupted:
+        status = "interrupted"
+    elif capacity_reached:
+        status = "capacity_reached"
+    elif failures:
+        status = "partial"
+    else:
+        status = "complete"
+    result_payload = {
+        "status": status,
+        "target_list": args.list_name,
+        "source": source_scope,
+        "planned": len(places),
+        "processed": processed,
+        "saved": saved,
+        "already": already,
+        "failed": len(failures),
+        "failed_ids": failures,
+        "remaining": remaining,
+        "synced_count": len(synced_ids),
+        "failure_log": str(args.failure_log),
+        "finished_at": datetime.now(timezone.utc).isoformat(),
+    }
+    save_json(args.result_json, result_payload)
+    print(
+        f"status={status} saved={saved} already={already} failed={len(failures)} "
+        f"remaining={remaining} result={args.result_json}",
+        flush=True,
+    )
+    if interrupted:
+        return 130
+    if failures or capacity_reached:
+        return 2
     return 0
 
 
@@ -711,7 +752,8 @@ if __name__ == "__main__":
     try:
         raise SystemExit(main())
     except KeyboardInterrupt:
-        raise
+        print("interrupted before browser session started", file=sys.stderr)
+        raise SystemExit(130)
     except Exception as exc:
         print(f"error: {exc}", file=sys.stderr)
         raise SystemExit(1)
