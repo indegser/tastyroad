@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-25 - Sync unsynced Naver Map places
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-sync-unsynced`
+Branch: `codex/naver-map-sync-unsynced`
+Target: `Tastyroad 2` private Naver Map list
+
+- [x] Read repository lessons and Naver Map sync/list skills.
+- [x] Create a dedicated worktree from current `origin/main`.
+- [x] Inspect unsynced candidate scope and verify Edge/CDP Naver login.
+- [x] Run safe chunked sync for all usable unsynced public verified restaurants.
+- [x] Verify final state/count and capture/report evidence.
+- [x] Commit intended Naver sync-state update for push.
+
+### Review
+
+- Edge CDP login was available and the initial unsynced candidate scope was 38 restaurants for `Tastyroad 2` after excluding the full first list state.
+- Saved 3 restaurants to `Tastyroad 2`: `1926 합천삼가명품한우`, `677 참고 영상 식당1` (`영덕물회집`), and `678 참고 영상 식당2` (`광영수산 구로점`).
+- Final `data/naver_map_list_synced_ids_2.json` count is 469; a final safe scope check returned `places=0`.
+- Left 35 unresolved Naver failures in `data/work/naver_map_sync_failures.json`: mostly deleted/changed Naver place pages, plus unsafe ID/name mismatches for `즐거운술상` and `흑산도 소라`.
+
 ## Current Task - 2026-07-25 - Add Naver Map sync to automation
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/automation-naver-map-sync`
