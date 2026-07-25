@@ -1,6 +1,6 @@
 ---
 name: tastyroad-regular-source-automation
-description: Orchestrate recurring Tastyroad source maintenance through Codex app Automation. Use when setting up or running scheduled checks for all enabled YouTube sources, collecting new videos, ingesting missing transcripts, performing deterministic map-candidate resolution, preparing must-taste work queues, deciding whether release gates pass, and invoking the Tastyroad release workflow after hard publishing gates are clean.
+description: Orchestrate recurring Tastyroad source maintenance through Codex app Automation. Use when setting up or running scheduled checks for all enabled YouTube sources, collecting new videos, ingesting missing transcripts, performing deterministic map-candidate resolution, preparing must-taste work queues, deciding whether release gates pass, invoking the Tastyroad release workflow after hard publishing gates are clean, and syncing newly published verified restaurants into the user's Naver Map saved list after production verification.
 ---
 
 # Tastyroad Regular Source Automation
@@ -12,6 +12,7 @@ Use this skill for Codex app Automation runs that keep Tastyroad current across 
 - Scripts handle repeatable source collection, transcript ingestion, deterministic map candidate resolution, gate checks, and reports.
 - Codex handles ambiguous Naver place verification and transcript-grounded must-taste extraction by using the owning Tastyroad skills.
 - Deployment happens after hard publishing gates pass and `$tastyroad-site-release` has been followed. Missing transcripts or missing must-taste rows are follow-up warnings, not release blockers, because verified mapped restaurants should still be visible on the web.
+- Naver Map saved-list sync happens after the production deployment and API verification succeed, using `$tastyroad-naver-map-sync`. Naver sync failures are post-release operational warnings; do not roll back or hide already verified public restaurants because Edge/CDP or Naver UI state failed.
 
 Prefer a Codex app **standalone project automation** on a dedicated worktree. Do not use GitHub Actions for recurring Tastyroad checks unless the user explicitly asks for it or Codex Automation is unavailable.
 
@@ -21,6 +22,7 @@ Use this durable prompt when creating or updating the Codex app Automation:
 
 ```text
 Use $tastyroad-regular-source-automation.
+Use $tastyroad-naver-map-sync after the final production release.
 
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
@@ -49,6 +51,10 @@ Recalculate the original release scope after semantic review with `--scope-repor
 Immediately before push and deployment, repeat the Vercel integration check and require `supabase-aqua-engine` status `Available`.
 
 Follow `$tastyroad-site-release` completely: commit intended changes, integrate them into production main, push main through GitHub, wait for the matching Vercel deployment to reach READY, and verify the production API.
+
+After the production API verification succeeds, sync newly published verified public restaurants into Naver Map. Use `$tastyroad-naver-map-sync` and require the logged-in Microsoft Edge CDP session. Because the primary private `Tastyroad` list previously reached the 1,000-place limit, target the second private list by default with: `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --list-name "Tastyroad 2" --sync-state data/naver_map_list_synced_ids_2.json --exclude-state data/naver_map_list_synced_ids.json --chunk-size 25`.
+
+The sync script skips already recorded IDs; run it even when only one new restaurant was published. If Edge/CDP is unavailable, the Naver login marker is missing, the list cannot be verified as private, Naver refuses more saves, or the sync/audit fails, report the exact Naver Map blocker as a post-release warning and preserve the worktree. Do not claim Naver Map was updated unless the script/audit confirms the newly synced IDs. When Naver sync succeeds and changes only `data/naver_map_list_synced_ids*.json`, commit and push that sync-state update after the production deployment.
 
 Do not block release only because transcript ingestion failed or a mapped restaurant-video pair has validator-confirmed insufficient taste evidence. Leave concise Triage warnings with exact source/video IDs, then release verified mapped restaurants so they are visible on the web.
 ```
@@ -92,6 +98,7 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 ```
 
 6. When the scoped report says `deploy_ready: true`, run `pnpm run build` and follow `$tastyroad-site-release`; transcript failures or validator-confirmed insufficient taste evidence can remain as follow-up warnings.
+7. After the production deployment reaches `READY` and the production API returns HTTP 200 with an `items` array, follow `$tastyroad-naver-map-sync` to add newly verified public restaurants to the private Naver Map saved list. Use `Tastyroad 2` with `data/naver_map_list_synced_ids_2.json` and `--exclude-state data/naver_map_list_synced_ids.json` unless the user has explicitly changed the list partitioning.
 
 ## Rules
 
@@ -102,4 +109,5 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 - Do not apply must-taste rows unless `apply_must_taste_result.py --dry-run` passes and the extraction followed `$tastyroad-transcript-must-taste`.
 - Do not let parallel agents write SQLite, Naver Map saved lists, or deployment state.
 - Keep automation work in a dedicated worktree. Preserve unresolved artifacts under ignored `data/work/`.
+- Run Naver Map saved-list sync only after production deployment verification succeeds; treat Naver/Edge/CDP/list-capacity failures as post-release warnings unless the user explicitly asks to block release on saved-list sync.
 - Report no-op runs briefly; report blocked runs with exact video IDs and the next skill/command.

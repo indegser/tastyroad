@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-25 - Add Naver Map sync to automation
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/automation-naver-map-sync`
+Branch: `codex/automation-naver-map-sync`
+Target: production `main`
+
+- [x] Read repository lessons and relevant automation/Naver Map skills.
+- [x] Inspect active Codex automation prompt and Naver sync state files.
+- [x] Update durable automation prompt to run Naver Map sync after production verification.
+- [x] Update active Codex app automation with the same Naver Map sync step.
+- [x] Validate, commit, push, and record the result.
+
+### Review
+
+- Active automation `tastyroad-regular-source-maintenance-2` now invokes `$tastyroad-naver-map-sync` after production API verification succeeds.
+- The Naver sync target defaults to private list `Tastyroad 2` with `data/naver_map_list_synced_ids_2.json`, excluding first-list state from `data/naver_map_list_synced_ids.json`.
+- Naver Map failures are recorded as post-release warnings; they do not roll back a verified production release.
+- Successful Naver sync should commit and push only the changed `data/naver_map_list_synced_ids*.json` state files after deployment.
+
 ## Current Task - 2026-07-25 - Regular source maintenance automation
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260725`
