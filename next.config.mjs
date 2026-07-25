@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   outputFileTracingIncludes: {
-    "/": ["./data/tastyroad.sqlite"],
-    "/api/restaurants": ["./data/tastyroad.sqlite"],
+    "/": ["./data/tastyroad-public.sqlite"],
+    "/api/restaurants": ["./data/tastyroad-public.sqlite"],
   },
 };
 

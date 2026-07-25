@@ -1,3 +1,4 @@
+import Link from "next/link";
 import {
   normalizeRestaurantSearchParams,
   searchRestaurants,
@@ -237,18 +238,19 @@ function ActiveFilters({
   return (
     <nav className="active-filters" aria-label="선택한 조건">
       {filters.map((filter) => (
-        <a
+        <Link
           key={`${filter.label}:${filter.value}`}
           href={filter.href}
+          prefetch={false}
           aria-label={`${filter.label} ${filter.value} 제거`}
         >
           <span>{filter.value}</span>
           <b aria-hidden="true">x</b>
-        </a>
+        </Link>
       ))}
-      <a className="clear-all" href="/" aria-label="모든 조건 제거">
+      <Link className="clear-all" href="/" prefetch={false} aria-label="모든 조건 제거">
         초기화
-      </a>
+      </Link>
     </nav>
   );
 }
@@ -291,16 +293,17 @@ function FacetGroup({
             : facet.value === activeValue;
 
           return (
-            <a
+            <Link
               key={facet.value}
               href={multi || !active ? hrefFor(facet.value) : hrefFor("")}
+              prefetch={false}
               className={`facet-option ${active ? "is-active" : ""}`}
               aria-current={active ? "true" : undefined}
             >
               <span className="facet-marker" aria-hidden="true" />
               <span className="facet-option-label">{facet.value}</span>
               <small>{facet.count.toLocaleString("ko-KR")}</small>
-            </a>
+            </Link>
           );
         })}
       </div>
@@ -343,16 +346,17 @@ function RegionFacetGroup({
               const active = facet.value === activeRegionCluster;
 
               return (
-                <a
+                <Link
                   key={facet.value}
                   href={active ? hrefForRegionCluster("") : hrefForRegionCluster(facet.value)}
+                  prefetch={false}
                   className={`facet-option ${active ? "is-active" : ""}`}
                   aria-current={active ? "true" : undefined}
                 >
                   <span className="facet-marker" aria-hidden="true" />
                   <span className="facet-option-label">{facet.value}</span>
                   <small>{facet.count.toLocaleString("ko-KR")}</small>
-                </a>
+                </Link>
               );
             })}
           </div>
@@ -366,16 +370,17 @@ function RegionFacetGroup({
                 const active = facet.value === activeRegion;
 
                 return (
-                  <a
+                  <Link
                     key={facet.value}
                     href={active ? hrefForRegion("") : hrefForRegion(facet.value)}
+                    prefetch={false}
                     className={`facet-option ${active ? "is-active" : ""}`}
                     aria-current={active ? "true" : undefined}
                   >
                     <span className="facet-marker" aria-hidden="true" />
                     <span className="facet-option-label">{facet.value}</span>
                     <small>{facet.count.toLocaleString("ko-KR")}</small>
-                  </a>
+                  </Link>
                 );
               })}
             </div>
@@ -402,7 +407,12 @@ function Pagination({
   return (
     <nav className="pagination" aria-label="페이지">
       {page > 1 ? (
-        <a href={hrefWith(searchParams, { page: String(page - 1) })}>이전</a>
+        <Link
+          href={hrefWith(searchParams, { page: String(page - 1) })}
+          prefetch={false}
+        >
+          이전
+        </Link>
       ) : (
         <span>이전</span>
       )}
@@ -410,7 +420,12 @@ function Pagination({
         {page.toLocaleString("ko-KR")} / {totalPages.toLocaleString("ko-KR")}
       </strong>
       {page < totalPages ? (
-        <a href={hrefWith(searchParams, { page: String(page + 1) })}>다음</a>
+        <Link
+          href={hrefWith(searchParams, { page: String(page + 1) })}
+          prefetch={false}
+        >
+          다음
+        </Link>
       ) : (
         <span>다음</span>
       )}

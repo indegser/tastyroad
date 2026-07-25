@@ -22,6 +22,67 @@ Branch: `codex/improve-naver-map-sync`
 - Live verification reconciled already-saved `유즈라멘`, persisted and re-open-verified `차린한식`, and confirmed `Tastyroad 2` at 637 visible places. The source now has 39 restaurants left for a later sync run.
 - Verification passed: four unit tests, Python compilation, `git diff --check`, dry no-op, real already/saved flows, capacity-stop flow, and visible-list count audit.
 
+## Current Task - 2026-07-26 - Add a public restaurant read database
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-query-performance`
+Branch: `codex/restaurant-query-performance`
+
+- [x] Confirm the performance branch is pushed and based on current `origin/main`.
+- [x] Capture full-response hashes for listing, filters, search, and later pages.
+- [x] Build a deterministic public-only SQLite artifact from the source database.
+- [x] Move filtering, facet counts, totals, and pagination into indexed SQL queries.
+- [x] Compare response hashes and tune the new query path in measured iterations.
+- [x] Verify build output tracing and browser navigation.
+- [x] Commit, push, and record final performance/size results.
+
+### Review
+
+- `pnpm run build` now atomically derives `data/tastyroad-public.sqlite` from the tracked
+  source DB before Next.js builds; the generated DB contains 1,730 public rows and is
+  4.37MB versus the 49MB source DB.
+- Runtime filtering, totals, facet counts, ordering, and `LIMIT/OFFSET` pagination execute
+  against indexed public columns. Production output traces include only the public DB.
+- Seven full API response SHA-256 hashes matched the pre-change implementation exactly,
+  covering unfiltered pages 1/2, filtered pages 1/4, multi-source, region, and search.
+- Three measured query iterations reduced repeated-search p50 from 33.2ms in the first SQL
+  version to 9.8ms through one-time substring matching, bounded LRU reuse, prepared statements,
+  and SQLite mmap/cache settings.
+- Seven fresh-process runs measured cold-request median at 141.1ms versus 236.8ms before the
+  public DB change (40% faster). Warm representative p50 remained 9.4-11.1ms.
+- SQL pagination stayed flat at page 2/50/80 (10.2/9.5/8.8ms p50); page 999 correctly clamped
+  to page 87 and returned the final 10 rows.
+- Browser verification passed for channel selection and page 2 navigation with 20 cards and
+  no Next.js error overlay.
+
+## Current Task - 2026-07-26 - Tune restaurant filtering performance
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-query-performance`
+Branch: `codex/restaurant-query-performance`
+
+- [x] Read repository lessons and the Next.js App Router skill.
+- [x] Create a dedicated worktree from current `origin/main`.
+- [x] Establish a repeatable baseline for representative filter/search requests.
+- [x] Run five measured optimization iterations, preserving response semantics.
+- [x] Compare representative API totals, first-page IDs, and facet cardinalities.
+- [x] Verify the production build and browser navigation behavior.
+- [x] Record benchmark results, tradeoffs, and remaining risks.
+
+### Review
+
+- Reused the immutable deployment SQLite connection and materialized restaurant rows per
+  server instance instead of reopening, aggregating, normalizing, and parsing every request.
+- Built search documents lazily per restaurant and combined result/facet calculation into one
+  pass; rejected eager search indexing after measurement showed a cold-request regression.
+- Replaced internal filter and pagination anchors with non-prefetching Next.js `Link` navigation.
+- Production-server warm p50 across default/source/multi-source/region/search requests improved
+  from 92.6/82.0/53.5/111.7/86.5ms to 10.3/10.8/9.3/9.0/8.4ms.
+- Baseline and final API checks matched totals, first 20 restaurant IDs, and facet cardinalities
+  for all five representative requests.
+- `pnpm run build`, browser content/error checks, and a live channel-filter navigation passed.
+- Remaining tradeoff: the first request in a new server instance still performs the full source
+  query (261ms locally on the latest 51MB DB); a generated public read model is deferred until production cold-start
+  telemetry shows that this remaining cost warrants the added release-pipeline complexity.
+
 ## Current Task - 2026-07-25 - Sync unsynced Naver Map places
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-map-sync-unsynced`
