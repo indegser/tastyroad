@@ -1,0 +1,24 @@
+{
+  "source": "홍석천이원일",
+  "verified_at": "2026-07-25",
+  "items": [
+    {
+      "video_id": "c0uO1Rbg-Ic",
+      "resolved_name": "풍년집",
+      "display_name": "풍년집",
+      "local_name": "풍년집",
+      "country_code": "KR",
+      "region": "서울 강남구",
+      "address": "서울 강남구 논현로67길 63",
+      "phone": "",
+      "category": "육류,고기요리",
+      "map_provider": "naver_map",
+      "naver_map_id": "18583473",
+      "map_url": "https://map.naver.com/p/entry/place/18583473?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=c0uO1Rbg-Ic",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "공식 영상의 풍년집 후보가 기존 검증 식당의 이름, 주소, 숫자형 네이버 장소 ID와 정확히 일치한다."
+    }
+  ]
+}

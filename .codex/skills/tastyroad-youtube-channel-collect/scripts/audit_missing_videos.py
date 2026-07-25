@@ -63,7 +63,9 @@ def fetch_full_channel(source: dict[str, Any]) -> list[dict[str, Any]]:
 
     for url in channel_urls(source):
         command = [
-            "yt-dlp",
+            sys.executable,
+            "-m",
+            "yt_dlp",
             "--quiet",
             "--no-warnings",
             "--flat-playlist",
