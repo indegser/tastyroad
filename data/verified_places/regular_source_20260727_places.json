@@ -1,0 +1,42 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-07-27",
+  "items": [
+    {
+      "video_id": "JEicSm1MRpA",
+      "resolved_name": "돈불리제담",
+      "display_name": "돈불리제담",
+      "local_name": "돈불리제담",
+      "country_code": "KR",
+      "region": "서울 강남구",
+      "address": "서울 강남구 압구정로2길 46",
+      "phone": "02-546-2995",
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "34016514",
+      "map_url": "https://map.naver.com/p/entry/place/34016514?placePath=%2Fhome",
+      "evidence_url": "https://sequanus.tistory.com/967",
+      "confidence": 0.96,
+      "status": "verified",
+      "notes": "Web evidence names 돈불리제담 for the 2023-03-10 Baekban Shinsa-dong dombe-gogi segment; existing Naver-verified row matches the address."
+    },
+    {
+      "video_id": "tkDMzerjlvU",
+      "resolved_name": "꼬끄더그릴",
+      "display_name": "꼬끄더그릴",
+      "local_name": "꼬끄더그릴",
+      "country_code": "KR",
+      "region": "서울 강남구",
+      "address": "서울 강남구 강남대로154길 10",
+      "phone": "0507-1324-3838",
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "1781496833",
+      "map_url": "https://map.naver.com/p/entry/place/1781496833?placePath=%2Fhome",
+      "evidence_url": "https://mokeya.tistory.com/355",
+      "confidence": 0.95,
+      "status": "verified",
+      "notes": "Web evidence names 꼬끄더그릴 for the 2023-03-10 Baekban Shinsa-dong chicken-special-parts segment with green-tea salt; existing Naver-verified row matches."
+    }
+  ]
+}

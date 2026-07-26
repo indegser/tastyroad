@@ -15,8 +15,27 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 176,
+  "count": 177,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "BUemPiRa-xo",
+      "title": "기름진 장어 한 입, 그리고 알싸하게 훅 치고 들어오는 산초.",
+      "url": "https://www.youtube.com/shorts/BUemPiRa-xo",
+      "thumbnail_url": "https://i3.ytimg.com/vi/BUemPiRa-xo/hqdefault.jpg",
+      "published_at": "2026-07-26T15:12:24+00:00",
+      "updated_at": "2026-07-26T17:22:19+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "기름진 장어 한 입, 그리고 알싸하게 훅 치고 들어오는 산초"
+      ],
+      "collected_at": "2026-07-26T22:02:58.563328+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
@@ -80,8 +99,8 @@
       "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
       "video_id": "__94AVUNWMs",
       "title": "안 물려받으실 거면 제발 저요",
-      "url": "https://www.youtube.com/watch?v=__94AVUNWMs",
-      "thumbnail_url": "https://i.ytimg.com/vi_webp/__94AVUNWMs/maxresdefault.webp",
+      "url": "https://www.youtube.com/shorts/__94AVUNWMs",
+      "thumbnail_url": "https://i4.ytimg.com/vi/__94AVUNWMs/hqdefault.jpg",
       "published_at": "2026-07-21T09:00:06+00:00",
       "updated_at": "2026-07-22T09:41:34+00:00",
       "description": "",
