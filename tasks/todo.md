@@ -2,6 +2,29 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Cache restaurant browsing on Vercel CDN
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-cdn-cache`
+Branch: `codex/restaurant-cdn-cache`
+Target: production `main`
+
+- [x] Read repository lessons and Vercel/Next.js cache guidance.
+- [x] Confirm production page and API responses currently miss the CDN cache.
+- [x] Add Vercel-only response caching for restaurant pages and API results.
+- [x] Keep free-text search on a shorter cache lifetime.
+- [x] Verify header routing, production build, and local page behavior.
+- [ ] Commit, integrate into `main`, push, and verify production cache hits.
+- [ ] Record before/after response timings and remaining tradeoffs.
+
+### Review
+
+- Added Vercel-only CDN caching to both the server-rendered restaurant page and
+  `/api/restaurants`, while keeping browser responses on immediate revalidation.
+- Browsing/filter/pagination responses use a 1-hour fresh TTL plus 1-day stale
+  revalidation; URLs containing free-text `q` use 1 minute plus 5 minutes.
+- `pnpm run build`, `git diff --check`, four local cache-header checks, and browser
+  channel-filter navigation with 20 cards and no Next.js error overlay passed.
+
 ## Current Task - 2026-07-26 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`
