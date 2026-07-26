@@ -13,8 +13,8 @@ Target: production `main`
 - [x] Add Vercel-only response caching for restaurant pages and API results.
 - [x] Keep free-text search on a shorter cache lifetime.
 - [x] Verify header routing, production build, and local page behavior.
-- [ ] Commit, integrate into `main`, push, and verify production cache hits.
-- [ ] Record before/after response timings and remaining tradeoffs.
+- [x] Commit, integrate into `main`, push, and verify production cache hits.
+- [x] Record before/after response timings and remaining tradeoffs.
 
 ### Review
 
@@ -24,6 +24,12 @@ Target: production `main`
   revalidation; URLs containing free-text `q` use 1 minute plus 5 minutes.
 - `pnpm run build`, `git diff --check`, four local cache-header checks, and browser
   channel-filter navigation with 20 cards and no Next.js error overlay passed.
+- Production deployment `tastyroad-47mrihe2c-jaekwon-hans-projects.vercel.app`
+  reached `READY`; repeated page, API, and search requests changed from `MISS` to `HIT`.
+- Eight cached production runs measured p50 at 13.8ms for a channel API response,
+  15.4ms for the server-rendered channel page, and 14.3ms for free-text search.
+- Distinct channels and page numbers retained independent totals, page values, and first
+  restaurant IDs, confirming query-specific cache separation.
 
 ## Current Task - 2026-07-26 - Regular source maintenance run
 
