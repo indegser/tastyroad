@@ -52,7 +52,9 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 - Trigger: Signal-term must-taste prefiltering looked cheaper until benchmarked against completed Sung Si-kyung rows with conservative range-based chunk accounting.
   Rule: Before adopting transcript prefilters, benchmark against stored Sung Si-kyung must-taste evidence; prefer video-once full-transcript scouting for multi-restaurant sources unless a prefilter proves both high recall and real chunk savings.
 - Trigger: `apply_must_taste_result.py --dry-run` still modified the default tracked SQLite file through schema setup during a worker-only must-taste batch.
-  Rule: For worker dry-runs that must not edit `data/tastyroad.sqlite`, copy the DB to `/tmp` and pass `--sqlite /tmp/<task>.sqlite` to `apply_must_taste_result.py --dry-run`; restore the tracked DB immediately if it was touched accidentally.
+  Rule: Keep `apply_must_taste_result.py --dry-run` on a SQLite read-only connection, and still prefer `/tmp` DB copies for worker verification; restore the tracked DB immediately if an older checkout touches it accidentally.
+- Trigger: A low-token must-taste A/B trial selected both a broad tuna course and a component cut from substantially overlapping tasting evidence, then added a mildly praised third dish.
+  Rule: In must-taste final selection, treat zero to three as a ceiling, reject broad-course/component overlap unless each has distinct evidence and visitor choice value, and require rank 3 to meet the same strong evidence bar as rank 1.
 
 ## 2026-06-25
 
