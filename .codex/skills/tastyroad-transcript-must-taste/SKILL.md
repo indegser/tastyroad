@@ -118,7 +118,7 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/benchmark_must_tas
   --markdown-output /tmp/sungsikyung_prefilter_benchmark.md
 ```
 
-Treat existing Sung Si-kyung `video_must_taste_items` as the quality comparison set. Do not use a signal/prefilter shortcut for DB writes unless the benchmark shows high recall for stored evidence segments. A lower-risk cost reduction is video-first scouting: read each full transcript once per video, write shared candidate-finding notes under `data/work/must_taste_video/<video_id>/`, then split filtered events into each restaurant's normal `data/work/must_taste/<video_id>/<restaurant_id>/` artifacts so `apply_must_taste_result.py` still validates the ordinary pair-level contract.
+Treat existing Sung Si-kyung `video_must_taste_items` as the quality comparison set. Do not use a signal/prefilter shortcut for DB writes unless the benchmark shows high recall for stored evidence segments. A lower-risk cost reduction is video-first analysis: read each compact full transcript once per video, then use only candidate-local exact segments for the second response. Preserve the normal pair-level artifact contract so `apply_must_taste_result.py` still validates every result.
 
 1. Plan missing verified-map plus preferred-transcript pairs. For sources with multiple restaurants per video such as `또간집`, prefer `--group-by-video` so workers can scout each transcript once:
 
@@ -139,7 +139,7 @@ reviewed insufficiencies. Repeat the option for every prior incremental plan.
 
 2. Send each batch file to a worker/subagent. The worker owns only that batch's `data/work/must_taste/<video>/<restaurant>/` artifacts, optional `data/work/must_taste_video/<video>/` scout notes, and its `<batch>_done.json` completion file. The worker must not write `data/tastyroad.sqlite`; it should run `apply_must_taste_result.py --dry-run` only.
 
-For video-grouped batches, the worker flow is:
+For video-grouped batches, use a two-semantic-response budget per video:
 
 - Prepare the compact video context once:
 
@@ -148,12 +148,23 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/prepare_must_taste
   --video-id <youtube_id>
 ```
 
-This writes `data/work/must_taste_video/<video_id>/video_context.json`, `blocks.json`, `segment_lookup.json`, `task.md`, `restaurant_windows.json`, `video_attention_events.jsonl`, and `combined_candidate_review.md`. Use `blocks.json` for candidate-finding and restaurant-boundary work. Use `segment_lookup.json` only when exact segment text is needed for pair artifacts.
+This writes `data/work/must_taste_video/<video_id>/video_context.json`, `blocks.json`, `segment_lookup.json`, `task.md`, `candidate_findings.json`, `pair_results_bundle.json`, and supporting review/lineage artifacts.
 
-- Prepare normal pair contexts for every restaurant in the video so final validation remains unchanged.
-- Run the candidate-finding stage once over the compact video blocks and write shared notes/events under `data/work/must_taste_video/<video_id>/`.
-- For each target restaurant, copy only same-restaurant events into that pair's `attention_events.jsonl` with a concrete `restaurant_scope_note`, then run pair-specific candidate aggregation, reviews, arbiter result, and dry-run validation.
-- Candidate reviews may be produced with one combined call per candidate, as long as the output still contains separate `evidence_skeptic` and `visitor_judge` review objects matching the existing `candidate_reviews.json` contract.
+- Prepare normal pair contexts for every restaurant so final validation remains unchanged.
+- **Semantic response 1 — candidate finding:** scan every compact block once for the video. Write conservative restaurant windows and same-restaurant attention events to `candidate_findings.json`. Resolve exact `segment_index` values through `segment_lookup.json`, but do not copy full segment metadata.
+- **Semantic response 2 — combined review/final selection:** do not reread `blocks.json`. Read the compact findings plus only narrow exact-segment ranges needed for those candidates. Write every pair's candidates, separate `evidence_skeptic`/`visitor_judge` reviews, selected items, and rejected candidates into `pair_results_bundle.json`.
+- In final selection, zero to three is a ceiling rather than a target. Apply the same strong evidence standard to every rank; never fill a weak third slot.
+- Treat a broad course/set and one of its component cuts or dishes as overlapping when they rely on substantially the same tasting evidence. Keep the more specific, stronger visitor choice unless both have distinct evidence and represent genuinely different orderable choices. Record the overlap decision in `rejected_candidates`.
+- Materialize exact evidence, ordinary pair artifacts, and validation in one deterministic command:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/materialize_must_taste_video_bundle.py \
+  --video-context data/work/must_taste_video/<video_id>/video_context.json \
+  --findings data/work/must_taste_video/<video_id>/candidate_findings.json \
+  --bundle data/work/must_taste_video/<video_id>/pair_results_bundle.json
+```
+
+- The materializer copies exact timestamp/text/chunk lineage from prepared contexts and runs the normal validator. It never writes SQLite.
 - If restaurant boundaries are ambiguous, widen the restaurant window or fall back to the ordinary single-pair whole-transcript workflow for that pair. Do not guess wrong-restaurant events into a result.
 
 3. If a completion row is `insufficient_evidence` but the product goal requires zero missing pairs, run a focused retry for that pair and write `retry_<video_id>_<restaurant_id>_done.json`. Retry files intentionally override earlier batch completion rows for the same pair.
@@ -184,6 +195,44 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_b
 ```
 
 Never run final DB apply while worker/subagent tasks are still active. Parallel workers may prepare artifacts, but the final SQLite write must be single-process and sequential.
+
+## Quality and Token Regression Gate
+
+Before adopting a prompt, context, batching, or response-count optimization, freeze a representative baseline from already stored results. Default to Sung Si-kyung because those rows are the established quality comparison set; add multi-restaurant source samples when the change affects restaurant boundaries.
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/export_must_taste_quality_baseline.py \
+  --source-name "성시경의 먹을텐데" \
+  --sample-size 30 \
+  --output /tmp/must_taste_quality_baseline.json
+```
+
+Run the proposed workflow for exactly those baseline pairs without applying SQLite. Then compare the candidate `result.json` artifacts:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/compare_must_taste_quality.py \
+  --baseline /tmp/must_taste_quality_baseline.json \
+  --results-root data/work/must_taste \
+  --output /tmp/must_taste_quality_comparison.json \
+  --markdown-output /tmp/must_taste_quality_comparison.md \
+  --blind-review-output /tmp/must_taste_quality_blind_review.json \
+  --blind-key-output /tmp/must_taste_quality_blind_key.json
+```
+
+The automatic comparison measures pair coverage, menu recall, all-menu pair recall, exact/near evidence recovery, and repaired-copy presence. Any changed pair remains `review_required` even if thresholds pass. Complete `blind_review.json` before opening `blind_review_key.json`; alternative valid menu choices must be judged rather than automatically treated as regressions.
+
+Measure old and proposed Codex rollout sessions with the same work-unit counts:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/measure_must_taste_tokens.py \
+  <rollout.jsonl> \
+  --videos <count> \
+  --pairs <count> \
+  --label <baseline-or-candidate> \
+  --output /tmp/<label>_token_usage.json
+```
+
+Pass both usage files to `compare_must_taste_quality.py` with `--baseline-usage` and `--candidate-usage` to report pair-normalized input, uncached input, output, and total-token reduction beside quality. Never promote an optimization only from token savings: require normal artifact validation, automatic comparison checks, and completed blind review for changed pairs.
 
 ## Selection Rules
 

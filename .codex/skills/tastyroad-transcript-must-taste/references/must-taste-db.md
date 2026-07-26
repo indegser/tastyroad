@@ -21,6 +21,21 @@ Prepared and generated artifacts live under `data/work/must_taste/<video_id>/<re
 
 Every artifact must share `video_id`, `restaurant_id`, `transcript_track_id`, and `context_hash`. `apply_must_taste_result.py` rejects stale or incomplete artifact chains.
 
+For video-first low-token runs, the agent writes two compact semantic artifacts under
+`data/work/must_taste_video/<video_id>/`:
+
+- `candidate_findings.json`: whole-video restaurant windows and attention events after one full compact-block scan.
+- `pair_results_bundle.json`: pair-specific candidates, both review perspectives, selected items, and rejected candidates using candidate-local exact segments.
+
+`materialize_must_taste_video_bundle.py` expands those two responses into the ordinary pair artifacts above and validates them. It copies exact evidence metadata from prepared transcript contexts; it does not infer menu choices or write SQLite.
+
+Quality benchmark artifacts live under `data/work/must_taste_quality/` by default:
+
+- `baseline.json`: immutable snapshot of previously stored pair/item evidence.
+- `comparison.json` / `comparison.md`: deterministic menu/evidence/copy checks, optional pair-normalized token comparison, and release status.
+- `blind_review.json`: anonymized A/B rows for every changed pair.
+- `blind_review_key.json`: hidden baseline/candidate assignment; open only after the blind review is complete.
+
 ## Output Table
 
 `video_must_taste_items`: one row per ranked, quality-gated recommendation for one restaurant mention in one video. A restaurant-video pair can have zero to three rows.

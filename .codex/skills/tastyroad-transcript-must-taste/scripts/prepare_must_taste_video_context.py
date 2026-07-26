@@ -305,30 +305,40 @@ def write_task(
     context_path: Path,
     blocks_path: Path,
     segment_lookup_path: Path,
-    restaurant_windows_path: Path,
-    shared_events_path: Path,
+    findings_path: Path,
+    bundle_path: Path,
     review_prompt_path: Path,
 ) -> None:
     path.write_text(
         "\n".join(
             [
-                "# Video-Level Must-Taste Scout Task",
+                "# Video-Level Must-Taste Two-Response Task",
                 "",
                 f"- Read `{context_path}` and `{blocks_path}` first.",
-                f"- Use `{segment_lookup_path}` only when exact segment text is needed.",
-                f"- Write restaurant boundaries to `{restaurant_windows_path}`.",
-                f"- Write shared video candidate-finding events to `{shared_events_path}`.",
-                f"- Use `{review_prompt_path}` when reviewing candidates; one model call may emit both `evidence_skeptic` and `visitor_judge` review objects.",
+                f"- Use `{segment_lookup_path}` only to resolve exact segment indices around candidate moments.",
+                f"- Semantic response 1 writes `{findings_path}`.",
+                f"- Semantic response 2 writes `{bundle_path}`.",
+                f"- Use `{review_prompt_path}` for the combined reviews in response 2.",
                 "",
                 "Workflow:",
                 "",
-                "1. Identify the transcript range for each restaurant in `context.restaurants` using block timestamps, restaurant names, menu mentions, arrivals, ordering, eating, and transition language.",
-                "2. Keep boundaries conservative. If a transition is ambiguous, include overlap buffers and explain the uncertainty in the window note.",
-                "3. Run candidate finding once across the video blocks. Each event must cite `block_id` plus exact `segment_index` after checking the segment lookup.",
-                "4. Split events into normal pair-level `data/work/must_taste/<video_id>/<restaurant_id>/attention_events.jsonl` files only when the event belongs to that restaurant window.",
-                "5. Finish every pair with the existing candidate aggregation, candidate reviews, arbiter result, and `apply_must_taste_result.py --dry-run` validation.",
+                "1. Response 1 scans every block once for the whole video, identifies conservative restaurant windows, and writes one `pairs` row per restaurant with source-backed `attention_events`.",
+                "2. Each attention event includes only semantic fields plus `segment_index`: event_id, candidate_id, menu_item, event_type, attention_score, scope_note, and note. Check the exact segment index in the lookup; deterministic materialization copies timestamp/text/chunk metadata.",
+                "3. Response 2 reads the compact findings, then only the narrow segment lookup ranges needed for those candidates. It writes one `pairs` row per restaurant with candidates, both candidate reviews, final items, and rejected_candidates.",
+                "4. Final items use `evidence_segment_index` and `supporting_segment_indices`; deterministic materialization copies exact evidence objects. Keep reason source-grounded and repaired_reason source-preserving.",
+                "5. Do not reread the full blocks after response 1 and do not write pair artifacts one file at a time.",
+                "6. Materialize and validate every ordinary pair artifact in one deterministic command:",
                 "",
-                "Do not write SQLite from this video-level workflow. Final applies remain single-process through the batch apply script.",
+                "```bash",
+                "python3 .codex/skills/tastyroad-transcript-must-taste/scripts/materialize_must_taste_video_bundle.py "
+                f"--video-context {context_path} --findings {findings_path} --bundle {bundle_path}",
+                "```",
+                "",
+                "Findings root: `video_id`, `windows`, `pairs`. Each pair has `restaurant_id` and `attention_events`.",
+                "Bundle root: `video_id`, `pairs`. Each pair has `restaurant_id`, `candidates`, `reviews`, `items`, `rejected_candidates`, and optional `insufficient_evidence_reason`.",
+                "",
+                "The two-response budget applies to semantic analysis, not deterministic preparation/validation commands. If restaurant boundaries are genuinely ambiguous, fall back to the ordinary pair workflow and record the reason.",
+                "Do not write SQLite from this video-level workflow. Final applies remain single-process through the batch apply script after quality comparison.",
                 "",
             ]
         ),
@@ -350,6 +360,15 @@ def write_review_prompt(path: Path) -> None:
                 "Each review object must still match the existing `candidate_reviews.json` contract: `candidate_id`, `reviewer`, `verdict`, `score`, `drivers`, `reason`, `risk`, and `cited_event_ids`.",
                 "",
                 "Use `verdict: fail` for weak mentions, ordinary ordering, flat ingredient labels, or events outside the restaurant window. Use `borderline` only when the evidence is real but probably not enough for a final item.",
+                "",
+                "Final-selection rules:",
+                "",
+                "- Select zero to three items; never fill the second or third slot merely because space remains.",
+                "- Every selected item must independently give a visitor a strong reason to choose the restaurant.",
+                "- Avoid overlapping recommendations from the same course or plate. When a broad course/set candidate and one of its component cuts or dishes rely on substantially the same tasting evidence, keep only the more specific, stronger, visitor-useful candidate.",
+                "- Keep both a broad course and a component only when each has distinct transcript evidence and communicates a genuinely different choice a visitor can make.",
+                "- A third item needs the same strong standard as rank 1: explicit recommendation, repeat-visit intent, signature/differentiating value, or unusually strong praise. Mild positive tasting language is insufficient.",
+                "- Put every valid but non-selected overlapping or weaker candidate in `rejected_candidates` with the concrete duplication or evidence-strength reason.",
                 "",
             ]
         ),
@@ -378,6 +397,8 @@ def prepare(
     shared_events_path = target_dir / "video_attention_events.jsonl"
     task_path = target_dir / "task.md"
     review_prompt_path = target_dir / "combined_candidate_review.md"
+    findings_path = target_dir / "candidate_findings.json"
+    bundle_path = target_dir / "pair_results_bundle.json"
 
     segments = context["transcript"].pop("segments")
     blocks = build_blocks(
@@ -391,6 +412,8 @@ def prepare(
         "segment_lookup_path": str(segment_lookup_path),
         "restaurant_windows_path": str(restaurant_windows_path),
         "shared_events_path": str(shared_events_path),
+        "candidate_findings_path": str(findings_path),
+        "pair_results_bundle_path": str(bundle_path),
         "task_path": str(task_path),
         "combined_candidate_review_prompt_path": str(review_prompt_path),
     }
@@ -436,13 +459,46 @@ def prepare(
         },
     )
     shared_events_path.write_text("", encoding="utf-8")
+    write_json(
+        findings_path,
+        {
+            "video_id": context["video"]["video_id"],
+            "windows": [],
+            "pairs": [
+                {
+                    "restaurant_id": int(restaurant["restaurant_id"]),
+                    "attention_events": [],
+                }
+                for restaurant in context["restaurants"]
+            ],
+            "status": "pending_semantic_response_1",
+        },
+    )
+    write_json(
+        bundle_path,
+        {
+            "video_id": context["video"]["video_id"],
+            "pairs": [
+                {
+                    "restaurant_id": int(restaurant["restaurant_id"]),
+                    "candidates": [],
+                    "reviews": [],
+                    "items": [],
+                    "rejected_candidates": [],
+                    "insufficient_evidence_reason": "",
+                }
+                for restaurant in context["restaurants"]
+            ],
+            "status": "pending_semantic_response_2",
+        },
+    )
     write_task(
         task_path,
         context_path=context_path,
         blocks_path=blocks_path,
         segment_lookup_path=segment_lookup_path,
-        restaurant_windows_path=restaurant_windows_path,
-        shared_events_path=shared_events_path,
+        findings_path=findings_path,
+        bundle_path=bundle_path,
         review_prompt_path=review_prompt_path,
     )
     write_review_prompt(review_prompt_path)

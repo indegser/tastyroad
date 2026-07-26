@@ -708,8 +708,16 @@ def apply_result(
     transcript = context["transcript"]
     generated_at = normalize_text(result.get("generated_at")) or datetime.now(timezone.utc).isoformat()
 
-    with sqlite3.connect(sqlite_path) as connection:
-        ensure_must_taste_schema(connection)
+    if dry_run:
+        connection_target = f"file:{sqlite_path.resolve()}?mode=ro"
+        connection_options = {"uri": True}
+    else:
+        connection_target = sqlite_path
+        connection_options = {}
+
+    with sqlite3.connect(connection_target, **connection_options) as connection:
+        if not dry_run:
+            ensure_must_taste_schema(connection)
         row = connection.execute(
             "select id from youtube_videos where video_id = ?",
             (video["video_id"],),

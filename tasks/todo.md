@@ -2084,3 +2084,55 @@ Result note: Added `archive_legacy_video_transcripts.py` to convert reusable tim
 - [ ] Commit/push through the production release flow and verify the deployed site.
 
 Result note: Added 45 validation-passing must-taste rows for 20 Supabase-backed 김사원세끼 restaurant-video pairs. Total must-taste coverage is now 50 restaurant-video pairs and 94 menu items. The remaining transcript-backed missing scope is 595 Vercel Blob-backed pairs, currently blocked by Blob 403 reads during context preparation. Verification so far: all 20 `apply_must_taste_result.py --dry-run` checks passed, actual apply stored the rows, SQLite `integrity_check` returned `ok`, and `pnpm run build` passed.
+## Current Task - 2026-07-26 - Must-taste token reduction with quality benchmark
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-token-quality-benchmark`
+Branch: `codex/must-taste-token-quality-benchmark`
+
+- [x] Inspect the current must-taste workflow, prior token findings, and existing prefilter benchmark.
+- [x] Add a frozen DB-backed baseline exporter for previously completed videos.
+- [x] Add deterministic candidate-vs-baseline quality comparison and blind review artifacts.
+- [x] Add Codex session token accounting for before/after comparisons.
+- [x] Update the video-first workflow to minimize repeated whole-transcript turns without weakening coverage.
+- [x] Verify scripts against stored results and representative existing artifacts.
+- [x] Record final review/result notes.
+
+### Review
+
+- Added a two-semantic-response video workflow: one full compact-block candidate-finding response, then one candidate-local combined review/final-selection response. `materialize_must_taste_video_bundle.py` deterministically expands exact segment metadata, writes ordinary pair artifacts, and runs the existing validator without writing SQLite.
+- Added DB-backed baseline export, deterministic menu/evidence/copy comparison, automatic thresholds, blind A/B review artifacts for changed pairs, and Codex rollout token accounting. Token reports can be attached to the same quality comparison.
+- Exported a 30-pair/68-item Sung Si-kyung baseline successfully. A four-video/seven-item existing-result comparison passed with 100% menu recall, 100% exact/near evidence recall, all candidate artifacts valid, and no blind-review differences.
+- Re-materialized an existing video through the compact bundle path, passed the normal result validator, passed DB dry-run, and matched its frozen baseline at 100%.
+- Historical rollout telemetry reproduced the prior pairwise-to-video-first improvement: pair-normalized logical input `1,268,870 -> 92,013` (`92.75%` lower), uncached input `52,742 -> 5,491` (`89.59%` lower), and output `15,884 -> 895` (`94.37%` lower). This is the comparison baseline for measuring the new two-response workflow, not a claim about a new production run.
+- Fixed `apply_must_taste_result.py --dry-run` to open SQLite read-only. A direct tracked-DB dry-run preserved the exact SHA-256 before and after.
+- Verification: four unit tests, Python compilation for all must-taste scripts, compact video context generation, bundle materialization, normal artifact validation, quality comparison pass/fail smoke tests, tracked-DB read-only hash check, and `git diff --check`.
+
+## Follow-up - 2026-07-26 - Three-video semantic A/B trial
+
+- [x] Limit the trial to three representative existing videos.
+- [x] Freeze their current DB results before fresh extraction.
+- [x] Run the new two-response semantic workflow without reading old result artifacts.
+- [x] Materialize and validate every pair.
+- [x] Compare menu/evidence/copy quality and review every changed pair blindly.
+- [x] Record token and quality findings.
+
+### Follow-up Review
+
+- Tested 3 videos covering 5 restaurant-video pairs and 8 frozen baseline items; the fresh workflow selected 9 items and every materialized pair passed the normal validator.
+- Automatic comparison found 75% item-level menu recall, 60% all-items-per-pair recall, and 100% exact/near evidence recall. The four changed pairs therefore required qualitative review instead of automatic promotion.
+- Blind option review preferred the fresh candidate for all four changed pairs: it added strongly supported `선지국`, removed weaker/mixed `물가자미회` and `아구찜 볶음밥`, and surfaced three independently praised 참치 options. Public copy was consistently shorter and clearer.
+- The reviewer was the same agent that produced the fresh artifacts, so this is a controlled blind-to-assignment check, not an independent human review.
+- Conservative semantic-input accounting (one old full pair context versus new full-video blocks plus findings, prompt, and ±8 exact segments) was `591,352 -> 210,574` characters, 64.4% lower. With ±4 exact segments it was 69.0% lower. These are context-volume estimates, not isolated Codex billing telemetry.
+
+## Follow-up - 2026-07-26 - Adopt A/B quality findings
+
+- [x] Keep the two-response video workflow as the preferred grouped-video path.
+- [x] Add broad-course/component overlap guidance to combined final selection.
+- [x] Require every rank, including rank 3, to meet the same strong evidence standard.
+- [x] Verify prompt generation, focused tests, compilation, and repository diff.
+
+### Adoption Review
+
+- The combined review/final-selection prompt now rejects broad course/set plus component recommendations when they reuse substantially the same tasting evidence, unless they represent distinct visitor choices with distinct support.
+- Rank 2 and rank 3 are no longer treated as slots to fill; every selected item must independently meet the rank-1 evidence standard, and overlap/weakness decisions must remain visible in `rejected_candidates`.
+- Verification passed: five focused unit tests, all must-taste script compilation, and `git diff --check`.
