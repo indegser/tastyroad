@@ -171,6 +171,28 @@ def load_scope_video_ids(report_path: Path | None) -> list[str]:
     return sorted({str(video_id) for video_id in video_ids if video_id})
 
 
+def select_release_restaurant_ids(sqlite_path: Path, video_ids: list[str]) -> list[int]:
+    path = repo_path(sqlite_path)
+    if not path.exists() or not video_ids:
+        return []
+    placeholders = ",".join("?" for _ in video_ids)
+    with sqlite3.connect(path) as connection:
+        rows = connection.execute(
+            f"""
+            select distinct m.restaurant_id
+            from youtube_video_restaurants m
+            join youtube_videos v on v.id = m.youtube_video_id
+            join restaurants r on r.id = m.restaurant_id
+            where v.video_id in ({placeholders})
+              and m.status in ('verified', 'metadata_verified')
+              and trim(r.naver_map_id) != ''
+            order by m.restaurant_id
+            """,
+            video_ids,
+        ).fetchall()
+    return [int(row[0]) for row in rows]
+
+
 def gate_status(sqlite_path: Path, new_video_ids: list[str]) -> dict[str, Any]:
     path = repo_path(sqlite_path)
     if not path.exists():
@@ -387,15 +409,18 @@ def main() -> int:
 
     if not args.skip_map:
         for source in scoped_sources:
+            source_video_ids = sorted(new_ids_by_source[source.key])
+            command = [
+                sys.executable,
+                str(MAP_BACKLOG_SCRIPT),
+                "--source",
+                source.name,
+            ]
+            command.extend(f"--video-id={video_id}" for video_id in source_video_ids)
             commands.append(
                 run_command(
                     f"map:process-backlog:{source.key}",
-                    [
-                        sys.executable,
-                        str(MAP_BACKLOG_SCRIPT),
-                        "--source",
-                        source.name,
-                    ],
+                    command,
                     dry_run=args.dry_run,
                 )
             )
@@ -404,20 +429,23 @@ def main() -> int:
         for source in scoped_sources:
             output = Path("data/work/regular_source_automation") / f"{source.key}_resolved_places.json"
             unresolved = Path("data/work/regular_source_automation") / f"{source.key}_unresolved_places.json"
+            source_video_ids = sorted(new_ids_by_source[source.key])
+            command = [
+                sys.executable,
+                str(NAVER_RESOLVE_SCRIPT),
+                "--source",
+                source.name,
+                "--output",
+                str(output),
+                "--unresolved-output",
+                str(unresolved),
+                "--all-candidates",
+            ]
+            command.extend(f"--video-id={video_id}" for video_id in source_video_ids)
             commands.append(
                 run_command(
                     f"map:resolve-naver:{source.key}",
-                    [
-                        sys.executable,
-                        str(NAVER_RESOLVE_SCRIPT),
-                        "--source",
-                        source.name,
-                        "--output",
-                        str(output),
-                        "--unresolved-output",
-                        str(unresolved),
-                        "--all-candidates",
-                    ],
+                    command,
                     dry_run=args.dry_run,
                 )
             )
@@ -454,6 +482,10 @@ def main() -> int:
 
     failed_commands = [command_payload(result) for result in commands if result.returncode != 0]
     gates = gate_status(args.sqlite, release_scope_video_ids)
+    release_scope_restaurant_ids = select_release_restaurant_ids(
+        args.sqlite,
+        release_scope_video_ids,
+    )
     if failed_commands:
         gates.setdefault("blockers", [])
         gates.setdefault("warnings", [])
@@ -487,6 +519,7 @@ def main() -> int:
         "new_video_count": None if args.dry_run else len(new_videos),
         "new_videos": new_videos,
         "release_scope_video_ids": release_scope_video_ids,
+        "release_scope_restaurant_ids": release_scope_restaurant_ids,
         "commands": [command_payload(result) for result in commands],
         "gates": gates,
         "work_queues": work_queues(gates),

@@ -701,6 +701,7 @@ def process_backlog(
     dry_run: bool = False,
     enrich_missing_metadata: bool = True,
     source: str = "",
+    video_ids: list[str] | None = None,
 ) -> dict[str, int]:
     now = datetime.now(timezone.utc).isoformat()
     counts = {
@@ -716,8 +717,18 @@ def process_backlog(
     with sqlite3.connect(connection_target, uri=dry_run) as connection:
         if not dry_run:
             ensure_pipeline_schema(connection)
+        filters = [
+            "v.mapping_status != 'mapping_verified'",
+            "(? = '' or v.source = ?)",
+        ]
+        params: list[Any] = [source, source]
+        scoped_video_ids = sorted(set(video_ids or []))
+        if scoped_video_ids:
+            placeholders = ",".join("?" for _ in scoped_video_ids)
+            filters.append(f"v.video_id in ({placeholders})")
+            params.extend(scoped_video_ids)
         rows = connection.execute(
-            """
+            f"""
             select
               v.youtube_video_id,
               v.video_id,
@@ -728,11 +739,10 @@ def process_backlog(
               c.description
             from video_pipeline_status v
             join youtube_videos c on c.id = v.youtube_video_id
-            where v.mapping_status != 'mapping_verified'
-              and (? = '' or v.source = ?)
+            where {' and '.join(filters)}
             order by v.published_at desc, v.youtube_video_id desc
             """,
-            (source, source),
+            params,
         ).fetchall()
 
         for youtube_video_id, video_id, title, video_url, review_status, _mapping_status, description in rows:
@@ -808,6 +818,12 @@ def main() -> int:
         default="",
         help="Limit processing to one source display name, for example 김사원세끼.",
     )
+    parser.add_argument(
+        "--video-id",
+        action="append",
+        default=[],
+        help="Limit processing to this YouTube video ID. Repeatable.",
+    )
     args = parser.parse_args()
 
     counts = process_backlog(
@@ -815,6 +831,7 @@ def main() -> int:
         dry_run=args.dry_run,
         enrich_missing_metadata=not args.skip_enrich_missing_metadata,
         source=args.source,
+        video_ids=args.video_id,
     )
     for key, value in counts.items():
         print(f"{key}: {value}")

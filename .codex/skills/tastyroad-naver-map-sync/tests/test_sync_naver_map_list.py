@@ -5,6 +5,7 @@ import sys
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
 
 SCRIPT_PATH = (
@@ -67,6 +68,29 @@ class SyncNaverMapListTests(unittest.TestCase):
 
             sync.clear_failure(path, 10)
             self.assertEqual(sync.load_failure_ids(path), set())
+
+    def test_load_places_limits_results_to_requested_restaurant_ids(self) -> None:
+        connection = mock.MagicMock()
+        connection.__enter__.return_value = connection
+        connection.execute.return_value.fetchall.return_value = [
+            (10, "대상", "https://map.naver.com/p/entry/place/10"),
+            (11, "과거", "https://map.naver.com/p/entry/place/11"),
+        ]
+        with mock.patch.object(sync.sqlite3, "connect", return_value=connection):
+            places = sync.load_places(set(), restaurant_ids={10})
+
+        self.assertEqual([place.id for place in places], [10])
+
+    def test_load_places_returns_empty_when_requested_id_is_already_synced(self) -> None:
+        connection = mock.MagicMock()
+        connection.__enter__.return_value = connection
+        connection.execute.return_value.fetchall.return_value = [
+            (10, "대상", "https://map.naver.com/p/entry/place/10"),
+        ]
+        with mock.patch.object(sync.sqlite3, "connect", return_value=connection):
+            places = sync.load_places({10}, restaurant_ids={10})
+
+        self.assertEqual(places, [])
 
 
 if __name__ == "__main__":

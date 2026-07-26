@@ -55,7 +55,7 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/resolve_youtube_
 
 Use `data/tastyroad.sqlite` as the authoritative local DB. Collected videos live in `youtube_videos`; restaurant mappings live separately in `youtube_video_restaurants`. `data/raw/youtube/<source_key>.json` mirrors the latest collection output for that source.
 
-Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`. Reuse skips complete enriched rows, but rows missing detail fields such as `published_at` or `duration_seconds` remain retryable.
+Use `--workers 4` as a conservative default. Increase only when YouTube requests are stable; high worker counts can increase rate-limit failures. `--missing-only` is accepted as an alias for `--reuse-existing`. Reuse skips complete enriched rows, but rows missing detail fields such as `published_at` or `duration_seconds` remain retryable. Reused rows preserve their original `collected_at`, so a routine refresh does not rewrite raw snapshots only because collection ran again.
 
 For transcript download/storage, use `$tastyroad-youtube-transcript-ingest`. For restaurant mapping status, Naver place ID verification, or `mapping_pending` / `needs_review` work, use `$tastyroad-map-video-restaurants`.
 

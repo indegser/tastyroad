@@ -100,6 +100,16 @@ python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
   --chunk-size 25
 ```
 
+For a release-scoped sync, pass each verified restaurant ID from the release
+report. The runner applies sync-state, exclude-state, and failure-log skips before
+opening Edge, so a fully recorded release scope exits as a no-op:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
+  --restaurant-id=123 \
+  --restaurant-id=456
+```
+
 When one saved list reaches Naver Map's 1,000-place limit, keep each list's
 state separate and exclude IDs recorded for earlier lists:
 

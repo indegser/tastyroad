@@ -86,6 +86,9 @@ python3 .codex/skills/tastyroad-map-video-restaurants/scripts/process_pipeline_b
 python3 .codex/skills/tastyroad-map-video-restaurants/scripts/process_pipeline_backlog.py
 ```
 
+Use repeatable `--video-id=<id>` arguments for daily or release-scoped work so
+historical unresolved rows from the same source are not refreshed again.
+
 `--dry-run` is read-only and does not resolve `naver.me` links. The write mode may create `needs_review` search candidates. Search URLs are not verified restaurant mappings.
 
 Metadata candidate generation is insufficient for broadcast clips whose descriptions omit restaurant names. For those rows, use the web search candidate discovery flow above and keep review artifacts before creating the final verified places file.

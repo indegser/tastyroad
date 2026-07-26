@@ -114,7 +114,11 @@ order by ranked_mentions.name asc, ranked_mentions.id asc
 """
 
 
-def load_places(skip_ids: set[int], source_name: Optional[str] = None) -> list[Place]:
+def load_places(
+    skip_ids: set[int],
+    source_name: Optional[str] = None,
+    restaurant_ids: set[int] | None = None,
+) -> list[Place]:
     with sqlite3.connect(DB_PATH) as db:
         rows = db.execute(
             PUBLIC_RESTAURANTS_SQL,
@@ -123,6 +127,8 @@ def load_places(skip_ids: set[int], source_name: Optional[str] = None) -> list[P
 
     places = []
     for restaurant_id, name, url in rows:
+        if restaurant_ids is not None and restaurant_id not in restaurant_ids:
+            continue
         if restaurant_id in skip_ids:
             continue
         if not url or not (
@@ -487,6 +493,13 @@ def parse_args() -> argparse.Namespace:
         help="Only process restaurants mapped to this exact sources.name value.",
     )
     parser.add_argument(
+        "--restaurant-id",
+        type=int,
+        action="append",
+        default=[],
+        help="Only process this restaurant ID. Repeatable.",
+    )
+    parser.add_argument(
         "--sync-state",
         type=Path,
         default=SYNC_STATE_PATH,
@@ -578,15 +591,25 @@ def main() -> int:
     if not args.retry_failures:
         skip_ids.update(load_failure_ids(args.failure_log))
 
-    places = load_places(skip_ids, source_name=args.source_name)
+    requested_restaurant_ids = set(args.restaurant_id) if args.restaurant_id else None
+    places = load_places(
+        skip_ids,
+        source_name=args.source_name,
+        restaurant_ids=requested_restaurant_ids,
+    )
     if args.limit is not None:
         places = places[: args.limit]
     if args.chunk_size is not None:
         places = places[: args.chunk_size]
 
     source_scope = args.source_name or "all"
+    restaurant_scope = (
+        ",".join(str(restaurant_id) for restaurant_id in sorted(requested_restaurant_ids))
+        if requested_restaurant_ids is not None
+        else "all"
+    )
     print(
-        f"target_list={args.list_name} source={source_scope} "
+        f"target_list={args.list_name} source={source_scope} restaurants={restaurant_scope} "
         f"places={len(places)} attempts={args.attempts} control=playwright"
     )
     if not places:
@@ -596,6 +619,7 @@ def main() -> int:
                 "status": "complete",
                 "target_list": args.list_name,
                 "source": source_scope,
+                "restaurant_ids": sorted(requested_restaurant_ids or []),
                 "planned": 0,
                 "saved": 0,
                 "already": 0,
@@ -724,6 +748,7 @@ def main() -> int:
         "status": status,
         "target_list": args.list_name,
         "source": source_scope,
+        "restaurant_ids": sorted(requested_restaurant_ids or []),
         "planned": len(places),
         "processed": processed,
         "saved": saved,

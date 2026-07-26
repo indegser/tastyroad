@@ -329,7 +329,11 @@ def make_candidate_from_yt_dlp_item(
         tags=extract_string_list(item.get("tags"), fallback.tags if fallback else []),
         chapters=extract_chapters(item.get("chapters"), fallback.chapters if fallback else []),
         restaurant_name_candidates=restaurant_name_candidates,
-        collected_at=collected_at,
+        collected_at=(
+            fallback.collected_at
+            if fallback and fallback.collected_at
+            else collected_at
+        ),
     )
 
 
@@ -417,7 +421,7 @@ def merge_candidate_with_existing(
             existing_candidate.restaurant_name_candidates
             or candidate.restaurant_name_candidates
         ),
-        collected_at=collected_at,
+        collected_at=existing_candidate.collected_at or collected_at,
     )
 
 

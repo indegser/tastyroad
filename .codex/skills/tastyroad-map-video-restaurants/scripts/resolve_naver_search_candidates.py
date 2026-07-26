@@ -120,7 +120,13 @@ def infer_region(address: str) -> str:
     return " ".join(parts[:2]) if len(parts) >= 2 else (parts[0] if parts else "")
 
 
-def load_candidates(sqlite_path: Path, source: str, missing_only: bool, limit: int | None) -> list[Candidate]:
+def load_candidates(
+    sqlite_path: Path,
+    source: str,
+    missing_only: bool,
+    limit: int | None,
+    video_ids: list[str] | None = None,
+) -> list[Candidate]:
     filters = [
         "s.name = ?",
         "p.status = 'needs_review'",
@@ -128,6 +134,11 @@ def load_candidates(sqlite_path: Path, source: str, missing_only: bool, limit: i
         "trim(p.result_address) != ''",
     ]
     params: list[Any] = [source]
+    scoped_video_ids = sorted(set(video_ids or []))
+    if scoped_video_ids:
+        placeholders = ",".join("?" for _ in scoped_video_ids)
+        filters.append(f"v.video_id in ({placeholders})")
+        params.extend(scoped_video_ids)
     if missing_only:
         filters.extend(
             [
@@ -441,6 +452,12 @@ def main() -> int:
     parser.add_argument("--output", type=Path, default=DEFAULT_OUTPUT)
     parser.add_argument("--unresolved-output", type=Path, default=DEFAULT_UNRESOLVED)
     parser.add_argument("--limit", type=int)
+    parser.add_argument(
+        "--video-id",
+        action="append",
+        default=[],
+        help="Limit processing to this YouTube video ID. Repeatable.",
+    )
     parser.add_argument("--delay-seconds", type=float, default=0.08)
     parser.add_argument(
         "--all-candidates",
@@ -457,6 +474,7 @@ def main() -> int:
             args.source,
             missing_only=not args.all_candidates,
             limit=args.limit,
+            video_ids=args.video_id,
         )
     )
     resolved: list[dict[str, Any]] = []

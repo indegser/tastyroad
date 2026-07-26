@@ -31,6 +31,33 @@ Target: production `main`
 - Distinct channels and page numbers retained independent totals, page values, and first
   restaurant IDs, confirming query-specific cache separation.
 
+## Current Task - 2026-07-26 - Scope regular automation work
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/automation-scope-optimizations`
+Branch: `codex/automation-scope-optimizations`
+
+- [x] Read repository guidance, lessons, automation memory, and owning skill.
+- [x] Limit mapping backlog processing to release-scope video IDs.
+- [x] Limit Naver Map sync to release-scope restaurant IDs and no-op when already synced.
+- [x] Preserve `collected_at` for unchanged reused YouTube candidates.
+- [x] Add focused tests and run narrow verification.
+- [x] Record final behavior and verification results.
+
+### Review
+
+- The regular runner now passes each newly discovered video ID to both metadata
+  backlog processing and Naver candidate resolution.
+- Final scoped reports expose `release_scope_restaurant_ids`; Naver sync accepts
+  repeatable `--restaurant-id` arguments and exits before Edge when all requested
+  IDs are already covered by sync/exclude/failure state.
+- Reused RSS and flat-playlist candidates preserve their original `collected_at`,
+  eliminating timestamp-only raw JSON and SQLite updates.
+- Verification passed: 13 focused tests, Python compilation, `git diff --check`,
+  scoped mapping smoke checks, and a real no-browser Naver no-op for restaurant 463.
+- The Codex automation update API was unavailable (`No handler registered`), so
+  the active automation prompt was not changed before these code changes are
+  integrated into `main`.
+
 ## Current Task - 2026-07-26 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`

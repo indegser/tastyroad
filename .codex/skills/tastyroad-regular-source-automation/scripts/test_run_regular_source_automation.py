@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import importlib.util
 import json
+import sqlite3
 import sys
 import tempfile
 import unittest
@@ -64,6 +65,33 @@ class RegularSourceAutomationTests(unittest.TestCase):
         self.assertEqual([item["video_id"] for item in queues["map_verification"]], ["map-video"])
         self.assertEqual([item["video_id"] for item in queues["transcript_ingest"]], ["transcript-video"])
         self.assertEqual([item["video_id"] for item in queues["must_taste_validation"]], ["taste-video"])
+
+    def test_release_restaurant_ids_are_limited_to_verified_scoped_videos(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            sqlite_path = Path(directory) / "test.sqlite"
+            with sqlite3.connect(sqlite_path) as connection:
+                connection.executescript(
+                    """
+                    create table youtube_videos (id integer primary key, video_id text);
+                    create table restaurants (id integer primary key, naver_map_id text);
+                    create table youtube_video_restaurants (
+                      restaurant_id integer,
+                      youtube_video_id integer,
+                      status text
+                    );
+                    insert into youtube_videos values (1, 'scoped'), (2, 'legacy');
+                    insert into restaurants values (10, '123'), (11, '456'), (12, '');
+                    insert into youtube_video_restaurants values
+                      (10, 1, 'verified'),
+                      (11, 2, 'verified'),
+                      (12, 1, 'verified');
+                    """
+                )
+
+            self.assertEqual(
+                RUNNER.select_release_restaurant_ids(sqlite_path, ["scoped"]),
+                [10],
+            )
 
 
 if __name__ == "__main__":

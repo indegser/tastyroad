@@ -52,7 +52,7 @@ Immediately before push and deployment, repeat the Vercel integration check and 
 
 Follow `$tastyroad-site-release` completely: commit intended changes, integrate them into production main, push main through GitHub, wait for the matching Vercel deployment to reach READY, and verify the production API.
 
-After the production API verification succeeds, sync newly published verified public restaurants into Naver Map. Use `$tastyroad-naver-map-sync` and require the logged-in Microsoft Edge CDP session. Because the primary private `Tastyroad` list previously reached the 1,000-place limit, target the second private list by default with: `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --list-name "Tastyroad 2" --sync-state data/naver_map_list_synced_ids_2.json --exclude-state data/naver_map_list_synced_ids.json --chunk-size 25`.
+After the production API verification succeeds, sync newly published verified public restaurants into Naver Map. Use `$tastyroad-naver-map-sync` and require the logged-in Microsoft Edge CDP session. Read `release_scope_restaurant_ids` from the final scoped report and append one `--restaurant-id=<id>` argument for each ID. Because the primary private `Tastyroad` list previously reached the 1,000-place limit, target the second private list by default with: `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --list-name "Tastyroad 2" --sync-state data/naver_map_list_synced_ids_2.json --exclude-state data/naver_map_list_synced_ids.json --chunk-size 25 --restaurant-id=<id>`. The command exits before opening Edge when every scoped ID is already present in either sync state.
 
 The sync script skips already recorded IDs; run it even when only one new restaurant was published. If Edge/CDP is unavailable, the Naver login marker is missing, the list cannot be verified as private, Naver refuses more saves, or the sync/audit fails, report the exact Naver Map blocker as a post-release warning and preserve the worktree. Do not claim Naver Map was updated unless the script/audit confirms the newly synced IDs. When Naver sync succeeds and changes only `data/naver_map_list_synced_ids*.json`, commit and push that sync-state update after the production deployment.
 
@@ -98,7 +98,7 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 ```
 
 6. When the scoped report says `deploy_ready: true`, run `pnpm run build` and follow `$tastyroad-site-release`; transcript failures or validator-confirmed insufficient taste evidence can remain as follow-up warnings.
-7. After the production deployment reaches `READY` and the production API returns HTTP 200 with an `items` array, follow `$tastyroad-naver-map-sync` to add newly verified public restaurants to the private Naver Map saved list. Use `Tastyroad 2` with `data/naver_map_list_synced_ids_2.json` and `--exclude-state data/naver_map_list_synced_ids.json` unless the user has explicitly changed the list partitioning.
+7. After the production deployment reaches `READY` and the production API returns HTTP 200 with an `items` array, follow `$tastyroad-naver-map-sync` to add the final report's `release_scope_restaurant_ids` to the private Naver Map saved list. Pass each ID as `--restaurant-id=<id>`. Use `Tastyroad 2` with `data/naver_map_list_synced_ids_2.json` and `--exclude-state data/naver_map_list_synced_ids.json` unless the user has explicitly changed the list partitioning.
 
 ## Rules
 
