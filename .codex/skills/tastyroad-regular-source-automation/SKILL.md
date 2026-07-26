@@ -18,46 +18,29 @@ Prefer a Codex app **standalone project automation** on a dedicated worktree. Do
 
 ## Automation Prompt
 
-Use this durable prompt when creating or updating the Codex app Automation:
+Use a thin bootstrap prompt when creating or updating the Codex app Automation. The repository's
+`scripts/automation_prompt.md` is the durable, versioned runbook. Keeping the Automation prompt
+as a bootstrap prevents it from drifting whenever source collection, transcript, must-taste,
+mapping, release, or Naver sync workflows improve in the repository:
 
 ```text
 Use $tastyroad-regular-source-automation.
-Use $tastyroad-naver-map-sync after the final production release.
 
-Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
-Use a dedicated automation worktree.
+Fetch origin and run from a clean dedicated worktree based on the current origin/main. Preserve and report any unrelated local changes instead of stashing, overwriting, or cleaning them.
 
-Before maintenance, run `vercel integration list tastyroad --scope jaekwon-hans-projects` and require the connected `supabase-aqua-engine` resource to have status `Available`. If it is suspended, unavailable, missing, or the check fails, stop before data mutation, push, or deployment and report the exact external-resource blocker.
+After synchronization, reread AGENTS.md, tasks/lessons.md,
+.codex/skills/tastyroad-regular-source-automation/SKILL.md, and
+.codex/skills/tastyroad-regular-source-automation/scripts/automation_prompt.md
+from that updated checkout. Treat the repository runbook and every owning skill it invokes as
+the authoritative current workflow; they supersede details cached in this Automation prompt.
 
-Always run the non-dry deterministic runner so YouTube is actually queried. Do not use `--dry-run` to decide that there are no new videos: dry-run plans commands but skips collection and therefore reports `new_video_detection.status=not_checked`.
-
-If the actual run reports no new videos, no tracked changes, and empty work queues, archive the run with a short no-op report.
-If new videos exist, collect them, ingest missing transcripts, run deterministic map candidate processing, and process the explicit mapping/transcript/must-taste work queues.
-
-For every queued Naver place mapping, transcript warning, or must-taste warning, use the owning Tastyroad skill:
-- $tastyroad-map-video-restaurants for ambiguous place verification.
-- $tastyroad-youtube-transcript-ingest for transcript fetch warnings.
-- $tastyroad-transcript-must-taste for transcript-grounded menu/reason extraction.
-
-Deploy when every hard publishing gate is clean:
-- no new collected video remains mapping_pending or mapping_partial,
-- every verified public restaurant has a numeric Naver place ID,
-- SQLite integrity_check returns ok,
-- non-transcript maintenance commands did not fail,
-- pnpm run build passes.
-
-Recalculate the original release scope after semantic review with `--scope-report <original-report>`. Do not lose the new-video scope merely because a later run collects zero additional IDs.
-
-Immediately before push and deployment, repeat the Vercel integration check and require `supabase-aqua-engine` status `Available`.
-
-Follow `$tastyroad-site-release` completely: commit intended changes, integrate them into production main, push main through GitHub, wait for the matching Vercel deployment to reach READY, and verify the production API.
-
-After the production API verification succeeds, sync newly published verified public restaurants into Naver Map. Use `$tastyroad-naver-map-sync` and require the logged-in Microsoft Edge CDP session. Read `release_scope_restaurant_ids` from the final scoped report and append one `--restaurant-id=<id>` argument for each ID. Because the primary private `Tastyroad` list previously reached the 1,000-place limit, target the second private list by default with: `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --list-name "Tastyroad 2" --sync-state data/naver_map_list_synced_ids_2.json --exclude-state data/naver_map_list_synced_ids.json --chunk-size 25 --restaurant-id=<id>`. The command exits before opening Edge when every scoped ID is already present in either sync state.
-
-The sync script skips already recorded IDs; run it even when only one new restaurant was published. If Edge/CDP is unavailable, the Naver login marker is missing, the list cannot be verified as private, Naver refuses more saves, or the sync/audit fails, report the exact Naver Map blocker as a post-release warning and preserve the worktree. Do not claim Naver Map was updated unless the script/audit confirms the newly synced IDs. When Naver sync succeeds and changes only `data/naver_map_list_synced_ids*.json`, commit and push that sync-state update after the production deployment.
-
-Do not block release only because transcript ingestion failed or a mapped restaurant-video pair has validator-confirmed insufficient taste evidence. Leave concise Triage warnings with exact source/video IDs, then release verified mapped restaurants so they are visible on the web.
+Execute the complete repository runbook. Record the origin/main commit used. If the checkout
+cannot safely reach current origin/main, stop and report the exact sync blocker before maintenance.
 ```
+
+Do not copy the full current runbook into the Codex Automation configuration. Update the
+versioned repository runbook and owning skills when behavior changes; the next scheduled run
+inherits those improvements after synchronizing to `origin/main`.
 
 Recommended cadence: daily at a stable morning time in Asia/Seoul. Add a weekly or manual full-channel audit run when missed historical uploads are a concern.
 
