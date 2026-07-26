@@ -8,6 +8,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 - Trigger: The user rejected screenshot-driven Naver Map control after a large sync spent most of its time on brittle fallback checks.
   Rule: Control Naver Map saves entirely with Playwright locators scoped to the place iframe and save modal; use screenshots only as final failure evidence, never for checkbox state or coordinate clicks.
+- Trigger: The daily automation referenced the owning must-taste skill but its long cached prompt and stale checkout did not guarantee that a newly merged skill optimization would run.
+  Rule: Keep the Codex Automation prompt as a thin bootstrap; every run must safely synchronize a dedicated worktree to current `origin/main`, then reread the versioned repository runbook and owning skills before acting.
 
 ## 2026-07-11
 

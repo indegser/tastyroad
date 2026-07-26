@@ -1,8 +1,18 @@
 Use $tastyroad-regular-source-automation.
 Use $tastyroad-site-release for the final production release.
+Use $tastyroad-naver-map-sync after production API verification succeeds.
 
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
+
+Before interpreting or running any maintenance step:
+
+1. Fetch `origin`.
+2. Ensure the run checkout is based on the current `origin/main`. Fast-forward a clean dedicated automation worktree, or create a fresh dedicated worktree from `origin/main` when the existing checkout has local changes or cannot fast-forward safely. Never discard, stash, or overwrite unrelated changes.
+3. From that updated checkout, reread `AGENTS.md`, `tasks/lessons.md`, this file, and every owning skill invoked by the current work queues. Repository instructions at `origin/main` are the source of truth and supersede workflow details cached in the Codex Automation prompt.
+4. Record the starting `origin/main` commit in the run report. Stop and report a checkout-sync blocker if the run cannot safely reach that commit.
+
+The Codex Automation configuration should contain only a stable bootstrap that performs the synchronization and then delegates to this repository runbook. Do not duplicate this full runbook into the Automation configuration; future repository workflow improvements must take effect without another manual Automation prompt rewrite.
 
 Before maintenance, run:
 

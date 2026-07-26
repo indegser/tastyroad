@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-26 - Keep daily automation aligned with repository improvements
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/automation-follow-main`
+Branch: `codex/automation-follow-main`
+
+- [x] Inspect the active automation prompt, repository runbook, and dedicated automation checkout.
+- [x] Make the active Automation prompt a stable bootstrap instead of a copied runbook.
+- [x] Require every run to synchronize safely to current `origin/main`.
+- [x] Require fresh reads of the repository runbook and owning skills after synchronization.
+- [x] Update the active automation configuration.
+- [x] Verify the prompt contract and record the result.
+
+### Review
+
+- Replaced active automation `tastyroad-regular-source-maintenance-2`'s copied full runbook with a stable bootstrap that fetches `origin`, uses a clean worktree at current `origin/main`, rereads repository guidance, and delegates to the versioned runbook.
+- The repository runbook now explicitly supersedes cached Automation details and requires the starting `origin/main` commit in each run report.
+- Owning skills are reread after synchronization, so later must-taste, transcript, mapping, release, and Naver sync improvements propagate without manually rewriting the active Automation prompt.
+- Verification passed: six focused automation tests, Python compilation, `git diff --check`, active schedule/status/target preservation, and direct inspection of the rewritten TOML structure.
+
 ## Current Task - 2026-07-26 - Cache restaurant browsing on Vercel CDN
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/restaurant-cdn-cache`
