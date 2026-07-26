@@ -17,8 +17,20 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Use owning skills for mapping review and two verified Baekban restaurant mappings.
 - [x] Recalculate scoped gates after review work when needed.
 - [x] Run release validation checks: SQLite integrity, blank Naver ID check, `git diff --check`, Supabase preflight, and `pnpm run build`.
-- [ ] Release to production, verify API, and sync Naver Map if deploy-ready.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] Release to production, verify API, and sync Naver Map if deploy-ready.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `83961943ba3a3e8f2f192600c34f42105e78733e` in a fresh worktree because `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 3 new videos: `BUemPiRa-xo`, `JEicSm1MRpA`, and `tkDMzerjlvU`.
+- Web-search mapping review left `BUemPiRa-xo` as an accepted no-place warning and mapped `JEicSm1MRpA` to `돈불리제담` plus `tkDMzerjlvU` to `꼬끄더그릴`.
+- Transcript retry succeeded for both Baekban videos after pulling `.env.local`; must-taste dry-runs passed and stored three items for each restaurant.
+- Final scoped gate report `regular_source_automation_20260726T221349Z.json` had `deploy_ready=true`, zero blockers, and one mapping-review warning.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with `items` plus `mustTasteItems`.
+- Production commit `04db7c0d05a42f4e458b05655f85b65e551c0c95` deployed at `https://tastyroad-fc1nsfqpd-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`.
+- Naver Map sync for `Tastyroad 2` planned zero writes because restaurants `1536` and `1537` were already recorded in the excluded original `Tastyroad` sync state.
 
 ## Current Task - 2026-07-26 - Keep daily automation aligned with repository improvements
 
