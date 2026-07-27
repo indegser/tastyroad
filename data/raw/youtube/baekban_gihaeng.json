@@ -6,8 +6,84 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCtQZCFX4trYiFc3d3psq0KA/videos"
   ],
-  "count": 1154,
+  "count": 1158,
   "items": [
+    {
+      "source_key": "baekban_gihaeng",
+      "source": "식객 허영만의 백반기행",
+      "channel_id": "UCtQZCFX4trYiFc3d3psq0KA",
+      "video_id": "7an2KlTEPko",
+      "title": "[#이거땡겨] 황수경을 행복하게 만든 신촌 노포 낙지찜! 탱탱하고 부드러운 식감의 비결은? #백반기행 #TVCHOSUNFOOD (TV CHOSUN 230721 방송)",
+      "url": "https://www.youtube.com/watch?v=7an2KlTEPko",
+      "thumbnail_url": "https://i4.ytimg.com/vi/7an2KlTEPko/hqdefault.jpg",
+      "published_at": "2026-07-27T10:30:35+00:00",
+      "updated_at": "2026-07-27T10:38:42+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "황수경을 행복하게 만든 신촌 노포 낙지찜! 탱탱하고 부드러운 식감의 비결은?"
+      ],
+      "collected_at": "2026-07-27T22:03:41.096647+00:00"
+    },
+    {
+      "source_key": "baekban_gihaeng",
+      "source": "식객 허영만의 백반기행",
+      "channel_id": "UCtQZCFX4trYiFc3d3psq0KA",
+      "video_id": "XZeGC2dMqUk",
+      "title": "[#이거땡겨] 신촌 터줏대감 노포! 홍합탕 무한리필? 허영만을 놀라게 한 가성비 맛집 #백반기행 #TVCHOSUNFOOD (TV CHOSUN 230721 방송)",
+      "url": "https://www.youtube.com/watch?v=XZeGC2dMqUk",
+      "thumbnail_url": "https://i1.ytimg.com/vi/XZeGC2dMqUk/hqdefault.jpg",
+      "published_at": "2026-07-27T10:00:09+00:00",
+      "updated_at": "2026-07-27T10:06:56+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "신촌 터줏대감 노포! 홍합탕 무한리필? 허영만을 놀라게 한 가성비 맛집"
+      ],
+      "collected_at": "2026-07-27T22:03:41.096647+00:00"
+    },
+    {
+      "source_key": "baekban_gihaeng",
+      "source": "식객 허영만의 백반기행",
+      "channel_id": "UCtQZCFX4trYiFc3d3psq0KA",
+      "video_id": "kyB2W5RL1NE",
+      "title": "[#이거땡겨] 정성이 느껴지는 신촌의 고명 가득 연잎 정식! 식객 허영만도 인정! #백반기행 #TVCHOSUNFOOD (TV CHOSUN 230721 방송)",
+      "url": "https://www.youtube.com/watch?v=kyB2W5RL1NE",
+      "thumbnail_url": "https://i4.ytimg.com/vi/kyB2W5RL1NE/hqdefault.jpg",
+      "published_at": "2026-07-27T09:30:19+00:00",
+      "updated_at": "2026-07-27T09:37:34+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "정성이 느껴지는 신촌의 고명 가득 연잎 정식! 식객 허영만도 인정!"
+      ],
+      "collected_at": "2026-07-27T22:03:41.096647+00:00"
+    },
+    {
+      "source_key": "baekban_gihaeng",
+      "source": "식객 허영만의 백반기행",
+      "channel_id": "UCtQZCFX4trYiFc3d3psq0KA",
+      "video_id": "U0on9EkI6BU",
+      "title": "[#이거땡겨] 서대문구 연잎 정식 맛집 반찬만 13종? 황수경 취향 저격! #백반기행 #TVCHOSUNFOOD (TV CHOSUN 230721 방송)",
+      "url": "https://www.youtube.com/watch?v=U0on9EkI6BU",
+      "thumbnail_url": "https://i2.ytimg.com/vi/U0on9EkI6BU/hqdefault.jpg",
+      "published_at": "2026-07-27T09:00:35+00:00",
+      "updated_at": "2026-07-27T12:00:59+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "서대문구 연잎 정식 맛집 반찬만 13종? 황수경 취향 저격!"
+      ],
+      "collected_at": "2026-07-27T22:03:41.096647+00:00"
+    },
     {
       "source_key": "baekban_gihaeng",
       "source": "식객 허영만의 백반기행",
@@ -179,7 +255,7 @@
       "video_id": "W5ZMhw7y-J8",
       "title": "[#이거땡겨] 영조가 보리밥만 고집한 이유! 보리가 소화제였다고? #백반기행 #TVCHOSUNFOOD (TV CHOSUN 260722 방송)",
       "url": "https://www.youtube.com/watch?v=W5ZMhw7y-J8",
-      "thumbnail_url": "https://i.ytimg.com/vi_webp/W5ZMhw7y-J8/maxresdefault.webp",
+      "thumbnail_url": "https://i4.ytimg.com/vi/W5ZMhw7y-J8/hqdefault.jpg",
       "published_at": "2026-07-24T06:00:24+00:00",
       "updated_at": "2026-07-24T07:56:14+00:00",
       "description": "보리가 소화제인 거 \n다들 알았나요?\n\n#왕을무얼자셨는가 #지예은 #신기루 #양상국 #먹방 #역사\n\n🍚뭐 먹을지 고민될 때, TV CHOSUN FOOD🥄\nTV CHOSUN FOOD 구독하기 ☞ https://www.youtube.com/@tvchosunfood\nTV CHOSUN : https://www.youtube.com/user/TVchosun",

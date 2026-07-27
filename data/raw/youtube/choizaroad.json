@@ -15,8 +15,27 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 177,
+  "count": 178,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "Y2KQPixDCtI",
+      "title": "오승환이랑 동거하다가 요리 시작한 김용무",
+      "url": "https://www.youtube.com/watch?v=Y2KQPixDCtI",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/Y2KQPixDCtI/maxresdefault.webp",
+      "published_at": "2026-07-27T09:00:01+00:00",
+      "updated_at": "2026-07-27T09:08:10+00:00",
+      "description": "",
+      "duration_seconds": 64,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "오승환이랑 동거하다가 요리 시작한 김용무"
+      ],
+      "collected_at": "2026-07-27T22:03:03.748640+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
@@ -26,7 +45,7 @@
       "url": "https://www.youtube.com/shorts/BUemPiRa-xo",
       "thumbnail_url": "https://i3.ytimg.com/vi/BUemPiRa-xo/hqdefault.jpg",
       "published_at": "2026-07-26T15:12:24+00:00",
-      "updated_at": "2026-07-26T17:22:19+00:00",
+      "updated_at": "2026-07-27T07:38:31+00:00",
       "description": "",
       "duration_seconds": null,
       "tags": [],
