@@ -16,8 +16,21 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `51fa9881b8aa9b6160a217749d65bc5dd9442dda` in a fresh worktree because `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 5 new videos: `Y2KQPixDCtI`, `U0on9EkI6BU`, `kyB2W5RL1NE`, `XZeGC2dMqUk`, and `7an2KlTEPko`.
+- Web-search mapping review promoted four Baekban clips to existing verified restaurants: `이로운밥상` (`1557`) and `아저씨네낙지찜` (`744`); `Y2KQPixDCtI` was recorded as reviewed non-restaurant/no safe place match.
+- Transcript retry stored Korean Supabase Storage captions for `U0on9EkI6BU`, `kyB2W5RL1NE`, and `7an2KlTEPko`; `XZeGC2dMqUk` remained a concrete 429 transcript warning.
+- Must-taste validation dry-runs passed and stored six items: `연근 유자무침`, `부추전`, `표고버섯 엿장조림`, `연잎밥`, `낙지찜`, and `볶음밥`.
+- Final scoped gate report `regular_source_automation_20260727T221700Z.json` had `deploy_ready=true`, zero blockers, and one non-blocking transcript warning.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `d41c5ee4d9bba9523c2999880626c8bc6d9b2c61` deployed at `https://tastyroad-65h7e5o4f-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`.
+- Naver Map sync for `Tastyroad 2` planned zero writes because release restaurants `744` and `1557` were already covered by existing sync/exclude state.
 
 ## Current Task - 2026-07-27 - Regular source maintenance run
 
