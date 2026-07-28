@@ -16,8 +16,22 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `a6d2dd12ab63993726ed52effeb0307d2107dc5e` in a fresh worktree because `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 4 new videos: `d3wjoCC2TCM`, `9zE0r8zga5A`, `KAOE_jCSXO8`, and `fhMpyrTDROE`.
+- Mapping review verified 6 release-scope restaurants: `장안곱창` (`2134`), `만원의 행복` (`2135`), `두꺼비식당` (`2136`), `우리소가든` (`2137`), `연화37` (`2138`), and existing `신촌고기창고` (`1558`).
+- Transcript retry stored captions for `d3wjoCC2TCM`, `9zE0r8zga5A`, and `fhMpyrTDROE`; `KAOE_jCSXO8` remained a concrete YouTube 429 transcript warning after retry.
+- Must-taste dry-runs passed and stored 7 items: `수구레전골`, `두부조림`, `수구레무침`, `생맥주`, `크림치즈 프레즐`, `왕노가리`, and `뼈삼겹살`.
+- The 3 `9zE0r8zga5A` restaurant pairs were validator-confirmed insufficient evidence because the Shorts names places but has no ordering or tasting segments.
+- Final scoped gate report `regular_source_automation_20260728T221912Z.json` had `deploy_ready=true`, zero blockers, and four non-blocking warnings.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `f413f0e4029d81bbb52d6f8574830ca182a53c3f` deployed at `https://tastyroad-2yr91y5bj-jaekwon-hans-projects.vercel.app`; Naver sync state commit `c3cce04f10722eb7b61b712887876a0c1cb404ee` deployed at `https://tastyroad-bb01todb1-jaekwon-hans-projects.vercel.app`.
+- Naver Map sync for `Tastyroad 2` completed with `saved=1`, `already=4`, `failed=0`, `remaining=0`, and synced count `642`; `1558` was already covered by the original list exclude state.
 
 ## Current Task - 2026-07-28 - Regular source maintenance run
 
