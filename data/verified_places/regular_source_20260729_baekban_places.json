@@ -1,0 +1,42 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-07-29",
+  "items": [
+    {
+      "video_id": "KAOE_jCSXO8",
+      "resolved_name": "신촌고기창고",
+      "display_name": "신촌고기창고",
+      "local_name": "신촌고기창고",
+      "country_code": "KR",
+      "region": "서울 서대문구",
+      "address": "서울 서대문구 연세로7길 34-4",
+      "phone": "0507-1383-9091",
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "11590700",
+      "map_url": "https://map.naver.com/p/entry/place/11590700?placePath=%2Fhome",
+      "evidence_url": "https://mokeya.tistory.com/452",
+      "confidence": 0.94,
+      "status": "verified",
+      "notes": "Episode 208 황수경 서대문구 신촌 골목 고기 노포 뼈삼겹살 clip matches the existing verified 신촌고기창고 row."
+    },
+    {
+      "video_id": "fhMpyrTDROE",
+      "resolved_name": "신촌고기창고",
+      "display_name": "신촌고기창고",
+      "local_name": "신촌고기창고",
+      "country_code": "KR",
+      "region": "서울 서대문구",
+      "address": "서울 서대문구 연세로7길 34-4",
+      "phone": "0507-1383-9091",
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "11590700",
+      "map_url": "https://map.naver.com/p/entry/place/11590700?placePath=%2Fhome",
+      "evidence_url": "https://mokeya.tistory.com/452",
+      "confidence": 0.94,
+      "status": "verified",
+      "notes": "Transcript and title identify the 2-minute timer bone-pork-belly segment from episode 208, matching existing verified restaurant 신촌고기창고."
+    }
+  ]
+}

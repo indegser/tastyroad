@@ -1,0 +1,60 @@
+{
+  "source": "최자로드",
+  "verified_at": "2026-07-29",
+  "items": [
+    {
+      "video_id": "9zE0r8zga5A",
+      "resolved_name": "두꺼비식당",
+      "display_name": "두꺼비식당",
+      "local_name": "두꺼비식당",
+      "country_code": "KR",
+      "region": "대구 수성구",
+      "address": "대구광역시 수성구 범어천로 14 1층",
+      "phone": "053-761-5609",
+      "category": "육류,고기요리",
+      "map_provider": "naver_map",
+      "naver_map_id": "38368085",
+      "map_url": "https://map.naver.com/p/entry/place/38368085?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EB%91%90%EA%BA%BC%EB%B9%84%EC%8B%9D%EB%8B%B9+%EB%8C%80%EA%B5%AC+%EC%88%98%EC%84%B1%EA%B5%AC+%EB%B2%94%EC%96%B4%EC%B2%9C%EB%A1%9C+14",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `두꺼비식당` from video metadata; match score 95."
+    },
+    {
+      "video_id": "9zE0r8zga5A",
+      "resolved_name": "우리소가든",
+      "display_name": "우리소가든",
+      "local_name": "우리소가든",
+      "country_code": "KR",
+      "region": "대구 수성구",
+      "address": "대구광역시 수성구 청수로 91-6",
+      "phone": "053-764-8002",
+      "category": "한식",
+      "map_provider": "naver_map",
+      "naver_map_id": "16150976",
+      "map_url": "https://map.naver.com/p/entry/place/16150976?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EC%9A%B0%EB%A6%AC%EC%86%8C%EA%B0%80%EB%93%A0+%EB%8C%80%EA%B5%AC+%EC%88%98%EC%84%B1%EA%B5%AC+%EC%B2%AD%EC%88%98%EB%A1%9C+91-6",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `우리소가든` from video metadata; match score 95."
+    },
+    {
+      "video_id": "9zE0r8zga5A",
+      "resolved_name": "연화37",
+      "display_name": "연화37",
+      "local_name": "연화37",
+      "country_code": "KR",
+      "region": "대구 수성구",
+      "address": "대구광역시 수성구 동대구로 130 1층 연화37 (50대 전용주차 가능)",
+      "phone": "0507-1330-7347",
+      "category": "소고기구이",
+      "map_provider": "naver_map",
+      "naver_map_id": "1471922834",
+      "map_url": "https://map.naver.com/p/entry/place/1471922834?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EC%97%B0%ED%99%9437",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `연화37` from video metadata; match score 95."
+    }
+  ]
+}
