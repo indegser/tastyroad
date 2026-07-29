@@ -16,8 +16,8 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
 
 ### Review
 
@@ -30,6 +30,8 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - Must-taste dry-runs passed and stored 4 items: `떡볶이`, `물회`, `감자떡`, and `방건조 열기`.
 - Final scoped gate report `regular_source_automation_20260729T221627Z.json` had `deploy_ready=true`, zero blockers, and four non-blocking warnings.
 - Verification so far: SQLite integrity `ok`, blank public Naver ID count `0`, no failed non-transcript commands, `git diff --check`, and `pnpm run build` passed.
+- Production data commit `f88a23bf79aa1615bedf1a9e0a38b33ea73d2642` deployed at `https://tastyroad-f1kei2bfp-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`; production API returned HTTP 200 with an `items` array.
+- Naver Map sync for `Tastyroad 2` completed with `saved=1`, `failed=0`, `remaining=0`, and synced count `643`; release restaurants `1447`, `1927`, and `2139` are recorded in `data/naver_map_list_synced_ids_2.json`.
 
 ## Current Task - 2026-07-29 - Regular source maintenance run
 
