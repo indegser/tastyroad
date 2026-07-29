@@ -2,6 +2,35 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-07-30 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260730`
+Branch: `codex/regular-source-maintenance-20260730`
+Starting `origin/main`: `c424d88b512c995aad838e50ba11cc7dd9556818`
+Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` (`tasks/todo.md` modified, branch ahead 24)
+
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and the repository automation prompt.
+- [x] Run the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic source maintenance runner.
+- [x] Read the latest report and any work queues.
+- [x] Use owning skills for mapping, transcript, or must-taste queues if present.
+- [x] Recalculate scoped gates after review work when needed.
+- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [ ] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `c424d88b512c995aad838e50ba11cc7dd9556818` in a fresh worktree because `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 6 new videos: `JytO5EGNTAg`, `L9Pgo7k71y0`, `HOgM9-3nTpQ`, `bY1dyJsIMqQ`, `kfY8YqhasWs`, and `SFjAqjwq2mY`.
+- Web-search mapping review promoted three restaurant mappings: `진이네떡볶이` (`1927`), `경기돌섬횟집` (`1447`), and new `딸부자막국수` (`2139`).
+- Mapping warnings remain for `L9Pgo7k71y0`, `SFjAqjwq2mY`, and `kfY8YqhasWs` after concrete review found no safe numeric Naver place match.
+- Transcript retry stored captions for `HOgM9-3nTpQ` and `JytO5EGNTAg`; `bY1dyJsIMqQ` remained a concrete YouTube 429 transcript warning.
+- Must-taste dry-runs passed and stored 4 items: `떡볶이`, `물회`, `감자떡`, and `방건조 열기`.
+- Final scoped gate report `regular_source_automation_20260729T221627Z.json` had `deploy_ready=true`, zero blockers, and four non-blocking warnings.
+- Verification so far: SQLite integrity `ok`, blank public Naver ID count `0`, no failed non-transcript commands, `git diff --check`, and `pnpm run build` passed.
+
 ## Current Task - 2026-07-29 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260729`

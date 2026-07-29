@@ -1,0 +1,60 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-07-30",
+  "items": [
+    {
+      "video_id": "JytO5EGNTAg",
+      "resolved_name": "진이네떡볶이",
+      "display_name": "진이네떡볶이",
+      "local_name": "진이네떡볶이",
+      "country_code": "KR",
+      "region": "경기 하남시",
+      "address": "경기도 하남시 미사강변동로 95 12블럭 1047-1호",
+      "phone": "0507-1339-2107",
+      "category": "떡볶이",
+      "map_provider": "naver_map",
+      "naver_map_id": "2093026784",
+      "map_url": "https://map.naver.com/p/entry/place/2093026784?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EC%A7%84%EC%9D%B4%EB%84%A4%EB%96%A1%EB%B3%B6%EC%9D%B4",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `진이네떡볶이` from video metadata; match score 95."
+    },
+    {
+      "video_id": "HOgM9-3nTpQ",
+      "resolved_name": "경기돌섬횟집",
+      "display_name": "경기돌섬횟집",
+      "local_name": "경기돌섬횟집",
+      "country_code": "KR",
+      "region": "강원 동해시",
+      "address": "강원특별자치도 동해시 일출로 161",
+      "phone": "033-535-6865",
+      "category": "생선회",
+      "map_provider": "naver_map",
+      "naver_map_id": "1913496206",
+      "map_url": "https://map.naver.com/p/entry/place/1913496206?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EA%B2%BD%EA%B8%B0%EB%8F%8C%EC%84%AC%ED%9A%9F%EC%A7%91+%EA%B0%95%EC%9B%90%ED%8A%B9%EB%B3%84%EC%9E%90%EC%B9%98%EB%8F%84+%EB%8F%99%ED%95%B4%EC%8B%9C+%EC%9D%BC%EC%B6%9C%EB%A1%9C+161",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `경기돌섬횟집` from video metadata; match score 95."
+    },
+    {
+      "video_id": "bY1dyJsIMqQ",
+      "resolved_name": "딸부자막국수",
+      "display_name": "딸부자막국수",
+      "local_name": "딸부자막국수",
+      "country_code": "KR",
+      "region": "강원 동해시",
+      "address": "강원특별자치도 동해시 동해대로 4766",
+      "phone": "033-521-1453",
+      "category": "막국수",
+      "map_provider": "naver_map",
+      "naver_map_id": "15428632",
+      "map_url": "https://map.naver.com/p/entry/place/15428632?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EB%94%B8%EB%B6%80%EC%9E%90%EB%A7%89%EA%B5%AD%EC%88%98+%EA%B0%95%EC%9B%90+%EB%8F%99%ED%95%B4%EC%8B%9C+%EB%8F%99%ED%95%B4%EB%8C%80%EB%A1%9C+4766",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `딸부자막국수` from video metadata; match score 95."
+    }
+  ]
+}
