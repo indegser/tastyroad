@@ -16,8 +16,23 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `8e16f0ec5ec295b3faeae0cd79e1ca29fff40179` in a fresh worktree because `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 7 new videos: `JT_90k23UMU`, `BqBHWiw7nl4`, `BAt6_9dQjQM`, `QVIlBz4agtc`, `8FtDYze3oUg`, `34W3xZANOoI`, and `btaRTZeiYqg`.
+- Mapping review promoted 5 release-scope restaurants: new `홍복` (`2142`), new `송돝` (`2143`), existing `명화식당` (`1664`), existing `바다식당` (`1665`), and corrected new `만복분식` (`2145`).
+- Removed the initially promoted wrong `경남횟집` mapping for `8FtDYze3oUg` after transcript review showed the clip is the 인천 분식 segment, then promoted `만복분식` instead.
+- Recorded non-blocking no-safe-match mapping warnings for `BAt6_9dQjQM` and `QVIlBz4agtc`; `QVIlBz4agtc` points to a Tokyo place outside the current Korean Naver publish scope.
+- Transcript retry stored captions for `JT_90k23UMU`, `8FtDYze3oUg`, `34W3xZANOoI`, and `btaRTZeiYqg`; `BqBHWiw7nl4` remained a concrete Google/YouTube 429 transcript warning.
+- Must-taste dry-runs passed and stored 11 items: `양장피`, `군만두`, `마파두부`, `군만두`, `쫄면`, `돈가스`, `굴떡국`, `굴전`, `생굴`, `멍게젓갈`, and `갓 지은 밥`.
+- Final scoped gate report `regular_source_automation_20260731T222246Z.json` had `deploy_ready=true`, zero blockers, and three non-blocking warnings.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `c16752d410f7a86f7968dad0fa17009aab10e5a0` deployed at `https://tastyroad-7t87b0mcq-jaekwon-hans-projects.vercel.app`; production API first returned restaurant `2145`.
+- Naver Map sync for `Tastyroad 2` completed with `saved=0`, `already=3`, `failed=0`, `remaining=0`, and synced count `648`; release restaurants `2142`, `2143`, and `2145` are recorded in `data/naver_map_list_synced_ids_2.json`.
 
 ## Current Task - 2026-07-31 - Regular source maintenance run
 
