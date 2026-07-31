@@ -2,6 +2,23 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-01 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260801`
+Branch: `codex/regular-source-maintenance-20260801`
+Starting `origin/main`: `8e16f0ec5ec295b3faeae0cd79e1ca29fff40179`
+Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` (`tasks/todo.md` modified, branch ahead 24)
+
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and the repository automation prompt.
+- [x] Run the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic source maintenance runner.
+- [x] Read the latest report and any work queues.
+- [x] Use owning skills for mapping, transcript, or must-taste queues if present.
+- [x] Recalculate scoped gates after review work when needed.
+- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [ ] Record final verification, release, sync, or blocker notes.
+
 ## Current Task - 2026-07-31 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260731`
