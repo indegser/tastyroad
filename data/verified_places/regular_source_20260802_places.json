@@ -1,0 +1,42 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-08-02",
+  "items": [
+    {
+      "video_id": "KJngNRGMAZY",
+      "resolved_name": "조박사토종순대국",
+      "display_name": "조박사토종순대국",
+      "local_name": "조박사토종순대국",
+      "country_code": "KR",
+      "region": "서울 송파구",
+      "address": "서울 송파구 올림픽로35길 112 장미상가B동 지하44호",
+      "phone": "02-424-6233",
+      "category": "순대,순댓국",
+      "map_provider": "naver_map",
+      "naver_map_id": "13157155",
+      "map_url": "https://map.naver.com/p/entry/place/13157155?placePath=%2Fhome",
+      "evidence_url": "https://fire888.tistory.com/4749",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "백반기행 234회 서울 잠실 밥상 순댓국/선지해장국 후보가 기존 조박사토종순대국 row and Naver place ID와 일치한다."
+    },
+    {
+      "video_id": "VEQ3p_wfDv8",
+      "resolved_name": "신천생태찌개",
+      "display_name": "신천생태찌개",
+      "local_name": "신천생태찌개",
+      "country_code": "KR",
+      "region": "서울 송파구",
+      "address": "서울 송파구 올림픽로8길 32",
+      "phone": "02-418-2642",
+      "category": "음식점",
+      "map_provider": "naver_map",
+      "naver_map_id": "1683030629",
+      "map_url": "https://map.naver.com/p/entry/place/1683030629?placePath=%2Fhome",
+      "evidence_url": "https://fire888.tistory.com/4749",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "백반기행 234회 서울 잠실 밥상 생태찌개/대구전 후보가 기존 신천생태찌개 row and Naver place ID와 일치한다."
+    }
+  ]
+}
