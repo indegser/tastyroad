@@ -2,6 +2,37 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-02 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260802`
+Branch: `codex/regular-source-maintenance-20260802`
+Starting `origin/main`: `37566f99ab030256c76705a64407ac57eba7ec40`
+Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` (`tasks/todo.md` modified, branch ahead 24)
+
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and the repository automation prompt.
+- [x] Pull worktree env from the linked main checkout when safe.
+- [x] Run the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic source maintenance runner.
+- [x] Read the latest report and any work queues.
+- [x] Use owning skills for mapping, transcript, or must-taste queues if present.
+- [x] Recalculate scoped gates after review work when needed.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `37566f99ab030256c76705a64407ac57eba7ec40` in a fresh worktree; the shared main checkout was clean but behind, and the older automation worktree had unrelated local state.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 2 new videos from `식객 허영만의 백반기행`: `KJngNRGMAZY` and `VEQ3p_wfDv8`.
+- Web-search mapping review linked `KJngNRGMAZY` to existing `조박사토종순대국` (`927`, Naver `13157155`) and `VEQ3p_wfDv8` to existing `신천생태찌개` (`1608`, Naver `1683030629`).
+- Transcript ingest stored Supabase Storage captions for both release-scope videos.
+- Must-taste dry-runs passed and stored 4 items: `순대국`, `생태찌개`, `대구전`, and `냄비밥`.
+- Final scoped gate report `regular_source_automation_20260801T221209Z.json` had `deploy_ready=true`, zero blockers, and zero warnings.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `Ready`, and production API HTTP 200 with an `items` array.
+- Production data commit `9256c0080584fefc93065a7ca287078edd12c5ed` deployed at `https://tastyroad-1faoe3d1b-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`; production API first returned restaurant `927`.
+- Naver Map sync for `Tastyroad 2` completed as a no-op with `planned=0`, `saved=0`, `failed=0`, `remaining=0`; `927` was already in the original-list exclude state and `1608` was already in the `Tastyroad 2` state.
+
 ## Current Task - 2026-08-01 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260801`
