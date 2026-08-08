@@ -17,8 +17,22 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `9cdd290ed472bb7e5fc00bd743c4807d88d88cd4` in a fresh worktree; preserved unrelated state in `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 17 new videos across `성시경의 먹을텐데`, `김사원세끼`, `홍석천이원일`, `최자로드`, `전현무계획`, and `식객 허영만의 백반기행`.
+- Mapping review promoted 10 release-scope restaurants: existing `삼릉고향손칼국수` (`1526`) and `이천식당` (`1640`), plus new `스시화` (`2146`), `당케올레국수` (`2147`), `혼차롱식개집` (`2148`), `한라산아래첫마을 영농조합법인` (`2149`), `돈지식당` (`2150`), `부평막국수` (`2151`), `오향가` (`2152`), and `무쉬` (`2153`).
+- Recorded non-blocking no-safe-match mapping warnings for 5 metadata-poor ChoiJaRoad clips: `FE4U7P4fVxs`, `iiEay5X54AA`, `eSPhEZInrf8`, `Z_wFGX0zD34`, and `gofQ5e1hHPk`.
+- Transcript retry stored captions for `6-Po2FRHULk`, `wkSchiyC1vg`, and `k5t0yY9VhHU`; transcript queue is empty.
+- Must-taste dry-runs passed and stored 24 items across the 12 release-scope video/restaurant pairs.
+- Final scoped gate report `regular_source_automation_20260808T150529Z.json` had `deploy_ready=true`, zero blockers, and five non-blocking mapping warnings.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `91b58ec19aea97b24eeb4a6aceabbf6b5366564f` deployed at `https://tastyroad-huzyeydip-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`; production API first returned restaurant `1526`.
+- Naver Map sync for `Tastyroad 2` completed with `saved=2`, `already=6`, `failed=0`, `remaining=0`, and synced count `656`; release restaurants `2146` through `2153` are recorded in `data/naver_map_list_synced_ids_2.json`.
 
 ## Current Task - 2026-08-02 - Regular source maintenance run
 
