@@ -6,8 +6,34 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg/videos"
   ],
-  "count": 5,
+  "count": 6,
   "items": [
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "oGlOUzsCa4k",
+      "title": "성시경의 먹을텐데 l 제주 서귀포 당케올레국수",
+      "url": "https://www.youtube.com/watch?v=oGlOUzsCa4k",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/oGlOUzsCa4k/maxresdefault.webp",
+      "published_at": "2026-08-07T09:00:06+00:00",
+      "updated_at": "2026-08-07T09:46:03+00:00",
+      "description": "[당케올레국수]\n제주 서귀포시 표선면 표선당포로 4 당케올레국수 (표선리 44-11)\n\n#먹을텐데 #성시경 #제주맛집 #보말칼국수",
+      "duration_seconds": 1038,
+      "tags": [
+        "성시경",
+        "성시경유튜브",
+        "SUNGSIKYUNG",
+        "SSK",
+        "ソンシギョン",
+        "成始璄"
+      ],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "당케올레국수"
+      ],
+      "collected_at": "2026-08-08T14:39:48.352876+00:00"
+    },
     {
       "source_key": "sungsikyung_mukeultende",
       "source": "성시경의 먹을텐데",
