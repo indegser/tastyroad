@@ -16,8 +16,19 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `27eaeee70539245c5a36ec3a87edbf9b9d2982cb` in a fresh worktree; preserved unrelated state in `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found no new videos; release scope was empty (`release_scope_video_ids=[]`, `release_scope_restaurant_ids=[]`).
+- Refreshed existing source metadata/raw snapshots and `data/tastyroad.sqlite`; final report `regular_source_automation_20260808T220427Z.json` had `deploy_ready=true`, zero blockers, and 25 historical must-taste backlog warnings.
+- No mapping or transcript queues were present. The must-taste queue was read through `$tastyroad-transcript-must-taste`; because it was global backlog with no release scope, it remained follow-up triage rather than a publishing blocker.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm install --frozen-lockfile`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production metadata refresh commit `9af9de732dbb178f3d0059e43b4802d0b2f489d8` deployed at `https://tastyroad-g5pwjrqa6-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`.
+- Naver Map sync was skipped because the release scope contained no restaurant IDs.
 
 ## Current Task - 2026-08-08 - Regular source maintenance run
 
