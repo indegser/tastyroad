@@ -17,8 +17,22 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `f9058161273f339c7fc010e46348cbac220c09f8` in a fresh worktree; preserved unrelated state in `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 10 new videos: `iOB0R7YMQ4o`, `5FRg8kdUsd8`, `Fr--n68WaZ8`, `FrIqc4vawO8`, `SMQ9drW3T90`, `_y4zQm2bOpM`, `d_GfGWRyJYM`, `nqfil2mhMCI`, `qU_czrCHD-Q`, and `r3KhubDAmY4`.
+- Web-search mapping review promoted 8 Baekban mappings: `풍미당` (`2154`), `옥천장금이맛집` (`2155`), `강가가든` (`2156`), existing `바다횟집` (`1684`), existing `장수칼국수` (`1685`), and `남도호해물포차` (`2157`).
+- Recorded non-blocking no-safe-match mapping warnings for `iOB0R7YMQ4o` and `5FRg8kdUsd8`; searches did not produce a concrete restaurant name/address/place match.
+- Transcript ingest stored Supabase Storage captions for the 8 mapped Baekban videos; transcript fetch for the 2 unmapped Shorts hit Google/YouTube 429 and remained irrelevant to release scope.
+- Must-taste dry-runs passed and stored 13 items: `비빔쫄면`, `김밥`, `물쫄면`, `삼백초참옻닭`, `찹쌀죽`, `도리뱅뱅`, `민물매운탕`, `가자미회`, `가자미회비빔`, `곰치국`, `칼국수`, `남도호세트`, and `숙성회`.
+- Final scoped gate report `regular_source_automation_20260810T221539Z.json` had `deploy_ready=true`, zero blockers, and two non-blocking mapping warnings.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm install --frozen-lockfile`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `490558b24ff72327f36921fa4eb5b88dab6561c7` deployed at `https://tastyroad-5ehwxe443-jaekwon-hans-projects.vercel.app`; production API first returned restaurant `2157`.
+- Naver Map sync for `Tastyroad 2` was a post-release operational warning: `1684` and `1685` were already recorded, but `2154`, `2155`, `2156`, and `2157` failed after three retries each because the copied Edge CDP profile showed the Naver `로그인` link and no login marker.
 
 ## Current Task - 2026-08-10 - Regular source maintenance run
 
