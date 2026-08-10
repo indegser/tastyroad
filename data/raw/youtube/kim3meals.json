@@ -6,8 +6,27 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UC-x55HF1-IilhxZOzwJm7JA/videos"
   ],
-  "count": 20,
+  "count": 21,
   "items": [
+    {
+      "source_key": "kim3meals",
+      "source": "김사원세끼",
+      "channel_id": "UC-x55HF1-IilhxZOzwJm7JA",
+      "video_id": "iOB0R7YMQ4o",
+      "title": "서울 3대 고깃집? 그딴 거 필요없음",
+      "url": "https://www.youtube.com/watch?v=iOB0R7YMQ4o",
+      "thumbnail_url": "https://i2.ytimg.com/vi/iOB0R7YMQ4o/hqdefault.jpg",
+      "published_at": "2026-08-10T12:00:20+00:00",
+      "updated_at": "2026-08-10T15:13:59+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "서울 3대 고깃집? 그딴 거 필요없음"
+      ],
+      "collected_at": "2026-08-10T22:02:06.386007+00:00"
+    },
     {
       "source_key": "kim3meals",
       "source": "김사원세끼",
