@@ -2,6 +2,36 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-12 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260812`
+Branch: `codex/regular-source-maintenance-20260812`
+Starting `origin/main`: `0c52e60a053981b24bad19b868c07ee295ca40a4`
+Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation` (`tasks/todo.md` modified, branch ahead 24)
+
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and the repository automation prompt.
+- [x] Pull worktree env from the linked main checkout when safe.
+- [x] Run the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic source maintenance runner.
+- [x] Read the latest report and any work queues.
+- [x] Use owning skills for mapping, transcript, or must-taste queues if present.
+- [x] Recalculate scoped gates after review work when needed.
+- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [ ] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `0c52e60a053981b24bad19b868c07ee295ca40a4` in a fresh worktree; preserved unrelated state in `/Users/indegser/Github/tastyroad-worktrees/regular-source-automation`.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 5 new videos: `hG2MQdzD9Z0` from `최자로드`, plus `2y__6oKjGis`, `n3SN4NtMEUQ`, `alr9gEsgQNQ`, and `hZsoTvJ3B00` from `식객 허영만의 백반기행`.
+- Web-search mapping review promoted 4 Baekban mappings: new `하누&카누 횡성점` (`2158`), existing `이모네 칼국수` (`1836`), existing `까무하우스` (`1837`), and existing `삼정` (`1838`).
+- Recorded a non-blocking no-safe-match mapping warning for `hG2MQdzD9Z0`; exact-title/source searches, metadata, and transcript retry did not provide a concrete restaurant name/address/place.
+- Transcript ingest stored Supabase Storage captions for the 4 mapped Baekban videos; `hG2MQdzD9Z0` transcript fetch hit Google/YouTube 429 and remained outside release scope.
+- Must-taste dry-runs passed and stored 9 items: `한우빵`, `장칼국수`, `겉절이`, `밥 말기`, `더덕구이`, `곤드레비빔밥`, `샤토브리앙`, `토시살`, and `알등심`.
+- Final scoped gate report `regular_source_automation_20260811T221606Z.json` had `deploy_ready=true`, zero blockers, and one non-blocking mapping warning.
+- Verification before commit passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build`.
+
 ## Current Task - 2026-08-11 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260811`

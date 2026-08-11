@@ -15,8 +15,27 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 191,
+  "count": 192,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "hG2MQdzD9Z0",
+      "title": "남양주 홍보대사의 남양주 맛집 추천",
+      "url": "https://www.youtube.com/watch?v=hG2MQdzD9Z0",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/hG2MQdzD9Z0/maxresdefault.webp",
+      "published_at": "2026-08-11T09:00:12+00:00",
+      "updated_at": "2026-08-11T10:16:18+00:00",
+      "description": "",
+      "duration_seconds": 74,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "남양주 홍보대사의 남양주 맛집 추천"
+      ],
+      "collected_at": "2026-08-11T22:03:53.061177+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
@@ -26,7 +45,7 @@
       "url": "https://www.youtube.com/shorts/5FRg8kdUsd8",
       "thumbnail_url": "https://i2.ytimg.com/vi/5FRg8kdUsd8/hqdefault.jpg",
       "published_at": "2026-08-10T09:00:23+00:00",
-      "updated_at": "2026-08-10T11:05:55+00:00",
+      "updated_at": "2026-08-11T19:07:51+00:00",
       "description": "",
       "duration_seconds": null,
       "tags": [],
@@ -121,7 +140,7 @@
       "url": "https://www.youtube.com/shorts/eSPhEZInrf8",
       "thumbnail_url": "https://i2.ytimg.com/vi/eSPhEZInrf8/hqdefault.jpg",
       "published_at": "2026-08-05T09:00:23+00:00",
-      "updated_at": "2026-08-05T09:29:51+00:00",
+      "updated_at": "2026-08-09T01:04:56+00:00",
       "description": "",
       "duration_seconds": 100,
       "tags": [],
@@ -194,12 +213,12 @@
       "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
       "video_id": "QVIlBz4agtc",
       "title": "지금 딱 떠오르는 도쿄 최고의 츠케멘은, 바로 여기.",
-      "url": "https://www.youtube.com/shorts/QVIlBz4agtc",
-      "thumbnail_url": "https://i2.ytimg.com/vi/QVIlBz4agtc/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=QVIlBz4agtc",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/QVIlBz4agtc/maxresdefault.webp",
       "published_at": "2026-07-31T01:31:26+00:00",
       "updated_at": "2026-08-07T19:18:35+00:00",
       "description": "",
-      "duration_seconds": null,
+      "duration_seconds": 60,
       "tags": [],
       "chapters": [],
       "restaurant_name_candidates": [
