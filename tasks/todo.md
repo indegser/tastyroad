@@ -17,8 +17,8 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - [x] Read the latest report and any work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
 
 ### Review
 
@@ -31,6 +31,8 @@ Preserved unrelated checkout: `/Users/indegser/Github/tastyroad-worktrees/regula
 - Must-taste dry-runs passed and stored 9 items: `한우빵`, `장칼국수`, `겉절이`, `밥 말기`, `더덕구이`, `곤드레비빔밥`, `샤토브리앙`, `토시살`, and `알등심`.
 - Final scoped gate report `regular_source_automation_20260811T221606Z.json` had `deploy_ready=true`, zero blockers, and one non-blocking mapping warning.
 - Verification before commit passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build`.
+- Production data commit `3e8871b96a1f5ce7de4f7de867e2667614211b9f` deployed at `https://tastyroad-dd7fs9kqk-jaekwon-hans-projects.vercel.app`; production API `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array.
+- Naver Map sync for `Tastyroad 2` was a post-release operational warning: `1836` and `1838` were already recorded in list 2, `1837` was covered by the original-list exclude state, and new restaurant `2158` failed after three retries because the Edge CDP session showed Naver `로그인` and no profile marker.
 
 ## Current Task - 2026-08-11 - Regular source maintenance run
 
