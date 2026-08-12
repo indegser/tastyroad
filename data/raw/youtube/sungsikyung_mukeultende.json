@@ -6,8 +6,34 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg/videos"
   ],
-  "count": 6,
+  "count": 7,
   "items": [
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "P8n0JZlrKjU",
+      "title": "성시경의 먹을텐데 l 삿포로 편의점 털기",
+      "url": "https://www.youtube.com/watch?v=P8n0JZlrKjU",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/P8n0JZlrKjU/maxresdefault.webp",
+      "published_at": "2026-08-12T09:00:06+00:00",
+      "updated_at": "2026-08-12T10:30:51+00:00",
+      "description": "#먹을텐데 #일본편의점 #삿포로 #로손",
+      "duration_seconds": 1117,
+      "tags": [
+        "성시경",
+        "성시경유튜브",
+        "SUNGSIKYUNG",
+        "SSK",
+        "ソンシギョン",
+        "成始璄"
+      ],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "삿포로 편의점 털기"
+      ],
+      "collected_at": "2026-08-12T22:03:04.740136+00:00"
+    },
     {
       "source_key": "sungsikyung_mukeultende",
       "source": "성시경의 먹을텐데",
