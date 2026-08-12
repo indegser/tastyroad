@@ -16,8 +16,22 @@ Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tasty
 - [x] Read `data/work/regular_source_automation/latest.json` and work queues.
 - [x] Use owning skills for mapping, transcript, or must-taste queues if present.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase preflight, build, release to production, verify API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
+
+### Review
+
+- Started from `origin/main` `da9522337d03ea6047514a17b881ccf81c2f350d`; shared main checkout was clean but behind and was left untouched.
+- Pre-maintenance and pre-release Supabase Marketplace checks both passed: `supabase-aqua-engine` was `Available`.
+- Non-dry collection found 7 new videos: `P8n0JZlrKjU`, `CMG-LKsjka8`, `R0FO8FRk1e4`, `SPX29_gJucA`, `ZTJctBAGrlg`, `eZzoCXPL7sI`, and `nUcH48fi3rA`.
+- Web-search mapping review promoted 6 video-place links: existing `마당집추어탕` (`1426`) plus new `명랑식당` (`2159`), `오리고기의 신세계 포뜰오리` (`2160`), and `걸구쟁이네` (`2161`).
+- Recorded one non-blocking no-restaurant mapping warning for `P8n0JZlrKjU`; transcript is a Sapporo convenience-store/hotel-room tasting, not a restaurant visit.
+- Transcript ingest stored Supabase Storage captions for all 7 release-scope videos.
+- Must-taste dry-runs passed and stored 10 items: `소고기 특수부위`, `오리 가슴살과 다리살`, `참새맛살`, `오리 껍데기`, `추어튀김`, `추어탕`, `빙떡`, `곤드레나물`, `두부장아찌`, and `무밥`.
+- Final scoped gate report `regular_source_automation_20260812T221316Z.json` had `deploy_ready=true`, zero blockers, and one non-blocking mapping warning.
+- Verification passed: SQLite integrity `ok`, blank public Naver ID count `0`, `git diff --check`, `pnpm run build`, Vercel production `READY`, and production API HTTP 200 with an `items` array.
+- Production data commit `c44393fa69ad791ab67006011ea8e1df48fc1c75` deployed at `https://tastyroad-bx6dd2hpt-jaekwon-hans-projects.vercel.app` with alias `https://taste.indegser.com`.
+- Naver Map sync for `Tastyroad 2` was a post-release operational warning: `1426` was skipped by state, while `2159`, `2160`, and `2161` failed after three retries each because Edge CDP showed Naver `로그인` and no profile marker.
 
 ## Current Task - 2026-08-12 - Regular source maintenance run
 
