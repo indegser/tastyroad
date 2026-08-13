@@ -15,8 +15,27 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 193,
+  "count": 194,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "nAwNndsdMHI",
+      "title": "한 명만 신난 홍어 먹방",
+      "url": "https://www.youtube.com/watch?v=nAwNndsdMHI",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/nAwNndsdMHI/maxresdefault.webp",
+      "published_at": "2026-08-13T09:00:05+00:00",
+      "updated_at": "2026-08-13T11:11:40+00:00",
+      "description": "",
+      "duration_seconds": 80,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "한 명만 신난 홍어 먹방"
+      ],
+      "collected_at": "2026-08-13T22:02:21.857729+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
@@ -26,9 +45,9 @@
       "url": "https://www.youtube.com/shorts/CMG-LKsjka8",
       "thumbnail_url": "https://i4.ytimg.com/vi/CMG-LKsjka8/hqdefault.jpg",
       "published_at": "2026-08-12T09:00:12+00:00",
-      "updated_at": "2026-08-12T09:05:49+00:00",
+      "updated_at": "2026-08-13T07:09:20+00:00",
       "description": "",
-      "duration_seconds": null,
+      "duration_seconds": 85,
       "tags": [],
       "chapters": [],
       "restaurant_name_candidates": [
