@@ -17,11 +17,12 @@ Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tasty
 - [x] Inspect latest report and work queues.
 - [x] Use owning skills for any mapping, transcript, or must-taste queues.
 - [x] Recalculate scoped gates after review work when needed.
-- [ ] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
+- [x] Record final verification, release, sync, or blocker notes.
 
 Result note: Non-dry collection found 6 new videos: `GYLjHXuY3sk`, `MQUZqkpMKE8`, `QqH6q21AlsQ`, `09hE12SFKGE`, `_l9-6Gis-C4`, and `hkO4YGBZINY`. Web/transcript mapping review promoted 12 verified video-place links across 10 existing/new restaurants, while `09hE12SFKGE` remained a reviewed-uncertain no-safe-Naver-ID warning and `QqH6q21AlsQ` remained a reviewed-uncertain no-concrete-place warning. Transcript queue is empty. Must-taste dry-runs passed and stored 12 transcript-grounded items, one per mapped video/restaurant pair. Final scoped gate report `data/work/regular_source_automation/regular_source_automation_20260814T222039Z.json` is deploy-ready with 0 blockers and 2 non-blocking mapping warnings.
 Verification so far: Supabase Marketplace `supabase-aqua-engine` was `Available` before maintenance and before release, SQLite `pragma integrity_check` returned `ok`, verified-mapping blank Naver ID count was `0`, `git diff --check` passed, `pnpm install --frozen-lockfile` completed, and `pnpm run build` passed.
+Release/sync note: Pushed production data commit `38d0837`, verified Vercel deployment `tastyroad-8xds9f409-jaekwon-hans-projects.vercel.app` as `READY`, and confirmed `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returns HTTP 200 with an `items` array. Production search for `원미막국수` returned new restaurant `2174` with the `약밥닭` must-taste item. Naver Map sync to `Tastyroad 2` was a post-release operational warning: state/exclude checks skipped `1206`, `1442`, `1889`, `1941`, `1970`, `1982`, and `2017`; unsynced IDs `2170`, `2171`, `2172`, `2173`, and `2174` failed after three attempts each because the fallback browser session showed `Naver login marker missing`.
 
 ## Current Task - 2026-08-14 - Regular source maintenance latest
 
