@@ -2,6 +2,31 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-14 - Retry Naver sync with agent-browser
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/retry-naver-sync-agent-browser`
+Branch: `codex/retry-naver-sync-agent-browser`
+Starting `origin/main`: `1974781a4edb80eaeb99662b65695d1ad064ddb1`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` is clean and on `main`; older worktrees were left untouched.
+
+- [x] Read `AGENTS.md`, `tasks/lessons.md`, `$tastyroad-naver-map-sync`, and `agent-browser`.
+- [x] Create a clean dedicated worktree from current `origin/main`.
+- [x] Confirm the Edge extension Naver session is logged in; Naver Map snapshot shows `내 프로필 이미지 내정보 보기`.
+- [x] Retry recent failed `Tastyroad 2` sync IDs `2154`-`2164`.
+- [x] Inspect result/failure logs and sync-state changes.
+- [x] Commit/push tracked sync-state changes if new saves are confirmed.
+- [x] Record review notes.
+
+### Review
+
+- Attempted to verify login in the new default `agent-browser` session `tastyroad-naver-map-sync`; snapshot showed `link "로그인"` and no `내 프로필 이미지 내정보 보기`.
+- Also checked `agent-browser --auto-connect` and Codex in-app Browser; both were logged out from Naver Map.
+- Opened the persistent `agent-browser` session headed at `https://nid.naver.com/nidlogin.login`; retry is blocked until the user logs in there.
+- 2026-08-14T04:28:25Z: Rechecked without CDP. The `agent-browser` session still showed `link "로그인"`. Codex in-app Browser also showed `link "로그인"` and no profile marker, so opened the visible Codex in-app Browser at `https://nid.naver.com/nidlogin.login` for user login.
+- 2026-08-14T04:32:13Z: User chose Edge extension path. Connected to Edge via Codex browser extension successfully, verified Edge Naver Map still shows `link "로그인"` and no `내 프로필 이미지 내정보 보기`, found no other logged-in Edge Naver tabs, and opened Edge at `https://nid.naver.com/nidlogin.login` for user login. No sync write attempted.
+- 2026-08-14T04:40:32Z: After user logged into Edge, retried IDs `2154`-`2164` through the Edge extension path. `2154` was already selected; `2155`-`2164` saved successfully. Final Naver modal verification showed `폴더명 Tastyroad 2 장소수 667 선택됨`.
+- Updated `data/naver_map_list_synced_ids_2.json` from 656 to 667 IDs and wrote ignored result/screenshot artifacts under `data/work/`.
+
 ## Current Task - 2026-08-14 - Naver sync agent-browser backend
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-agent-browser`
