@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-14 - Regular source maintenance latest
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260814-latest`
+Branch: `codex/regular-source-maintenance-20260814-latest`
+Starting `origin/main`: `38f1d327d6b44f79d1dffb753da970c1fde958de`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` was clean at `origin/main`; existing older worktrees were left untouched.
+
+- [x] Read automation memory and synchronize to current `origin/main`.
+- [x] Create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, automation runbook, and automation prompt.
+- [x] Pull local env and run pre-maintenance Supabase Marketplace gate.
+- [x] Run non-dry deterministic source maintenance.
+- [x] Inspect latest report and work queues.
+- [x] Use owning skills for any mapping, transcript, or must-taste queues.
+- [x] Recalculate scoped gates if review work changes state.
+- [ ] If deploy-ready, build, release to production, verify API, and sync Naver Map.
+- [ ] Record review notes and update automation memory.
+
+Result note: Added 또간집 EP.105/106, verified 6 restaurant mappings, and stored 6 transcript-grounded must-taste items. Scoped gate report `data/work/regular_source_automation/regular_source_automation_20260814T052514Z.json` is deploy-ready with 0 blockers and 0 warnings. Local checks so far: Supabase Marketplace Available, SQLite `pragma integrity_check` OK, `git diff --check`, and `pnpm run build`.
+
 ## Current Task - 2026-08-14 - Prefer Edge extension for Naver sync
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-edge-extension-runbook`
