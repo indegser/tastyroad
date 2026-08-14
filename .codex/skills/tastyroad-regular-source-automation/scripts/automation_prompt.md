@@ -1,6 +1,6 @@
 Use $tastyroad-regular-source-automation.
 Use $tastyroad-site-release for the final production release.
-Use $tastyroad-naver-map-sync after production API verification succeeds.
+Use $tastyroad-naver-map-sync after production API verification succeeds. For Naver Map saved-list writes, prefer the Codex Edge browser extension connector against the user's logged-in Edge profile; do not use CDP unless the user explicitly requests legacy CDP troubleshooting.
 
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.

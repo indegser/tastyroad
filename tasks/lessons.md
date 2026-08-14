@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-08-14
+
+- Trigger: Edge extension sync succeeded after CDP and `agent-browser` sessions lacked the user's Naver login.
+  Rule: For Naver Map saved-list writes, prefer the Codex Edge browser extension with the user's real logged-in Edge profile; if Edge is logged out, ask the user to log in there and resume instead of reverting to CDP or copied profiles.
+
 ## 2026-07-26
 
 - Trigger: The user rejected screenshot-driven Naver Map control after a large sync spent most of its time on brittle fallback checks.

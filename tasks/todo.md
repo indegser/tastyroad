@@ -2,6 +2,30 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-14 - Prefer Edge extension for Naver sync
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-edge-extension-runbook`
+Branch: `codex/naver-sync-edge-extension-runbook`
+Starting `origin/main`: `5d32be3052db878a8e2e41a810c4ee9b0e5354dd`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` is clean and already at `origin/main`; older worktrees were left untouched.
+
+- [x] Read `AGENTS.md`, `tasks/lessons.md`, `$tastyroad-naver-map-sync`, automation runbook, and commit workflow.
+- [x] Create a clean dedicated worktree from current `origin/main`.
+- [x] Update Naver sync skill to prefer Edge browser extension connector.
+- [x] Update UI notes and regular automation docs to match the new default.
+- [x] Record a durable lesson for future Naver sync runs.
+- [x] Verify docs and script syntax.
+- [x] Commit, push, and fast-forward `main`.
+- [x] Record review notes.
+
+### Review
+
+- Updated `$tastyroad-naver-map-sync` so future saved-list writes prefer the Codex Edge browser extension connected to the user's logged-in Microsoft Edge profile.
+- Kept the bundled `agent-browser` runner as the first fallback and limited CDP to explicit legacy troubleshooting.
+- Updated Naver UI notes, the regular source automation runbook, and the automation bootstrap prompt so scheduled runs inherit the Edge extension default after syncing to `origin/main`.
+- Added a durable lesson to avoid reverting to CDP or copied profiles when Edge is merely logged out.
+- Verified with `python3 -m py_compile .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py`, `python3 -m unittest discover -s .codex/skills/tastyroad-naver-map-sync/tests -p 'test_*.py'`, `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --limit 0 --result-json data/work/naver_map_sync_result_edge_runbook_limit0.json`, and `git diff --check`.
+
 ## Current Task - 2026-08-14 - Retry Naver sync with agent-browser
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/retry-naver-sync-agent-browser`
