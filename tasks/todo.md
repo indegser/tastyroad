@@ -17,10 +17,11 @@ Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tasty
 - [x] Inspect latest report and work queues.
 - [x] Use owning skills for any mapping, transcript, or must-taste queues.
 - [x] Recalculate scoped gates if review work changes state.
-- [ ] If deploy-ready, build, release to production, verify API, and sync Naver Map.
+- [x] If deploy-ready, build, release to production, verify API, and sync Naver Map.
 - [ ] Record review notes and update automation memory.
 
 Result note: Added 또간집 EP.105/106, verified 6 restaurant mappings, and stored 6 transcript-grounded must-taste items. Scoped gate report `data/work/regular_source_automation/regular_source_automation_20260814T052514Z.json` is deploy-ready with 0 blockers and 0 warnings. Local checks so far: Supabase Marketplace Available, SQLite `pragma integrity_check` OK, `git diff --check`, and `pnpm run build`.
+Release/sync note: Pushed production commit `f157b43`, verified Vercel deployment `tastyroad-jriex58zu-jaekwon-hans-projects.vercel.app` as Ready, and confirmed production API returns new restaurants with must-taste items. Synced 신규 IDs 2165-2169 to Naver Map `Tastyroad 2` through the Edge extension; list count moved from 667 to 672.
 
 ## Current Task - 2026-08-14 - Prefer Edge extension for Naver sync
 
