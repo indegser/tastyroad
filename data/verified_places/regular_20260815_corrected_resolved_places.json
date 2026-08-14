@@ -1,0 +1,42 @@
+{
+  "source": "Regular source maintenance 2026-08-15 corrected",
+  "verified_at": "2026-08-15",
+  "items": [
+    {
+      "video_id": "MQUZqkpMKE8",
+      "resolved_name": "농민백암순대 역삼직영점",
+      "display_name": "농민백암순대 역삼직영점",
+      "local_name": "농민백암순대 역삼직영점",
+      "country_code": "KR",
+      "region": "서울 강남구",
+      "address": "서울특별시 강남구 역삼로3길 20-4 1층",
+      "phone": "02-501-2772",
+      "category": "순대,순댓국",
+      "map_provider": "naver_map",
+      "naver_map_id": "20694317",
+      "map_url": "https://map.naver.com/p/entry/place/20694317?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EB%86%8D%EB%AF%BC%EB%B0%B1%EC%95%94%EC%88%9C%EB%8C%80+%EC%97%AD%EC%82%BC%EC%A7%81%EC%98%81%EC%A0%90",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `농민백암순대 역삼직영점` from video metadata; match score 95."
+    },
+    {
+      "video_id": "hkO4YGBZINY",
+      "resolved_name": "원미막국수",
+      "display_name": "원미막국수",
+      "local_name": "원미막국수",
+      "country_code": "KR",
+      "region": "강원 홍천군",
+      "address": "강원특별자치도 홍천군 화촌면 가락재로 1172",
+      "phone": "033-435-2961",
+      "category": "막국수",
+      "map_provider": "naver_map",
+      "naver_map_id": "15491933",
+      "map_url": "https://map.naver.com/p/entry/place/15491933?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EC%9B%90%EB%AF%B8%EB%A7%89%EA%B5%AD%EC%88%98+%EA%B0%95%EC%9B%90+%ED%99%8D%EC%B2%9C%EA%B5%B0+%ED%99%94%EC%B4%8C%EB%A9%B4+%EA%B0%80%EB%9D%BD%EC%9E%AC%EB%A1%9C+1172",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `원미막국수` from video metadata; match score 95."
+    }
+  ]
+}

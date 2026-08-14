@@ -2,6 +2,27 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-15 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260815`
+Branch: `codex/regular-source-maintenance-20260815`
+Starting `origin/main`: `15467c0dd4ea13b18eb07fe392d0042620f3f9c9`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` was clean on `main`; existing older worktrees were left untouched.
+
+- [x] Read automation memory and inspect repository/worktree state.
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, automation skill, and repository automation prompt.
+- [x] Run pre-maintenance Supabase Marketplace gate and pull worktree env.
+- [x] Run non-dry deterministic source maintenance.
+- [x] Inspect latest report and work queues.
+- [x] Use owning skills for any mapping, transcript, or must-taste queues.
+- [x] Recalculate scoped gates after review work when needed.
+- [ ] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
+- [ ] Record final verification, release, sync, or blocker notes.
+
+Result note: Non-dry collection found 6 new videos: `GYLjHXuY3sk`, `MQUZqkpMKE8`, `QqH6q21AlsQ`, `09hE12SFKGE`, `_l9-6Gis-C4`, and `hkO4YGBZINY`. Web/transcript mapping review promoted 12 verified video-place links across 10 existing/new restaurants, while `09hE12SFKGE` remained a reviewed-uncertain no-safe-Naver-ID warning and `QqH6q21AlsQ` remained a reviewed-uncertain no-concrete-place warning. Transcript queue is empty. Must-taste dry-runs passed and stored 12 transcript-grounded items, one per mapped video/restaurant pair. Final scoped gate report `data/work/regular_source_automation/regular_source_automation_20260814T222039Z.json` is deploy-ready with 0 blockers and 2 non-blocking mapping warnings.
+Verification so far: Supabase Marketplace `supabase-aqua-engine` was `Available` before maintenance and before release, SQLite `pragma integrity_check` returned `ok`, verified-mapping blank Naver ID count was `0`, `git diff --check` passed, `pnpm install --frozen-lockfile` completed, and `pnpm run build` passed.
+
 ## Current Task - 2026-08-14 - Regular source maintenance latest
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260814-latest`
