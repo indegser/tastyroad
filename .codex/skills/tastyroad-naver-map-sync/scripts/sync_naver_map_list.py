@@ -5,6 +5,7 @@ import argparse
 import json
 import re
 import sqlite3
+import subprocess
 import sys
 import time
 from dataclasses import dataclass
@@ -22,6 +23,9 @@ DEFAULT_RESULT_PATH = ROOT / "data" / "work" / "naver_map_sync_result.json"
 DEFAULT_FAILURE_ARTIFACTS_DIR = ROOT / "data" / "work" / "naver_map_sync_failures"
 DEFAULT_LIST_NAME = "Tastyroad"
 DEFAULT_CDP_PORT = 9222
+DEFAULT_BROWSER_BACKEND = "agent-browser"
+DEFAULT_AGENT_BROWSER_SESSION = "tastyroad-naver-map-sync"
+DEFAULT_AGENT_BROWSER_MAX_OUTPUT = 60000
 DEFAULT_MAX_LIST_SIZE = 1000
 DEFAULT_ATTEMPTS = 3
 
@@ -38,6 +42,24 @@ class Place:
     id: int
     name: str
     url: str
+
+
+@dataclass(frozen=True)
+class AgentBrowserConfig:
+    session: str
+    session_name: str
+    profile: Optional[Path]
+    provider: Optional[str]
+    headed: bool
+    max_output: int
+
+
+@dataclass(frozen=True)
+class BrowserRef:
+    role: str
+    name: str
+    ref: str
+    line_index: int
 
 
 CheckboxState = Literal["selected", "unselected"]
@@ -258,7 +280,8 @@ def place_name_matches(expected: str, page_text: str) -> bool:
 
 def list_name_pattern(list_name: str) -> re.Pattern[str]:
     return re.compile(
-        rf"^폴더명\s*{re.escape(list_name)}\s*장소수\s*[\d,]+\s*선택(?:해제)?됨$"
+        rf"^(?:(?:비공개|일부 공개|전체 공개)\s*)?"
+        rf"폴더명\s*{re.escape(list_name)}\s*장소수\s*[\d,]+\s*선택(?:해제)?됨$"
     )
 
 
@@ -445,6 +468,282 @@ def add_place_playwright(
     return "saved"
 
 
+def agent_browser_base_command(config: AgentBrowserConfig) -> list[str]:
+    command = [
+        "agent-browser",
+        "--session",
+        config.session,
+        "--session-name",
+        config.session_name,
+        "--max-output",
+        str(config.max_output),
+    ]
+    if config.profile is not None:
+        command.extend(["--profile", str(config.profile)])
+    if config.provider:
+        command.extend(["--provider", config.provider])
+    if config.headed:
+        command.append("--headed")
+    return command
+
+
+def run_agent_browser(config: AgentBrowserConfig, *args: str) -> str:
+    command = [*agent_browser_base_command(config), *args]
+    completed = subprocess.run(
+        command,
+        check=False,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        text=True,
+    )
+    if completed.returncode != 0:
+        message = normalize_text(completed.stderr or completed.stdout)
+        raise RuntimeError(f"agent-browser {' '.join(args)} failed: {message}")
+    return completed.stdout
+
+
+def agent_browser_open(config: AgentBrowserConfig, url: str) -> None:
+    run_agent_browser(config, "open", url)
+
+
+def agent_browser_wait(config: AgentBrowserConfig, milliseconds: int) -> None:
+    run_agent_browser(config, "wait", str(milliseconds))
+
+
+def agent_browser_snapshot(config: AgentBrowserConfig) -> str:
+    return run_agent_browser(config, "snapshot", "-i")
+
+
+def agent_browser_click(config: AgentBrowserConfig, ref: str) -> None:
+    run_agent_browser(config, "click", f"@{ref}")
+
+
+def parse_browser_refs(snapshot: str) -> list[BrowserRef]:
+    pattern = re.compile(
+        r'^\s*-\s+(?P<role>button|link|checkbox)\s+"(?P<name>.*?)"\s+\[ref=(?P<ref>[^\]]+)\]'
+    )
+    refs: list[BrowserRef] = []
+    for index, line in enumerate(snapshot.splitlines()):
+        match = pattern.search(line)
+        if not match:
+            continue
+        refs.append(
+            BrowserRef(
+                role=match.group("role"),
+                name=normalize_text(match.group("name")),
+                ref=match.group("ref"),
+                line_index=index,
+            )
+        )
+    return refs
+
+
+def first_browser_ref(
+    snapshot: str,
+    *,
+    role: str | None = None,
+    name_pattern: re.Pattern[str],
+    after_line_index: int | None = None,
+) -> BrowserRef | None:
+    for ref in parse_browser_refs(snapshot):
+        if role and ref.role != role:
+            continue
+        if after_line_index is not None and ref.line_index <= after_line_index:
+            continue
+        if name_pattern.search(ref.name):
+            return ref
+    return None
+
+
+def target_list_checkbox_from_snapshot(
+    snapshot: str,
+    list_name: str,
+) -> tuple[BrowserRef, CheckboxState, int] | None:
+    pattern = list_name_pattern(list_name)
+    for ref in parse_browser_refs(snapshot):
+        if ref.role != "checkbox":
+            continue
+        if not pattern.fullmatch(ref.name):
+            continue
+        if "선택해제됨" in ref.name:
+            return ref, "unselected", parse_list_count(ref.name)
+        if "선택됨" in ref.name:
+            return ref, "selected", parse_list_count(ref.name)
+    return None
+
+
+def wait_for_target_list_agent_browser(
+    config: AgentBrowserConfig,
+    list_name: str,
+    timeout_ms: int,
+    settle_ms: int = 700,
+) -> tuple[BrowserRef, CheckboxState, int] | None:
+    deadline = time.time() + timeout_ms / 1000
+    first_seen_at: Optional[float] = None
+    latest_target: tuple[BrowserRef, CheckboxState, int] | None = None
+    while time.time() < deadline:
+        snapshot = agent_browser_snapshot(config)
+        target = target_list_checkbox_from_snapshot(snapshot, list_name)
+        if target:
+            latest_target = target
+            if first_seen_at is None:
+                first_seen_at = time.time()
+            if (time.time() - first_seen_at) * 1000 >= settle_ms:
+                return latest_target
+        else:
+            first_seen_at = None
+            latest_target = None
+        agent_browser_wait(config, SELECTOR_POLL_MS)
+    return latest_target
+
+
+def wait_for_target_list_state_agent_browser(
+    config: AgentBrowserConfig,
+    list_name: str,
+    expected: CheckboxState,
+    timeout_ms: int,
+) -> bool:
+    deadline = time.time() + timeout_ms / 1000
+    while time.time() < deadline:
+        snapshot = agent_browser_snapshot(config)
+        target = target_list_checkbox_from_snapshot(snapshot, list_name)
+        if target and target[1] == expected:
+            return True
+        agent_browser_wait(config, SELECTOR_POLL_MS)
+    return False
+
+
+def assert_place_loaded_agent_browser(
+    config: AgentBrowserConfig,
+    place: Place,
+    require_place_name: bool,
+) -> None:
+    deadline = time.time() + 10
+    latest_snapshot = ""
+    while time.time() < deadline:
+        latest_snapshot = agent_browser_snapshot(config)
+        if "요청하신 페이지를 찾을 수 없습니다" in latest_snapshot:
+            raise PlacePageNotFound("Naver place page not found")
+        logged_in = "내 프로필 이미지 내정보 보기" in latest_snapshot
+        login_link = re.search(r'link\s+"로그인"', latest_snapshot) is not None
+        if logged_in and (not require_place_name or place_name_matches(place.name, latest_snapshot)):
+            return
+        if login_link and not logged_in:
+            raise RuntimeError("Naver login marker missing")
+        agent_browser_wait(config, SELECTOR_POLL_MS)
+    if "내 프로필 이미지 내정보 보기" not in latest_snapshot:
+        raise RuntimeError("Naver login marker missing")
+    if require_place_name and not place_name_matches(place.name, latest_snapshot):
+        raise PlaceNameMismatch(f"Naver place name mismatch: expected {place.name!r}")
+    raise RuntimeError("Naver place page not loaded")
+
+
+def open_save_modal_agent_browser(
+    config: AgentBrowserConfig,
+    list_name: str,
+) -> tuple[BrowserRef, CheckboxState, int]:
+    target = wait_for_target_list_agent_browser(config, list_name, 600)
+    if target:
+        return target
+    snapshot = agent_browser_snapshot(config)
+    save_ref = first_browser_ref(
+        snapshot,
+        name_pattern=re.compile(r"^저장$"),
+    )
+    if save_ref is None:
+        raise RuntimeError("place save button not found")
+    agent_browser_click(config, save_ref.ref)
+    target = wait_for_target_list_agent_browser(config, list_name, 5000)
+    if not target:
+        raise RuntimeError(f"save modal target list not found: {list_name}")
+    return target
+
+
+def close_save_modal_agent_browser(config: AgentBrowserConfig) -> None:
+    snapshot = agent_browser_snapshot(config)
+    close_ref = first_browser_ref(
+        snapshot,
+        role="button",
+        name_pattern=re.compile(r"^(닫기|취소)$"),
+    )
+    if close_ref is not None:
+        agent_browser_click(config, close_ref.ref)
+        agent_browser_wait(config, 700)
+
+
+def add_place_agent_browser(
+    config: AgentBrowserConfig,
+    place: Place,
+    list_name: str,
+    max_list_size: int,
+) -> str:
+    checkbox, state, list_count = open_save_modal_agent_browser(config, list_name)
+    if state == "selected":
+        close_save_modal_agent_browser(config)
+        return "already"
+    if list_count >= max_list_size:
+        close_save_modal_agent_browser(config)
+        raise ListCapacityReached(
+            f"target list {list_name!r} is full: {list_count}/{max_list_size}"
+        )
+
+    agent_browser_click(config, checkbox.ref)
+    if not wait_for_target_list_state_agent_browser(config, list_name, "selected", 3000):
+        raise RuntimeError("target checkbox did not become selected")
+
+    snapshot = agent_browser_snapshot(config)
+    save_button = first_browser_ref(
+        snapshot,
+        role="button",
+        name_pattern=re.compile(r"^저장$"),
+        after_line_index=checkbox.line_index,
+    ) or first_browser_ref(
+        snapshot,
+        role="button",
+        name_pattern=re.compile(r"^저장$"),
+    )
+    if save_button is None:
+        raise RuntimeError("save modal action button not found")
+    agent_browser_click(config, save_button.ref)
+    agent_browser_wait(config, 1200)
+
+    _verified_checkbox, verified_state, _verified_count = open_save_modal_agent_browser(
+        config,
+        list_name,
+    )
+    if verified_state != "selected":
+        raise RuntimeError("target checkbox selection did not persist after save")
+    close_save_modal_agent_browser(config)
+    return "saved"
+
+
+def process_place_agent_browser(
+    config: AgentBrowserConfig,
+    place: Place,
+    list_name: str,
+    require_place_name: bool,
+    max_list_size: int,
+) -> str:
+    agent_browser_open(config, place.url)
+    agent_browser_wait(config, 2500)
+    assert_place_loaded_agent_browser(config, place, require_place_name=require_place_name)
+    return add_place_agent_browser(config, place, list_name, max_list_size)
+
+
+def capture_failure_screenshot_agent_browser(
+    config: AgentBrowserConfig,
+    place: Place,
+    directory: Path,
+) -> Optional[Path]:
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"{place.id}.png"
+    try:
+        run_agent_browser(config, "screenshot", str(path))
+    except Exception:
+        return None
+    return path
+
+
 def capture_failure_screenshot(page, place: Place, directory: Path) -> Optional[Path]:
     directory.mkdir(parents=True, exist_ok=True)
     path = directory / f"{place.id}.png"
@@ -486,7 +785,43 @@ def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Add public Tastyroad restaurants to the fixed Naver Map saved list."
     )
+    parser.add_argument(
+        "--browser-backend",
+        choices=["agent-browser", "cdp"],
+        default=DEFAULT_BROWSER_BACKEND,
+        help="Browser control backend. agent-browser uses a persistent Codex browser session; cdp attaches to an existing Chromium CDP port.",
+    )
     parser.add_argument("--cdp-port", type=int, default=DEFAULT_CDP_PORT)
+    parser.add_argument(
+        "--agent-browser-session",
+        default=DEFAULT_AGENT_BROWSER_SESSION,
+        help="Persistent agent-browser session ID for Naver Map sync.",
+    )
+    parser.add_argument(
+        "--agent-browser-session-name",
+        default=DEFAULT_AGENT_BROWSER_SESSION,
+        help="Human-readable agent-browser session name.",
+    )
+    parser.add_argument(
+        "--agent-browser-profile",
+        type=Path,
+        help="Optional agent-browser profile directory to reuse.",
+    )
+    parser.add_argument(
+        "--agent-browser-provider",
+        help="Optional agent-browser provider override.",
+    )
+    parser.add_argument(
+        "--agent-browser-headed",
+        action="store_true",
+        help="Open the agent-browser session headed for interactive login or debugging.",
+    )
+    parser.add_argument(
+        "--agent-browser-max-output",
+        type=int,
+        default=DEFAULT_AGENT_BROWSER_MAX_OUTPUT,
+        help="Maximum output bytes requested from agent-browser commands.",
+    )
     parser.add_argument("--list-name", default=default_list_name())
     parser.add_argument(
         "--source-name",
@@ -581,6 +916,17 @@ def main() -> int:
         raise RuntimeError("--retry-delay-ms cannot be negative")
     if args.max_list_size < 1:
         raise RuntimeError("--max-list-size must be at least 1")
+    if args.agent_browser_max_output < 1:
+        raise RuntimeError("--agent-browser-max-output must be at least 1")
+
+    agent_browser_config = AgentBrowserConfig(
+        session=args.agent_browser_session,
+        session_name=args.agent_browser_session_name,
+        profile=args.agent_browser_profile,
+        provider=args.agent_browser_provider,
+        headed=args.agent_browser_headed,
+        max_output=args.agent_browser_max_output,
+    )
 
     synced_ids = load_synced_ids(args.list_name, args.sync_state)
     skip_ids = set(args.skip_id)
@@ -610,13 +956,14 @@ def main() -> int:
     )
     print(
         f"target_list={args.list_name} source={source_scope} restaurants={restaurant_scope} "
-        f"places={len(places)} attempts={args.attempts} control=playwright"
+        f"places={len(places)} attempts={args.attempts} control={args.browser_backend}"
     )
     if not places:
         save_json(
             args.result_json,
             {
                 "status": "complete",
+                "browser_backend": args.browser_backend,
                 "target_list": args.list_name,
                 "source": source_scope,
                 "restaurant_ids": sorted(requested_restaurant_ids or []),
@@ -630,7 +977,8 @@ def main() -> int:
         )
         return 0
 
-    playwright, browser = connect_browser(args.cdp_port)
+    playwright = None
+    browser = None
     saved = 0
     already = 0
     failures: list[int] = []
@@ -639,8 +987,10 @@ def main() -> int:
     capacity_reached = False
     page = None
     try:
-        context = browser.contexts[0]
-        page = context.new_page()
+        if args.browser_backend == "cdp":
+            playwright, browser = connect_browser(args.cdp_port)
+            context = browser.contexts[0]
+            page = context.new_page()
         for index, place in enumerate(places, start=1):
             started = time.time()
             print(f"[{index}/{len(places)}] {place.name} ({place.id})", flush=True)
@@ -650,13 +1000,24 @@ def main() -> int:
             for attempt in range(1, args.attempts + 1):
                 attempts_used = attempt
                 try:
-                    result = process_place(
-                        page,
-                        place,
-                        args.list_name,
-                        require_place_name=not args.no_require_place_name,
-                        max_list_size=args.max_list_size,
-                    )
+                    if args.browser_backend == "cdp":
+                        if page is None:
+                            raise RuntimeError("CDP page was not initialized")
+                        result = process_place(
+                            page,
+                            place,
+                            args.list_name,
+                            require_place_name=not args.no_require_place_name,
+                            max_list_size=args.max_list_size,
+                        )
+                    else:
+                        result = process_place_agent_browser(
+                            agent_browser_config,
+                            place,
+                            args.list_name,
+                            require_place_name=not args.no_require_place_name,
+                            max_list_size=args.max_list_size,
+                        )
                     final_error = None
                     break
                 except PermanentSyncError as exc:
@@ -672,7 +1033,11 @@ def main() -> int:
                         f"after={delay_ms}ms error={exc}",
                         flush=True,
                     )
-                    page.wait_for_timeout(delay_ms)
+                    if args.browser_backend == "cdp":
+                        if page is not None:
+                            page.wait_for_timeout(delay_ms)
+                    else:
+                        agent_browser_wait(agent_browser_config, delay_ms)
 
             if final_error is None:
                 synced_ids.add(place.id)
@@ -691,11 +1056,18 @@ def main() -> int:
                 )
                 continue
 
-            screenshot_path = capture_failure_screenshot(
-                page,
-                place,
-                args.failure_artifacts_dir,
-            )
+            if args.browser_backend == "cdp":
+                screenshot_path = (
+                    capture_failure_screenshot(page, place, args.failure_artifacts_dir)
+                    if page is not None
+                    else None
+                )
+            else:
+                screenshot_path = capture_failure_screenshot_agent_browser(
+                    agent_browser_config,
+                    place,
+                    args.failure_artifacts_dir,
+                )
             record_failure(
                 args.failure_log,
                 place,
@@ -726,14 +1098,16 @@ def main() -> int:
                 page.close()
             except Exception:
                 pass
-        try:
-            browser.close()
-        except Exception:
-            pass
-        try:
-            playwright.stop()
-        except Exception:
-            pass
+        if browser is not None:
+            try:
+                browser.close()
+            except Exception:
+                pass
+        if playwright is not None:
+            try:
+                playwright.stop()
+            except Exception:
+                pass
 
     remaining = max(0, len(places) - processed)
     if interrupted:
@@ -746,6 +1120,7 @@ def main() -> int:
         status = "complete"
     result_payload = {
         "status": status,
+        "browser_backend": args.browser_backend,
         "target_list": args.list_name,
         "source": source_scope,
         "restaurant_ids": sorted(requested_restaurant_ids or []),

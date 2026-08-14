@@ -26,6 +26,9 @@ class SyncNaverMapListTests(unittest.TestCase):
         self.assertIsNotNone(
             tastyroad.fullmatch("폴더명 Tastyroad 장소수 1,000 선택해제됨")
         )
+        self.assertIsNotNone(
+            tastyroad.fullmatch("비공개 폴더명 Tastyroad 장소수 1,000 선택됨")
+        )
         self.assertIsNone(
             tastyroad.fullmatch("폴더명 Tastyroad 2 장소수 635 선택해제됨")
         )
@@ -47,6 +50,62 @@ class SyncNaverMapListTests(unittest.TestCase):
             )
         )
         self.assertFalse(sync.place_name_matches("함반", "전혀 다른 식당"))
+
+    def test_parse_browser_refs_reads_agent_browser_snapshot(self) -> None:
+        snapshot = """
+        - button "저장" [ref=e1]
+        - checkbox "비공개 폴더명 Tastyroad 2 장소수 635 선택해제됨" [ref=e2]
+        - button "저장" [ref=e3]
+        """
+
+        refs = sync.parse_browser_refs(snapshot)
+
+        self.assertEqual([ref.ref for ref in refs], ["e1", "e2", "e3"])
+        self.assertEqual(refs[1].role, "checkbox")
+        self.assertEqual(refs[1].name, "비공개 폴더명 Tastyroad 2 장소수 635 선택해제됨")
+
+    def test_target_list_checkbox_from_snapshot_uses_exact_list(self) -> None:
+        snapshot = """
+        - checkbox "폴더명 Tastyroad 장소수 1,000 선택해제됨" [ref=e1]
+        - checkbox "비공개 폴더명 Tastyroad 2 장소수 635 선택됨" [ref=e2]
+        """
+
+        target = sync.target_list_checkbox_from_snapshot(snapshot, "Tastyroad 2")
+
+        self.assertIsNotNone(target)
+        assert target is not None
+        checkbox, state, count = target
+        self.assertEqual(checkbox.ref, "e2")
+        self.assertEqual(state, "selected")
+        self.assertEqual(count, 635)
+
+    def test_agent_browser_base_command_uses_persistent_session(self) -> None:
+        config = sync.AgentBrowserConfig(
+            session="sync-session",
+            session_name="Sync Session",
+            profile=Path("/tmp/naver-profile"),
+            provider="chromium",
+            headed=True,
+            max_output=1234,
+        )
+
+        self.assertEqual(
+            sync.agent_browser_base_command(config),
+            [
+                "agent-browser",
+                "--session",
+                "sync-session",
+                "--session-name",
+                "Sync Session",
+                "--max-output",
+                "1234",
+                "--profile",
+                "/tmp/naver-profile",
+                "--provider",
+                "chromium",
+                "--headed",
+            ],
+        )
 
     def test_success_clears_a_previous_failure(self) -> None:
         place = sync.Place(10, "테스트", "https://map.naver.com/p/entry/place/10")

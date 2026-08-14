@@ -2,6 +2,28 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-14 - Naver sync agent-browser backend
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-agent-browser`
+Branch: `codex/naver-sync-agent-browser`
+Starting `origin/main`: `de11759ffa4e360e6ceb2d5478edd1486d9247c4`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` is clean but behind `origin/main`; older automation worktrees were left untouched.
+
+- [x] Read `AGENTS.md`, `tasks/lessons.md`, Browser skill, and `$tastyroad-naver-map-sync`.
+- [x] Create a clean dedicated worktree from current `origin/main`.
+- [x] Inspect existing sync script and tests.
+- [x] Add an `agent-browser` sync backend that does not require CDP.
+- [x] Update skill docs/run examples to make the new backend the default.
+- [x] Verify parser/unit behavior and Python syntax.
+- [x] Record review notes.
+
+### Review
+
+- Changed `.codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py` so the default `--browser-backend` is `agent-browser`, using persistent session `tastyroad-naver-map-sync`; legacy Playwright CDP remains available via `--browser-backend cdp --cdp-port 9222`.
+- Added accessibility-snapshot parsing for exact saved-list checkbox detection, including visibility prefixes such as `비공개`, and kept sync-state/failure-log protection unchanged.
+- Updated `$tastyroad-naver-map-sync`, its UI notes, and `$tastyroad-regular-source-automation` wording so the recurring workflow no longer directs agents to Edge/CDP by default.
+- Verified with `python3 -m py_compile`, `python3 -m unittest discover -s .codex/skills/tastyroad-naver-map-sync/tests -p 'test_*.py'`, `python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py --limit 0 --result-json data/work/naver_map_sync_result_agent_browser_limit0.json`, and `git diff --check`.
+
 ## Current Task - 2026-08-14 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260814`

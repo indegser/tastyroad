@@ -12,7 +12,7 @@ Use this skill for Codex app Automation runs that keep Tastyroad current across 
 - Scripts handle repeatable source collection, transcript ingestion, deterministic map candidate resolution, gate checks, and reports.
 - Codex handles ambiguous Naver place verification and transcript-grounded must-taste extraction by using the owning Tastyroad skills.
 - Deployment happens after hard publishing gates pass and `$tastyroad-site-release` has been followed. Missing transcripts or missing must-taste rows are follow-up warnings, not release blockers, because verified mapped restaurants should still be visible on the web.
-- Naver Map saved-list sync happens after the production deployment and API verification succeed, using `$tastyroad-naver-map-sync`. Naver sync failures are post-release operational warnings; do not roll back or hide already verified public restaurants because Edge/CDP or Naver UI state failed.
+- Naver Map saved-list sync happens after the production deployment and API verification succeed, using `$tastyroad-naver-map-sync`. Naver sync failures are post-release operational warnings; do not roll back or hide already verified public restaurants because the browser login, Naver UI state, or list capacity failed.
 
 Prefer a Codex app **standalone project automation** on a dedicated worktree. Do not use GitHub Actions for recurring Tastyroad checks unless the user explicitly asks for it or Codex Automation is unavailable.
 
@@ -92,5 +92,5 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 - Do not apply must-taste rows unless `apply_must_taste_result.py --dry-run` passes and the extraction followed `$tastyroad-transcript-must-taste`.
 - Do not let parallel agents write SQLite, Naver Map saved lists, or deployment state.
 - Keep automation work in a dedicated worktree. Preserve unresolved artifacts under ignored `data/work/`.
-- Run Naver Map saved-list sync only after production deployment verification succeeds; treat Naver/Edge/CDP/list-capacity failures as post-release warnings unless the user explicitly asks to block release on saved-list sync.
+- Run Naver Map saved-list sync only after production deployment verification succeeds; treat Naver browser-login, UI, and list-capacity failures as post-release warnings unless the user explicitly asks to block release on saved-list sync.
 - Report no-op runs briefly; report blocked runs with exact video IDs and the next skill/command.
