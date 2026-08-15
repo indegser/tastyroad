@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-16 - Retry Naver sync login
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-login-retry`
+Branch: `codex/naver-sync-login-retry`
+Starting `origin/main`: `24e18a182a54b14277583bf9f0c0a60eff26d215`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` was clean on `main`; existing older worktrees were left untouched.
+
+- [x] Read `AGENTS.md`, `tasks/lessons.md`, and `$tastyroad-naver-map-sync`.
+- [x] Create a clean dedicated worktree from current `origin/main`.
+- [x] Connect to the real Edge extension session and verify Naver login marker.
+- [x] Retry unsynced `Tastyroad 2` IDs `2170`-`2174`.
+- [x] Investigate login-retention mitigation for recurring syncs.
+- [x] Record result, verification, and any follow-up rule.
+
+Result note: Connected to the real Microsoft Edge extension session and verified Naver Map login via `내 프로필 이미지 내정보 보기` with no `로그인` link. Saved `2170` 은용골농장가든, `2171` 백년지기삼계탕평촌점, `2172` 서문통닭삼계탕, `2173` 농민백암순대 역삼직영점, and `2174` 원미막국수 to `Tastyroad 2`; the modal count moved from 684 to 689 and each row was re-opened as `선택됨`. Updated `data/naver_map_list_synced_ids_2.json` with `2170`-`2174` and wrote ignored result artifact `data/work/naver_map_sync_result_20260816_edge_extension.json`.
+
+Login-retention note: Official Naver help points to cookie persistence as the main cause of repeated device/login prompts: private browsing cannot use login-state retention, repeated device registration can happen when cookies are deleted, and browser settings/cleaner tools that delete cookies on close reset saved browser state. A one-hour Naver Map heartbeat may help idle sessions, but it should run only against the real Edge profile after cookie retention is confirmed; it will not fix isolated `agent-browser`/CDP profiles or cookie deletion on browser close.
+
+Verification note: Re-opened each saved place through the real Edge extension session and confirmed the `Tastyroad 2` row was `선택됨` after save; final modal count was 689. Verified with Naver sync script compile, Naver sync unit tests, synced-state JSON check for `2170`-`2174`, and `git diff --check`. Added a durable lesson for future login failures.
+
 ## Current Task - 2026-08-15 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260815`

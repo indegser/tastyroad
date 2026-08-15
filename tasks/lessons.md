@@ -4,6 +4,11 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-08-16
+
+- Trigger: Naver Map login appeared to expire repeatedly while the real Edge extension session was still logged in and Naver help tied repeated login/device prompts to cookie deletion or private browsing.
+  Rule: For Naver Map sync login failures, first verify the real Edge profile and cookie-retention settings; use an hourly login-check heartbeat only as a supplement for idle sessions, not as a replacement for the logged-in Edge extension path.
+
 ## 2026-08-14
 
 - Trigger: Edge extension sync succeeded after CDP and `agent-browser` sessions lacked the user's Naver login.
