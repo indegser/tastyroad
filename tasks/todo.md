@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-16 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260816`
+Branch: `codex/regular-source-maintenance-20260816`
+Starting `origin/main`: `71f90c812846b21d65fac131c1680aac10856db2`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` was clean on `main`; existing older worktrees were left untouched.
+
+- [x] Read automation memory and inspect repository/worktree state.
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, automation skill, and repository automation prompt.
+- [x] Pull worktree env from linked main checkout when safe.
+- [x] Run pre-maintenance Supabase Marketplace gate.
+- [x] Run non-dry deterministic source maintenance.
+- [x] Inspect latest report and work queues.
+- [x] Use owning skills for any mapping, transcript, or must-taste queues.
+- [x] Recalculate scoped gates after review work when needed.
+- [ ] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
+- [ ] Record final verification, release, sync, or blocker notes.
+
 ## Current Task - 2026-08-16 - Retry Naver sync login
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-login-retry`

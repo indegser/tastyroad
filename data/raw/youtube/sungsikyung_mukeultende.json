@@ -6,8 +6,27 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg/videos"
   ],
-  "count": 7,
+  "count": 8,
   "items": [
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "u4bhSCvA36A",
+      "title": "성시경의 먹을텐데 l 수색역 제일식당",
+      "url": "https://www.youtube.com/watch?v=u4bhSCvA36A",
+      "thumbnail_url": "https://i2.ytimg.com/vi/u4bhSCvA36A/hqdefault.jpg",
+      "published_at": "2026-08-15T09:00:06+00:00",
+      "updated_at": "2026-08-15T14:00:29+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "수색역 제일식당"
+      ],
+      "collected_at": "2026-08-15T22:02:50.996823+00:00"
+    },
     {
       "source_key": "sungsikyung_mukeultende",
       "source": "성시경의 먹을텐데",

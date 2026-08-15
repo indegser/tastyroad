@@ -1,0 +1,24 @@
+{
+  "source": "성시경의 먹을텐데",
+  "verified_at": "2026-08-16",
+  "items": [
+    {
+      "video_id": "u4bhSCvA36A",
+      "resolved_name": "제일식당",
+      "display_name": "제일식당",
+      "local_name": "제일식당",
+      "country_code": "KR",
+      "region": "서울 은평구",
+      "address": "서울 은평구 수색로 271 1층",
+      "phone": "0507-1426-1222",
+      "category": "한식",
+      "map_provider": "naver_map",
+      "naver_map_id": "1875939794",
+      "map_url": "https://map.naver.com/p/entry/place/1875939794?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=u4bhSCvA36A",
+      "confidence": 0.98,
+      "status": "verified",
+      "notes": "YouTube title names '수색역 제일식당'; DiningCode confirms the Susaek-ro 271 place metadata, and naver.me/xZjNO51u resolves to Naver place 1875939794."
+    }
+  ]
+}
