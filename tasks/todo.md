@@ -2,6 +2,21 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-16 - Harden Naver sync preflight
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-hard-preflight`
+Branch: `codex/naver-sync-hard-preflight`
+Starting `origin/main`: `ccead1f18324f149c3a003e659a3a0c8cfd2a32d`
+Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tastyroad` was clean on `main` and behind `origin/main`; existing older worktrees were left untouched.
+
+- [x] Read `AGENTS.md`, `tasks/lessons.md`, `$tastyroad-naver-map-sync`, and automation runbook.
+- [x] Inspect current Naver sync runner and tests.
+- [x] Add a login/connector preflight that exits before save attempts when the browser is not authenticated.
+- [x] Update automation and Naver sync docs so fallback cannot be used as an automatic write path without preflight.
+- [x] Verify syntax/tests/no-op behavior.
+- [ ] Commit and push the hardening change so the next scheduled run inherits it.
+- [ ] Record result notes.
+
 ## Current Task - 2026-08-16 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260816`

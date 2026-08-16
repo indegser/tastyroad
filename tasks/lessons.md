@@ -6,6 +6,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
 
 ## 2026-08-16
 
+- Trigger: Daily Naver Map sync kept failing even after runbook edits because fallback browser sessions were still allowed to attempt place saves without an authenticated-login preflight.
+  Rule: Fallback Naver sync must fail closed before writes: run the exact-ID login preflight first, treat `auth_blocked` as a no-write operational blocker, and never create per-restaurant failure rows or retries from an unauthenticated browser session.
 - Trigger: Naver Map login appeared to expire repeatedly while the real Edge extension session was still logged in and Naver help tied repeated login/device prompts to cookie deletion or private browsing.
   Rule: For Naver Map sync login failures, first verify the real Edge profile and cookie-retention settings; use an hourly login-check heartbeat only as a supplement for idle sessions, not as a replacement for the logged-in Edge extension path.
 

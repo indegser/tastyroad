@@ -69,6 +69,10 @@ class PermanentSyncError(RuntimeError):
     pass
 
 
+class BrowserAuthUnavailable(RuntimeError):
+    pass
+
+
 class PlacePageNotFound(PermanentSyncError):
     pass
 
@@ -518,6 +522,24 @@ def agent_browser_click(config: AgentBrowserConfig, ref: str) -> None:
     run_agent_browser(config, "click", f"@{ref}")
 
 
+def snapshot_has_naver_login(snapshot: str) -> bool:
+    logged_in = "내 프로필 이미지 내정보 보기" in snapshot
+    login_link = re.search(r'link\s+"로그인"', snapshot) is not None
+    return logged_in and not login_link
+
+
+def assert_agent_browser_logged_in(config: AgentBrowserConfig) -> None:
+    agent_browser_open(config, "https://map.naver.com")
+    agent_browser_wait(config, 2500)
+    snapshot = agent_browser_snapshot(config)
+    if snapshot_has_naver_login(snapshot):
+        return
+    raise BrowserAuthUnavailable(
+        "Naver login marker missing; open https://nid.naver.com/nidlogin.login "
+        "in the configured browser session, log in, then retry."
+    )
+
+
 def parse_browser_refs(snapshot: str) -> list[BrowserRef]:
     pattern = re.compile(
         r'^\s*-\s+(?P<role>button|link|checkbox)\s+"(?P<name>.*?)"\s+\[ref=(?P<ref>[^\]]+)\]'
@@ -624,15 +646,15 @@ def assert_place_loaded_agent_browser(
         latest_snapshot = agent_browser_snapshot(config)
         if "요청하신 페이지를 찾을 수 없습니다" in latest_snapshot:
             raise PlacePageNotFound("Naver place page not found")
-        logged_in = "내 프로필 이미지 내정보 보기" in latest_snapshot
+        logged_in = snapshot_has_naver_login(latest_snapshot)
         login_link = re.search(r'link\s+"로그인"', latest_snapshot) is not None
         if logged_in and (not require_place_name or place_name_matches(place.name, latest_snapshot)):
             return
         if login_link and not logged_in:
-            raise RuntimeError("Naver login marker missing")
+            raise BrowserAuthUnavailable("Naver login marker missing")
         agent_browser_wait(config, SELECTOR_POLL_MS)
-    if "내 프로필 이미지 내정보 보기" not in latest_snapshot:
-        raise RuntimeError("Naver login marker missing")
+    if not snapshot_has_naver_login(latest_snapshot):
+        raise BrowserAuthUnavailable("Naver login marker missing")
     if require_place_name and not place_name_matches(place.name, latest_snapshot):
         raise PlaceNameMismatch(f"Naver place name mismatch: expected {place.name!r}")
     raise RuntimeError("Naver place page not loaded")
@@ -781,6 +803,74 @@ def connect_browser(cdp_port: int):
     return playwright, browser
 
 
+def assert_cdp_logged_in(page) -> None:
+    page.goto("https://map.naver.com", wait_until="domcontentloaded", timeout=35000)
+    deadline = time.time() + 8
+    while time.time() < deadline:
+        try:
+            logged_in = page.locator("a").filter(
+                has_text=re.compile(r"내정보\s*보기")
+            ).first.is_visible(timeout=200)
+        except Exception:
+            logged_in = False
+        try:
+            login_link = page.locator("a").filter(
+                has_text=re.compile(r"^로그인$")
+            ).first.is_visible(timeout=200)
+        except Exception:
+            login_link = False
+        if logged_in and not login_link:
+            return
+        if login_link and not logged_in:
+            break
+        page.wait_for_timeout(SELECTOR_POLL_MS)
+    raise BrowserAuthUnavailable(
+        "Naver login marker missing; log in to the connected browser session, then retry."
+    )
+
+
+def write_result(
+    path: Path,
+    *,
+    status: str,
+    browser_backend: str,
+    target_list: str,
+    source: str,
+    restaurant_ids: list[int],
+    planned: int,
+    processed: int = 0,
+    saved: int = 0,
+    already: int = 0,
+    failed_ids: list[int] | None = None,
+    remaining: int = 0,
+    synced_count: int = 0,
+    failure_log: Path | None = None,
+    auth_message: str | None = None,
+) -> None:
+    failed_ids = failed_ids or []
+    payload = {
+        "status": status,
+        "browser_backend": browser_backend,
+        "target_list": target_list,
+        "source": source,
+        "restaurant_ids": restaurant_ids,
+        "planned": planned,
+        "processed": processed,
+        "saved": saved,
+        "already": already,
+        "failed": len(failed_ids),
+        "failed_ids": failed_ids,
+        "remaining": remaining,
+        "synced_count": synced_count,
+        "finished_at": datetime.now(timezone.utc).isoformat(),
+    }
+    if failure_log is not None:
+        payload["failure_log"] = str(failure_log)
+    if auth_message:
+        payload["auth_message"] = auth_message
+    save_json(path, payload)
+
+
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Add public Tastyroad restaurants to the fixed Naver Map saved list."
@@ -905,6 +995,16 @@ def parse_args() -> argparse.Namespace:
         action="store_true",
         help="Do not require the restaurant display name to appear in the Naver page text.",
     )
+    parser.add_argument(
+        "--skip-login-preflight",
+        action="store_true",
+        help="Skip the upfront Naver login marker check. Use only for manual browser debugging.",
+    )
+    parser.add_argument(
+        "--preflight-only",
+        action="store_true",
+        help="Plan the requested IDs and verify the browser login marker, then exit without saving places.",
+    )
     return parser.parse_args()
 
 
@@ -959,21 +1059,16 @@ def main() -> int:
         f"places={len(places)} attempts={args.attempts} control={args.browser_backend}"
     )
     if not places:
-        save_json(
+        write_result(
             args.result_json,
-            {
-                "status": "complete",
-                "browser_backend": args.browser_backend,
-                "target_list": args.list_name,
-                "source": source_scope,
-                "restaurant_ids": sorted(requested_restaurant_ids or []),
-                "planned": 0,
-                "saved": 0,
-                "already": 0,
-                "failed": 0,
-                "remaining": 0,
-                "finished_at": datetime.now(timezone.utc).isoformat(),
-            },
+            status="complete",
+            browser_backend=args.browser_backend,
+            target_list=args.list_name,
+            source=source_scope,
+            restaurant_ids=sorted(requested_restaurant_ids or []),
+            planned=0,
+            remaining=0,
+            synced_count=len(synced_ids),
         )
         return 0
 
@@ -991,6 +1086,61 @@ def main() -> int:
             playwright, browser = connect_browser(args.cdp_port)
             context = browser.contexts[0]
             page = context.new_page()
+        if not args.skip_login_preflight:
+            try:
+                if args.browser_backend == "cdp":
+                    if page is None:
+                        raise RuntimeError("CDP page was not initialized")
+                    assert_cdp_logged_in(page)
+                else:
+                    assert_agent_browser_logged_in(agent_browser_config)
+            except BrowserAuthUnavailable as exc:
+                write_result(
+                    args.result_json,
+                    status="auth_blocked",
+                    browser_backend=args.browser_backend,
+                    target_list=args.list_name,
+                    source=source_scope,
+                    restaurant_ids=sorted(requested_restaurant_ids or []),
+                    planned=len(places),
+                    processed=0,
+                    saved=0,
+                    already=0,
+                    failed_ids=[],
+                    remaining=len(places),
+                    synced_count=len(synced_ids),
+                    failure_log=args.failure_log,
+                    auth_message=str(exc),
+                )
+                print(
+                    f"status=auth_blocked planned={len(places)} remaining={len(places)} "
+                    f"result={args.result_json} message={exc}",
+                    flush=True,
+                )
+                return 0
+        if args.preflight_only:
+            write_result(
+                args.result_json,
+                status="preflight_ready",
+                browser_backend=args.browser_backend,
+                target_list=args.list_name,
+                source=source_scope,
+                restaurant_ids=sorted(requested_restaurant_ids or []),
+                planned=len(places),
+                processed=0,
+                saved=0,
+                already=0,
+                failed_ids=[],
+                remaining=len(places),
+                synced_count=len(synced_ids),
+                failure_log=args.failure_log,
+            )
+            print(
+                f"status=preflight_ready planned={len(places)} remaining={len(places)} "
+                f"result={args.result_json}",
+                flush=True,
+            )
+            return 0
         for index, place in enumerate(places, start=1):
             started = time.time()
             print(f"[{index}/{len(places)}] {place.name} ({place.id})", flush=True)
@@ -1021,6 +1171,9 @@ def main() -> int:
                     final_error = None
                     break
                 except PermanentSyncError as exc:
+                    final_error = exc
+                    break
+                except BrowserAuthUnavailable as exc:
                     final_error = exc
                     break
                 except Exception as exc:
@@ -1055,6 +1208,36 @@ def main() -> int:
                     flush=True,
                 )
                 continue
+
+            if isinstance(final_error, BrowserAuthUnavailable):
+                remaining_after_auth_block = len(places) - processed
+                write_result(
+                    args.result_json,
+                    status="auth_blocked",
+                    browser_backend=args.browser_backend,
+                    target_list=args.list_name,
+                    source=source_scope,
+                    restaurant_ids=sorted(requested_restaurant_ids or []),
+                    planned=len(places),
+                    processed=processed,
+                    saved=saved,
+                    already=already,
+                    failed_ids=[],
+                    remaining=remaining_after_auth_block,
+                    synced_count=len(synced_ids),
+                    failure_log=args.failure_log,
+                    auth_message=str(final_error),
+                )
+                print(
+                    f"[{index}/{len(places)}] AUTH_BLOCKED {place.id}: {final_error}",
+                    flush=True,
+                )
+                print(
+                    f"status=auth_blocked saved={saved} already={already} "
+                    f"remaining={remaining_after_auth_block} result={args.result_json}",
+                    flush=True,
+                )
+                return 0
 
             if args.browser_backend == "cdp":
                 screenshot_path = (

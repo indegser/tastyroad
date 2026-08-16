@@ -12,7 +12,7 @@ Use this skill for Codex app Automation runs that keep Tastyroad current across 
 - Scripts handle repeatable source collection, transcript ingestion, deterministic map candidate resolution, gate checks, and reports.
 - Codex handles ambiguous Naver place verification and transcript-grounded must-taste extraction by using the owning Tastyroad skills.
 - Deployment happens after hard publishing gates pass and `$tastyroad-site-release` has been followed. Missing transcripts or missing must-taste rows are follow-up warnings, not release blockers, because verified mapped restaurants should still be visible on the web.
-- Naver Map saved-list sync happens after the production deployment and API verification succeed, using `$tastyroad-naver-map-sync`. The normal control path is the Codex Edge browser extension against the user's logged-in Microsoft Edge profile; `agent-browser` is the first fallback, and CDP is only for explicit legacy troubleshooting. Naver sync failures are post-release operational warnings; do not roll back or hide already verified public restaurants because the browser login, Naver UI state, or list capacity failed.
+- Naver Map saved-list sync happens after the production deployment and API verification succeed, using `$tastyroad-naver-map-sync`. The normal control path is the Codex Edge browser extension against the user's logged-in Microsoft Edge profile. Fallback writes are allowed only after the runner's login preflight returns `preflight_ready`; if the result is `auth_blocked`, stop the Naver sync step without place-level retries. CDP is only for explicit legacy troubleshooting. Naver sync blockers are post-release operational warnings; do not roll back or hide already verified public restaurants because the browser login, Naver UI state, or list capacity failed.
 
 Prefer a Codex app **standalone project automation** on a dedicated worktree. Do not use GitHub Actions for recurring Tastyroad checks unless the user explicitly asks for it or Codex Automation is unavailable.
 
@@ -81,7 +81,7 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 ```
 
 6. When the scoped report says `deploy_ready: true`, run `pnpm run build` and follow `$tastyroad-site-release`; transcript failures or validator-confirmed insufficient taste evidence can remain as follow-up warnings.
-7. After the production deployment reaches `READY` and the production API returns HTTP 200 with an `items` array, follow `$tastyroad-naver-map-sync` to add the final report's `release_scope_restaurant_ids` to the private Naver Map saved list. Prefer the Edge browser extension connector and confirm the Naver login marker before writes. Pass each ID as `--restaurant-id=<id>` when using the fallback runner. Use `Tastyroad 2` with `data/naver_map_list_synced_ids_2.json` and `--exclude-state data/naver_map_list_synced_ids.json` unless the user has explicitly changed the list partitioning.
+7. After the production deployment reaches `READY` and the production API returns HTTP 200 with an `items` array, follow `$tastyroad-naver-map-sync` to add the final report's `release_scope_restaurant_ids` to the private Naver Map saved list. Prefer the Edge browser extension connector and confirm the Naver login marker before writes. When using the fallback runner, first run it with `--preflight-only`, the exact release-scope `--restaurant-id=<id>` values, `Tastyroad 2`, `data/naver_map_list_synced_ids_2.json`, and `--exclude-state data/naver_map_list_synced_ids.json`. Continue to the write command only when the preflight result JSON has `status: preflight_ready`. If it has `status: auth_blocked`, do not run the write command or place-level retries; report the browser-login blocker as a post-release operational warning.
 
 ## Rules
 
@@ -93,5 +93,6 @@ python3 .codex/skills/tastyroad-regular-source-automation/scripts/run_regular_so
 - Do not let parallel agents write SQLite, Naver Map saved lists, or deployment state.
 - Keep automation work in a dedicated worktree. Preserve unresolved artifacts under ignored `data/work/`.
 - Run Naver Map saved-list sync only after production deployment verification succeeds; treat Naver browser-login, UI, and list-capacity failures as post-release warnings unless the user explicitly asks to block release on saved-list sync.
+- For fallback Naver sync, require the runner's `--preflight-only` result to be `preflight_ready` before any write attempt. `auth_blocked` is a no-write blocker, not a per-restaurant sync failure.
 - Do not fall back to CDP just because Edge is logged out. Ask the user to log into Naver in Edge, then resume the Edge extension sync.
 - Report no-op runs briefly; report blocked runs with exact video IDs and the next skill/command.

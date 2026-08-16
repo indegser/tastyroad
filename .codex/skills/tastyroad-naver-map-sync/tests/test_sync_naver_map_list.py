@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import importlib.util
+import argparse
+import json
 import sys
 import tempfile
 import unittest
@@ -150,6 +152,73 @@ class SyncNaverMapListTests(unittest.TestCase):
             places = sync.load_places({10}, restaurant_ids={10})
 
         self.assertEqual(places, [])
+
+    def test_snapshot_has_naver_login_requires_profile_marker_without_login_link(self) -> None:
+        self.assertTrue(
+            sync.snapshot_has_naver_login(
+                '- link "내 프로필 이미지 내정보 보기" [ref=e1]\n'
+            )
+        )
+        self.assertFalse(
+            sync.snapshot_has_naver_login(
+                '- link "내 프로필 이미지 내정보 보기" [ref=e1]\n'
+                '- link "로그인" [ref=e2]\n'
+            )
+        )
+        self.assertFalse(sync.snapshot_has_naver_login('- link "로그인" [ref=e2]\n'))
+
+    def test_main_auth_blocked_exits_before_place_attempts(self) -> None:
+        with tempfile.TemporaryDirectory() as directory:
+            result_path = Path(directory) / "result.json"
+            failure_log = Path(directory) / "failures.json"
+            args = argparse.Namespace(
+                browser_backend="agent-browser",
+                cdp_port=9222,
+                agent_browser_session="sync-session",
+                agent_browser_session_name="sync-session",
+                agent_browser_profile=None,
+                agent_browser_provider=None,
+                agent_browser_headed=False,
+                agent_browser_max_output=1000,
+                list_name="Tastyroad 2",
+                source_name=None,
+                restaurant_id=[2175],
+                sync_state=Path(directory) / "synced.json",
+                exclude_state=[],
+                skip_id=[],
+                limit=None,
+                chunk_size=None,
+                attempts=3,
+                retry_delay_ms=700,
+                max_list_size=1000,
+                include_synced=False,
+                retry_failures=False,
+                failure_log=failure_log,
+                result_json=result_path,
+                failure_artifacts_dir=Path(directory) / "artifacts",
+                no_require_place_name=False,
+                skip_login_preflight=False,
+                preflight_only=False,
+            )
+
+            with mock.patch.object(sync, "parse_args", return_value=args), \
+                mock.patch.object(sync, "load_synced_ids", return_value=set()), \
+                mock.patch.object(sync, "load_places", return_value=[
+                    sync.Place(2175, "제일식당", "https://map.naver.com/p/entry/place/1875939794")
+                ]), \
+                mock.patch.object(sync, "assert_agent_browser_logged_in", side_effect=sync.BrowserAuthUnavailable("Naver login marker missing")), \
+                mock.patch.object(sync, "process_place_agent_browser") as process_place, \
+                mock.patch.object(sync, "record_failure") as record_failure:
+                self.assertEqual(sync.main(), 0)
+
+            self.assertFalse(process_place.called)
+            self.assertFalse(record_failure.called)
+            result = json.loads(result_path.read_text())
+            self.assertEqual(result["status"], "auth_blocked")
+            self.assertEqual(result["planned"], 1)
+            self.assertEqual(result["processed"], 0)
+            self.assertEqual(result["failed"], 0)
+            self.assertEqual(result["remaining"], 1)
 
 
 if __name__ == "__main__":

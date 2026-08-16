@@ -1,6 +1,6 @@
 Use $tastyroad-regular-source-automation.
 Use $tastyroad-site-release for the final production release.
-Use $tastyroad-naver-map-sync after production API verification succeeds. For Naver Map saved-list writes, prefer the Codex Edge browser extension connector against the user's logged-in Edge profile; do not use CDP unless the user explicitly requests legacy CDP troubleshooting.
+Use $tastyroad-naver-map-sync after production API verification succeeds. For Naver Map saved-list writes, prefer the Codex Edge browser extension connector against the user's logged-in Edge profile; do not use CDP unless the user explicitly requests legacy CDP troubleshooting. When the Edge connector is unavailable and the fallback runner would be used, run the fallback with `--preflight-only` for the exact release-scope restaurant IDs first, and only run the write command if the result status is `preflight_ready`. If the result is `auth_blocked`, do not attempt per-place saves or retries; report the browser-login blocker as a post-release operational warning.
 
 Run the recurring Tastyroad source maintenance workflow for all enabled YouTube sources.
 Use a dedicated automation worktree.
@@ -63,4 +63,4 @@ Immediately before push and deployment, repeat the Vercel integration check and 
 
 Then run `pnpm run build`, commit only intended tracked files, integrate the intended commit into production `main`, push `main`, wait for the matching GitHub-triggered Vercel deployment to reach `READY`, and verify the production restaurants API. Do not use direct `vercel deploy`.
 
-Report new video IDs, mapping decisions, taste-menu results, transcript warnings, both Supabase preflight results, production commit, deployment URL/status, and production API verification.
+Report new video IDs, mapping decisions, taste-menu results, transcript warnings, both Supabase preflight results, production commit, deployment URL/status, production API verification, and Naver sync preflight/write status. Distinguish `auth_blocked` from restaurant-level sync failures: it means no write was attempted because the browser session was not authenticated.

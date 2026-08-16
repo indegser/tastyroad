@@ -21,6 +21,11 @@ Fallback surfaces, in order:
 1. The bundled `agent-browser` runner with persistent session `tastyroad-naver-map-sync`.
 2. Legacy Playwright CDP only when the user explicitly asks for CDP troubleshooting.
 
+Fallback is not an automatic write path. It must pass the runner's login preflight
+first. If the result status is `auth_blocked`, do not retry place saves, do not create
+failure rows for the restaurants, and ask the user to restore the Edge connector or log
+in to the configured browser session.
+
 This skill builds on `naver-map-lists`: use that skill first when saved-list creation
 or visual troubleshooting is needed.
 
@@ -160,6 +165,24 @@ Logged in means the snapshot shows `내 프로필 이미지 내정보 보기`.
 Do not ask for Naver credentials in chat. If the session is logged out, ask the user to
 log in directly in the headed `agent-browser` window and re-check the login marker.
 
+Before a release-scoped fallback write, run the built-in preflight for the exact planned
+IDs. This must happen before any save attempt:
+
+```bash
+python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
+  --preflight-only \
+  --list-name "Tastyroad 2" \
+  --sync-state data/naver_map_list_synced_ids_2.json \
+  --exclude-state data/naver_map_list_synced_ids.json \
+  --restaurant-id=123 \
+  --result-json data/work/naver_map_sync_preflight.json
+```
+
+Continue to the write command only when the result JSON has
+`"status": "preflight_ready"`. If it has `"status": "auth_blocked"`, no restaurant
+was attempted and no sync-state should change; report the browser-login blocker and stop
+the Naver sync step.
+
 Open the saved-place panel and verify the target list.
 
 ```bash
@@ -210,7 +233,10 @@ python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
 
 For a fallback release-scoped sync, pass each verified restaurant ID from the release
 report. The runner applies sync-state, exclude-state, and failure-log skips before
-opening the browser session, so a fully recorded release scope exits as a no-op:
+opening the browser session, so a fully recorded release scope exits as a no-op. The
+runner also performs the same login preflight by default before the save loop; do not
+use `--skip-login-preflight` except for manual UI debugging after an explicit user
+request:
 
 ```bash
 python3 .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py \
@@ -238,8 +264,10 @@ default. It stops before the visible list count reaches the default 1,000-place 
 Final failures are recorded in ignored `data/work/naver_map_sync_failures.json`, with a
 diagnostic screenshot captured only after retries are exhausted. A later success removes
 the stale failure entry. Use `--retry-failures` after resolving permanent failures or
-refreshing the browser login session. The structured run summary is written to
-`data/work/naver_map_sync_result.json`; partial runs exit with status 2.
+refreshing the browser login session. Login-preflight blockers are different: they write
+`status: auth_blocked`, do not record restaurant failures, and exit before retries. The
+structured run summary is written to `data/work/naver_map_sync_result.json`; partial
+runs exit with status 2.
 
 6. Verify the final count in Naver Map and capture a screenshot when reporting completion.
 
@@ -251,6 +279,8 @@ refreshing the browser login session. The structured run summary is written to
 - Before a bulk run after Naver UI changes, verify the Edge connector snapshot exposes an exact `저장` control and the target saved-list checkbox. For fallback script runs, verify the `agent-browser` snapshot exposes the same controls. For CDP fallback, verify that the place frame exposes `a[href="#bookmark"]` and the modal exposes `button.swt-save-group-info[role="checkbox"]`.
 - Do not write directly to SQLite during map sync.
 - Do not use CDP when the Edge extension connector is available but logged out; ask the user to log into Edge and resume.
+- Do not let a recurring automation attempt fallback saves when preflight reports
+  `auth_blocked`. Restore Edge connector/login first, then rerun only the unsynced IDs.
 - If the `agent-browser` session loses the Naver tab, recreate a Naver tab:
 
 ```bash
