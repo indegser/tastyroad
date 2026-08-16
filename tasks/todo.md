@@ -2797,9 +2797,11 @@ Preserved unrelated checkouts: shared main checkout and all existing worktrees w
 - [x] Run the non-dry deterministic maintenance runner and inspect the scoped work queues.
 - [x] Follow every owning skill required by mapping, transcript, and must-taste queues.
 - [x] Recalculate the original release scope and verify hard publishing gates.
-- [ ] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
-- [ ] Record final verification, release/sync outcome, and automation memory.
+- [x] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
+- [x] Record final verification, release/sync outcome, and automation memory.
 
 Result so far: Started from `origin/main` `d3b995b0c43c249acd8aa633261618327706ed64`. Live collection found zero new video IDs and refreshed metadata for four known videos. The original work queue had no mapping or transcript items and 25 must-taste pairs: 14 previously reviewed insufficient-evidence artifacts revalidated cleanly, and 11 newly surfaced 김사원세끼 pairs completed the full transcript workflow. The 11 pairs produced 28 items and passed individual and combined dry-runs before sequential apply. Scoped report `data/work/regular_source_automation/regular_source_automation_20260816T221820Z.json` has `deploy_ready=true` with zero blockers; remaining must-taste backlog is non-blocking follow-up work.
 
 Verification so far: Supabase Marketplace `supabase-aqua-engine` was `Available` before maintenance and immediately before release. SQLite integrity is `ok`; verified restaurants with blank or nonnumeric Naver IDs are both `0`; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed. Ten unrelated dirty worktrees were audited and left untouched.
+
+Release/sync note: Pushed production maintenance commit `44ac4c97a559e0ad165a775ba7b8cbc989571666`; GitHub-triggered Vercel deployment `https://tastyroad-jhcgjc6rt-jaekwon-hans-projects.vercel.app` reached `READY` and serves the production aliases. `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array, and live checks confirmed the new 구복만두 and 뒤푸리 menu recommendations. The final report's release-scope restaurant list is empty, so the Naver Map phase completed as a zero-place no-op (`planned=0`, `processed=0`, `saved=0`, `failed=0`) without opening a browser or attempting a save.
