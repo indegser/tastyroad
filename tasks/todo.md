@@ -16,11 +16,13 @@ Preserved unrelated checkouts: shared main and all existing task worktrees were 
 - [x] Run non-dry deterministic source maintenance and inspect its report/work queues.
 - [x] Use every owning skill required by mapping, transcript, or must-taste queues. (25 exact must-taste pairs; no mapping/transcript items.)
 - [x] Recalculate the original release scope and verify publishing gates.
-- [ ] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
-- [ ] Run Naver sync through Edge when available; otherwise require exact-ID fallback preflight before any write.
-- [ ] Record final verification, release, sync, or blocker notes.
+- [x] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Run Naver sync through Edge when available; otherwise require exact-ID fallback preflight before any write.
+- [x] Record final verification, release, sync, or blocker notes.
 
 Result so far: Live collection found 0 new video IDs but refreshed metadata for already-known videos. The original work queue contained 25 legacy must-taste pairs. Full transcript-grounded review and combined dry-run validation passed for all 25; 11 pairs were applied sequentially (19 menu items) and 14 were recorded as insufficient evidence. The recalculated report is `data/work/regular_source_automation/regular_source_automation_20260816T025710Z.json`, with `deploy_ready=true`, zero hard blockers, and non-blocking legacy must-taste warnings. Pre-maintenance and pre-release Supabase Marketplace checks both found `supabase-aqua-engine` Available. SQLite integrity is `ok`, verified blank Naver ID count is 0, `git diff --check` passed, and `pnpm run build` passed.
+
+Release/sync note: Pushed production maintenance commit `b7d9ee7fdcdc7b992d0f619365388e754883217a`; Vercel deployment `https://tastyroad-fba8cny1m-jaekwon-hans-projects.vercel.app` reached `READY`. `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array, restaurant `2175` remained live, and restaurant `2090` exposed the new `오리 혀구이` must-taste item. The exact-ID fallback Naver preflight for unsynced `2175`, `Tastyroad 2`, `data/naver_map_list_synced_ids_2.json`, and the original-list exclude state returned `status=auth_blocked`, `processed=0`, `saved=0`, `failed=0`, and no failure row. No write command or place-level retry was attempted. This is a no-write post-release operational blocker until the configured browser session is logged into Naver.
 
 ## Current Task - 2026-08-16 - Harden Naver sync preflight
 
