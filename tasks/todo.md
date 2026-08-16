@@ -14,8 +14,12 @@ Preserved unrelated checkout: shared main checkout `/Users/indegser/Github/tasty
 - [x] Add a login/connector preflight that exits before save attempts when the browser is not authenticated.
 - [x] Update automation and Naver sync docs so fallback cannot be used as an automatic write path without preflight.
 - [x] Verify syntax/tests/no-op behavior.
-- [ ] Commit and push the hardening change so the next scheduled run inherits it.
-- [ ] Record result notes.
+- [x] Commit and push the hardening change so the next scheduled run inherits it.
+- [x] Record result notes.
+
+Result note: Added a hard login preflight to `$tastyroad-naver-map-sync` fallback runner. For planned places, the runner now checks Naver login before any save loop; unauthenticated sessions write `status: auth_blocked`, `failed: 0`, `failed_ids: []`, and exit without per-place retries or failure-log rows. Added `--preflight-only` so the regular source automation can verify exact release-scope IDs before fallback writes, and updated `$tastyroad-regular-source-automation` plus `automation_prompt.md` to continue only when the result is `preflight_ready`. Added a durable lesson for this failure mode.
+
+Verification note: `python3 -m py_compile .codex/skills/tastyroad-naver-map-sync/scripts/sync_naver_map_list.py`, `python3 -m unittest discover -s .codex/skills/tastyroad-naver-map-sync/tests -p 'test_*.py'`, `git diff --check`, and a live fallback preflight for `2175` passed. The live preflight returned `status=auth_blocked` with `failed=0` and no `2175` failure-log row, proving logged-out fallback sessions no longer create daily restaurant-level sync failures.
 
 ## Current Task - 2026-08-16 - Regular source maintenance run
 
