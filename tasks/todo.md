@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-16 - Regular source maintenance preflight test
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-preflight-test-20260816`
+Branch: `codex/regular-source-preflight-test-20260816`
+Starting `origin/main`: `bd1be6e35aedd7b432bd6ad4bba36c7a9e664ba3`
+Preserved unrelated checkouts: shared main and all existing task worktrees were left untouched.
+
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Verify Naver hardening commits `f8129bf` and `bd1be6e` are present.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, automation skill, repository runbook, and automation memory.
+- [x] Pull the worktree environment and pass the pre-maintenance Supabase Marketplace gate.
+- [x] Run non-dry deterministic source maintenance and inspect its report/work queues.
+- [x] Use every owning skill required by mapping, transcript, or must-taste queues. (25 exact must-taste pairs; no mapping/transcript items.)
+- [x] Recalculate the original release scope and verify publishing gates.
+- [ ] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
+- [ ] Run Naver sync through Edge when available; otherwise require exact-ID fallback preflight before any write.
+- [ ] Record final verification, release, sync, or blocker notes.
+
+Result so far: Live collection found 0 new video IDs but refreshed metadata for already-known videos. The original work queue contained 25 legacy must-taste pairs. Full transcript-grounded review and combined dry-run validation passed for all 25; 11 pairs were applied sequentially (19 menu items) and 14 were recorded as insufficient evidence. The recalculated report is `data/work/regular_source_automation/regular_source_automation_20260816T025710Z.json`, with `deploy_ready=true`, zero hard blockers, and non-blocking legacy must-taste warnings. Pre-maintenance and pre-release Supabase Marketplace checks both found `supabase-aqua-engine` Available. SQLite integrity is `ok`, verified blank Naver ID count is 0, `git diff --check` passed, and `pnpm run build` passed.
+
 ## Current Task - 2026-08-16 - Harden Naver sync preflight
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/naver-sync-hard-preflight`
