@@ -2783,3 +2783,23 @@ Branch: `codex/must-taste-token-quality-benchmark`
 - The combined review/final-selection prompt now rejects broad course/set plus component recommendations when they reuse substantially the same tasting evidence, unless they represent distinct visitor choices with distinct support.
 - Rank 2 and rank 3 are no longer treated as slots to fill; every selected item must independently meet the rank-1 evidence standard, and overlap/weakness decisions must remain visible in `rejected_candidates`.
 - Verification passed: five focused unit tests, all must-taste script compilation, and `git diff --check`.
+## Current Task - 2026-08-17 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260817`
+Branch: `codex/regular-source-maintenance-20260817`
+Starting `origin/main`: `d3b995b0c43c249acd8aa633261618327706ed64`
+Preserved unrelated checkouts: shared main checkout and all existing worktrees were left untouched; the starting automation checkout was clean and detached at the same commit.
+
+- [x] Read automation memory and inspect repository/worktree state.
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, automation skill, and repository automation prompt.
+- [x] Pull worktree env from the linked main checkout and run pre-maintenance Supabase gate.
+- [x] Run the non-dry deterministic maintenance runner and inspect the scoped work queues.
+- [x] Follow every owning skill required by mapping, transcript, and must-taste queues.
+- [x] Recalculate the original release scope and verify hard publishing gates.
+- [ ] If deploy-ready, repeat Supabase gate, build, release, verify production API, and sync Naver Map.
+- [ ] Record final verification, release/sync outcome, and automation memory.
+
+Result so far: Started from `origin/main` `d3b995b0c43c249acd8aa633261618327706ed64`. Live collection found zero new video IDs and refreshed metadata for four known videos. The original work queue had no mapping or transcript items and 25 must-taste pairs: 14 previously reviewed insufficient-evidence artifacts revalidated cleanly, and 11 newly surfaced 김사원세끼 pairs completed the full transcript workflow. The 11 pairs produced 28 items and passed individual and combined dry-runs before sequential apply. Scoped report `data/work/regular_source_automation/regular_source_automation_20260816T221820Z.json` has `deploy_ready=true` with zero blockers; remaining must-taste backlog is non-blocking follow-up work.
+
+Verification so far: Supabase Marketplace `supabase-aqua-engine` was `Available` before maintenance and immediately before release. SQLite integrity is `ok`; verified restaurants with blank or nonnumeric Naver IDs are both `0`; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed. Ten unrelated dirty worktrees were audited and left untouched.
