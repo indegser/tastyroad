@@ -15,11 +15,13 @@ Preserved unrelated checkouts: ten dirty task worktrees were audited and left un
 - [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
 - [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
 - [x] Recalculate the original release scope and verify all publishing gates.
-- [ ] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
-- [ ] Sync exact release-scope restaurants to Naver Map after production verification.
-- [ ] Record final verification, release/sync outcome, and automation memory.
+- [x] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Attempt exact release-scope Naver Map sync after production verification; stop safely on authentication preflight failure.
+- [x] Record final verification and release/sync outcome; update automation memory after the final published commit.
 
 Result so far: Started from `origin/main` `ec34ed9789c38c65f582483f2b9ddea2c39354e7`. Live collection found 10 new video IDs and ingested all 10 transcript tracks. Mapping review verified seven video-place links covering eight release-scope restaurants (`1354`, `1416`, `2176`-`2181`); the two 최자로드 홍어 shorts remain non-blocking reviewed-uncertain warnings because no concrete venue could be verified. Nine restaurant-video must-taste reviews stored 14 transcript-grounded menu items. Final scoped report `data/work/regular_source_automation/regular_source_automation_20260818T151705Z.json` is deploy-ready with 0 blockers, 2 warnings, and empty transcript/must-taste queues. Pre-maintenance and pre-release Supabase checks found `supabase-aqua-engine` Available; SQLite integrity is `ok`; blank and nonnumeric Naver ID counts are 0; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed.
+
+Release/sync review: Maintenance commit `373005a70ae76ed28473d5bc1f06277d4bf9b4a9` was pushed to `main`; Vercel production deployment `tastyroad-nnefld3eb-jaekwon-hans-projects.vercel.app` reached `READY`, and `https://taste.indegser.com/api/restaurants` returned HTTP 200 with an items array containing all eight release-scope restaurants. The Edge extension was installed and enabled but Edge was not running. The exact fallback preflight skipped already-synced `1354` and `1416`, then returned `auth_blocked` for planned IDs `2176`-`2181`; processed/saved/failed were all 0 and both sync-state files remained unchanged. Result artifact: `data/work/naver_map_sync_preflight_20260819.json`.
 
 ## Current Task - 2026-08-16 - Regular source maintenance preflight test
 
