@@ -2,6 +2,29 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-19 - Regular source maintenance run (second daily check)
+
+Worktree: `/Users/indegser/.codex/worktrees/a976/tastyroad`
+Branch: detached automation checkout at `origin/main`
+Starting `origin/main`: `c76e2e95607aeae3f4edf88e1be7de9b2429c9fd`
+Preserved unrelated checkouts: ten dirty task worktrees were audited and left untouched; no changes were stashed, cleaned, switched, or overwritten.
+
+- [x] Read automation memory, fetch origin, and synchronize the clean dedicated checkout to current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and repository runbook from the synchronized checkout.
+- [x] Pass the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
+- [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
+- [x] Recalculate the original release scope and verify all publishing gates.
+- [x] If deploy-ready with tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
+- [x] Record final verification, release/sync outcome, and automation memory.
+
+Result so far: Started from `origin/main` `c76e2e95607aeae3f4edf88e1be7de9b2429c9fd`. Live collection found 0 new video IDs, refreshed metadata for existing videos, and filled missing description/duration/tags for 백반기행 video `8vjUAuf31dQ`. The original work queue contained 25 historical must-taste pairs. Full transcript-grounded review and combined dry-run validation covered all 25; 14 pairs were applied sequentially with 18 menu items and 11 were recorded as insufficient evidence. Final scoped report `data/work/regular_source_automation/regular_source_automation_20260818T221644Z.json` is deploy-ready with 0 blockers, 25 non-blocking historical must-taste warnings, and an empty release scope.
+
+Verification so far: Pre-maintenance and immediate pre-release Supabase checks found `supabase-aqua-engine` Available. SQLite integrity is `ok`; blank and nonnumeric Naver ID counts are both 0; exact post-apply verification found all 14 selected pairs and 18 expected menu items, with no rows for the 11 insufficient pairs. `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed.
+
+Release/sync review: Pushed production maintenance commit `88575348188e0392beab7b6dc04e3c13796a8e58`; GitHub-triggered deployment `https://tastyroad-au5kv15uw-jaekwon-hans-projects.vercel.app` reached `READY`. The production restaurants API returned HTTP 200 with an `items` array and exposed representative new menus for restaurants `458`, `461`, `1959`, and `2108`. Final `release_scope_restaurant_ids` was empty, so the Naver Map `Tastyroad 2` step completed as a zero-place no-op: planned/processed/saved/failed were all 0 and no browser or saved-list write was attempted. Result artifact: `data/work/naver_map_sync_result_20260819_second.json`.
+
 ## Current Task - 2026-08-19 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260819`
