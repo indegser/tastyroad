@@ -2,6 +2,25 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-08-19 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260819`
+Branch: `codex/regular-source-maintenance-20260819`
+Starting `origin/main`: `ec34ed9789c38c65f582483f2b9ddea2c39354e7`
+Preserved unrelated checkouts: ten dirty task worktrees were audited and left untouched; no changes were stashed, cleaned, or overwritten.
+
+- [x] Read automation memory, fetch origin, and create a clean dedicated worktree at current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and repository runbook from the synchronized checkout.
+- [x] Pull the worktree environment safely and pass the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
+- [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
+- [x] Recalculate the original release scope and verify all publishing gates.
+- [ ] If deploy-ready, repeat Supabase gate, build, release through `main`, and verify production API.
+- [ ] Sync exact release-scope restaurants to Naver Map after production verification.
+- [ ] Record final verification, release/sync outcome, and automation memory.
+
+Result so far: Started from `origin/main` `ec34ed9789c38c65f582483f2b9ddea2c39354e7`. Live collection found 10 new video IDs and ingested all 10 transcript tracks. Mapping review verified seven video-place links covering eight release-scope restaurants (`1354`, `1416`, `2176`-`2181`); the two 최자로드 홍어 shorts remain non-blocking reviewed-uncertain warnings because no concrete venue could be verified. Nine restaurant-video must-taste reviews stored 14 transcript-grounded menu items. Final scoped report `data/work/regular_source_automation/regular_source_automation_20260818T151705Z.json` is deploy-ready with 0 blockers, 2 warnings, and empty transcript/must-taste queues. Pre-maintenance and pre-release Supabase checks found `supabase-aqua-engine` Available; SQLite integrity is `ok`; blank and nonnumeric Naver ID counts are 0; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed.
+
 ## Current Task - 2026-08-16 - Regular source maintenance preflight test
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-preflight-test-20260816`
