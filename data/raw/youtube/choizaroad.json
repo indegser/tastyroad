@@ -15,8 +15,27 @@
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tSRZKQVLoE7NEcUfQFaMLN",
     "https://www.youtube.com/playlist?list=PLWoGc25qzA3tAoQ3-7uAt7ZywMAMwbPPK"
   ],
-  "count": 199,
+  "count": 200,
   "items": [
+    {
+      "source_key": "choizaroad",
+      "source": "최자로드",
+      "channel_id": "UCYdUe6y0F8TQS6siNVS7QMw",
+      "video_id": "jVwcb-6kZ3M",
+      "title": "사람들이 잘 모르는 맛있는 돼지 부위(?)",
+      "url": "https://www.youtube.com/watch?v=jVwcb-6kZ3M",
+      "thumbnail_url": "https://i.ytimg.com/vi_webp/jVwcb-6kZ3M/maxresdefault.webp",
+      "published_at": "2026-08-19T09:00:07+00:00",
+      "updated_at": "2026-08-19T09:09:10+00:00",
+      "description": "",
+      "duration_seconds": 46,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "사람들이 잘 모르는 맛있는 돼지 부위(?)"
+      ],
+      "collected_at": "2026-08-19T22:03:28.932229+00:00"
+    },
     {
       "source_key": "choizaroad",
       "source": "최자로드",
@@ -64,7 +83,7 @@
       "url": "https://www.youtube.com/shorts/jeE7_XEnFhk",
       "thumbnail_url": "https://i3.ytimg.com/vi/jeE7_XEnFhk/hqdefault.jpg",
       "published_at": "2026-08-17T09:00:03+00:00",
-      "updated_at": "2026-08-18T10:32:15+00:00",
+      "updated_at": "2026-08-19T21:28:56+00:00",
       "description": "",
       "duration_seconds": 39,
       "tags": [],
