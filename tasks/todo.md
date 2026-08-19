@@ -16,9 +16,17 @@ Preserved unrelated checkouts: shared main and all existing task/automation work
 - [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
 - [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
 - [x] Recalculate the original release scope and verify all publishing gates.
-- [ ] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
-- [ ] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
-- [ ] Record final verification, release/sync outcome, and automation memory.
+- [x] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
+- [x] Record final verification, release/sync outcome, and automation memory.
+
+Result: Started from `origin/main` `47203b487a01eeb91e1f8e74016bb00623631adc`. Live collection found 5 new videos: 최자로드 `jVwcb-6kZ3M` and 백반기행 `5PUNS5S1xlI`, `CY5TiteSRsM`, `fJNOmgxjKpo`, `xC__HfANCUM`. Transcript ingest succeeded for all five. Concrete transcript/web/sibling review mapped four 백반기행 clips to existing verified restaurants: `5PUNS5S1xlI` and `CY5TiteSRsM` to 오미막국수 (`1884`), `fJNOmgxjKpo` to 대월오골계 숯불구이 (`1885`), and `xC__HfANCUM` to 솔모루가든 (`1883`). 최자로드 `jVwcb-6kZ3M` contains only a generic pork-parts anecdote; exact-phrase/video/source web searches found no safe place identity, so it remains a documented non-blocking `reviewed_uncertain` warning.
+
+Must-taste result: Full transcript-grounded artifacts and centralized dry-run validation passed for all four mapped pairs. Sequential apply stored 9 items: 감자전·단호박 백김치 (`5PUNS5S1xlI/1884`), 사과막국수 (`CY5TiteSRsM/1884`), 오골계 모래집·가슴살·다리살 (`fJNOmgxjKpo/1885`), and 시래기 불고기·시래기밥·보리막장 (`xC__HfANCUM/1883`). Final scoped report `data/work/regular_source_automation/regular_source_automation_20260819T221558Z.json` is deploy-ready with zero blockers, one non-blocking mapping warning, and empty transcript/must-taste queues.
+
+Verification/release: Pre-maintenance and immediate pre-release checks both found `supabase-aqua-engine` Available. SQLite integrity is `ok`; blank and nonnumeric Naver ID counts are 0; failed non-transcript command count is 0; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed. Production data commit `46c38d3d1d02ee877c725e9d35056315538ff964` was pushed to `main`; GitHub-triggered deployment `https://tastyroad-9ajc2w9o8-jaekwon-hans-projects.vercel.app` reached `READY`, and `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array. Production searches exposed restaurants `1883`-`1885` and their new must-taste data.
+
+Naver sync: Exact release-scope preflight for IDs `1883`, `1884`, and `1885`, target `Tastyroad 2`, state `data/naver_map_list_synced_ids_2.json`, and original-list exclude state completed with planned/processed/saved/failed all 0. IDs `1883` and `1884` were already in `Tastyroad 2`; `1885` was already in the original `Tastyroad` state. No browser or saved-list write was attempted. Artifact: `data/work/naver_map_sync_preflight_20260820.json`.
 
 ## Current Task - 2026-08-19 - Regular source maintenance run (second daily check)
 
