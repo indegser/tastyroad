@@ -16,9 +16,16 @@ Preserved unrelated checkouts: shared main and all existing task/automation work
 - [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
 - [x] Read and follow the mapping and transcript owning skills required by the original queues; mapping promotions are complete and transcript retries are documented.
 - [x] Recalculate the original release scope and verify all publishing gates.
-- [ ] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
-- [ ] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
-- [ ] Record final verification, release/sync outcome, and automation memory.
+- [x] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
+- [x] Record final verification, release/sync outcome, and automation memory.
+
+Review/result:
+
+- Started from `origin/main` `835ff38ef9c210c464fe48a476e9ad301143f18a`; collected 31 new videos and published 17 release-scope restaurants at production commit `c24b94fbaf3f88afd8b5d412d2e2ffc2fc6abeab`.
+- Final gate report `regular_source_automation_20260904T133452Z.json`: deploy-ready, 0 blockers, 31 warnings (16 reviewed-uncertain mappings and 15 transcript retries blocked by Webshare HTTP 402).
+- Verified SQLite integrity, zero blank/non-numeric Naver place IDs, `pnpm run build`, Vercel `READY`, and production API HTTP 200 with an `items` array.
+- Naver Map exact-scope fallback preflight planned 14 unsynced places and returned `auth_blocked`; no save was attempted and no sync/failure state changed.
 
 ## Current Task - 2026-08-20 - Regular source maintenance run
 
