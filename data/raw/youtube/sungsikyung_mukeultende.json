@@ -6,8 +6,27 @@
   "full_channel_urls": [
     "https://www.youtube.com/channel/UCl23-Cci_SMqyGXE1T_LYUg/videos"
   ],
-  "count": 8,
+  "count": 9,
   "items": [
+    {
+      "source_key": "sungsikyung_mukeultende",
+      "source": "성시경의 먹을텐데",
+      "channel_id": "UCl23-Cci_SMqyGXE1T_LYUg",
+      "video_id": "W0tEtSoNGUs",
+      "title": "성시경의 먹을텐데 l 삼각지역 노케찹, 대원식당",
+      "url": "https://www.youtube.com/watch?v=W0tEtSoNGUs",
+      "thumbnail_url": "https://i4.ytimg.com/vi/W0tEtSoNGUs/hqdefault.jpg",
+      "published_at": "2026-09-04T09:00:06+00:00",
+      "updated_at": "2026-09-04T09:24:01+00:00",
+      "description": "",
+      "duration_seconds": null,
+      "tags": [],
+      "chapters": [],
+      "restaurant_name_candidates": [
+        "삼각지역 노케찹, 대원식당"
+      ],
+      "collected_at": "2026-09-04T12:47:06.274559+00:00"
+    },
     {
       "source_key": "sungsikyung_mukeultende",
       "source": "성시경의 먹을텐데",
