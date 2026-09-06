@@ -16,11 +16,11 @@ Preserved unrelated checkouts: shared main and all existing task/automation work
 - [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
 - [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
 - [x] Recalculate the original release scope and verify all publishing gates.
-- [ ] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
-- [ ] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
-- [ ] Record final verification, release/sync outcome, and automation memory.
+- [x] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
+- [x] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
+- [x] Record final verification, release/sync outcome, and automation memory.
 
-Review/result so far: Live collection found 백반기행 videos `miaH0tFNeTs` and `xLZuMsAERb0`. Web review mapped them to new 해운대암소갈비집 (`2196`, Naver `11672261`) and existing 마라톤집 (`602`, Naver `16442805`). Exact transcript retries failed with Webshare HTTP 402. Scoped report `data/work/regular_source_automation/regular_source_automation_20260906T074638Z.json` is deploy-ready with 0 blockers and 2 transcript warnings. SQLite integrity, blank/non-numeric Naver ID checks, `git diff --check`, frozen dependency installation, and `pnpm run build` passed.
+Review/result: Live collection found 백반기행 videos `miaH0tFNeTs` and `xLZuMsAERb0`. Web review mapped them to new 해운대암소갈비집 (`2196`, Naver `11672261`) and existing 마라톤집 (`602`, Naver `16442805`). Exact transcript retries failed with Webshare HTTP 402. Scoped report `data/work/regular_source_automation/regular_source_automation_20260906T074638Z.json` is deploy-ready with 0 blockers and 2 transcript warnings. SQLite integrity, blank/non-numeric Naver ID checks, `git diff --check`, frozen dependency installation, and `pnpm run build` passed. Both Supabase checks found `supabase-aqua-engine` Available. Production data commit `75e0612c4758bd4bc6f7a970adcb27b7ad16a057` deployed through GitHub to `https://tastyroad-5hqwcb0es-jaekwon-hans-projects.vercel.app` with status `READY`; the production API returned HTTP 200 with an `items` array and exposed restaurants `602` and `2196`. Edge extension control was unavailable. Exact fallback Naver preflight excluded already-recorded `602`, planned `2196`, and returned `auth_blocked`; no save was attempted and no sync/failure state changed. Artifact: `data/work/naver_map_sync_preflight_20260906.json`.
 
 ## Current Task - 2026-09-04 - Regular source maintenance run
 
