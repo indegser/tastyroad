@@ -2,6 +2,26 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-09-06 - Regular source maintenance run
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260906`
+Branch: `codex/regular-source-maintenance-20260906`
+Starting `origin/main`: `b244f6b294c2c1ca40eba7416d86940adda6493d`
+Preserved unrelated checkouts: shared main and all existing task/automation worktrees were left untouched; no changes were stashed, cleaned, switched, or overwritten.
+
+- [x] Read automation memory and inspect repository/worktree state.
+- [x] Fetch origin and create a clean dedicated worktree from current `origin/main`.
+- [x] Reread `AGENTS.md`, `tasks/lessons.md`, the automation skill, and repository runbook from the synchronized checkout.
+- [x] Provision the worktree environment and pass the pre-maintenance Supabase Marketplace gate.
+- [x] Run the non-dry deterministic maintenance runner and inspect the exact report/work queues.
+- [x] Read and follow every owning skill required by mapping, transcript, or must-taste queues.
+- [x] Recalculate the original release scope and verify all publishing gates.
+- [ ] If deploy-ready with intended tracked changes, repeat Supabase gate, build, release through `main`, and verify production API.
+- [ ] Run exact release-scope Naver Map sync after production verification, observing the hard authentication preflight.
+- [ ] Record final verification, release/sync outcome, and automation memory.
+
+Review/result so far: Live collection found 백반기행 videos `miaH0tFNeTs` and `xLZuMsAERb0`. Web review mapped them to new 해운대암소갈비집 (`2196`, Naver `11672261`) and existing 마라톤집 (`602`, Naver `16442805`). Exact transcript retries failed with Webshare HTTP 402. Scoped report `data/work/regular_source_automation/regular_source_automation_20260906T074638Z.json` is deploy-ready with 0 blockers and 2 transcript warnings. SQLite integrity, blank/non-numeric Naver ID checks, `git diff --check`, frozen dependency installation, and `pnpm run build` passed.
+
 ## Current Task - 2026-09-04 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260904`

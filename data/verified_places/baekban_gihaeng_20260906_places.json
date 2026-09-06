@@ -1,0 +1,42 @@
+{
+  "source": "식객 허영만의 백반기행",
+  "verified_at": "2026-09-06",
+  "items": [
+    {
+      "video_id": "miaH0tFNeTs",
+      "resolved_name": "해운대암소갈비집",
+      "display_name": "해운대암소갈비집",
+      "local_name": "해운대암소갈비집",
+      "country_code": "KR",
+      "region": "부산 해운대구",
+      "address": "부산광역시 해운대구 중동2로10번길 32-10",
+      "phone": "051-746-0033",
+      "category": "육류,고기요리",
+      "map_provider": "naver_map",
+      "naver_map_id": "11672261",
+      "map_url": "https://map.naver.com/p/entry/place/11672261?placePath=%2Fhome",
+      "evidence_url": "https://youngstillyoung.tistory.com/545",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "백반기행 103회 방송일, 부산, 57년 갈비 노포, 생갈비·양념갈비, 상호와 주소가 모두 일치한다."
+    },
+    {
+      "video_id": "xLZuMsAERb0",
+      "resolved_name": "마라톤집",
+      "display_name": "마라톤집",
+      "local_name": "마라톤집",
+      "country_code": "KR",
+      "region": "부산 부산진구",
+      "address": "부산 부산진구 가야대로784번길 54",
+      "phone": "",
+      "category": "",
+      "map_provider": "naver_map",
+      "naver_map_id": "16442805",
+      "map_url": "https://map.naver.com/p/entry/place/16442805?placePath=%2Fhome",
+      "evidence_url": "https://youngstillyoung.tistory.com/545",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "백반기행 103회 방송일, 부산, 스지 어묵탕과 잡채 유부주머니, 상호와 주소가 기존 식당 행과 일치한다."
+    }
+  ]
+}
