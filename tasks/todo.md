@@ -2920,3 +2920,48 @@ Result so far: Started from `origin/main` `d3b995b0c43c249acd8aa633261618327706e
 Verification so far: Supabase Marketplace `supabase-aqua-engine` was `Available` before maintenance and immediately before release. SQLite integrity is `ok`; verified restaurants with blank or nonnumeric Naver IDs are both `0`; `git diff --check`, `pnpm install --frozen-lockfile`, and `pnpm run build` passed. Ten unrelated dirty worktrees were audited and left untouched.
 
 Release/sync note: Pushed production maintenance commit `44ac4c97a559e0ad165a775ba7b8cbc989571666`; GitHub-triggered Vercel deployment `https://tastyroad-jhcgjc6rt-jaekwon-hans-projects.vercel.app` reached `READY` and serves the production aliases. `https://taste.indegser.com/api/restaurants?limit=1&includeFacets=true` returned HTTP 200 with an `items` array, and live checks confirmed the new 구복만두 and 뒤푸리 menu recommendations. The final report's release-scope restaurant list is empty, so the Naver Map phase completed as a zero-place no-op (`planned=0`, `processed=0`, `saved=0`, `failed=0`) without opening a browser or attempting a save.
+
+# Backfill missing transcripts and must-taste menus
+
+- Worktree: `/Users/indegser/Github/tastyroad-worktrees/backfill-transcripts-taste`
+- Branch: `codex/backfill-transcripts-taste`
+- [x] Read repository lessons and owning workflow skills; count missing coverage.
+- [x] Retry missing YouTube captions through the repository ingest script and record unavailable captions.
+- [x] Plan every verified restaurant/video pair still missing must-taste items.
+- [x] Review full transcript evidence, validate artifacts, and apply supported menu recommendations.
+- [x] Recount coverage and document remaining externally blocked or evidence-insufficient rows.
+
+Initial DB audit: 2,598 videos, 119 without preferred transcripts; 2,120 verified restaurant/video pairs, 40 without transcripts and 594 transcript-eligible pairs without must-taste rows.
+
+Progress: 15 new transcripts archived to Supabase Storage. 104 videos still lack captions; direct YouTube and Webshare requests now return YouTube/Google 429. Webshare proxy tunnel to `example.com` returned HTTP 200 on 2026-10-11, while historical September attempts returned proxy 402. Original must-taste plan covers 594 pairs; newly captioned videos add 13 eligible pairs in separate plans. Semantic review and dry-run validation are in progress; insufficient evidence is recorded without inventing recommendations.
+
+Review checkpoint: sampled generated `repaired_reason` copy in several batches and found summary-style phrasing that did not preserve source subtitle wording. Paused new output for per-item source-window/copy correction and required repeat dry-run validation before DB apply. Suspected wrong restaurant/video mappings will be audited separately.
+
+Result: All 607 planned restaurant/video pairs were reviewed and passed batch integrity dry-runs. Sequential apply stored recommendations for 561 pairs and recorded 46 as transcript-evidence-insufficient. The DB now has 3,136 must-taste items covering 2,047 of 2,120 mapped pairs. Remaining 73 mapped pairs comprise 46 with captions but insufficient evidence and 27 without captions. Across all 2,598 videos, 104 still have no preferred transcript after YouTube/Google 429 responses on both direct and Webshare routes. The active Webshare proxy tunnel itself returned HTTP 200 against a neutral URL; billing status was not independently confirmed. Suspected mapping mismatches were not removed without verification.
+
+Verification: Nine source-scoped collector dry-runs and nine sequential applies passed, each reporting `integrity=ok`; `transcript_status.py` and independent SQLite coverage counts agree. `pnpm install --frozen-lockfile` and `pnpm run build` passed after installing dependencies in this new worktree. Changes remain local in this task worktree pending publication.
+
+## Follow-up - 2026-10-11 - Webshare subscription restored
+
+- [x] Probe one previously blocked video through the configured Webshare proxy.
+- [x] Retry remaining missing captions with a conservative request delay and block limit.
+- [x] Recheck mapped transcript gaps and add transcript-grounded menus for newly available pairs.
+- [x] Record final coverage and verification.
+
+Probe: `mpSe_vHBszA` fetched successfully through Webshare with 103 Korean segments in Supabase Storage; no 429 on this request.
+
+Result: The Webshare route fetched 83 of the other 103 missing videos on the first pass. Eight intermittent Google/YouTube 429 `RetryError` cases succeeded on one focused retry. Including the probe, 92 more transcripts were archived to Supabase Storage. The remaining 12 videos all returned `TranscriptsDisabled`; four have mapped restaurants. Newly eligible must-taste plans covered 23 mapped pairs. Whole-transcript review and batch dry-runs passed for all 23; sequential apply added 35 menu items across 20 pairs and skipped three evidence-insufficient pairs. The active proxy works, but initial-pass 429 responses remain intermittent.
+
+Final coverage: 2,586 of 2,598 videos have transcript tracks. Of 2,120 mapped restaurant/video pairs, 2,067 have must-taste items, 49 have transcripts but insufficient evidence, and four lack transcripts. SQLite `integrity_check=ok`, five source-scoped collector dry-runs/applies passed, `pnpm run build` passed, and `git diff --check` passed. Changes remain local in this task worktree pending publication.
+
+## Follow-up - 2026-10-11 - Finish taste backfill and release
+
+- [x] Confirm every transcript-eligible mapped pair has been reviewed or has a stored taste result.
+- [x] Check release gates and current `origin/main`; preserve unrelated checkout changes.
+- [x] Build and commit only the backfill data and task notes.
+- [ ] Fast-forward production `main` through GitHub and inspect the matching Vercel deployment.
+- [ ] Verify the production API and a newly added menu, then record release outcome.
+
+Release routing: `origin/main` and this task worktree share base `fe5e653`. The shared main checkout has its own modified SQLite file; leave that checkout untouched and publish this task commit as a fast-forward update to remote `main` after validation.
+
+Pre-release verification: the 49 mapped pairs with transcripts but no taste rows exactly match 49 reviewed `insufficient_evidence` completion rows; there are no unreviewed eligible pairs. Supabase Marketplace resource `supabase-aqua-engine` is `Available`; `pnpm run build` and `git diff --check` passed. The intended commit contains only `data/tastyroad.sqlite`, `tasks/lessons.md`, and `tasks/todo.md`.

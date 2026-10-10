@@ -4,6 +4,13 @@ Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
 
+## 2026-10-11
+
+- Trigger: Starting a new backfill task replaced the accumulated `tasks/todo.md` history in a fresh worktree.
+  Rule: Inspect `tasks/todo.md` before editing and append the current checklist, preserving completed task history.
+- Trigger: Bulk must-taste workers produced hundreds of validator-passing `repaired_reason` summaries before a manual sample caught the copy drift.
+  Rule: After the first batch from each worker, sample raw and repaired subtitle pairs against the editor prompt; correct style before scaling the batch run.
+
 ## 2026-08-16
 
 - Trigger: Daily Naver Map sync kept failing even after runbook edits because fallback browser sessions were still allowed to attempt place saves without an authenticated-login preflight.
