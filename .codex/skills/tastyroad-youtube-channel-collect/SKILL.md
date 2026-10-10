@@ -33,6 +33,20 @@ python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.
 
 Rows without detail fields remain retryable in a later `--reuse-existing` run.
 
+When the audit finds videos omitted by RSS, preserve existing DB rows that are no longer in the current channel or playlist listing:
+
+```bash
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/collect_youtube.py \
+  --source <source_key> --full-channel --reuse-existing --skip-details --preserve-existing
+```
+
+If yt-dlp detail requests are blocked but YouTube watch pages load, fill metadata for the current UTC collection date from the watch page's structured player response:
+
+```bash
+python3 .codex/skills/tastyroad-youtube-channel-collect/scripts/enrich_watch_page_metadata.py \
+  --collected-date YYYY-MM-DD --workers 4
+```
+
 3. For a normal latest-window refresh, run:
 
 ```bash

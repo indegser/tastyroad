@@ -1067,6 +1067,7 @@ def collect_sources(
     workers: int = 1,
     reuse_existing: bool = False,
     enrich_details: bool = True,
+    preserve_existing: bool = False,
 ) -> dict[str, int]:
     collected_at = datetime.now(timezone.utc).isoformat()
     counts: dict[str, int] = {}
@@ -1101,13 +1102,14 @@ def collect_sources(
                 enrich_details=enrich_details,
             )
         )
-        snapshot_candidates = (
-            candidates
-            if use_full_channel
-            else merge_snapshot_candidates(snapshot_existing_candidates, candidates)
-        )
+        if preserve_existing:
+            snapshot_candidates = merge_snapshot_candidates(existing_candidates, candidates)
+        elif use_full_channel:
+            snapshot_candidates = candidates
+        else:
+            snapshot_candidates = merge_snapshot_candidates(snapshot_existing_candidates, candidates)
         output_path = write_json(output_dir, source, snapshot_candidates)
-        write_sqlite(sqlite_path, source, candidates, prune_missing=use_full_channel)
+        write_sqlite(sqlite_path, source, candidates, prune_missing=use_full_channel and not preserve_existing)
         counts[source.key] = len(snapshot_candidates)
         print(
             f"{source.key}: collected {len(candidates)} recent candidates, "
@@ -1125,6 +1127,7 @@ def main() -> int:
     parser.add_argument("--source", action="append", help="Source key to collect. Can be passed multiple times.")
     parser.add_argument("--include-disabled", action="store_true")
     parser.add_argument("--full-channel", action="store_true", help="Collect the full YouTube channel video list with yt-dlp instead of the RSS window.")
+    parser.add_argument("--preserve-existing", action="store_true", help="Keep previously collected videos when a full-channel listing omits them.")
     parser.add_argument("--workers", type=int, default=1, help="Number of parallel per-video detail fetches.")
     parser.add_argument(
         "--skip-details",
@@ -1139,6 +1142,8 @@ def main() -> int:
         help="Reuse existing DB/raw candidate details and only enrich videos that are not already collected.",
     )
     args = parser.parse_args()
+    if args.preserve_existing and not (args.full_channel and args.reuse_existing):
+        parser.error("--preserve-existing requires --full-channel and --reuse-existing")
 
     counts = collect_sources(
         config_path=args.config,
@@ -1150,6 +1155,7 @@ def main() -> int:
         workers=args.workers,
         reuse_existing=args.reuse_existing,
         enrich_details=not args.skip_details,
+        preserve_existing=args.preserve_existing,
     )
 
     print(f"Updated {args.sqlite}")

@@ -2,6 +2,32 @@
 
 Use this file for active non-trivial work. Keep entries short and checkable.
 
+## Current Task - 2026-10-11 - Deploy collection, then extract taste menus
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/refresh-all-youtube-20261011`
+Branch: `codex/refresh-all-youtube-20261011`
+
+- [ ] Verify the collected data, release prerequisites, and production build.
+- [ ] Commit the intended collection changes, integrate into `main`, and verify the GitHub-triggered production deployment.
+- [ ] Audit all 159 new videos for mapping, transcript, and taste-menu eligibility.
+- [ ] Process eligible videos through verified mapping, transcript ingest, and transcript-grounded taste-menu extraction.
+- [ ] Verify exact stored results and document unresolved items.
+
+Review/result: Pending.
+
+## Current Task - 2026-10-11 - Refresh all YouTube sources
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/refresh-all-youtube-20261011`
+Branch: `codex/refresh-all-youtube-20261011`
+Starting `origin/main`: `667c663`
+
+- [x] Inspect collection skill, source configuration, baseline DB, and checkout state.
+- [x] Collect all enabled YouTube sources with RSS refresh, full-channel audits, and safe backfill of missing IDs.
+- [x] Check new video counts, latest publish dates, DB integrity, and collection gaps.
+- [x] Record results and remaining limitations.
+
+Review/result: Starting DB had 2,598 videos, latest published 2026-09-06. All seven enabled sources were refreshed. Full-channel audits found 122 IDs missing after RSS (6 Sung Si-kyung, 5 Ttoganjip, 111 Baekban), and all 122 were saved to SQLite and raw snapshots without pruning existing rows. Total new IDs versus the starting commit: 159 (Baekban 122, ChoiJaRoad 14, Sung Si-kyung 9, Hong Seok-cheon/Lee Won-il 5, Ttoganjip 5, Kim3Meals 4, Jun Hyun-moo Plan 0). Final DB total: 2,757; existing deletions: 0. yt-dlp detail requests hit YouTube's refresh-page error, so watch-page player metadata filled 158 incomplete rows. All 159 new IDs have publish dates and durations; 14 ChoiJaRoad Shorts have no description on the source page. Final max publish date is 2026-10-10. SQLite integrity is `ok`, foreign-key check returned no rows, audited missing ID sets are fully present in DB and raw files, Python compile passed, and `git diff --check` passed. No commit, push, release, transcript ingest, or restaurant mapping was requested.
+
 ## Current Task - 2026-09-06 - Regular source maintenance run
 
 Worktree: `/Users/indegser/Github/tastyroad-worktrees/regular-source-maintenance-20260906`
