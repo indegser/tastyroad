@@ -2959,9 +2959,11 @@ Final coverage: 2,586 of 2,598 videos have transcript tracks. Of 2,120 mapped re
 - [x] Confirm every transcript-eligible mapped pair has been reviewed or has a stored taste result.
 - [x] Check release gates and current `origin/main`; preserve unrelated checkout changes.
 - [x] Build and commit only the backfill data and task notes.
-- [ ] Fast-forward production `main` through GitHub and inspect the matching Vercel deployment.
-- [ ] Verify the production API and a newly added menu, then record release outcome.
+- [x] Fast-forward production `main` through GitHub and inspect the matching Vercel deployment.
+- [x] Verify the production API and a newly added menu, then record release outcome.
 
 Release routing: `origin/main` and this task worktree share base `fe5e653`. The shared main checkout has its own modified SQLite file; leave that checkout untouched and publish this task commit as a fast-forward update to remote `main` after validation.
 
 Pre-release verification: the 49 mapped pairs with transcripts but no taste rows exactly match 49 reviewed `insufficient_evidence` completion rows; there are no unreviewed eligible pairs. Supabase Marketplace resource `supabase-aqua-engine` is `Available`; `pnpm run build` and `git diff --check` passed. The intended commit contains only `data/tastyroad.sqlite`, `tasks/lessons.md`, and `tasks/todo.md`.
+
+Release result: Pushed backfill commit `29700e5f700359d1c34eede40c065beff9daa4e6` as a fast-forward update to production `main`. GitHub-triggered Vercel deployment `https://tastyroad-gmow5mdqg-jaekwon-hans-projects.vercel.app` reached `Ready` and serves `https://taste.indegser.com`. The production restaurants API returned HTTP 200 with an `items` array; the `두부자통닭` item contained the three newly added taste recommendations. The shared main checkout's pre-existing dirty SQLite file was untouched.
