@@ -1,0 +1,3024 @@
+{
+  "base_commit": "1c928f8",
+  "kind": "copy_only_forward_trial",
+  "frozen_hashes": {
+    "database_sha256": "35ad0238060c3def05301ae51defb0e4ad2fc420722aa31dd7058597f4c73ef6",
+    "single_pair_generator_sha256": "5966d814fdbd173ab945e2cfb39f1736d22f76d53eb47ecdb8cdcfafd4f01fc7",
+    "apply_validator_sha256": "a25fe4851ca8fd27da223cd14069de3502c60f3d042c2ba2a2603c8ddfc70f34",
+    "sung_baseline_id": "f84c83b99f00ccc9cebeb4ed23ec458c38ea803eaace68348663e6204498b872",
+    "case_count": 50
+  },
+  "sung_snapshot": {
+    "baseline_id": "f84c83b99f00ccc9cebeb4ed23ec458c38ea803eaace68348663e6204498b872",
+    "pair_count": 30,
+    "item_count": 69,
+    "experimental_input": "first ranked item per pair"
+  },
+  "producer_checks": [
+    {
+      "file": "prepare_tsuji_taste.py",
+      "sha256": "8bd3933aa4ef2e74505011c646077f21b5df867be5c7a8ee19c5a740a2c2dd69",
+      "matches": [
+        {
+          "item_id": 3546,
+          "exact_display_literal": true
+        }
+      ]
+    },
+    {
+      "file": "prepare_choiza_short_taste.py",
+      "sha256": "184bcebca8fd1c16e6293cabdf1339e4b18e2b7a05aa7c46d78ff242ce6c5872",
+      "matches": [
+        {
+          "item_id": 3547,
+          "exact_display_literal": true
+        },
+        {
+          "item_id": 3548,
+          "exact_display_literal": true
+        },
+        {
+          "item_id": 3549,
+          "exact_display_literal": true
+        }
+      ]
+    },
+    {
+      "file": "prepare_nongol_taste.py",
+      "sha256": "167ae3c25127fa6a77aa2208609ab34b55202f8567876311ef10c9cb3298593a",
+      "matches": [
+        {
+          "item_id": 3576,
+          "exact_display_literal": true
+        },
+        {
+          "item_id": 3577,
+          "exact_display_literal": true
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "counts": {
+      "stored": {
+        "fail": 19,
+        "minor_issue": 11,
+        "pass": 20
+      },
+      "a": {
+        "pass": 47,
+        "minor_issue": 3
+      },
+      "b": {
+        "pass": 48,
+        "minor_issue": 2
+      }
+    },
+    "groups": {
+      "bad_short": {
+        "stored": {
+          "fail": 5
+        },
+        "b": {
+          "pass": 5
+        },
+        "a": {
+          "pass": 4,
+          "minor_issue": 1
+        }
+      },
+      "bad_long": {
+        "a": {
+          "pass": 4
+        },
+        "stored": {
+          "fail": 4
+        },
+        "b": {
+          "pass": 4
+        }
+      },
+      "good_short": {
+        "a": {
+          "minor_issue": 1,
+          "pass": 4
+        },
+        "b": {
+          "pass": 5
+        },
+        "stored": {
+          "fail": 1,
+          "minor_issue": 2,
+          "pass": 2
+        }
+      },
+      "good_long": {
+        "a": {
+          "pass": 2
+        },
+        "b": {
+          "pass": 2
+        },
+        "stored": {
+          "pass": 2
+        }
+      },
+      "formal_source": {
+        "stored": {
+          "minor_issue": 2,
+          "pass": 1,
+          "fail": 1
+        },
+        "a": {
+          "pass": 4
+        },
+        "b": {
+          "pass": 4
+        }
+      },
+      "random_sung_control": {
+        "a": {
+          "pass": 29,
+          "minor_issue": 1
+        },
+        "stored": {
+          "minor_issue": 7,
+          "pass": 15,
+          "fail": 8
+        },
+        "b": {
+          "pass": 28,
+          "minor_issue": 2
+        }
+      }
+    },
+    "preferences_including_ties": {
+      "b": 39,
+      "a": 43,
+      "stored": 4
+    },
+    "issues": [
+      {
+        "case": "case_001",
+        "arm": "stored",
+        "cohort": "bad_short",
+        "restaurant": "츠지한 압구정",
+        "verdict": "fail",
+        "issues": [
+          "해설과 전언 문체로 바꿔 원 발화의 목소리가 사라졌다."
+        ],
+        "note": "해설과 전언 문체로 바꿔 원 발화의 목소리가 사라졌다."
+      },
+      {
+        "case": "case_002",
+        "arm": "stored",
+        "cohort": "bad_short",
+        "restaurant": "Hvanch",
+        "verdict": "fail",
+        "issues": [
+          "육즙 폭발을 풍부함으로 완화하고 권합니다라는 해설로 바꿨다."
+        ],
+        "note": "육즙 폭발을 풍부함으로 완화하고 권합니다라는 해설로 바꿨다."
+      },
+      {
+        "case": "case_003",
+        "arm": "stored",
+        "cohort": "bad_short",
+        "restaurant": "러시아케익",
+        "verdict": "fail",
+        "issues": [
+          "먹어 보라며 권합니다로 직접 발화를 보고 문장으로 바꿨다."
+        ],
+        "note": "먹어 보라며 권합니다로 직접 발화를 보고 문장으로 바꿨다."
+      },
+      {
+        "case": "case_004",
+        "arm": "stored",
+        "cohort": "bad_short",
+        "restaurant": "조방낙지",
+        "verdict": "fail",
+        "issues": [
+          "맛있게 먹었다고 했습니다라는 전언으로 목소리를 바꿨다."
+        ],
+        "note": "맛있게 먹었다고 했습니다라는 전언으로 목소리를 바꿨다."
+      },
+      {
+        "case": "case_005",
+        "arm": "stored",
+        "cohort": "bad_short",
+        "restaurant": "잘루스",
+        "verdict": "fail",
+        "issues": [
+          "추천한다고 했습니다로 원 권유를 해설했다."
+        ],
+        "note": "추천한다고 했습니다로 원 권유를 해설했다."
+      },
+      {
+        "case": "case_005",
+        "arm": "a",
+        "cohort": "bad_short",
+        "restaurant": "잘루스",
+        "verdict": "minor_issue",
+        "issues": [
+          "불분명한 양국이를 양고기로 확정해 향의 대상을 좁혔다."
+        ],
+        "note": "불분명한 양국이를 양고기로 확정해 향의 대상을 좁혔다."
+      },
+      {
+        "case": "case_006",
+        "arm": "stored",
+        "cohort": "bad_long",
+        "restaurant": "논골집",
+        "verdict": "fail",
+        "issues": [
+          "뼈를 뜯는 재미와 양념이 좋다는 평을 새로 만들었다."
+        ],
+        "note": "뼈를 뜯는 재미와 양념이 좋다는 평을 새로 만들었다."
+      },
+      {
+        "case": "case_007",
+        "arm": "stored",
+        "cohort": "bad_long",
+        "restaurant": "논골집",
+        "verdict": "fail",
+        "issues": [
+          "족발에 곁들인다는 설명을 보태고 직접 권유를 전언으로 바꿨다."
+        ],
+        "note": "족발에 곁들인다는 설명을 보태고 직접 권유를 전언으로 바꿨다."
+      },
+      {
+        "case": "case_008",
+        "arm": "stored",
+        "cohort": "bad_long",
+        "restaurant": "3일한우국밥",
+        "verdict": "fail",
+        "issues": [
+          "좋아할 맛이라고 했습니다로 직접 맛 평가를 해설로 바꿨다."
+        ],
+        "note": "좋아할 맛이라고 했습니다로 직접 맛 평가를 해설로 바꿨다."
+      },
+      {
+        "case": "case_009",
+        "arm": "stored",
+        "cohort": "bad_long",
+        "restaurant": "진미식당",
+        "verdict": "fail",
+        "issues": [
+          "칭찬했습니다라는 해설이고 꽃게라는 종도 원문에 명시되지 않았다."
+        ],
+        "note": "칭찬했습니다라는 해설이고 꽃게라는 종도 원문에 명시되지 않았다."
+      },
+      {
+        "case": "case_010",
+        "arm": "a",
+        "cohort": "good_short",
+        "restaurant": "서교가든숯불갈비",
+        "verdict": "minor_issue",
+        "issues": [
+          "내가 먹은지도 모르고 들어가요는 원문 조각의 순서를 바꿔 다소 어색하다."
+        ],
+        "note": "내가 먹은지도 모르고 들어가요는 원문 조각의 순서를 바꿔 다소 어색하다."
+      },
+      {
+        "case": "case_010",
+        "arm": "stored",
+        "cohort": "good_short",
+        "restaurant": "서교가든숯불갈비",
+        "verdict": "fail",
+        "issues": [
+          "하염없이는 근거 없는 복원이고 씀하지도는 이해되지 않는다."
+        ],
+        "note": "하염없이는 근거 없는 복원이고 씀하지도는 이해되지 않는다."
+      },
+      {
+        "case": "case_011",
+        "arm": "stored",
+        "cohort": "good_short",
+        "restaurant": "훼미리손칼국수보쌈",
+        "verdict": "minor_issue",
+        "issues": [
+          "먹으러 왔다가로 방문 후 행동 관계를 원문보다 확정했다."
+        ],
+        "note": "먹으러 왔다가로 방문 후 행동 관계를 원문보다 확정했다."
+      },
+      {
+        "case": "case_013",
+        "arm": "stored",
+        "cohort": "good_short",
+        "restaurant": "은혜즉석떡볶이",
+        "verdict": "minor_issue",
+        "issues": [
+          "비주얼 1인 거의 뜻이 불명확하고 반복이 많다."
+        ],
+        "note": "비주얼 1인 거의 뜻이 불명확하고 반복이 많다."
+      },
+      {
+        "case": "case_017",
+        "arm": "stored",
+        "cohort": "formal_source",
+        "restaurant": "장모님해장국",
+        "verdict": "minor_issue",
+        "issues": [
+          "양선지나와 국물과 합치면 특이 된다는 복원은 불명확한 조리·추가 조건을 확정한다."
+        ],
+        "note": "양선지나와 국물과 합치면 특이 된다는 복원은 불명확한 조리·추가 조건을 확정한다."
+      },
+      {
+        "case": "case_019",
+        "arm": "stored",
+        "cohort": "formal_source",
+        "restaurant": "향 이자카야",
+        "verdict": "fail",
+        "issues": [
+          "불명확한 찰진 숙성가를 식감도 좋았고요라는 새 평가로 확정했다."
+        ],
+        "note": "불명확한 찰진 숙성가를 식감도 좋았고요라는 새 평가로 확정했다."
+      },
+      {
+        "case": "case_020",
+        "arm": "stored",
+        "cohort": "formal_source",
+        "restaurant": "수변최고돼지국밥 민락본점",
+        "verdict": "minor_issue",
+        "issues": [
+          "막고기 수육처럼·장난 아니다는 불명확한 부분의 복원이고 단편 연결이 길다."
+        ],
+        "note": "막고기 수육처럼·장난 아니다는 불명확한 부분의 복원이고 단편 연결이 길다."
+      },
+      {
+        "case": "case_021",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "권영수대가전골",
+        "verdict": "minor_issue",
+        "issues": [
+          "국물은 한우로라는 관계를 새 조사로 확정해 뜻이 어색해졌다."
+        ],
+        "note": "국물은 한우로라는 관계를 새 조사로 확정해 뜻이 어색해졌다."
+      },
+      {
+        "case": "case_024",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "야스노야 본점",
+        "verdict": "fail",
+        "issues": [
+          "준비하고와 좋다고 했다로 여러 화자의 말을 보고 문장으로 바꿨다."
+        ],
+        "note": "준비하고와 좋다고 했다로 여러 화자의 말을 보고 문장으로 바꿨다."
+      },
+      {
+        "case": "case_025",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "수제 별미순대국",
+        "verdict": "minor_issue",
+        "issues": [
+          "순대 고기라는 불명확한 복원을 남기고 소개하고 싶었다로 어조를 평탄화했다."
+        ],
+        "note": "순대 고기라는 불명확한 복원을 남기고 소개하고 싶었다로 어조를 평탄화했다."
+      },
+      {
+        "case": "case_026",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "앞뱅디식당",
+        "verdict": "fail",
+        "issues": [
+          "저번에 왔을 때도라는 방문 시점을 원문에 없는 구체적 사실로 보탰다."
+        ],
+        "note": "저번에 왔을 때도라는 방문 시점을 원문에 없는 구체적 사실로 보탰다."
+      },
+      {
+        "case": "case_030",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "산동교자",
+        "verdict": "minor_issue",
+        "issues": [
+          "불명확한 끝말을 존댓말로 확정해 원 말투와 차이가 날 수 있다."
+        ],
+        "note": "불명확한 끝말을 존댓말로 확정해 원 말투와 차이가 날 수 있다."
+      },
+      {
+        "case": "case_032",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "신이주신선물 유황오리 싸고맛있는집",
+        "verdict": "fail",
+        "issues": [
+          "맑은 국물과 특히 좋아했다를 보태고 직접 발화를 해설로 바꿨다."
+        ],
+        "note": "맑은 국물과 특히 좋아했다를 보태고 직접 발화를 해설로 바꿨다."
+      },
+      {
+        "case": "case_035",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "삼호 짱뚱이",
+        "verdict": "minor_issue",
+        "issues": [
+          "삼합 먹을텐데 처음이야의 대상이 불명확해 끝부분이 거칠다."
+        ],
+        "note": "삼합 먹을텐데 처음이야의 대상이 불명확해 끝부분이 거칠다."
+      },
+      {
+        "case": "case_036",
+        "arm": "b",
+        "cohort": "random_sung_control",
+        "restaurant": "먹거리집",
+        "verdict": "minor_issue",
+        "issues": [
+          "마음속으로 살짝 그만큼은 연결이 불명확하게 남았다."
+        ],
+        "note": "마음속으로 살짝 그만큼은 연결이 불명확하게 남았다."
+      },
+      {
+        "case": "case_037",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "청석골",
+        "verdict": "fail",
+        "issues": [
+          "불명확한 써 준을 소주로 확정해 술이라는 사실을 새로 보탰다."
+        ],
+        "note": "불명확한 써 준을 소주로 확정해 술이라는 사실을 새로 보탰다."
+      },
+      {
+        "case": "case_038",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "청화집",
+        "verdict": "fail",
+        "issues": [
+          "순대가 많아서 또 맛이 달라로 원래 분리된 비교를 인과로 바꿨다."
+        ],
+        "note": "순대가 많아서 또 맛이 달라로 원래 분리된 비교를 인과로 바꿨다."
+      },
+      {
+        "case": "case_041",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "국일순대국",
+        "verdict": "fail",
+        "issues": [
+          "해남순대처럼 깨끗하면서로 불명확한 혼합 비교를 확정했다."
+        ],
+        "note": "해남순대처럼 깨끗하면서로 불명확한 혼합 비교를 확정했다."
+      },
+      {
+        "case": "case_044",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "진미언양불고기",
+        "verdict": "fail",
+        "issues": [
+          "불명확한 서울식 대비와 상태·마지막 인과를 여러 문장으로 추측 복원했다."
+        ],
+        "note": "불명확한 서울식 대비와 상태·마지막 인과를 여러 문장으로 추측 복원했다."
+      },
+      {
+        "case": "case_044",
+        "arm": "b",
+        "cohort": "random_sung_control",
+        "restaurant": "진미언양불고기",
+        "verdict": "minor_issue",
+        "issues": [
+          "고기 맛 반응은 있으나 좋은 고기랑에서 연결이 끊기고 구체성이 줄었다."
+        ],
+        "note": "고기 맛 반응은 있으나 좋은 고기랑에서 연결이 끊기고 구체성이 줄었다."
+      },
+      {
+        "case": "case_045",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "진미식당",
+        "verdict": "minor_issue",
+        "issues": [
+          "입안에서 자연스럽게 커지는의 대상이 없어 의미가 불명확하다."
+        ],
+        "note": "입안에서 자연스럽게 커지는의 대상이 없어 의미가 불명확하다."
+      },
+      {
+        "case": "case_047",
+        "arm": "a",
+        "cohort": "random_sung_control",
+        "restaurant": "첼시스하이볼 청담점",
+        "verdict": "minor_issue",
+        "issues": [
+          "진짜 약간과 같은 유보를 덜고 밸런스가 좋아로 단정도를 조금 높였다."
+        ],
+        "note": "진짜 약간과 같은 유보를 덜고 밸런스가 좋아로 단정도를 조금 높였다."
+      },
+      {
+        "case": "case_047",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "첼시스하이볼 청담점",
+        "verdict": "fail",
+        "issues": [
+          "엔다이브가 연하고 달콤하다는 맛을 새로 만들었다."
+        ],
+        "note": "엔다이브가 연하고 달콤하다는 맛을 새로 만들었다."
+      },
+      {
+        "case": "case_048",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "오소록 답십리점",
+        "verdict": "minor_issue",
+        "issues": [
+          "고기였던 것 같아요로 원래 현재의 확신에 회고와 유보를 보탰다."
+        ],
+        "note": "고기였던 것 같아요로 원래 현재의 확신에 회고와 유보를 보탰다."
+      },
+      {
+        "case": "case_049",
+        "arm": "stored",
+        "cohort": "random_sung_control",
+        "restaurant": "함덕골목 본점",
+        "verdict": "minor_issue",
+        "issues": [
+          "고기랑 많네로 불명확한 고기 부분을 건더기 양 주장에 합쳤다."
+        ],
+        "note": "고기랑 많네로 불명확한 고기 부분을 건더기 양 주장에 합쳤다."
+      }
+    ]
+  },
+  "cases": [
+    {
+      "case_id": "case_001",
+      "menu_item": "해산물 카이센동",
+      "raw_reason": "모든게 다 들어 있는 양 제일 많이 주는 걸로 시켰거든. 아무래도 모든게 다 들어가 있는 버전이라 가격은 좀 있었는데 연알, 개살, 운이 생선회 이런 것들이 선도가 너무 좋은 거야. 그리 이것들이 잘 지은 밥이랑 섞이는 느낌이 너무 좋더라. 그래서 카인센동이라기보다는 약간 지라시스식씨 같은 느낌이라고 해야 하나? 너무 괜찮았어. 밥이 한 1분 정도 남았을 때 도미옥스를 부워주거든. 이때 딱 깨달았어. 아 이래서 사람들이 줄을 서는구나. 그 먹는 순간 먹고 있는데 다시 오고 싶어지더라고. 어 여기 얘기하기 쉽지 않지만 꼭 와 봐. P",
+      "item_id": 3546,
+      "restaurant_id": 2212,
+      "restaurant": "츠지한 압구정",
+      "video_id": "-vwL4IhJM3E",
+      "video_url": "https://www.youtube.com/shorts/-vwL4IhJM3E",
+      "cohort": "bad_short",
+      "stored_display": "해산물 선도가 좋고 밥과 섞이는 맛이 인상적입니다. 남은 밥에 도미 육수를 부어 먹자 줄 서는 이유를 알겠고, 먹는 중에 다시 오고 싶어졌다고 했습니다.",
+      "current_grouped_display": "생선회 선도가 너무 좋고, 잘 지은 밥이랑 섞이는 느낌이 너무 좋더라. 먹고 있는데 다시 오고 싶어지더라고.",
+      "candidate_grouped_display": "생선회 이런 것들이 선도가 너무 좋은 거야. 이것들이 잘 지은 밥이랑 섞이는 느낌이 너무 좋더라. 먹는 순간, 먹고 있는데 다시 오고 싶어지더라고. 꼭 와 봐.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_001",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "해설과 전언 문체로 바꿔 원 발화의 목소리가 사라졌다."
+            ],
+            "note": "해설과 전언 문체로 바꿔 원 발화의 목소리가 사라졌다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "선도·밥과의 조화·재방문 감정을 원 말투로 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "조사와 연결만 정리하고 핵심 감정을 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "둘 다 핵심 맛과 재방문 감정을 자연스러운 직접 발화로 전한다."
+      }
+    },
+    {
+      "case_id": "case_002",
+      "menu_item": "힌칼리",
+      "raw_reason": "다음은 여기 기억나지? 조지야 음식 전문점 환치. 내보도 정말 깔끔하고 종업원들이 메뉴별 역사 이야기까지 해주는 서비스가 있는 집이야. 육주 폭발하는 만두 흰칼리는 꼭 먹어야 되고 조지아가 인류 최초 와인 발상지",
+      "item_id": 3547,
+      "restaurant_id": 2213,
+      "restaurant": "Hvanch",
+      "video_id": "GFAZLVNG35M",
+      "video_url": "https://www.youtube.com/shorts/GFAZLVNG35M",
+      "cohort": "bad_short",
+      "stored_display": "육즙이 풍부한 조지아 만두 힌칼리는 꼭 먹어야 한다고 권합니다.",
+      "current_grouped_display": "육즙 폭발하는 만두 힌칼리는 꼭 먹어야 돼.",
+      "candidate_grouped_display": "육즙 폭발하는 만두 힌칼리는 꼭 먹어야 되고.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_002",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "육즙 폭발을 풍부함으로 완화하고 권합니다라는 해설로 바꿨다."
+            ],
+            "note": "육즙 폭발을 풍부함으로 완화하고 권합니다라는 해설로 바꿨다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "명백한 표기 오류를 고치고 권유를 그대로 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "연결 어미를 권유의 종결로 바꾼 정도라 뜻과 말투가 유지된다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "힌칼리와 강한 권유가 모두 분명하고 원 말투와 가깝다."
+      }
+    },
+    {
+      "case_id": "case_003",
+      "menu_item": "나폴레옹 케이크",
+      "raw_reason": "좋아. 중간에 디저트 못 빠지지. 당 떨어질 때 러시아 케이크 가서 나폴레옹 케이 한입해 봐. 눈이 번쩍 떠질 거야.",
+      "item_id": 3548,
+      "restaurant_id": 2214,
+      "restaurant": "러시아케익",
+      "video_id": "GFAZLVNG35M",
+      "video_url": "https://www.youtube.com/shorts/GFAZLVNG35M",
+      "cohort": "bad_short",
+      "stored_display": "당이 떨어질 때 나폴레옹 케이크를 먹어 보라며 눈이 번쩍 뜨일 맛이라고 권합니다.",
+      "current_grouped_display": "당 떨어질 때 나폴레옹 케이크 한입 해 봐. 눈이 번쩍 떠질 거야.",
+      "candidate_grouped_display": "당 떨어질 때 나폴레옹 케이크 한입 해 봐. 눈이 번쩍 떠질 거야.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_003",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "케이크의 명백한 누락을 고치고 권유와 비유를 살렸다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "먹어 보라며 권합니다로 직접 발화를 보고 문장으로 바꿨다."
+            ],
+            "note": "먹어 보라며 권합니다로 직접 발화를 보고 문장으로 바꿨다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "케이크의 명백한 누락을 고치고 권유와 비유를 살렸다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "동일한 직접 권유로 원문의 생동감과 뜻을 보존한다."
+      }
+    },
+    {
+      "case_id": "case_004",
+      "menu_item": "낙지볶음",
+      "raw_reason": "마무리는 다시 한국이야 조방 낙지 낙지를 산채로 바로 볶아주는 집인데 여기는 또 와 봐야겠더라고 뱉터줘 너무 맛있게 먹었다. 와",
+      "item_id": 3549,
+      "restaurant_id": 2216,
+      "restaurant": "조방낙지",
+      "video_id": "GFAZLVNG35M",
+      "video_url": "https://www.youtube.com/shorts/GFAZLVNG35M",
+      "cohort": "bad_short",
+      "stored_display": "산낙지를 바로 볶아 주는 조방낙지를 다시 오고 싶을 만큼 맛있게 먹었다고 했습니다.",
+      "current_grouped_display": "낙지를 산 채로 바로 볶아주는 집인데, 여기는 또 와 봐야겠더라고. 너무 맛있게 먹었다.",
+      "candidate_grouped_display": "낙지를 산 채로 바로 볶아주는 집인데, 여기는 또 와 봐야겠더라고. 너무 맛있게 먹었다.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_004",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "낙지 조리와 재방문 의사·맛 평가가 원문에 있다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "낙지 조리와 재방문 의사·맛 평가가 원문에 있다."
+          },
+          "Z": {
+            "verdict": "fail",
+            "issues": [
+              "맛있게 먹었다고 했습니다라는 전언으로 목소리를 바꿨다."
+            ],
+            "note": "맛있게 먹었다고 했습니다라는 전언으로 목소리를 바꿨다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "두 문안이 같고 불명확한 군더더기만 덜어냈다."
+      }
+    },
+    {
+      "case_id": "case_005",
+      "menu_item": "양국밥",
+      "raw_reason": "좀 하러 왔어. 몽골 음식 전문점 루스 양국이 특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데 취향이라면 푸지만 양국밥 한글을 추천할게",
+      "item_id": 3550,
+      "restaurant_id": 2215,
+      "restaurant": "잘루스",
+      "video_id": "GFAZLVNG35M",
+      "video_url": "https://www.youtube.com/shorts/GFAZLVNG35M",
+      "cohort": "bad_short",
+      "stored_display": "몽골 음식 특유의 향을 좋아한다면 양국밥 한 그릇을 추천한다고 했습니다.",
+      "current_grouped_display": "양고기 특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데, 취향이라면 푸짐한 양국밥 한 그릇을 추천할게.",
+      "candidate_grouped_display": "특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데, 취향이라면 푸짐한 양국밥 한 그릇을 추천할게.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_005",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "음식들의 향과 조건부 추천을 유지했고 푸짐한 한 그릇 교정이 자연스럽다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "추천한다고 했습니다로 원 권유를 해설했다."
+            ],
+            "note": "추천한다고 했습니다로 원 권유를 해설했다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "불분명한 양국이를 양고기로 확정해 향의 대상을 좁혔다."
+            ],
+            "note": "불분명한 양국이를 양고기로 확정해 향의 대상을 좁혔다."
+          }
+        },
+        "preferred": [
+          "X"
+        ],
+        "preference_reason": "향의 대상을 추측하지 않고 조건부 추천을 유지한다."
+      }
+    },
+    {
+      "case_id": "case_006",
+      "menu_item": "반반 족발",
+      "raw_reason": ">> 진짜 이쪽이 간장이고 >> 여기쪽이 간장이고 요쪽이 매콤한 양념발입니다.네 네. 이렇게 해서 반반으로 이렇게 >> 내가 지금다고 있 제가 제가 매운 거를 개발했어요. >> 아니야. 매운 것도 맛있어. >> 이게 일반 쪽에 좀 물릴 수가 있어요. >> 매운 걸 같이 드시면 좀 왔다 갔다 드시면 괜찮아 하시 3대째 아들이 개발했다면이 매운 맛도 너무 고급스럽게 맛있다. 그럴수 좋은 거 같아. 막 캡사이신 용게 아니라. >> 그냥 부산에 서울에서 놀러왔으면 족발 먹자에서 족발 >> 얘는 먹을 텐데가 인정하는 맛인 거",
+      "item_id": 3576,
+      "restaurant_id": 2200,
+      "restaurant": "논골집",
+      "video_id": "L9DMbzAsRXM",
+      "video_url": "https://www.youtube.com/watch?v=L9DMbzAsRXM",
+      "cohort": "bad_long",
+      "stored_display": "간장 족발과 매운 양념 족발을 함께 먹는 반반 메뉴입니다. 매운맛은 인위적인 캡사이신 맛이 아니고 양념이 좋아 뼈를 뜯어 먹는 재미가 있다고 했습니다.",
+      "current_grouped_display": "매운맛도 너무 고급스럽게 맛있다. 일반 족발이 좀 물릴 수 있는데, 매운 걸 같이 왔다 갔다 드시면 괜찮아요.",
+      "candidate_grouped_display": "매운 것도 맛있어. 일반 쪽에 좀 물릴 수가 있어요. 매운 걸 같이 드시면, 왔다 갔다 드시면 괜찮아. 매운맛도 너무 고급스럽게 맛있다.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_006",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "매운맛 평가와 번갈아 먹으라는 조언을 자연스럽게 정리했다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "뼈를 뜯는 재미와 양념이 좋다는 평을 새로 만들었다."
+            ],
+            "note": "뼈를 뜯는 재미와 양념이 좋다는 평을 새로 만들었다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "서로 다른 발화의 연결은 남지만 원 표현과 평가가 읽힌다."
+          }
+        },
+        "preferred": [
+          "X"
+        ],
+        "preference_reason": "강한 맛 평가와 번갈아 먹는 이유가 간결하고 이해된다."
+      }
+    },
+    {
+      "case_id": "case_007",
+      "menu_item": "어묵탕",
+      "raw_reason": ">> 아, 이게 이런 집이 동대면 신상동정동 쪽에도 하나 있거든요. 근데 >> 아예 비교도 안 되고 >> 오뎅탕은 꼭 시키세요. 약간 >> 몰라. 벌써 한 명 다 먹었어.",
+      "item_id": 3577,
+      "restaurant_id": 2200,
+      "restaurant": "논골집",
+      "video_id": "L9DMbzAsRXM",
+      "video_url": "https://www.youtube.com/watch?v=L9DMbzAsRXM",
+      "cohort": "bad_long",
+      "stored_display": "족발에 곁들이는 어묵탕은 꼭 시키라고 직접 권했습니다.",
+      "current_grouped_display": "오뎅탕은 꼭 시키세요. 벌써 한 명 다 먹었어.",
+      "candidate_grouped_display": "오뎅탕은 꼭 시키세요.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_007",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "족발에 곁들인다는 설명을 보태고 직접 권유를 전언으로 바꿨다."
+            ],
+            "note": "족발에 곁들인다는 설명을 보태고 직접 권유를 전언으로 바꿨다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "직접 권유는 보존하지만 벌써 한 명의 대상이 다소 불분명하다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "명확한 메뉴명과 직접 권유만 남겼다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "대상이 명확한 권유만 남겨 가장 간결하다."
+      }
+    },
+    {
+      "case_id": "case_008",
+      "menu_item": "한우국밥",
+      "raw_reason": "착석하시면 되고요. 식당 이름답게 국밥을 3위를 숙성했다고 하는데 국물이 아주 상당히 진합니다. 아주 깔끔하면서 [음악] 개운함이 올라오고요. 여기 한우 고기의 양도 이만하면 상당히 들어갔다고 보시면 이제 본격적으로 밥판 공기를 거룩하게 말아보는데 입안 가득하게 들어오는 고기의 살점 고기의 퀄리티가 원체 좋기에 씹는 맛이 일품입니다. 살짝 경상도식 소고기 무국과도 비슷하다고 볼 수 있으나 국물의 질감이 훨씬 더 친듯한 느낌. 이거 한국 사람이는 호불러 없이 무조건 좋아할 맛이기에",
+      "item_id": 3555,
+      "restaurant_id": 2205,
+      "restaurant": "3일한우국밥",
+      "video_id": "2JBefF1_0aY",
+      "video_url": "https://www.youtube.com/watch?v=2JBefF1_0aY",
+      "cohort": "bad_long",
+      "stored_display": "국물이 진하면서도 깔끔하고 개운합니다. 한우 고기가 넉넉하고 씹는 맛도 좋아 누구나 좋아할 맛이라고 했습니다.",
+      "current_grouped_display": "국물이 아주 상당히 진합니다. 깔끔하면서 개운함이 올라오고요. 고기의 퀄리티가 원체 좋기에 씹는 맛이 일품입니다.",
+      "candidate_grouped_display": "국물이 아주 상당히 진합니다. 아주 깔끔하면서 개운함이 올라오고요. 고기의 퀄리티가 원체 좋기에 씹는 맛이 일품입니다.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_008",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원래의 격식체와 국물·고기 평가를 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원래의 격식체와 강조까지 보존했다."
+          },
+          "Z": {
+            "verdict": "fail",
+            "issues": [
+              "좋아할 맛이라고 했습니다로 직접 맛 평가를 해설로 바꿨다."
+            ],
+            "note": "좋아할 맛이라고 했습니다로 직접 맛 평가를 해설로 바꿨다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "두 안 모두 격식체 원 발화를 자연스럽게 전달한다."
+      }
+    },
+    {
+      "case_id": "case_009",
+      "menu_item": "간장게장 정식",
+      "raw_reason": "어 간간하네. 근데 너무 맛있게 간간하잖아. 오 이거 밥하고 먹어야 되네. 예. >> 여러분,이 집 간장계장은 요즘 우리가 먹는 다이크하면서 [음악] 아주 심심한 간장계장이 2026년이라고 하면은요 간장계장 스타일은 1980년대, 90년대쯤에 머물러 있어요. 응. 그 옛날에 살짝 짭조럼하게 담그던 그 간장 계장 있잖아요. 음. >> 석천형이랑 저랑도 참 심심한 간장계장 레시피가 있거든요. 근데 얘는 정말로 짭조름만이 너무 맛있어요. 그래서 얘를 이게 개딱집 여기에 있는 입 같은 거, 내장 같은 것들도 다 걷어내 가지고 정말 먹기 편하게 이렇게 손질 다 해 주시거든요.",
+      "item_id": 3559,
+      "restaurant_id": 2211,
+      "restaurant": "진미식당",
+      "video_id": "UHPhUWrTREA",
+      "video_url": "https://www.youtube.com/watch?v=UHPhUWrTREA",
+      "cohort": "bad_long",
+      "stored_display": "옛 방식으로 짭조름하게 담근 간장게장입니다. 밥과 함께 먹기 좋은 간이며, 꽃게를 먹기 편하게 손질한 점까지 칭찬했습니다.",
+      "current_grouped_display": "옛날에 살짝 짭조름하게 담그던 그 간장게장 있잖아요. 얘는 정말로 짭조름한 맛이 너무 맛있어요. 밥하고 먹어야 되네.",
+      "candidate_grouped_display": "간간하네. 근데 너무 맛있게 간간하잖아. 이거 밥하고 먹어야 되네. 그 옛날에 살짝 짭조름하게 담그던 그 간장게장 있잖아요.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_009",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "맛있게 간간하다는 반응과 옛 짭조름한 게장 설명을 살렸다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "칭찬했습니다라는 해설이고 꽃게라는 종도 원문에 명시되지 않았다."
+            ],
+            "note": "칭찬했습니다라는 해설이고 꽃게라는 종도 원문에 명시되지 않았다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "짭조름만이를 짭조름한 맛으로 자연스럽게 고치고 맛 평가를 살렸다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "원 반응과 짭조름한 간의 특징을 모두 직접 말투로 전한다."
+      }
+    },
+    {
+      "case_id": "case_010",
+      "menu_item": "돼지갈비",
+      "raw_reason": ">> 아우. 너무 좋다. >> 음. 맛있. 너무 맛있다. 저는 들어가요. 내가 먹은지도 모르고. 씀하지도 않고 딱 좋아. >> 딱 좋은 거 아니에요?",
+      "item_id": 1286,
+      "restaurant_id": 1190,
+      "restaurant": "서교가든숯불갈비",
+      "video_id": "Oa7m82BJI38",
+      "video_url": "https://www.youtube.com/shorts/Oa7m82BJI38",
+      "cohort": "good_short",
+      "stored_display": "너무 좋다. 맛있다. 너무 맛있다. 하염없이 들어가요. 씀하지도 않고 딱 좋아.",
+      "current_grouped_display": "너무 맛있다. 내가 먹은지도 모르고 들어가요. 딱 좋아.",
+      "candidate_grouped_display": "너무 좋다. 너무 맛있다. 딱 좋아.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_010",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "내가 먹은지도 모르고 들어가요는 원문 조각의 순서를 바꿔 다소 어색하다."
+            ],
+            "note": "내가 먹은지도 모르고 들어가요는 원문 조각의 순서를 바꿔 다소 어색하다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "명확히 들리는 맛 반응을 간결하게 살렸다."
+          },
+          "Z": {
+            "verdict": "fail",
+            "issues": [
+              "하염없이는 근거 없는 복원이고 씀하지도는 이해되지 않는다."
+            ],
+            "note": "하염없이는 근거 없는 복원이고 씀하지도는 이해되지 않는다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "확실한 맛 평가만 남겨 추측과 불명확한 표현이 없다."
+      }
+    },
+    {
+      "case_id": "case_011",
+      "menu_item": "알배추쌈",
+      "raw_reason": ">> 다르다. 여기 와서 보쌈을 먹으러 >> 알배추에다가 이것만 >> 드립다 먹고 간 적도 있어. 되게 신선하네요. 이거를 보쌈나면 먹겠지만 >> 이렇게 먹어도 너무 맛있어.",
+      "item_id": 1415,
+      "restaurant_id": 607,
+      "restaurant": "훼미리손칼국수보쌈",
+      "video_id": "lbH60KMwOoE",
+      "video_url": "https://www.youtube.com/shorts/lbH60KMwOoE",
+      "cohort": "good_short",
+      "stored_display": "보쌈을 먹으러 왔다가 알배추에 이것만 먹고 간 적도 있어. 이렇게 먹어도 너무 맛있어.",
+      "current_grouped_display": "알배추에다가 이것만 먹고 간 적도 있어. 되게 신선하네요. 이렇게 먹어도 너무 맛있어.",
+      "candidate_grouped_display": "알배추에다가 이것만 먹고 간 적도 있어. 되게 신선하네요. 이렇게 먹어도 너무 맛있어.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_011",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "알배추와 신선함·맛 평가가 남아 문맥을 이해할 수 있다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "알배추와 신선함·맛 평가가 남아 문맥을 이해할 수 있다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "먹으러 왔다가로 방문 후 행동 관계를 원문보다 확정했다."
+            ],
+            "note": "먹으러 왔다가로 방문 후 행동 관계를 원문보다 확정했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "신선하다는 평가와 원래의 행동 표현을 그대로 보존한다."
+      }
+    },
+    {
+      "case_id": "case_012",
+      "menu_item": "볼락회 쌈",
+      "raw_reason": ">> 아, 진짜 맛있어요. 그것도 그게 밥에 이렇게 딱 싸서 그 아, >> 약간 초밥으로 만들어. 네, 맞아요. >> 아니, 쌈을 되게 잘 싸더라고.",
+      "item_id": 1528,
+      "restaurant_id": 1294,
+      "restaurant": "싱싱뽈락회 수성못점",
+      "video_id": "zjWA1VFKH2Q",
+      "video_url": "https://www.youtube.com/shorts/zjWA1VFKH2Q",
+      "cohort": "good_short",
+      "stored_display": "진짜 맛있어요. 밥에 딱 싸서 약간 초밥처럼 만들어 먹는데, 쌈을 되게 잘 싸더라고.",
+      "current_grouped_display": "진짜 맛있어요. 밥에 이렇게 딱 싸서, 약간 초밥으로 만들어 먹어요.",
+      "candidate_grouped_display": "진짜 맛있어요. 밥에 이렇게 딱 싸서, 약간 초밥으로 만들어.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_012",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "밥에 싸서 초밥으로 만든다는 식의 구어가 읽힌다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "먹어요를 보충해 자연스럽게 닫았으며 새 맛 주장은 없다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "먹는 동작과 쌈 평가를 자연스럽게 연결했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "최소한의 정리로 맛 반응과 먹는 방식을 보존한다."
+      }
+    },
+    {
+      "case_id": "case_013",
+      "menu_item": "볶음밥",
+      "raw_reason": "볶음밥 강력 추천이야. >> 볶음밥이죠. 그러면 볶음밥을 꼭 먹어 봐야겠네요. >> 강력 추천. >> 후식볶음밥 비주얼 1인 거 같아요.",
+      "item_id": 2016,
+      "restaurant_id": 1930,
+      "restaurant": "은혜즉석떡볶이",
+      "video_id": "1PRjRuLk03E",
+      "video_url": "https://www.youtube.com/shorts/1PRjRuLk03E",
+      "cohort": "good_short",
+      "stored_display": "볶음밥 강력 추천이야. 볶음밥이죠. 그러면 볶음밥을 꼭 먹어 봐야겠네요. 강력 추천. 후식볶음밥 비주얼 1인 거 같아요.",
+      "current_grouped_display": "볶음밥 강력 추천이야. 볶음밥을 꼭 먹어 봐야겠네요.",
+      "candidate_grouped_display": "볶음밥 강력 추천이야. 볶음밥을 꼭 먹어 봐야겠네요.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_013",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "비주얼 1인 거의 뜻이 불명확하고 반복이 많다."
+            ],
+            "note": "비주얼 1인 거의 뜻이 불명확하고 반복이 많다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "볶음밥에 대한 강한 추천을 짧게 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "볶음밥에 대한 강한 추천을 짧게 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "같은 두 문안이 불명확한 후반부를 덜어내고 추천을 분명히 전한다."
+      }
+    },
+    {
+      "case_id": "case_014",
+      "menu_item": "사골 칼국수",
+      "raw_reason": ">> 음. >> 아우. 다기도 맛있다. >> 음. 저 양념장 넣으니까 또 양념장 맛 만나요.요 집은 신기한게 뭘 넣으면은 그 맛만나. 그렇지. 양념장을 넣면 양념장 만나고 후추만 넣으면 후추만 나고. 이게 사골 베이스가 예. 담백하고 백지 같은 느낌.",
+      "item_id": 3528,
+      "restaurant_id": 607,
+      "restaurant": "훼미리손칼국수보쌈",
+      "video_id": "lj-J8adkynQ",
+      "video_url": "https://www.youtube.com/shorts/lj-J8adkynQ",
+      "cohort": "good_short",
+      "stored_display": "맛있다. 양념장을 넣으니까 또 양념장 맛이 나요. 사골 베이스가 담백해요.",
+      "current_grouped_display": "사골 베이스가 담백하고 백지 같은 느낌. 양념장을 넣으면 양념장 맛이 나고, 후추만 넣으면 후추 맛이 나요.",
+      "candidate_grouped_display": "양념장을 넣으면 양념장 맛 나고, 후추만 넣으면 후추 맛 나고. 사골 베이스가 담백하고 백지 같은 느낌.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_014",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "담백한 사골과 양념장 맛이라는 핵심은 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "백지 비유와 양념별 맛을 자연스럽게 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 순서와 백지 비유가 유지되고 단편 어미도 이해된다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "백지 같은 사골이라는 독특한 비유를 살린다."
+      }
+    },
+    {
+      "case_id": "case_015",
+      "menu_item": "한돈너비목살",
+      "raw_reason": ">> 그리고 있잖아요, 형.이 이 집 내가 와가지고 오랜만에 두꺼운 목살만 허건날 먹다가 간만에 이렇게 얇게 썰어하는 목살 먹었거든요. 근데 요즘 두껍게 먹던 목사를 완전히 뒤집는 맛이에요. >> 음. 근데 목살 너무 맛있지 않니? >> 어 목살이 얇게 썰었는데이 맛을 어떻게 내지? >> 얇게 썰어서내는 약간 조금 저렴한 목살의 맛을 알잖아요. 근데 와 얘는 >> 미쳤어.음 너무 맛있어. 이거 포장되니?",
+      "item_id": 3533,
+      "restaurant_id": 2143,
+      "restaurant": "송돝",
+      "video_id": "BqBHWiw7nl4",
+      "video_url": "https://www.youtube.com/watch?v=BqBHWiw7nl4",
+      "cohort": "good_long",
+      "stored_display": "오랜만에 두꺼운 목살만 먹다가 이렇게 얇게 썬 목살을 먹었거든요. 요즘 두껍게 먹던 목살을 완전히 뒤집는 맛이에요. 목살이 얇게 썰었는데 이 맛을 어떻게 내지? 미쳤어. 너무 맛있어. 이거 포장되니?",
+      "current_grouped_display": "요즘 두껍게 먹던 목살을 완전히 뒤집는 맛이에요. 목살을 얇게 썰었는데 이 맛을 어떻게 내지? 너무 맛있어. 이거 포장되니?",
+      "candidate_grouped_display": "간만에 이렇게 얇게 썰어 하는 목살 먹었거든요. 근데 요즘 두껍게 먹던 목살을 완전히 뒤집는 맛이에요. 목살이 얇게 썰었는데 이 맛을 어떻게 내지? 너무 맛있어. 이거 포장되니?",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_015",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "목살 표기를 고치고 대비와 놀람·포장 요청을 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "얇게 썰어 하는은 약간 거칠지만 의미와 말투가 살아 있다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "먹던 상황과 강한 반응을 정리했고 새 맛 주장은 없다."
+          }
+        },
+        "preferred": [
+          "X"
+        ],
+        "preference_reason": "얇은 목살의 놀라운 맛과 포장 요청을 가장 간결하게 보존한다."
+      }
+    },
+    {
+      "case_id": "case_016",
+      "menu_item": "녹두전",
+      "raw_reason": ">> 회장님 여기 이거 녹두전을 메인 메뉴로 하셔도 돼 >> 녹두전이 요즘 튀기는 방식으로 바뀌면서 다들 두껍게 붙이려고 그러거든요. 근데 요렇게 야불야불하게 노릇하게 요만내는 데가 진짜 많이 없거든요. 요즘 >> 와 근데 너무 맛있다. >> 그냥 이거 먹으러 와도 되겠다. >> 너무 맛있다. 이게 한국 피자 아니야? 너무 맛있네.",
+      "item_id": 3535,
+      "restaurant_id": 2194,
+      "restaurant": "늘푸른식당",
+      "video_id": "FilYu5YL2KY",
+      "video_url": "https://www.youtube.com/watch?v=FilYu5YL2KY",
+      "cohort": "good_long",
+      "stored_display": "녹두전을 메인 메뉴로 하셔도 돼. 요즘 두껍게 부치는데, 요렇게 얇고 노릇하게 만드는 데가 진짜 많이 없거든요. 너무 맛있다. 그냥 이거 먹으러 와도 되겠다. 너무 맛있네.",
+      "current_grouped_display": "녹두전을 메인 메뉴로 하셔도 돼. 이렇게 얇게 노릇하게 내는 데가 진짜 많이 없거든요. 그냥 이거 먹으러 와도 되겠다.",
+      "candidate_grouped_display": "녹두전을 메인 메뉴로 하셔도 돼. 이렇게 얇게 노릇하게 내는 데가 진짜 많이 없거든요. 너무 맛있다. 그냥 이거 먹으러 와도 되겠다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_016",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "얇고 노릇하다는 문맥상 명확한 교정과 강한 맛 반응을 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "메인 메뉴 제안과 드문 조리 형태·방문 의사를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "메인 메뉴 제안과 드문 조리 형태·방문 의사를 짧게 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "원 추천의 강도를 유지하면서 반복을 덜어냈다."
+      }
+    },
+    {
+      "case_id": "case_017",
+      "menu_item": "해장국",
+      "raw_reason": "얘야말로 진짜 국물이 1등이니까 국물 더 주셔도 좋지만음 그냥 내가 원하는 양선지 우어지 중에 하나 추가해서 그 국물 합시면 특이가 된다는 거 장모님 회장국 너무 출연 출연이란다. 너무 맛있고요. 너무 소중하고 국밥 한글릇 했습니다. 너무 맛있었습니다. 감사합니다.",
+      "item_id": 519,
+      "restaurant_id": 1072,
+      "restaurant": "장모님해장국",
+      "video_id": "0ofsLj-W9nw",
+      "video_url": "https://www.youtube.com/watch?v=0ofsLj-W9nw",
+      "cohort": "formal_source",
+      "stored_display": "얘야말로 진짜 국물이 1등이니까, 원하는 양선지나 우거지 중 하나를 추가해서 그 국물과 합치면 특이 된다는 거. 장모님해장국 너무 맛있고요. 국밥 한 그릇 했습니다. 너무 맛있었습니다.",
+      "current_grouped_display": "얘야말로 진짜 국물이 1등이니까. 너무 맛있고요, 너무 소중한 국밥 한 그릇 했습니다.",
+      "candidate_grouped_display": "얘야말로 진짜 국물이 1등이니까. 너무 맛있고요. 너무 소중한 국밥 한 그릇 했습니다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_017",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "양선지나와 국물과 합치면 특이 된다는 복원은 불명확한 조리·추가 조건을 확정한다."
+            ],
+            "note": "양선지나와 국물과 합치면 특이 된다는 복원은 불명확한 조리·추가 조건을 확정한다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물 1등과 맛·소중함을 원 구어로 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물 1등과 맛·소중함을 원 구어로 살렸다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "불명확한 추가 방식은 빼고 확실한 국물 평가를 보존한다."
+      }
+    },
+    {
+      "case_id": "case_018",
+      "menu_item": "왕노가리",
+      "raw_reason": "단 두 마리만 판매를 하시는 왕노가리로 주문해 봤고요. 노가리의 사이즈가 왕 사이즈인 것까지는 모르겠지만은 살점이 아주 틈하이 촉촉한 맛으로 아주 훌륭했습니다.",
+      "item_id": 2363,
+      "restaurant_id": 2135,
+      "restaurant": "만원의 행복",
+      "video_id": "d3wjoCC2TCM",
+      "video_url": "https://www.youtube.com/watch?v=d3wjoCC2TCM",
+      "cohort": "formal_source",
+      "stored_display": "단 두 마리만 판매하는 왕노가리. 왕 사이즈인지는 모르겠지만, 살점이 촉촉해서 아주 훌륭했습니다.",
+      "current_grouped_display": "살점이 아주 촉촉한 맛으로 훌륭했습니다.",
+      "candidate_grouped_display": "노가리의 사이즈가 왕 사이즈인 것까지는 모르겠지만, 살점이 아주 촉촉한 맛으로 훌륭했습니다.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_018",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "촉촉하다는 핵심 맛 평가는 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "크기에 대한 유보와 촉촉함을 자연스럽게 정리했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "크기에 대한 유보와 격식체 맛 평가를 보존했다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "대상과 유보가 분명하며 원 격식체를 가장 적게 고쳤다."
+      }
+    },
+    {
+      "case_id": "case_019",
+      "menu_item": "오마카세 안주 코스",
+      "raw_reason": "찰나에 드디어 나왔다고 보시면 되고요 숙성의 한상을 아주 실하게내어 주셨습니다 이것이야말로이자 가야만해 근본이라고 볼 수 있고요 근본이 메뉴답게 횟감 하나하나의 퀄리티가 너무나 나도 훌륭했습니다 마치 김치 냉장고에 들어갔다 나온듯한 회의 찰진 숙성가 여기서 회의 종류만 하더라도 일곱 여덟까지 된다고 보시면 되는데 회 한 점씩의 한 장씩만 털어 넣더라도 온전치 못한다고 볼 수",
+      "item_id": 2672,
+      "restaurant_id": 540,
+      "restaurant": "향 이자카야",
+      "video_id": "AwyfJ7Gzd9o",
+      "video_url": "https://www.youtube.com/watch?v=AwyfJ7Gzd9o",
+      "cohort": "formal_source",
+      "stored_display": "횟감 하나하나의 퀄리티가 너무나도 훌륭했습니다. 회의 찰진 식감도 좋았고요.",
+      "current_grouped_display": "숙성회 한 상을 아주 실하게 내어 주셨습니다. 횟감 하나하나의 퀄리티가 너무나도 훌륭했습니다.",
+      "candidate_grouped_display": "숙성의 한 상을 아주 실하게 내어주셨습니다. 횟감 하나하나의 퀄리티가 너무나도 훌륭했습니다.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_019",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "실한 한 상과 횟감 퀄리티 평가를 그대로 살렸다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "불명확한 찰진 숙성가를 식감도 좋았고요라는 새 평가로 확정했다."
+            ],
+            "note": "불명확한 찰진 숙성가를 식감도 좋았고요라는 새 평가로 확정했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "문맥상 숙성회를 명확히 하며 한 상과 횟감 평가를 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "확실한 양과 횟감 평가만 자연스러운 원 문체로 제시한다."
+      }
+    },
+    {
+      "case_id": "case_020",
+      "menu_item": "고추지 수육",
+      "raw_reason": "자 이건 뭐야 요거는 고추지 고추지 고추지 어 뭐라도 살려보려고 주해 들었고요 요거는 국밥에 들어가는 고기를 얇게 썰어서 막고기 수처럼 준비했습니다 거는 고추지 같이 랑요 아무튼 저희가 고추지이를 곁 뜨려서 했다 와 고추지 장난 고추지 딱하고 얹어서 얘를 요물이네 요물이야 가게에 어떤 요런 킥이 하나 있으면 뭘 갖다 붙여도 맛있거든요 와 나왔다 우와 많이",
+      "item_id": 2281,
+      "restaurant_id": 534,
+      "restaurant": "수변최고돼지국밥 민락본점",
+      "video_id": "zS4VOjo4ooM",
+      "video_url": "https://www.youtube.com/watch?v=zS4VOjo4ooM",
+      "cohort": "formal_source",
+      "stored_display": "이건 고추지. 국밥에 들어가는 고기를 얇게 썰어서 막고기 수육처럼 준비했습니다. 고추지를 곁들여서. 와, 고추지 장난 아니다. 요물이네, 요물이야. 가게에 이런 킥이 하나 있으면 뭘 갖다 붙여도 맛있거든요.",
+      "current_grouped_display": "고추지 딱 얹어서, 얘 요물이네 요물이야. 가게에 이런 킥이 하나 있으면 뭘 갖다 붙여도 맛있거든요.",
+      "candidate_grouped_display": "국밥에 들어가는 고기를 얇게 썰어서 준비했습니다. 고추지 딱 얹어서, 얘 요물이네, 요물이야. 가게에 이런 킥이 하나 있으면 뭘 갖다 붙여도 맛있거든요.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_020",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "고기를 얇게 준비한다는 설명과 고추지 반응을 살렸다."
+          },
+          "Y": {
+            "verdict": "minor_issue",
+            "issues": [
+              "막고기 수육처럼·장난 아니다는 불명확한 부분의 복원이고 단편 연결이 길다."
+            ],
+            "note": "막고기 수육처럼·장난 아니다는 불명확한 부분의 복원이고 단편 연결이 길다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "고추지와 요물이라는 강한 평가가 읽힌다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "불명확한 복원을 피하면서 고추지에 대한 강한 반응을 보존한다."
+      }
+    },
+    {
+      "case_id": "case_021",
+      "menu_item": "한우곱창전골",
+      "raw_reason": "곱창전골 너무 맛있고 국물 한우로 시키세요 그리고 이거이 2인분",
+      "item_id": 686,
+      "restaurant_id": 1103,
+      "restaurant": "권영수대가전골",
+      "video_id": "UhlyCAVklLE",
+      "video_url": "https://www.youtube.com/watch?v=UhlyCAVklLE",
+      "cohort": "random_sung_control",
+      "stored_display": "곱창전골 너무 맛있고, 국물은 한우로 시키세요.",
+      "current_grouped_display": "곱창전골 너무 맛있고, 한우로 시키세요.",
+      "candidate_grouped_display": "곱창전골 너무 맛있고, 한우로 시키세요.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_021",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "곱창전골 평가와 한우 선택 권유가 간결하게 읽힌다."
+          },
+          "Y": {
+            "verdict": "minor_issue",
+            "issues": [
+              "국물은 한우로라는 관계를 새 조사로 확정해 뜻이 어색해졌다."
+            ],
+            "note": "국물은 한우로라는 관계를 새 조사로 확정해 뜻이 어색해졌다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "곱창전골 평가와 한우 선택 권유가 간결하게 읽힌다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "불분명한 국물 연결을 덜어내 선택 권유를 이해하기 쉽다."
+      }
+    },
+    {
+      "case_id": "case_022",
+      "menu_item": "수제비칼국수",
+      "raw_reason": "와서 드셔보시면 아이 집이 정직하고 깨끗하게 잘하는구나 느끼실 것 같아서 나는 그냥 일단 전이랑 칼국수만 딱 소개하고 오셔서 드셔 보시면 되는 아주 깨끗하고 맛있는 수제비칼국수였습니다",
+      "item_id": 794,
+      "restaurant_id": 1133,
+      "restaurant": "옛날 칼국수",
+      "video_id": "oCVgwsJbFpk",
+      "video_url": "https://www.youtube.com/watch?v=oCVgwsJbFpk",
+      "cohort": "random_sung_control",
+      "stored_display": "와서 드셔보시면 이 집이 정직하고 깨끗하게 잘하는구나 느끼실 것 같아서, 전이랑 칼국수만 딱 소개하고. 아주 깨끗하고 맛있는 수제비칼국수였습니다.",
+      "current_grouped_display": "와서 드셔 보시면 이 집이 정직하고 깨끗하게 잘하는구나 느끼실 것 같아요. 아주 깨끗하고 맛있는 수제비칼국수였습니다.",
+      "candidate_grouped_display": "와서 드셔 보시면 이 집이 정직하고 깨끗하게 잘하는구나 느끼실 것 같아서. 아주 깨끗하고 맛있는 수제비칼국수였습니다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_022",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "약간 긴 연결 어미지만 가게와 수제비칼국수 평가가 이해된다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "연결 어미를 자연스럽게 닫고 원 격식체 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "같아서가 단편으로 남아도 뒤의 음식 평가와 함께 뜻이 읽힌다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "최소한의 어미 정리로 방문 권유와 음식 평가가 자연스럽다."
+      }
+    },
+    {
+      "case_id": "case_023",
+      "menu_item": "가리비",
+      "raw_reason": "되게 많고 아 너무 맛있어요 너무 맛있어요 감사합니다 어땠어 가리비 메로 가리비는 1등입니다 지금 현재 1등 가리비에 그러면서 이걸 혼자 다",
+      "item_id": 852,
+      "restaurant_id": 632,
+      "restaurant": "한국횟집",
+      "video_id": "z9j5-nG8VoU",
+      "video_url": "https://www.youtube.com/watch?v=z9j5-nG8VoU",
+      "cohort": "random_sung_control",
+      "stored_display": "아 너무 맛있어요. 가리비는 1등입니다, 지금 현재 1등.",
+      "current_grouped_display": "가리비는 1등입니다. 지금 현재 1등. 너무 맛있어요.",
+      "candidate_grouped_display": "너무 맛있어요. 가리비는 1등입니다. 지금 현재 1등.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_023",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "가리비 1등과 강한 맛 반응을 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "순서만 바꾸고 가리비 1등과 맛 반응을 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "가리비 1등과 강한 맛 반응을 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "세 안 모두 같은 대상과 최상급 평가를 직접 말투로 전한다."
+      }
+    },
+    {
+      "case_id": "case_024",
+      "menu_item": "양고기 구이",
+      "raw_reason": "안 할게요 저희 사장님 뭘 먹어야 되나요 저희네 분이 오셨으니까 그 부위별로 하나씩 좀 준비를 해볼 양갈비 양등심 특수 부위 다 예 그래주시면 좋을 것 같아요 야 너무 여기 와서 좀 쾌적하게 맛있게 먹을 수 있고 좋은 거 같아 다루 마보다 여기가 더 좋다 저는 다르마 보다",
+      "item_id": 657,
+      "restaurant_id": 1110,
+      "restaurant": "야스노야 본점",
+      "video_id": "PjRz1aL-3Z8",
+      "video_url": "https://www.youtube.com/watch?v=PjRz1aL-3Z8",
+      "cohort": "random_sung_control",
+      "stored_display": "부위별로 양갈비, 양등심, 특수부위를 준비하고, 여기 와서 쾌적하게 맛있게 먹을 수 있고 다루마보다 여기가 더 좋다고 했다.",
+      "current_grouped_display": "여기 와서 쾌적하게 맛있게 먹을 수 있고 좋은 것 같아.",
+      "candidate_grouped_display": "여기 와서 쾌적하게 맛있게 먹을 수 있고 좋은 거 같아.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_024",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "준비하고와 좋다고 했다로 여러 화자의 말을 보고 문장으로 바꿨다."
+            ],
+            "note": "준비하고와 좋다고 했다로 여러 화자의 말을 보고 문장으로 바꿨다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "쾌적하게 맛있게 먹는다는 확실한 평가를 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "쾌적하게 맛있게 먹는다는 확실한 평가를 살렸다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "불명확한 주문 부분을 빼고 확실한 식사 평가를 유지한다."
+      }
+    },
+    {
+      "case_id": "case_025",
+      "menu_item": "순대국",
+      "raw_reason": "되지 이런 맛이 없어 응 이건 순제 고기 아니야 이거는 고기 국이야 고기구 그래서 별미 순대국이라 하신 건가 이게 보통 순대국이랑 맛이 다른 이게 무슨 맛이라고 설명해 할지 모르겠어 돼지 고기 국 근데 돼지국밥도 아니고 응 감자탕도 아니고 순대국도 아니고 돼지국밥에 산 돼지국밥에 콩나 국 응 그 좀 섞 맛 맛인데 아 좋다 좋다 그러니까 내가 그랬잖아 이게 없는 맛이라니 그러니까 속초까지 가야 제가 너무 맛있게 생각해서 소개하고 싶다고 여쭤봤더니",
+      "item_id": 689,
+      "restaurant_id": 1115,
+      "restaurant": "수제 별미순대국",
+      "video_id": "UipN-iww9FE",
+      "video_url": "https://www.youtube.com/watch?v=UipN-iww9FE",
+      "cohort": "random_sung_control",
+      "stored_display": "이런 맛이 없어. 이건 순대 고기 아니야, 고기국이야. 보통 순대국이랑 맛이 다른, 돼지국밥도 아니고 감자탕도 아니고 순대국도 아닌 맛. 없는 맛이고 너무 맛있게 생각해서 소개하고 싶었다.",
+      "current_grouped_display": "보통 순대국이랑 맛이 달라. 이게 무슨 맛이라고 설명해야 할지 모르겠어. 없는 맛이라니까. 너무 맛있게 생각해서 소개하고 싶었어요.",
+      "candidate_grouped_display": "보통 순대국이랑 맛이 달라. 이게 무슨 맛이라고 설명해야 할지 모르겠어. 좋다, 좋다. 이게 없는 맛이라니. 제가 너무 맛있게 생각해서 소개하고 싶다고 여쭤봤더니.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_025",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "순대 고기라는 불명확한 복원을 남기고 소개하고 싶었다로 어조를 평탄화했다."
+            ],
+            "note": "순대 고기라는 불명확한 복원을 남기고 소개하고 싶었다로 어조를 평탄화했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "맛의 독특함과 소개 의사를 원 구어로 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "끝 어미를 정리했지만 독특한 맛과 소개 의사는 유지했다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "원 감탄과 소개 의사를 가장 그대로 보존한다."
+      }
+    },
+    {
+      "case_id": "case_026",
+      "menu_item": "각재기국",
+      "raw_reason": "먹었던데 너무너무 맛있는 각재기국 어, 맛있다. 와, 진짜 맛있다. 맛있지. 뼈도 통째로 먹으니까 더 고소하고.",
+      "item_id": 782,
+      "restaurant_id": 1059,
+      "restaurant": "앞뱅디식당",
+      "video_id": "ky1iLS85boM",
+      "video_url": "https://www.youtube.com/watch?v=ky1iLS85boM",
+      "cohort": "random_sung_control",
+      "stored_display": "저번에 왔을 때도 너무너무 맛있는 각재기국. 와, 진짜 맛있다. 뼈도 통째로 먹으니까 더 고소하고.",
+      "current_grouped_display": "너무너무 맛있는 각재기국. 뼈도 통째로 먹으니까 더 고소하고.",
+      "candidate_grouped_display": "너무너무 맛있는 각재기국. 와, 진짜 맛있다. 뼈도 통째로 먹으니까 더 고소하고.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_026",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "저번에 왔을 때도라는 방문 시점을 원문에 없는 구체적 사실로 보탰다."
+            ],
+            "note": "저번에 왔을 때도라는 방문 시점을 원문에 없는 구체적 사실로 보탰다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "각재기국 맛과 뼈의 고소함을 직접 발화로 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "각재기국 맛과 뼈의 고소함을 짧게 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "추측한 방문 이력 없이 확실한 맛 평가를 전한다."
+      }
+    },
+    {
+      "case_id": "case_027",
+      "menu_item": "갑오징어",
+      "raw_reason": "갑오징어 조그만 거랑 생맥 하나 주세요 이야~ (숯불에 구워 더더욱) 맛있다 야 얘는... 너네도 먹어봐 이거 먹어봐 이거는 맥주의 완벽한 안주 진짜 맛이 디테일한데? 이야~ 예술이지",
+      "item_id": 666,
+      "restaurant_id": 1184,
+      "restaurant": "옥경이네건생선",
+      "video_id": "QakFqXFK2Xs",
+      "video_url": "https://www.youtube.com/watch?v=QakFqXFK2Xs",
+      "cohort": "random_sung_control",
+      "stored_display": "갑오징어 조그만 거랑 생맥 하나 주세요. 숯불에 구워 더더욱 맛있다. 이거는 맥주의 완벽한 안주. 진짜 맛이 디테일한데? 이야, 예술이지.",
+      "current_grouped_display": "너네도 먹어봐. 이거는 맥주의 완벽한 안주. 진짜 맛이 디테일한데? 예술이지.",
+      "candidate_grouped_display": "맛있다. 너네도 먹어 봐. 이거는 맥주의 완벽한 안주. 진짜 맛이 디테일한데? 예술이지.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_027",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "맥주 안주라는 대상·추천과 독특한 맛 표현을 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 맛 반응과 안주 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원문에 주어진 숯불 설명과 갑오징어 주문·평가를 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "짧고 직접적인 안주 평가와 원 반응을 유지한다."
+      }
+    },
+    {
+      "case_id": "case_028",
+      "menu_item": "후라이드 치킨",
+      "raw_reason": "난 무조건 후라이드거든 양념 소스를 달라 그러고 후라이드를 먹다가 찍으면 되잖아 튀김 간이 되게 좋고 맛있지 뭐 염지가 되게 잘 돼 있고",
+      "item_id": 790,
+      "restaurant_id": 1132,
+      "restaurant": "농부와닭동네 여의도MBC점",
+      "video_id": "m5QDgJ3zWsY",
+      "video_url": "https://www.youtube.com/watch?v=m5QDgJ3zWsY",
+      "cohort": "random_sung_control",
+      "stored_display": "난 무조건 후라이드거든. 양념 소스를 달라 그러고 후라이드를 먹다가 찍으면 되잖아. 튀김 간이 되게 좋고, 맛있지 뭐. 염지가 되게 잘 돼 있고.",
+      "current_grouped_display": "난 무조건 후라이드거든. 튀김 간이 되게 좋고, 염지가 되게 잘 돼 있어.",
+      "candidate_grouped_display": "난 무조건 후라이드거든. 양념 소스를 달라 그러고 후라이드를 먹다가 찍으면 되잖아. 튀김 간이 되게 좋고, 염지가 되게 잘돼 있고.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_028",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "후라이드 선호와 간·염지 평가를 간결히 유지했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "소스 사용법과 간·염지 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 선호·방법·맛 반응을 거의 그대로 보존했다."
+          }
+        },
+        "preferred": [
+          "X"
+        ],
+        "preference_reason": "핵심 선호와 맛의 이유를 짧고 자연스럽게 전한다."
+      }
+    },
+    {
+      "case_id": "case_029",
+      "menu_item": "우거지 곱빼기 감자탕",
+      "raw_reason": "맛이 없을 법도 한데 다 좋아요 국물도 좋고, 고기도 좋고 쌀도 항상 좋고 야~ 이거 맛있어 진짜 부드러워 맛집이야 여기는~ 이 집은 제 생각엔 맛집이라는 거~ 하지만 정말 맛있게 먹었습니다",
+      "item_id": 636,
+      "restaurant_id": 567,
+      "restaurant": "소문난성수감자탕",
+      "video_id": "MAIrp4WYAx4",
+      "video_url": "https://www.youtube.com/watch?v=MAIrp4WYAx4",
+      "cohort": "random_sung_control",
+      "stored_display": "맛이 없을 법도 한데 다 좋아요. 국물도 좋고, 고기도 좋고, 쌀도 항상 좋고. 진짜 부드러워 맛집이야, 여기는.",
+      "current_grouped_display": "국물도 좋고, 고기도 좋고, 쌀도 항상 좋고. 이거 맛있어, 진짜 부드러워. 맛집이야 여기는.",
+      "candidate_grouped_display": "국물도 좋고, 고기도 좋고, 쌀도 항상 좋고. 이거 맛있어, 진짜 부드러워. 맛집이야, 여기는.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_029",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물·고기·쌀과 부드러움 평가를 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원문의 의외성 표현과 맛 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물·고기·쌀과 부드러움 평가를 살렸다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "핵심 맛 평가를 동일하게 간결히 보존한다."
+      }
+    },
+    {
+      "case_id": "case_030",
+      "menu_item": "물만두",
+      "raw_reason": "여긴 물만두 가 더 마이스",
+      "item_id": 575,
+      "restaurant_id": 1154,
+      "restaurant": "산동교자",
+      "video_id": "AmZ5ceHhkG8",
+      "video_url": "https://www.youtube.com/watch?v=AmZ5ceHhkG8",
+      "cohort": "random_sung_control",
+      "stored_display": "여긴 물만두가 더 맛있어요.",
+      "current_grouped_display": "여긴 물만두가 더 맛있어.",
+      "candidate_grouped_display": "여긴 물만두가 더 맛있어.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_030",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "더 마이스를 더 맛있어로 자연스럽게 교정했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "더 마이스를 더 맛있어로 자연스럽게 교정했다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "불명확한 끝말을 존댓말로 확정해 원 말투와 차이가 날 수 있다."
+            ],
+            "note": "불명확한 끝말을 존댓말로 확정해 원 말투와 차이가 날 수 있다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "비교 평가를 보존하고 불필요한 말투 변경을 피한다."
+      }
+    },
+    {
+      "case_id": "case_031",
+      "menu_item": "도가니탕",
+      "raw_reason": "아~ 국물이 너무 맛있는데? (국물에) 간을 안 했는데도 맛있어",
+      "item_id": 836,
+      "restaurant_id": 1188,
+      "restaurant": "대성집",
+      "video_id": "wu1fOmsPEr8",
+      "video_url": "https://www.youtube.com/watch?v=wu1fOmsPEr8",
+      "cohort": "random_sung_control",
+      "stored_display": "아~ 국물이 너무 맛있는데? 간을 안 했는데도 맛있어.",
+      "current_grouped_display": "국물이 너무 맛있는데? 간을 안 했는데도 맛있어.",
+      "candidate_grouped_display": "국물이 너무 맛있는데? 간을 안 했는데도 맛있어.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_031",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물과 무간 상태의 맛 평가를 그대로 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "감탄까지 포함해 원 발화를 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "국물과 무간 상태의 맛 평가를 그대로 살렸다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "감탄사 유무 외에는 모두 원 의미와 말투를 충실히 보존한다."
+      }
+    },
+    {
+      "case_id": "case_032",
+      "menu_item": "오리 백숙",
+      "raw_reason": "근데 여기는 진짜 오리 좋아하는 분들한테 자신 있고 오리 안 좋아하는 분도 >> 백수근 한번 꼭 드셔 보셨으면 좋겠다. >> 이게 오리 탕도 있고 우리 정골도 있고 훈재 오리도 있고 다 있는데 그냥 로스 드시고 백수 먹는게 좋고 >> 그까 진짜 >> 아무런 간이 안 돼 있어. 그래서 너무 좋아. 이거 진짜 이거 진짜 약이야. 이거 맛있어요. >> 야 한방 차 먹는 느낌이야. 진짜 먹어 봐 봐. 아 >> 예술입니다. 일본 사람들 오면 이런데 데고 와야 돼. >> 고기가 그냥 이렇게 부서진다니까.",
+      "item_id": 3569,
+      "restaurant_id": 2203,
+      "restaurant": "신이주신선물 유황오리 싸고맛있는집",
+      "video_id": "xc_D1hAraD4",
+      "video_url": "https://www.youtube.com/watch?v=xc_D1hAraD4",
+      "cohort": "random_sung_control",
+      "stored_display": "오리를 즐기지 않는 사람에게도 백숙은 꼭 먹어 보라고 권합니다. 간하지 않은 맑은 국물과 부드럽게 부서지는 고기를 특히 좋아했습니다.",
+      "current_grouped_display": "백숙은 한번 꼭 드셔 보셨으면 좋겠다. 아무런 간이 안 돼 있어서 너무 좋아. 한방 차 먹는 느낌이야. 고기가 그냥 이렇게 부서진다니까.",
+      "candidate_grouped_display": "오리 좋아하는 분들한테 자신 있고, 오리 안 좋아하는 분도 백숙은 한번 꼭 드셔 보셨으면 좋겠다. 아무런 간이 안 돼 있어. 그래서 너무 좋아. 한방차 먹는 느낌이야. 고기가 그냥 이렇게 부서진다니까.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_032",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "맑은 국물과 특히 좋아했다를 보태고 직접 발화를 해설로 바꿨다."
+            ],
+            "note": "맑은 국물과 특히 좋아했다를 보태고 직접 발화를 해설로 바꿨다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "백숙 권유·무간 선호·한방차 비유·고기 식감을 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "핵심 권유와 맛·식감 표현을 간결하게 보존했다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "대상이 분명하고 핵심 평가를 짧은 원 말투로 유지한다."
+      }
+    },
+    {
+      "case_id": "case_033",
+      "menu_item": "북어구이",
+      "raw_reason": "얘 되게 맛있어요 생각보다 부어 구이가 무슨 맛 북어구이 그 우리 살이 통통한 코다리를 잘 튀기듯 구워서 양념을 해서내는 어른아이 할 거 없이 좋아하는 달짝지근한 생선튀김 느낌 달콤한 생선튀김 그런 기분인데 아 너무너무 훌륭한 안주고 그리 국들이 만족감을 다시 주는 맛이랄까 뭔가 되게 매력 있어요 많이 없잖아 이게 별로데 얘는 이집에서 이렇게 튀겼을 때가 제일 맛있는 거 같아 파는 데가 없잖아요 이걸 꼭 소개해 주고 싶었어요 저 우리",
+      "item_id": 799,
+      "restaurant_id": 1178,
+      "restaurant": "가연국시",
+      "video_id": "pGNZyAYzvD4",
+      "video_url": "https://www.youtube.com/watch?v=pGNZyAYzvD4",
+      "cohort": "random_sung_control",
+      "stored_display": "얘 되게 맛있어요, 생각보다 북어구이가. 살이 통통한 코다리를 잘 튀기듯 구워서 양념을 해 내는, 달짝지근한 생선튀김 느낌. 너무너무 훌륭한 안주고, 이걸 꼭 소개해 주고 싶었어요.",
+      "current_grouped_display": "살이 통통한 코다리를 잘 튀기듯 구워서 양념을 해 내는, 달짝지근한 생선튀김 느낌. 너무너무 훌륭한 안주고, 이걸 꼭 소개해 주고 싶었어요.",
+      "candidate_grouped_display": "살이 통통한 코다리를 잘 튀기듯 구워서 양념을 해서 내는, 어른 아이 할 거 없이 좋아하는 달짝지근한 생선튀김 느낌. 너무너무 훌륭한 안주고, 되게 매력 있어요. 이걸 꼭 소개해 주고 싶었어요.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_033",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "북어구이 대상과 조리·비유·소개 의사가 명확하다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "조리와 생선튀김 비유·매력·소개 의사를 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "조리와 생선튀김 비유·소개 의사를 짧게 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "독특한 비유와 소개 의사를 살리면서 반복을 줄였다."
+      }
+    },
+    {
+      "case_id": "case_034",
+      "menu_item": "낙지볶음",
+      "raw_reason": "우리가 낙치볶음집에 가잖아. 낙지가 처음 나올 때만 뜨거워. 그럼 나중에는 식은 걸 먹는 거야. 얘는 계속 뜨거운 상태를 먹으니까이 보통 낙지 매운 거랑 아예 차원이 다른 거.",
+      "item_id": 728,
+      "restaurant_id": 1172,
+      "restaurant": "서린낙지",
+      "video_id": "YfEY2fPIw8s",
+      "video_url": "https://www.youtube.com/watch?v=YfEY2fPIw8s",
+      "cohort": "random_sung_control",
+      "stored_display": "우리가 낙지볶음집에 가잖아. 낙지가 처음 나올 때만 뜨거워. 나중에는 식은 걸 먹는 거야. 얘는 계속 뜨거운 상태를 먹으니까 보통 낙지 매운 거랑 아예 차원이 다른 거.",
+      "current_grouped_display": "얘는 계속 뜨거운 상태로 먹으니까, 보통 매운 낙지랑 아예 차원이 다른 거야.",
+      "candidate_grouped_display": "얘는 계속 뜨거운 상태로 먹으니까, 보통 낙지 매운 거랑 아예 차원이 다른 거.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_034",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "일반 낙지볶음과 계속 뜨거운 음식의 대비를 원 발화로 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "어순과 어미를 정리해 온도와 강한 비교 평가를 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 어휘를 유지해 온도와 강한 비교 평가를 짧게 살렸다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "핵심 차이와 평가를 짧고 직접적으로 전달한다."
+      }
+    },
+    {
+      "case_id": "case_035",
+      "menu_item": "홍어삼합",
+      "raw_reason": "드디어 나온 '홍어 삼합' 여기는 돼지고기를 되게 잘 삶아 잘 삶으셔 여기는 이거(삼합) 때문일까요? 그러니까 이 집이 너무x2 이렇게 사랑스럽고 맛있는데 '내가 왜 요즘에 안 왔지?\" 하는 생각이 확~ 든다 진짜 너무 좋다 자~ 먹어볼까요? 삼합! 삼합 먹을텐데 처음이야 홍어 맛있죠",
+      "item_id": 562,
+      "restaurant_id": 1121,
+      "restaurant": "삼호 짱뚱이",
+      "video_id": "9XLtqkJt1wY",
+      "video_url": "https://www.youtube.com/watch?v=9XLtqkJt1wY",
+      "cohort": "random_sung_control",
+      "stored_display": "드디어 나온 홍어삼합. 여기는 돼지고기를 되게 잘 삶아. 이 집이 너무 사랑스럽고 맛있는데, '내가 왜 요즘에 안 왔지?' 하는 생각이 확 든다. 너무 좋다. 삼합 먹을텐데 처음이야, 홍어 맛있죠.",
+      "current_grouped_display": "여기는 돼지고기를 되게 잘 삶으셔. 너무 사랑스럽고 맛있는데, 내가 왜 요즘에 안 왔지 하는 생각이 확 든다.",
+      "candidate_grouped_display": "여기는 돼지고기를 되게 잘 삶아. 이 집이 너무 사랑스럽고 맛있는데, 내가 왜 요즘에 안 왔지 하는 생각이 확 든다. 진짜 너무 좋다.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_035",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "돼지고기 조리와 가게 애정·재방문 감정을 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "존댓말 변형도 원문에 있고 조리·재방문 감정이 보존된다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "삼합 먹을텐데 처음이야의 대상이 불명확해 끝부분이 거칠다."
+            ],
+            "note": "삼합 먹을텐데 처음이야의 대상이 불명확해 끝부분이 거칠다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "확실한 돼지고기 평가와 가게 감정만 읽기 쉽게 남긴다."
+      }
+    },
+    {
+      "case_id": "case_036",
+      "menu_item": "제육볶음",
+      "raw_reason": "너무 맛있다 야 진짜 여기서 제육을 찾게 될 줄 누가 알았네 맛있어. 맛있다. 아, 너무 맛있다. 너무 맛있다.이 고기가 저렇게 정리가 근데 제육이 너무 맛있다. 맛있어요. 다행이네. 아니이 집은 왜 순내꼭집이 제육이 맛있어? 진짜 맛있으면 없어지는 거 싫잖아. 마음속으로 살짝 그만큼 맛있어. 약간",
+      "item_id": 825,
+      "restaurant_id": 1083,
+      "restaurant": "먹거리집",
+      "video_id": "vDVTYhm-2uU",
+      "video_url": "https://www.youtube.com/watch?v=vDVTYhm-2uU",
+      "cohort": "random_sung_control",
+      "stored_display": "너무 맛있다. 여기서 제육을 찾게 될 줄 누가 알았네. 맛있어. 아, 너무 맛있다. 이 집은 왜 순대국집이 제육이 맛있어? 진짜 맛있으면 없어지는 거 싫잖아. 그만큼 맛있어.",
+      "current_grouped_display": "여기서 제육을 찾게 될 줄 누가 알았어. 제육이 너무 맛있다. 진짜 맛있으면 없어지는 거 싫잖아. 그만큼 맛있어.",
+      "candidate_grouped_display": "여기서 제육을 찾게 될 줄 누가 알았네. 제육이 너무 맛있다. 이 집은 왜 순대국집이 제육이 맛있어? 진짜 맛있으면 없어지는 거 싫잖아. 마음속으로 살짝 그만큼 맛있어.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_036",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "순대국집 표기를 자연스럽게 고치고 강한 제육 반응을 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "알았어라는 소폭 교정 외에는 놀람과 강한 맛 반응을 유지했다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "마음속으로 살짝 그만큼은 연결이 불명확하게 남았다."
+            ],
+            "note": "마음속으로 살짝 그만큼은 연결이 불명확하게 남았다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "놀라움과 음식의 맛을 간결하고 자연스럽게 전한다."
+      }
+    },
+    {
+      "case_id": "case_037",
+      "menu_item": "삼겹살",
+      "raw_reason": "제일 센게 전 삼겹살의 써 준 거 같아요. 요즘 진짜 알겠어요. 힘들어도 이걸 먹으면 잠깐 내가 아씨 미쳤어. 너무 맛있어를 할 수 있는음 그게 되게 중요한 거 같아.",
+      "item_id": 218,
+      "restaurant_id": 214,
+      "restaurant": "청석골",
+      "video_id": "8JQNbjWEze0",
+      "video_url": "https://www.youtube.com/watch?v=8JQNbjWEze0",
+      "cohort": "random_sung_control",
+      "stored_display": "제일 센 게 전 삼겹살에 소주인 것 같아요. 힘들어도 이걸 먹으면 잠깐 내가 '아, 미쳤어. 너무 맛있어' 할 수 있는, 그게 되게 중요한 거 같아요.",
+      "current_grouped_display": "힘들어도 이걸 먹으면 잠깐 미쳤어, 너무 맛있어를 할 수 있는. 그게 되게 중요한 것 같아.",
+      "candidate_grouped_display": "힘들어도 이걸 먹으면 잠깐 내가 미쳤어, 너무 맛있어를 할 수 있는. 그게 되게 중요한 거 같아.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_037",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "불명확한 써 준을 소주로 확정해 술이라는 사실을 새로 보탰다."
+            ],
+            "note": "불명확한 써 준을 소주로 확정해 술이라는 사실을 새로 보탰다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "잠시 미쳤어 너무 맛있어라고 느끼는 위안을 원 말투로 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "주어 일부를 덜어내도 잠시 맛으로 위안받는 뜻이 읽힌다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "소주를 추측하지 않고 명확한 감정 발화만 보존한다."
+      }
+    },
+    {
+      "case_id": "case_038",
+      "menu_item": "순댓국",
+      "raw_reason": "국물맛이 오 되게 진하다 여기도 잔뜩 들어 있어 뭐 아니 순대가 너무 많이 들어다 일단 좀 먹겠습니다 야 너도 이거 공가 없이 그냥 보통에 하나 먹으면 터지겠다 순대가 워낙 많아서 여기 담겨 있는 거랑 또 맛이 달라 참",
+      "item_id": 683,
+      "restaurant_id": 1111,
+      "restaurant": "청화집",
+      "video_id": "UHembfdHJn8",
+      "video_url": "https://www.youtube.com/watch?v=UHembfdHJn8",
+      "cohort": "random_sung_control",
+      "stored_display": "국물맛이 되게 진하다. 순대가 너무 많이 들어 있고, 보통 하나 먹으면 터지겠다. 순대가 워낙 많아서 또 맛이 달라.",
+      "current_grouped_display": "국물 맛이 되게 진하다. 순대가 너무 많이 들어 있어. 공깃밥 없이 보통 하나 먹어도 터지겠다.",
+      "candidate_grouped_display": "국물 맛이 되게 진하다. 순대가 너무 많이 들어 있다. 공깃밥 없이 그냥 보통 하나 먹으면 터지겠다. 순대가 워낙 많아서.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "b",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_038",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "공가 없이를 공깃밥 없이로 자연스럽게 복원하고 양 평가를 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "공깃밥 없이와 풍부한 순대라는 양 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "fail",
+            "issues": [
+              "순대가 많아서 또 맛이 달라로 원래 분리된 비교를 인과로 바꿨다."
+            ],
+            "note": "순대가 많아서 또 맛이 달라로 원래 분리된 비교를 인과로 바꿨다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "진한 국물과 푸짐한 순대라는 확실한 핵심을 전한다."
+      }
+    },
+    {
+      "case_id": "case_039",
+      "menu_item": "오리탕",
+      "raw_reason": "아 이거 진짜 나라는 묻는 사람이 먹어봤으면 좋겠다 한번 이걸 못 드셔 보신 분들 한테는 더레이 아마 신세계 달리는 겁니다",
+      "item_id": 829,
+      "restaurant_id": 1161,
+      "restaurant": "영미오리탕",
+      "video_id": "vvGnYVFWrMc",
+      "video_url": "https://www.youtube.com/watch?v=vvGnYVFWrMc",
+      "cohort": "random_sung_control",
+      "stored_display": "이거 진짜 먹어봤으면 좋겠다. 못 드셔 보신 분들한테는 아마 신세계일 겁니다.",
+      "current_grouped_display": "한번 먹어봤으면 좋겠다. 이걸 못 드셔 보신 분들한테는 아마 신세계가 열리는 겁니다.",
+      "candidate_grouped_display": "한번 이걸 못 드셔 보신 분들한테는 아마 신세계가 열리는 겁니다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_039",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "불명확한 앞말을 덜고 첫 경험의 신세계라는 추천을 유지했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "문맥상 신세계가 열리는 교정과 체험 권유가 자연스럽다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "신세계가 열리는이라는 익숙한 표현으로 불명확한 말을 정리했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "권유와 처음 먹는 사람의 경험 평가를 함께 살린다."
+      }
+    },
+    {
+      "case_id": "case_040",
+      "menu_item": "수제만두",
+      "raw_reason": "요리를 주문해야 수제만두를 시킬 수 아 참고로 수제 군만두 찐만두는 제가 정말 맛있습니다 육즙이 중국 갈 필요 없어 이거 진짜로 근데 요리 시켜야지 시킬 수 있으니까 그래서 탕수육이는 깐풍기도 뭘 하나 시키고 얘는 꼭 요리처럼 시켜서 먹어봤으면 좋겠어요 진짜이 집에 핵심 중에 하나야 얘를 꼭 먹어야지 무조건 아유 맛있습니다 장르가 여러가지가 있지만이 정도 하면 더 바랄게 없다에 만두야 나한테는이 그러니까 만두 러버들이 이렇게 불만을 얘기할 수 없는 그런 만두 진짜 진짜 짱이야 아니 근데 식어도 맛있어 아니 왜 이렇게 못 먹을만큼",
+      "item_id": 855,
+      "restaurant_id": 1134,
+      "restaurant": "홍명",
+      "video_id": "zCYgokuaenY",
+      "video_url": "https://www.youtube.com/watch?v=zCYgokuaenY",
+      "cohort": "random_sung_control",
+      "stored_display": "요리를 주문해야 수제만두를 시킬 수 있고, 수제 군만두와 찐만두. 정말 맛있습니다. 육즙이... 중국 갈 필요 없어, 이거 진짜로. 꼭 요리처럼 시켜서 먹어봤으면 좋겠어요. 이 집 핵심 중 하나야. 꼭 먹어야지, 무조건. 진짜 짱이야. 식어도 맛있어.",
+      "current_grouped_display": "이 집 핵심 중에 하나야. 꼭 먹어야지, 무조건. 만두 러버들이 불만을 얘기할 수 없는 그런 만두. 식어도 맛있어.",
+      "candidate_grouped_display": "수제 군만두, 찐만두는 정말 맛있습니다. 육즙이, 중국 갈 필요 없어. 요리 시켜야지 시킬 수 있으니까 뭘 하나 시키고, 얘는 꼭 요리처럼 시켜서 먹어 봤으면 좋겠어요. 이 집의 핵심 중에 하나야. 식어도 맛있어.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "stored",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_040",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "주문 조건과 만두 맛·중국 비유·추천을 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "긴 단편은 있지만 주문 조건과 만두의 강한 추천이 읽힌다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "만두라는 대상과 강한 추천·식어도 맛있다는 평을 보존했다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "원 말투와 강도를 살린 짧고 명료한 만두 추천이다."
+      }
+    },
+    {
+      "case_id": "case_041",
+      "menu_item": "순대국",
+      "raw_reason": "와서 먹었는데 맛있 되게 깨끗하고 되게 맛있는 거야. 아 나중에 한번 소개해야지. 소개할 때도 막 우와 순대국이 얼마나 많이 있는데이 집이 짱이야라기보단 먹어 보면 알 거야. 되게 깨끗하고 국도 조금 특이해. 나는 지금도 약수 순데보다 해남 순대가 더 좋거든. 해남순데 진짜 깨끗해. 여기 약간 어떤 느낌이냐면 해남이랑 딱 섞어 놓은 느낌이야. 깨끗느냐도 아니고 근데 딱 밸런스가 좋지 않아?",
+      "item_id": 832,
+      "restaurant_id": 1056,
+      "restaurant": "국일순대국",
+      "video_id": "wCriYW5dB98",
+      "video_url": "https://www.youtube.com/watch?v=wCriYW5dB98",
+      "cohort": "random_sung_control",
+      "stored_display": "와서 먹었는데 되게 깨끗하고 맛있는 거야. 순대국이 많은데 이 집이 짱이라기보단 먹어보면 알 거야. 되게 깨끗하고 국도 조금 특이해. 해남순대처럼 깨끗하면서 밸런스가 좋지 않아?",
+      "current_grouped_display": "먹어 보면 알 거야. 되게 깨끗하고 국도 조금 특이해. 딱 밸런스가 좋지 않아?",
+      "candidate_grouped_display": "먹어 보면 알 거야. 되게 깨끗하고 국도 조금 특이해. 딱 밸런스가 좋지 않아?",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_041",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "청결감·독특한 국물·균형이라는 원 평가를 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "청결감·독특한 국물·균형이라는 원 평가를 보존했다."
+          },
+          "Z": {
+            "verdict": "fail",
+            "issues": [
+              "해남순대처럼 깨끗하면서로 불명확한 혼합 비교를 확정했다."
+            ],
+            "note": "해남순대처럼 깨끗하면서로 불명확한 혼합 비교를 확정했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "불명확한 가게 비교를 빼고 확실한 음식 평가를 유지한다."
+      }
+    },
+    {
+      "case_id": "case_042",
+      "menu_item": "삼겹 보쌈",
+      "raw_reason": "어이 메인 메뉴가 아닌 메뉴를 소개하려고 오늘은 삼겹 보쌈을 먹을 겁니다. 얼마지 않는데 맛있었고요.이 날씨에 딱 어울릴 거 그게 되게 중요하잖아. 삼겹 되게 잘 삶아요. 그래서 이게 특별 메뉴입니다. 우리 이게 맛있어. 진짜로 이게 너무 맛있었어 갖고 방금 혼자 기름이 되게 맛있어. 진심 맛있네요.",
+      "item_id": 718,
+      "restaurant_id": 1143,
+      "restaurant": "약수동춘천막국수",
+      "video_id": "XvmK69zZJOo",
+      "video_url": "https://www.youtube.com/watch?v=XvmK69zZJOo",
+      "cohort": "random_sung_control",
+      "stored_display": "메인 메뉴가 아닌 메뉴를 소개하려고 오늘은 삼겹 보쌈을 먹을 겁니다. 맛있었고요. 삼겹 되게 잘 삶아요. 그래서 이게 특별 메뉴입니다. 이게 맛있어, 진짜로. 너무 맛있었어. 기름이 되게 맛있어. 진심 맛있네요.",
+      "current_grouped_display": "삼겹 되게 잘 삶아요. 이게 너무 맛있었어. 기름이 되게 맛있어. 진심 맛있네요.",
+      "candidate_grouped_display": "삼겹 되게 잘 삶아요. 이게 맛있어. 진짜로. 기름이 되게 맛있어. 진심 맛있네요.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_042",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "삼겹 보쌈 소개와 조리·기름 맛 평가를 원 문체로 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "삼겹과 기름 맛·강한 반응을 짧게 보존했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "삼겹과 기름 맛·강한 반응을 짧게 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "맛의 근거와 감탄을 짧고 자연스럽게 전달한다."
+      }
+    },
+    {
+      "case_id": "case_043",
+      "menu_item": "청국장",
+      "raw_reason": "플레인 청국장이면 얼마나 훌륭한 식사야 진짜 맛있다 청국장 너무 맛있어요 전 이렇게 조미료가 덜 들어간 깨끗한 음식이 끌릴 때가 있는데 청국장은 특히 그런 거 같아 너무 크리미하고 맛있는 좋은 청국장이고 청국장을 좀 사서 집에 가야겠습니다 맛있어요, 여기는",
+      "item_id": 631,
+      "restaurant_id": 1145,
+      "restaurant": "도명골 청국장",
+      "video_id": "LXKubqppj0U",
+      "video_url": "https://www.youtube.com/watch?v=LXKubqppj0U",
+      "cohort": "random_sung_control",
+      "stored_display": "플레인 청국장이면 얼마나 훌륭한 식사야. 진짜 맛있다. 청국장 너무 맛있어요. 조미료가 덜 들어간 깨끗한 음식이 끌릴 때가 있는데 청국장은 특히 그런 것 같아. 너무 크리미하고 맛있는 좋은 청국장이고. 청국장을 좀 사서 집에 가야겠습니다. 맛있어요, 여기는.",
+      "current_grouped_display": "조미료가 덜 들어간 깨끗한 음식이 끌릴 때가 있는데, 청국장은 특히 그런 것 같아. 너무 크리미하고 맛있는 좋은 청국장이고, 좀 사서 집에 가야겠습니다.",
+      "candidate_grouped_display": "청국장 너무 맛있어요. 전 이렇게 조미료가 덜 들어간 깨끗한 음식이 끌릴 때가 있는데, 청국장은 특히 그런 거 같아. 너무 크리미하고 맛있는 좋은 청국장이고, 청국장을 좀 사서 집에 가야겠습니다.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_043",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "조미료 선호·크리미함·구매 의사를 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 반응과 반복까지 보존해 다소 길지만 읽힌다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "청국장 대상·선호·질감·구매 의사를 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Z"
+        ],
+        "preference_reason": "원 표현의 구체적인 맛과 구매 의사를 반복 없이 전한다."
+      }
+    },
+    {
+      "case_id": "case_044",
+      "menu_item": "불고기",
+      "raw_reason": "서울식 불고기는 젠 업 후 연역 거기 안까지 완벽하게 양념이 스 민 생고기를 다른 양념을 해서 바로 내는 거죠 그러니까 훨씬 더 리뷰 캉이 살아있다 있다 맛이 안 나는 것이 사악해 숯이 랑 좋은 고기랑 4 맛잇다 아 또 이렇게 시대가 맛있음",
+      "item_id": 641,
+      "restaurant_id": 1152,
+      "restaurant": "진미언양불고기",
+      "video_id": "MvX_vWtm8P0",
+      "video_url": "https://www.youtube.com/watch?v=MvX_vWtm8P0",
+      "cohort": "random_sung_control",
+      "stored_display": "서울식 불고기는 안까지 완벽하게 양념이 스민 상태인데, 이쪽은 생고기를 다른 양념을 해서 바로 내는 거죠. 훨씬 더 살아 있다. 좋은 숯이랑 좋은 고기랑. 맛있다. 이렇게 되니까 맛있음.",
+      "current_grouped_display": "좋은 고기랑 숯이랑, 맛있다.",
+      "candidate_grouped_display": "좋은 고기랑, 맛있다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_044",
+        "options": {
+          "X": {
+            "verdict": "fail",
+            "issues": [
+              "불명확한 서울식 대비와 상태·마지막 인과를 여러 문장으로 추측 복원했다."
+            ],
+            "note": "불명확한 서울식 대비와 상태·마지막 인과를 여러 문장으로 추측 복원했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "좋은 고기와 숯이라는 확실한 조각·맛 반응을 살렸다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "고기 맛 반응은 있으나 좋은 고기랑에서 연결이 끊기고 구체성이 줄었다."
+            ],
+            "note": "고기 맛 반응은 있으나 좋은 고기랑에서 연결이 끊기고 구체성이 줄었다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "불명확한 조리 설명을 추측하지 않고 읽히는 맛 반응을 남긴다."
+      }
+    },
+    {
+      "case_id": "case_045",
+      "menu_item": "비빔밥",
+      "raw_reason": "비빔밥도 밥이 초점이 되어 있어서 그런지 그래서 그냥 입안에서 자연스럽게 커지는 이게 인위적이지 않고 이렇게 손님을 끌려고 자극적인 걸 안 한 느낌 평생 먹어 오던 전라도 비빔밥 맛이라는 거예요 그냥 딱 그 말이 맞는 거 같아요 딱 이렇게 너무 좋은 재료에 따뜻하게 못 올릴 거라고 생각했는데 너무너무 맛있습니다 너무너무 맛있어",
+      "item_id": 654,
+      "restaurant_id": 1119,
+      "restaurant": "진미식당",
+      "video_id": "Pj61du5bEiY",
+      "video_url": "https://www.youtube.com/watch?v=Pj61du5bEiY",
+      "cohort": "random_sung_control",
+      "stored_display": "비빔밥도 밥이 초점이 되어 있어서 그런지, 입안에서 자연스럽게 커지는. 인위적이지 않고, 평생 먹어 오던 전라도 비빔밥 맛이라는 거예요. 너무너무 맛있습니다.",
+      "current_grouped_display": "인위적이지 않고 자극적인 걸 안 한 느낌. 평생 먹어 오던 전라도 비빔밥 맛이라는 거예요. 너무너무 맛있습니다.",
+      "candidate_grouped_display": "인위적이지 않고, 손님을 끌려고 자극적인 걸 안 한 느낌. 평생 먹어 오던 전라도 비빔밥 맛이라는 거예요. 딱 그 말이 맞는 거 같아요. 너무너무 맛있습니다.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_045",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "비자극적 전라도 비빔밥이라는 평가와 강한 맛 반응을 보존했다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "핵심 맛 성격과 강한 반응을 간결하게 보존했다."
+          },
+          "Z": {
+            "verdict": "minor_issue",
+            "issues": [
+              "입안에서 자연스럽게 커지는의 대상이 없어 의미가 불명확하다."
+            ],
+            "note": "입안에서 자연스럽게 커지는의 대상이 없어 의미가 불명확하다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "확실한 비빔밥 맛 표현만 자연스럽게 남긴다."
+      }
+    },
+    {
+      "case_id": "case_046",
+      "menu_item": "콩국수",
+      "raw_reason": "근데이 집이 면이 맛있잖아요 면을 직접 하시잖아 그러니까이 집 콩국수가 아주 좋습니다 얘는 문제가 이게 멈출 수가 없어 고소하니까 배가 부른데 계속",
+      "item_id": 644,
+      "restaurant_id": 1131,
+      "restaurant": "신촌즉석생우동",
+      "video_id": "Nz0jI_Lck0U",
+      "video_url": "https://www.youtube.com/watch?v=Nz0jI_Lck0U",
+      "cohort": "random_sung_control",
+      "stored_display": "이 집은 면이 맛있잖아요. 면을 직접 하시잖아. 그러니까 이 집 콩국수가 아주 좋습니다.",
+      "current_grouped_display": "이 집이 면이 맛있잖아요. 면을 직접 하시잖아. 콩국수가 아주 좋습니다. 고소하니까 배가 부른데 계속, 멈출 수가 없어.",
+      "candidate_grouped_display": "이 집이 면이 맛있잖아요. 면을 직접 하시잖아. 이 집 콩국수가 아주 좋습니다. 얘는 문제가 이게 멈출 수가 없어. 고소하니까 배가 부른데 계속.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "a",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_046",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "직접 만드는 면과 콩국수 평가를 원 말투로 살렸다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "고소함과 멈출 수 없음의 연결을 순서만 정리했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "원 구어의 열린 어미도 배불러도 계속 먹는 뜻이 읽힌다."
+          }
+        },
+        "preferred": [
+          "Y"
+        ],
+        "preference_reason": "면과 고소함·멈출 수 없다는 강한 맛 반응을 함께 자연스럽게 전한다."
+      }
+    },
+    {
+      "case_id": "case_047",
+      "menu_item": "엔다이브 베이크드 블루치즈",
+      "raw_reason": "엔다이브 아시죠? 알배기 배추 같은 외국 식물 여기에다가 베이크드 블루치즈라고 하는 건데 제가 요리하는 입장으로서 되게 밸런스가 좋은?! 얘가 진짜 약간 킬러 안주인 거 같아 너무너무 맛있어요 아이디어가 너무 좋았던 거 같아",
+      "item_id": 710,
+      "restaurant_id": 1140,
+      "restaurant": "첼시스하이볼 청담점",
+      "video_id": "XJywuH-AAf8",
+      "video_url": "https://www.youtube.com/watch?v=XJywuH-AAf8",
+      "cohort": "random_sung_control",
+      "stored_display": "엔다이브가 되게 연하고 달콤하거든요. 여기에 베이크드 블루치즈, 밸런스가 좋은. 진짜 킬러 안주인 것 같아. 너무너무 맛있어요.",
+      "current_grouped_display": "요리하는 입장으로서 되게 밸런스가 좋아. 진짜 킬러 안주인 것 같아. 너무너무 맛있어요. 아이디어가 너무 좋았던 것 같아.",
+      "candidate_grouped_display": "제가 요리하는 입장으로서 되게 밸런스가 좋은. 얘가 진짜 약간 킬러 안주인 거 같아. 너무너무 맛있어요. 아이디어가 너무 좋았던 거 같아.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_047",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "진짜 약간과 같은 유보를 덜고 밸런스가 좋아로 단정도를 조금 높였다."
+            ],
+            "note": "진짜 약간과 같은 유보를 덜고 밸런스가 좋아로 단정도를 조금 높였다."
+          },
+          "Y": {
+            "verdict": "fail",
+            "issues": [
+              "엔다이브가 연하고 달콤하다는 맛을 새로 만들었다."
+            ],
+            "note": "엔다이브가 연하고 달콤하다는 맛을 새로 만들었다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "평가의 유보와 킬러 안주·아이디어 칭찬을 보존했다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "원문 특유의 유보와 강한 맛 반응을 모두 유지한다."
+      }
+    },
+    {
+      "case_id": "case_048",
+      "menu_item": "돔베고기",
+      "raw_reason": "짜잔 저희 돈배 고기 한 도마 많이 있죠 근데 아 여기 돔배 고기가 아주 괜찮습니다 고기를 먹어 보면 그냥 아예이 고기만 있어도 소개할 수 있겠다는 그런 고기 얘기했지만 기름이 맛있는 고기가 맛있다고 했잖아요 근데 이거 봐 두게 야 맛있다 맛있지 너도 빨리 하나 왜 제주도 고기만 이렇게 맛있지 이렇게 두꺼운 걸 이렇게 가게입니다 근처에 계시면 무조건 오무 좋고요 자신 있습니다 돼지고기 퀄리티와 어 고기 국수의 맛은 자신 있습니다 여기 한번 와서 드셔보시면",
+      "item_id": 779,
+      "restaurant_id": 1096,
+      "restaurant": "오소록 답십리점",
+      "video_id": "kV8BKO9VKdQ",
+      "video_url": "https://www.youtube.com/watch?v=kV8BKO9VKdQ",
+      "cohort": "random_sung_control",
+      "stored_display": "돔베고기 한 도마. 고기가 아주 괜찮습니다. 이 고기만 있어도 소개할 수 있겠다는 고기였던 것 같아요. 왜 제주도 고기만 이렇게 맛있지. 근처에 계시면 무조건 오면 좋고, 돼지고기 퀄리티와 고기국수 맛은 자신 있습니다.",
+      "current_grouped_display": "고기를 먹어 보면 이 고기만 있어도 소개할 수 있겠다는 그런 고기. 기름이 맛있는 고기가 맛있다고 했잖아요. 돼지고기 퀄리티는 자신 있습니다.",
+      "candidate_grouped_display": "여기 돔베고기가 아주 괜찮습니다. 고기를 먹어 보면 그냥 이 고기만 있어도 소개할 수 있겠다는 그런 고기. 기름이 맛있는 고기가 맛있다고 했잖아요. 돼지고기 퀄리티는 자신 있습니다.",
+      "blind_arm_key": {
+        "X": "a",
+        "Y": "stored",
+        "Z": "b"
+      },
+      "blind_review": {
+        "case_id": "case_048",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "고기 자체와 기름 맛·퀄리티 자신감을 보존했다."
+          },
+          "Y": {
+            "verdict": "minor_issue",
+            "issues": [
+              "고기였던 것 같아요로 원래 현재의 확신에 회고와 유보를 보탰다."
+            ],
+            "note": "고기였던 것 같아요로 원래 현재의 확신에 회고와 유보를 보탰다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "돔베고기 대상과 고기 자체·기름 맛·자신감을 보존했다."
+          }
+        },
+        "preferred": [
+          "Z"
+        ],
+        "preference_reason": "음식명을 명시하고 원래 확신과 구체적인 맛 표현을 유지한다."
+      }
+    },
+    {
+      "case_id": "case_049",
+      "menu_item": "해장국",
+      "raw_reason": "텐데 야 건디기 튼실한 거 봐라 좋은데 야 여기 건기는 이렇게 양이랑 내장이랑 양이 많네 쟤는 고기랑 던지고 해장국 집이니까 맛있고 어우 좋다 맛있다 맛있다 되게 맛있다 그리고 이런 유즈는 모든 사람이 맛있다고 할 것 없이 진짜 누구나 좋아할만한 짭짤 달콤 이거 고기 반 넣고 8,000원에 팔아도 먹을 거 같은데 진짜 양이 많다",
+      "item_id": 560,
+      "restaurant_id": 1099,
+      "restaurant": "함덕골목 본점",
+      "video_id": "8iDE8whsJpU",
+      "video_url": "https://www.youtube.com/watch?v=8iDE8whsJpU",
+      "cohort": "random_sung_control",
+      "stored_display": "건더기 튼실한 거 봐라. 여기 건더기는 양이랑 내장이랑, 고기랑 많네. 해장국집이니까 맛있고, 좋다. 되게 맛있다. 진짜 누구나 좋아할 만한 짭짤달콤. 진짜 양이 많다.",
+      "current_grouped_display": "건더기 튼실한 거 봐라. 양이랑 내장이랑 양이 많네. 되게 맛있다. 누구나 좋아할 만한 짭짤 달콤한 맛. 진짜 양이 많다.",
+      "candidate_grouped_display": "건더기 튼실한 거 봐라. 양이랑 내장이랑 양이 많네. 되게 맛있다. 누구나 좋아할 만한 짭짤 달콤. 진짜 양이 많다.",
+      "blind_arm_key": {
+        "X": "stored",
+        "Y": "b",
+        "Z": "a"
+      },
+      "blind_review": {
+        "case_id": "case_049",
+        "options": {
+          "X": {
+            "verdict": "minor_issue",
+            "issues": [
+              "고기랑 많네로 불명확한 고기 부분을 건더기 양 주장에 합쳤다."
+            ],
+            "note": "고기랑 많네로 불명확한 고기 부분을 건더기 양 주장에 합쳤다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "양·내장·풍부한 양과 짭짤달콤이라는 맛 반응을 살렸다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "짭짤 달콤한 맛으로 자연스럽게 닫고 원 평가를 보존했다."
+          }
+        },
+        "preferred": [
+          "Y",
+          "Z"
+        ],
+        "preference_reason": "불명확한 고기 부분을 추측하지 않고 건더기·맛 평가를 살린다."
+      }
+    },
+    {
+      "case_id": "case_050",
+      "menu_item": "몰타델라",
+      "raw_reason": ">> 몰다델라도 >> 이게 사실은 내가이 집에서 제일 좋아하는 거 중에 하나거든. 요만큼이 갖고 있는 감칠 맛이 어마어마해서 요걸로 와인을 계속 먹을 수 있는 그런",
+      "item_id": 746,
+      "restaurant_id": 1053,
+      "restaurant": "세스크멘슬",
+      "video_id": "cXmQC8Y1Ow0",
+      "video_url": "https://www.youtube.com/watch?v=cXmQC8Y1Ow0",
+      "cohort": "random_sung_control",
+      "stored_display": "몰타델라. 이 집에서 제일 좋아하는 것 중 하나. 요만큼이 갖고 있는 감칠맛이 어마어마해서 와인을 계속 먹을 수 있는 그런 맛.",
+      "current_grouped_display": "이 집에서 제일 좋아하는 것 중에 하나거든. 요만큼이 갖고 있는 감칠맛이 어마어마해서, 이걸로 와인을 계속 먹을 수 있어.",
+      "candidate_grouped_display": "이게 사실은 내가 이 집에서 제일 좋아하는 거 중에 하나거든. 요만큼이 갖고 있는 감칠맛이 어마어마해서 요걸로 와인을 계속 먹을 수 있는.",
+      "blind_arm_key": {
+        "X": "b",
+        "Y": "a",
+        "Z": "stored"
+      },
+      "blind_review": {
+        "case_id": "case_050",
+        "options": {
+          "X": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "이 집의 선호·감칠맛·와인 안주 평가가 열린 어미여도 읽힌다."
+          },
+          "Y": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "어미를 닫았지만 선호와 감칠맛·와인 평가를 유지했다."
+          },
+          "Z": {
+            "verdict": "pass",
+            "issues": [],
+            "note": "음식명을 명확히 하고 원 선호와 감칠맛·와인 평가를 보존했다."
+          }
+        },
+        "preferred": [
+          "X",
+          "Y"
+        ],
+        "preference_reason": "원말을 가장 가깝게 유지하며 감칠맛과 와인 안주 평가가 분명하다."
+      }
+    }
+  ],
+  "repeat": {
+    "scope": "12 deliberately selected cases, including the two initial minor issues; not a random sample",
+    "cases": [
+      {
+        "case_id": "repeat_001",
+        "menu_item": "제육볶음",
+        "raw_reason": "너무 맛있다 야 진짜 여기서 제육을 찾게 될 줄 누가 알았네 맛있어. 맛있다. 아, 너무 맛있다. 너무 맛있다.이 고기가 저렇게 정리가 근데 제육이 너무 맛있다. 맛있어요. 다행이네. 아니이 집은 왜 순내꼭집이 제육이 맛있어? 진짜 맛있으면 없어지는 거 싫잖아. 마음속으로 살짝 그만큼 맛있어. 약간",
+        "original_case_id": "case_036",
+        "output": "너무 맛있다. 진짜 여기서 제육을 찾게 될 줄 누가 알았네. 제육이 너무 맛있다. 진짜 맛있으면 없어지는 거 싫잖아. 그만큼 맛있어.",
+        "independent_review": {
+          "case_id": "repeat_001",
+          "verdict": "minor_issue",
+          "issues": [
+            "어색한 ASR 표현 잔존"
+          ],
+          "note": "제육에 대한 감탄은 잘 남았지만 ‘찾게 될 줄 누가 알았네’는 읽을 때 걸린다."
+        }
+      },
+      {
+        "case_id": "repeat_002",
+        "menu_item": "불고기",
+        "raw_reason": "서울식 불고기는 젠 업 후 연역 거기 안까지 완벽하게 양념이 스 민 생고기를 다른 양념을 해서 바로 내는 거죠 그러니까 훨씬 더 리뷰 캉이 살아있다 있다 맛이 안 나는 것이 사악해 숯이 랑 좋은 고기랑 4 맛잇다 아 또 이렇게 시대가 맛있음",
+        "original_case_id": "case_044",
+        "output": "숯이랑 좋은 고기랑. 맛있다.",
+        "independent_review": {
+          "case_id": "repeat_002",
+          "verdict": "fail",
+          "issues": [
+            "불완전한 구절",
+            "평가 대상과 근거 연결 불명확"
+          ],
+          "note": "‘숯이랑 좋은 고기랑’이 끊겨 있어 무엇이 맛있다는 말인지 인용문만으로 분명하지 않다."
+        }
+      },
+      {
+        "case_id": "repeat_003",
+        "menu_item": "해산물 카이센동",
+        "raw_reason": "모든게 다 들어 있는 양 제일 많이 주는 걸로 시켰거든. 아무래도 모든게 다 들어가 있는 버전이라 가격은 좀 있었는데 연알, 개살, 운이 생선회 이런 것들이 선도가 너무 좋은 거야. 그리 이것들이 잘 지은 밥이랑 섞이는 느낌이 너무 좋더라. 그래서 카인센동이라기보다는 약간 지라시스식씨 같은 느낌이라고 해야 하나? 너무 괜찮았어. 밥이 한 1분 정도 남았을 때 도미옥스를 부워주거든. 이때 딱 깨달았어. 아 이래서 사람들이 줄을 서는구나. 그 먹는 순간 먹고 있는데 다시 오고 싶어지더라고. 어 여기 얘기하기 쉽지 않지만 꼭 와 봐. P",
+        "original_case_id": "case_001",
+        "output": "생선회 이런 것들이 선도가 너무 좋은 거야. 이것들이 잘 지은 밥이랑 섞이는 느낌이 너무 좋더라. 너무 괜찮았어. 이때 딱 깨달았어. 아, 이래서 사람들이 줄을 서는구나. 먹는 순간, 먹고 있는데 다시 오고 싶어지더라고. 꼭 와 봐.",
+        "independent_review": {
+          "case_id": "repeat_003",
+          "verdict": "minor_issue",
+          "issues": [
+            "삭제된 맥락을 가리키는 표현"
+          ],
+          "note": "도미 육수를 붓는 장면을 뺀 뒤 ‘이때 딱 깨달았어’를 남겨 깨달음의 계기가 흐려졌다."
+        }
+      },
+      {
+        "case_id": "repeat_004",
+        "menu_item": "나폴레옹 케이크",
+        "raw_reason": "좋아. 중간에 디저트 못 빠지지. 당 떨어질 때 러시아 케이크 가서 나폴레옹 케이 한입해 봐. 눈이 번쩍 떠질 거야.",
+        "original_case_id": "case_003",
+        "output": "당 떨어질 때 러시아 케이크 가서 나폴레옹 케이크 한입 해 봐. 눈이 번쩍 떠질 거야.",
+        "independent_review": {
+          "case_id": "repeat_004",
+          "verdict": "pass",
+          "issues": [],
+          "note": "케이크 이름의 명백한 누락을 보완했고 권유와 감탄을 그대로 살렸다."
+        }
+      },
+      {
+        "case_id": "repeat_005",
+        "menu_item": "알배추쌈",
+        "raw_reason": ">> 다르다. 여기 와서 보쌈을 먹으러 >> 알배추에다가 이것만 >> 드립다 먹고 간 적도 있어. 되게 신선하네요. 이거를 보쌈나면 먹겠지만 >> 이렇게 먹어도 너무 맛있어.",
+        "original_case_id": "case_011",
+        "output": "알배추에다가 이것만 드립다 먹고 간 적도 있어. 되게 신선하네요. 이렇게 먹어도 너무 맛있어.",
+        "independent_review": {
+          "case_id": "repeat_005",
+          "verdict": "minor_issue",
+          "issues": [
+            "지시 대상 불명확"
+          ],
+          "note": "알배추는 드러나지만 ‘이것만’이 무엇인지 없어 쌈의 구성을 이해하기 어렵다."
+        }
+      },
+      {
+        "case_id": "repeat_006",
+        "menu_item": "볼락회 쌈",
+        "raw_reason": ">> 아, 진짜 맛있어요. 그것도 그게 밥에 이렇게 딱 싸서 그 아, >> 약간 초밥으로 만들어. 네, 맞아요. >> 아니, 쌈을 되게 잘 싸더라고.",
+        "original_case_id": "case_012",
+        "output": "아, 진짜 맛있어요. 밥에 이렇게 딱 싸서. 약간 초밥으로 만들어. 네, 맞아요.",
+        "independent_review": {
+          "case_id": "repeat_006",
+          "verdict": "pass",
+          "issues": [],
+          "note": "밥에 싸서 초밥처럼 먹는 방식과 맛있다는 반응이 원문 말투로 이어진다."
+        }
+      },
+      {
+        "case_id": "repeat_007",
+        "menu_item": "볶음밥",
+        "raw_reason": "볶음밥 강력 추천이야. >> 볶음밥이죠. 그러면 볶음밥을 꼭 먹어 봐야겠네요. >> 강력 추천. >> 후식볶음밥 비주얼 1인 거 같아요.",
+        "original_case_id": "case_013",
+        "output": "볶음밥 강력 추천이야. 그러면 볶음밥을 꼭 먹어 봐야겠네요. 강력 추천.",
+        "independent_review": {
+          "case_id": "repeat_007",
+          "verdict": "pass",
+          "issues": [],
+          "note": "볶음밥을 강력히 추천하는 발언과 상대의 반응이 자연스럽게 남았다."
+        }
+      },
+      {
+        "case_id": "repeat_008",
+        "menu_item": "한돈너비목살",
+        "raw_reason": ">> 그리고 있잖아요, 형.이 이 집 내가 와가지고 오랜만에 두꺼운 목살만 허건날 먹다가 간만에 이렇게 얇게 썰어하는 목살 먹었거든요. 근데 요즘 두껍게 먹던 목사를 완전히 뒤집는 맛이에요. >> 음. 근데 목살 너무 맛있지 않니? >> 어 목살이 얇게 썰었는데이 맛을 어떻게 내지? >> 얇게 썰어서내는 약간 조금 저렴한 목살의 맛을 알잖아요. 근데 와 얘는 >> 미쳤어.음 너무 맛있어. 이거 포장되니?",
+        "original_case_id": "case_015",
+        "output": "오랜만에 두꺼운 목살만 허구한 날 먹다가 간만에 이렇게 얇게 썬 목살 먹었거든요. 근데 요즘 두껍게 먹던 목살을 완전히 뒤집는 맛이에요. 목살이 얇게 썰었는데 이 맛을 어떻게 내지? 미쳤어. 너무 맛있어. 이거 포장되니?",
+        "independent_review": {
+          "case_id": "repeat_008",
+          "verdict": "pass",
+          "issues": [],
+          "note": "얇은 목살의 맛에 놀라는 비교와 감탄을 살렸고 문맥상 명백한 오인식을 바로잡았다."
+        }
+      },
+      {
+        "case_id": "repeat_009",
+        "menu_item": "녹두전",
+        "raw_reason": ">> 회장님 여기 이거 녹두전을 메인 메뉴로 하셔도 돼 >> 녹두전이 요즘 튀기는 방식으로 바뀌면서 다들 두껍게 붙이려고 그러거든요. 근데 요렇게 야불야불하게 노릇하게 요만내는 데가 진짜 많이 없거든요. 요즘 >> 와 근데 너무 맛있다. >> 그냥 이거 먹으러 와도 되겠다. >> 너무 맛있다. 이게 한국 피자 아니야? 너무 맛있네.",
+        "original_case_id": "case_016",
+        "output": "여기 이거 녹두전을 메인 메뉴로 하셔도 돼. 녹두전이 요즘 튀기는 방식으로 바뀌면서 다들 두껍게 부치려고 그러거든요. 근데 이렇게 얇게 노릇하게 내는 데가 진짜 많이 없거든요. 와, 근데 너무 맛있다. 그냥 이거 먹으러 와도 되겠다. 이게 한국 피자 아니야? 너무 맛있네.",
+        "independent_review": {
+          "case_id": "repeat_009",
+          "verdict": "pass",
+          "issues": [],
+          "note": "녹두전의 얇고 노릇한 특징과 강한 호평이 원문 흐름과 말투를 유지한다."
+        }
+      },
+      {
+        "case_id": "repeat_010",
+        "menu_item": "해장국",
+        "raw_reason": "얘야말로 진짜 국물이 1등이니까 국물 더 주셔도 좋지만음 그냥 내가 원하는 양선지 우어지 중에 하나 추가해서 그 국물 합시면 특이가 된다는 거 장모님 회장국 너무 출연 출연이란다. 너무 맛있고요. 너무 소중하고 국밥 한글릇 했습니다. 너무 맛있었습니다. 감사합니다.",
+        "original_case_id": "case_017",
+        "output": "얘야말로 진짜 국물이 1등이니까. 너무 맛있고요. 너무 소중하고 국밥 한 그릇 했습니다. 너무 맛있었습니다. 감사합니다.",
+        "independent_review": {
+          "case_id": "repeat_010",
+          "verdict": "pass",
+          "issues": [],
+          "note": "국물이 으뜸이라는 평가와 식후 감상을 원문 표현으로 남겼다."
+        }
+      },
+      {
+        "case_id": "repeat_011",
+        "menu_item": "왕노가리",
+        "raw_reason": "단 두 마리만 판매를 하시는 왕노가리로 주문해 봤고요. 노가리의 사이즈가 왕 사이즈인 것까지는 모르겠지만은 살점이 아주 틈하이 촉촉한 맛으로 아주 훌륭했습니다.",
+        "original_case_id": "case_018",
+        "output": "노가리의 사이즈가 왕 사이즈인 것까지는 모르겠지만, 살점이 아주 촉촉한 맛으로 아주 훌륭했습니다.",
+        "independent_review": {
+          "case_id": "repeat_011",
+          "verdict": "pass",
+          "issues": [],
+          "note": "크기에 대한 유보와 촉촉한 살점에 대한 격식 있는 호평이 모두 유지됐다."
+        }
+      },
+      {
+        "case_id": "repeat_012",
+        "menu_item": "오마카세 안주 코스",
+        "raw_reason": "찰나에 드디어 나왔다고 보시면 되고요 숙성의 한상을 아주 실하게내어 주셨습니다 이것이야말로이자 가야만해 근본이라고 볼 수 있고요 근본이 메뉴답게 횟감 하나하나의 퀄리티가 너무나 나도 훌륭했습니다 마치 김치 냉장고에 들어갔다 나온듯한 회의 찰진 숙성가 여기서 회의 종류만 하더라도 일곱 여덟까지 된다고 보시면 되는데 회 한 점씩의 한 장씩만 털어 넣더라도 온전치 못한다고 볼 수",
+        "original_case_id": "case_019",
+        "output": "숙성의 한 상을 아주 실하게 내어 주셨습니다. 횟감 하나하나의 퀄리티가 너무나도 훌륭했습니다.",
+        "independent_review": {
+          "case_id": "repeat_012",
+          "verdict": "pass",
+          "issues": [],
+          "note": "숙성회 한 상의 실한 구성과 횟감 품질에 대한 평가가 간결하고 원문에 충실하다."
+        }
+      }
+    ]
+  },
+  "source_reselection": {
+    "original_case_id": "case_044",
+    "source": "archived preferred transcript fetched by existing preparation script into a disposable DB copy",
+    "transcript_track_id": 559,
+    "context_hash": "f8d5d25a34f8c2c57c1c462540aa951a59afd446fb39962ee1cbd4c8e5294752",
+    "source_segments": [
+      {
+        "segment_index": 224,
+        "timestamp": "10:56",
+        "start_seconds": 656.339,
+        "end_seconds": 660.36,
+        "duration_seconds": 4.021,
+        "text": "아시는 분은 아시겠지만 이쪽은"
+      },
+      {
+        "segment_index": 225,
+        "timestamp": "10:58",
+        "start_seconds": 658.019,
+        "end_seconds": 662.58,
+        "duration_seconds": 4.561,
+        "text": "생고기를 다른 양념을 해서 바로 내는"
+      },
+      {
+        "segment_index": 226,
+        "timestamp": "11:00",
+        "start_seconds": 660.36,
+        "end_seconds": 665.269,
+        "duration_seconds": 4.909,
+        "text": "거죠 그러니까 훨씬 더 리뷰 캉이"
+      }
+    ],
+    "output": {
+      "source_segment_indices": [
+        224,
+        225,
+        226
+      ],
+      "selected_raw_reason": "아시는 분은 아시겠지만 이쪽은 생고기를 다른 양념을 해서 바로 내는 거죠 그러니까 훨씬 더 리뷰 캉이",
+      "repaired_reason": "이쪽은 생고기를 다른 양념을 해서 바로 내는 거죠."
+    },
+    "validation": {
+      "selected_raw_exact": true,
+      "display_length_valid": true,
+      "transcript_track_id": 559,
+      "context_hash": "f8d5d25a34f8c2c57c1c462540aa951a59afd446fb39962ee1cbd4c8e5294752"
+    },
+    "readability_review": "Root reviewer: coherent source-backed preparation quote; no missing predicate, new ASR claim, or report voice. This follow-up was not blinded."
+  }
+}

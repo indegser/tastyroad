@@ -3126,3 +3126,37 @@ Release routing: `origin/main` and this task worktree share base `fe5e653`. The 
 Pre-release verification: the 49 mapped pairs with transcripts but no taste rows exactly match 49 reviewed `insufficient_evidence` completion rows; there are no unreviewed eligible pairs. Supabase Marketplace resource `supabase-aqua-engine` is `Available`; `pnpm run build` and `git diff --check` passed. The intended commit contains only `data/tastyroad.sqlite`, `tasks/lessons.md`, and `tasks/todo.md`.
 
 Release result: Pushed backfill commit `29700e5f700359d1c34eede40c065beff9daa4e6` as a fast-forward update to production `main`. GitHub-triggered Vercel deployment `https://tastyroad-gmow5mdqg-jaekwon-hans-projects.vercel.app` reached `Ready` and serves `https://taste.indegser.com`. The production restaurants API returned HTTP 200 with an `items` array; the `두부자통닭` item contained the three newly added taste recommendations. The shared main checkout's pre-existing dirty SQLite file was untouched.
+
+
+## Current Task - 2026-10-11 - Diagnose must-taste subtitle voice drift
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-quote-style`
+Branch: `codex/must-taste-quote-style`
+Base: `origin/main` `1c928f8`
+
+Design: preserve the hybrid workflow and established subtitle editor; change only demonstrated instruction gaps. Freeze DB-backed copy examples and selection/evidence before evaluating prompt changes. Success means correcting report-style drift while preserving natural formal speech, strong reactions, menu choice, and evidence. No bulk copy replacement is part of this skill change.
+
+- [x] Read repository lessons and owning/skill-creator instructions; isolate a clean current-main worktree.
+- [x] Audit Tsujihan lineage, Shorts and ordinary-video controls, and generated prompt paths.
+- [x] Freeze representative raw/display examples and run a baseline/candidate behavioral experiment.
+- [x] Apply the smallest supported skill/prompt change and inspect regressions independently.
+- [x] Verify generated prompts, existing focused checks, DB immutability, and record findings/limits.
+
+Review/result: Traced Tsujihan's report-style display text to an exact literal in its result-assembly script; matched ordinary-video Nongol copy the same way. Existing single-pair editor instructions already preserve voice; current grouped instructions only stated source preservation briefly. Added the established editor guidance to the grouped prompt, clarified application to every output path and source-formal speech, and added first-output sampling with source-window reselection when needed. Single-pair generator, selection/review rules, and DB validation/apply code are unchanged.
+
+Experiment: froze 30 Sung Si-kyung pairs/69 menus and tested the first menu of each plus 20 targeted controls (50 copy cases). Independent A/B editors and a randomized-label third reviewer scored current instructions 47 pass/3 minor/0 fail and candidate instructions 48/2/0. The candidate's 9 targeted summary cases and 4 source-formal controls passed. One previously passing control had a minor context regression. A separate targeted 12-case repeat scored 8 pass/3 minor/1 fail; all retained direct-speech style, but broken ASR/context can still reduce readability. Existing source-window reselection on the failing case produced an exact-source, readable preparation quote. These are copy-only experiments, not a statistical superiority claim or an end-to-end menu-selection rerun.
+
+Verification: existing 5 unit tests, skill validator, generated-prompt checks, unchanged selection/review instructions, 113 copy length/format checks, and git diff check passed. Tracked DB, single-pair generator, and apply-validator SHA-256 values are unchanged. Detailed versioned report and frozen evidence: `data/experiments/must_taste_quote_style_20261011/report.md` and `results.json`. No existing data replacement or release was performed; changes remain local in this task worktree.
+
+## Follow-up - 2026-10-11 - Repair report-style display copy and release
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/must-taste-quote-style`; branch `codex/must-taste-quote-style`.
+Scope: audit all 3,223 stored menu quotes across video formats; repair only added explanatory/narrator voice against stored transcript evidence. Preserve good formal speech, raw evidence, menu choices, row identities and all other data. User authorized production release.
+
+- [x] Audit every display quote and source-check suspected voice drift; review the first repair sample before scaling.
+- [x] Independently review proposed repairs and preservation controls; resolve disputed cases.
+- [x] Dry-run and sequentially apply only reviewed display-field replacements; verify all unrelated data unchanged.
+- [ ] Build, check Supabase availability, integrate intended commit into remote main and verify production deployment/API.
+- [ ] Record full audit/release evidence and clean the published task worktree safely.
+
+Repair verification: All 3,223 menu rows audited; 161 display repairs across 94 videos/119 restaurants accepted after independent review. All 3,062 unaffected rows and all other tables/columns/evidence fields match the baseline exactly. Nine focused tests, skill validator, SQLite integrity, helper dry-run/sequential apply, and pnpm production build passed. Fourteen unnecessary proposed changes were rejected to preserve existing direct speech. Versioned audit, before/after manifest and review report: `data/experiments/must_taste_quote_style_20261011/repair/`.

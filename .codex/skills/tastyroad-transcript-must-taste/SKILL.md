@@ -198,6 +198,19 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/apply_must_taste_b
 
 Never run final DB apply while worker/subagent tasks are still active. Parallel workers may prepare artifacts, but the final SQLite write must be single-process and sequential.
 
+## Existing Display-Copy Repairs
+
+For a copy-only audit, compare existing `repaired_reason` against the stored raw `reason` and evidence fragments. Review every item in the requested scope, keep already faithful copy unchanged (including formal source speech), and independently review proposed replacements. This does not reselect menus or replace extraction artifacts.
+
+Record each replacement in a manifest with `id`, `before`, `after`, `row_sha256` (the helper's `row_fingerprint` of the complete original SQLite row), `source_quote`, and an independent `review` object with `verdict: "pass"`. Keep the audit coverage and review rationale with the manifest. Use the deterministic helper first without `--apply`, then sequentially with `--apply` after semantic reviewers finish:
+
+```bash
+python3 .codex/skills/tastyroad-transcript-must-taste/scripts/repair_must_taste_display_copy.py \
+  --manifest <reviewed-copy-repairs.json>
+```
+
+The helper checks the frozen row fingerprints and changes only `repaired_reason` and its mirror in `evidence_json` in one transaction. Verify all other columns, evidence fields, tables, and unaffected rows remain unchanged. If repairing copy requires new source evidence or a different menu, return that pair to the normal extraction workflow.
+
 ## Quality and Token Regression Gate
 
 Before adopting a prompt, context, batching, or response-count optimization, freeze a representative baseline from already stored results. Default to Sung Si-kyung because those rows are the established quality comparison set; add multi-restaurant source samples when the change affects restaurant boundaries.
@@ -267,10 +280,12 @@ Pass both usage files to `compare_must_taste_quality.py` with `--baseline-usage`
   - `애매하면 더 많이 가져오지 말고, 가장 직접적인 맛 평가 구간을 고른다. selected_raw_reason은 context_fragments의 문구를 필요한 만큼 이어 붙인 원문이어야 한다.`
 - Store `reason` as the selected expanded raw subtitle context copied from the selected source fragments in order. It is the auditable raw source, not public polished copy. Keep it one line, join fragments with ordinary spaces/punctuation, do not insert separators such as `/`, do not repair ASR, and do not summarize it.
 - Store `repaired_reason` as the public display copy by running a flexible subtitle editor pass over `reason`. This is not a gate and not a rule checklist; it is a short editing task.
+- Apply that editor in every output path, including Shorts, grouped-video bundles, and scripts that assemble `result.json`. Those scripts package already edited copy; they do not replace the editor with `quality.check` or review explanations. The grouped-video combined review prompt includes the same editor guidance as the single-pair workflow.
 - Editor pass prompt:
   - `너는 맛집 영상 자막을 공개용 짧은 인용문으로 다듬는 편집자다. 목표는 원문을 새로 쓰는 것이 아니라, 사람이 읽을 때 어색하지 않게 아주 가볍게 보정하는 것이다.`
   - `입력은 menu_item과 raw_reason이다. raw_reason은 ASR/자막 조각이 이어진 원문이다.`
   - `원문의 말투, 순서, 표현, 감탄, 평가의 세기를 최대한 유지한다. 어색한 자막 끊김, 띄어쓰기, 반복어, 명백한 ASR 오류만 자연스럽게 고친다.`
+  - `화자의 시점과 어미를 유지한다. 원문이 “훌륭했습니다”면 그대로 존댓말이어도 된다. 직접 발언을 “좋다고 했습니다” 같은 해설자의 전달문으로 바꾸지 않는다.`
   - `설명문, 요약문, 광고문처럼 바꾸지 않는다. 원문에 없는 평가나 결론을 덧붙이지 않는다.`
   - `모든 정보를 살리려 하지 않는다. 불확실한 ASR이나 어색한 꼬리는 추측해서 고치지 말고 덜어낸다.`
   - `맛집 목록에 붙는 짧은 인용문이므로 메뉴의 맛/추천/특징에 직접 도움이 되는 부분을 중심으로 남긴다. 가격, 주문 전환부, 배경 설명은 그 문장을 살리는 데 필요할 때만 남긴다.`
@@ -280,6 +295,7 @@ Pass both usage files to `compare_must_taste_quality.py` with `--baseline-usage`
 - Do not over-trim the source context. Include enough words so the subject and claim remain understandable, even if that means using multiple supporting evidence lines.
 - Do not coin idioms, polish slogans, add restaurant-level claims such as `맛있는 집`, or convert the copy into marketing/ad prose.
 - Use `quality.check` and `review.decision_reason` for explanatory judgment; keep `reason` and `repaired_reason` as subtitle-grounded source text.
+- Before scaling a batch or applying its results, read a small raw/display sample from each worker's first output against the editor prompt. Include ordinary videos and Shorts when both are present, and distinguish source-formal speech from added report prose. Artifact validation checks lineage and format, not whether copy preserves the speaker's voice; if a sample drifts, re-edit the affected output before continuing, returning to source-window selection when the raw span itself is clipped or unclear.
 - Do not add atmosphere, location, freshness, market, scenery, or other quality claims unless that claim appears in transcript evidence.
 - If an appealing phrase would require inference, lower the phrase to the literal transcript-backed claim.
 - Do not use video title, description, chapters, map data, address, source metadata, restaurant mapping notes, or old story review prose as evidence.

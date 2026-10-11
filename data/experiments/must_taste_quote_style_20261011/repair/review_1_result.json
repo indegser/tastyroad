@@ -1,0 +1,447 @@
+{
+  "reviews": [
+    {
+      "id": 593,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 614,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 638,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 764,
+      "verdict": "revise",
+      "why": "The opening reference 'like that' loses its antecedent. Keep the clear direct comparison.",
+      "after": "어디가 더 맛있냐고? 나는 이품보다 여기가 더 맛있어."
+    },
+    {
+      "id": 791,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 866,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 869,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 911,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 914,
+      "verdict": "revise",
+      "why": "Restore the viewers as the subject of the initial expectation; omission makes it sound like the speaker's own prediction.",
+      "after": "보시는 분들이 그냥 알리오올리오 그런 맛이 느껴지는 파스타가 아닐까라고 생각하는데 절대 그렇지 않아. 첫 번째 오는 느낌이 버터의 풍미. 레몬의 상큼함이 마지막에 탁 와. 파스타에서 이렇게 풍부한 맛이 나."
+    },
+    {
+      "id": 1103,
+      "verdict": "keep_original",
+      "why": "Natural direct taste assessment and expectation; a generic direct review is insufficient reason for a voice repair."
+    },
+    {
+      "id": 1490,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1493,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1496,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1499,
+      "verdict": "pass",
+      "why": "The report-style summary needs repair. The proposed Korean direct speech faithfully translates the supplied English source, including its certainty and intensity."
+    },
+    {
+      "id": 1502,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1505,
+      "verdict": "pass",
+      "why": "The report-style summary needs repair. The proposed Korean direct speech faithfully translates the supplied English source, including its certainty and intensity."
+    },
+    {
+      "id": 1511,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1514,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1517,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 1520,
+      "verdict": "pass",
+      "why": "The report-style summary needs repair. The proposed Korean direct speech faithfully translates the supplied English source, including its certainty and intensity."
+    },
+    {
+      "id": 2393,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2396,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2399,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2402,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2405,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2408,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2411,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2414,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2462,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2465,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2468,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2471,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2474,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2477,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2633,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 2636,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3515,
+      "verdict": "keep_original",
+      "why": "First-person preference and anticipated maternal reaction remain direct speech. Formal endings alone do not justify changing it."
+    },
+    {
+      "id": 3518,
+      "verdict": "keep_original",
+      "why": "Direct evaluation of taste and contrast with expected texture. Replacing formal speech with conversational endings is outside scope."
+    },
+    {
+      "id": 3521,
+      "verdict": "keep_original",
+      "why": "Direct evaluation of softness and condiment pairing. A conversational rewrite would polish existing direct speech."
+    },
+    {
+      "id": 3545,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3548,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3551,
+      "verdict": "revise",
+      "why": "The opening ends on a dangling connective before garbled ASR. Use the clearly supported praise only.",
+      "after": "소주가 쭉쭉 들어가는 게 정말 맛있다고 볼 수 있고요. 요즘 시기에만 누릴 수 있는 최고의 별미라고 볼 수 있고요."
+    },
+    {
+      "id": 3554,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3557,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3560,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3563,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3566,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3569,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3572,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3575,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3578,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3581,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    },
+    {
+      "id": 3584,
+      "verdict": "pass",
+      "why": "The original is an impersonal summary or reports an evaluation; the proposal restores supported source speech and its strength."
+    }
+  ],
+  "doubt_reviews": [
+    {
+      "id": 1508,
+      "verdict": "revise",
+      "why": "The course-highlight summary transforms the voice. Snapshot evidence confirms only a clear anticipatory remark; preserve anticipation rather than invent tasted praise.",
+      "after": "맛있겠다."
+    },
+    {
+      "id": 935,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1097,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1127,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1280,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1388,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1217,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 1409,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 2540,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 2678,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3119,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3269,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3293,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3296,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3326,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 3467,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    },
+    {
+      "id": 980,
+      "verdict": "keep_original",
+      "why": "Natural direct speech; keep byte-identical within the voice-repair scope. Additional factual details absent from the stored evidence remain a separate fidelity concern."
+    }
+  ],
+  "control_reviews": [
+    {
+      "id": 182,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 200,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 551,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 794,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 836,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2345,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2363,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2375,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2489,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2513,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2615,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2717,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 2912,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 3594,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 3597,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 3600,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    },
+    {
+      "id": 3603,
+      "verdict": "keep_original",
+      "why": "Source-like direct evaluation, explanation, or experience. Formal endings and concise excerpting alone do not establish narrator voice."
+    }
+  ]
+}

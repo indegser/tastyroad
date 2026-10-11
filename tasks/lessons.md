@@ -29,6 +29,8 @@ Add an entry when the user corrects the agent or when a repeated mistake pattern
   Rule: Inspect `tasks/todo.md` before editing and append the current checklist, preserving completed task history.
 - Trigger: Bulk must-taste workers produced hundreds of validator-passing `repaired_reason` summaries before a manual sample caught the copy drift.
   Rule: After the first batch from each worker, sample raw and repaired subtitle pairs against the editor prompt; correct style before scaling the batch run.
+- Trigger: Tsujihan looked like a Shorts-specific subtitle problem, but the same run stored report-style copy for ordinary videos too; normal Shorts and source-formal quotes also exist.
+  Rule: Trace raw/display text and producer artifacts, compare both format and run cohorts, and forward-test normal/formal controls before changing the must-taste editor. Preserve source register; do not ban `했습니다` or rewrite all Shorts. During bulk repairs, independently check whether each change is necessary: natural direct speech must stay unchanged even when another wording seems smoother.
 
 ## 2026-08-16
 

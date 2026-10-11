@@ -1,0 +1,3881 @@
+{
+  "fixes": [
+    {
+      "id": 595,
+      "before": "삼선짬뽕은 왕새우가 들어가고 면이 좋으며, 맑고 가벼운 국물과 고추기름 향을 좋아하는 사람에게 추천한다고 합니다.",
+      "after": "면도 너무 좋고. 아, 되게 맑다, 이 집은. 해장이 딱이네, 헤비하지 않고. 이렇게 고추기름 향이 세면서 국물은 맑고, 요런 거 좋아하시는 분들은, 두꺼운 짬뽕 안 좋아하시는 분들은 되게 추천합니다.",
+      "source_quote": "사람 본 적 있어 삼선 짬뽕에서 왕새우를 주는 사람 있냐고 정말 사랑하는 거잖아 전복을 되게 맛있다 오랜만에 제 평은 곱배기 시키세요 아 이게 먹으면서 면도 너무 좋고 먹고만 아 되게 맑다이 집은 어 좋네 채수가 더 많은 거 같아 해장이 딱이네 헤비하지 않고 아 근데 이렇게 고추 기름 향이 세면서 국물은 맑고 요런 거 좋아하시는 분들은 두꺼운 짬뽕 안 좋아하시는 분들은 되게 추천합니다 짜장은 어 딱인 거",
+      "why": "직접 발언을 요약·전달한 문장을 원문 말투와 평가로 복원",
+      "raw_reason": "사람 본 적 있어 삼선 짬뽕에서 왕새우를 주는 사람 있냐고 정말 사랑하는 거잖아 전복을 되게 맛있다 오랜만에 제 평은 곱배기 시키세요 아 이게 먹으면서 면도 너무 좋고 먹고만 아 되게 맑다이 집은 어 좋네 채수가 더 많은 거 같아 해장이 딱이네 헤비하지 않고 아 근데 이렇게 고추 기름 향이 세면서 국물은 맑고 요런 거 좋아하시는 분들은 두꺼운 짬뽕 안 좋아하시는 분들은 되게 추천합니다 짜장은 어 딱인 거",
+      "evidence_text": "추천합니다 짜장은 어 딱인 거",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1068.48,
+          "evidence_text": "사람 본 적 있어 삼선 짬뽕에서",
+          "segment_index": 282,
+          "start_seconds": 1064.919,
+          "timestamp": "17:44"
+        },
+        {
+          "end_seconds": 1073.039,
+          "evidence_text": "왕새우를 주는 사람 있냐고 정말",
+          "segment_index": 283,
+          "start_seconds": 1066.559,
+          "timestamp": "17:46"
+        },
+        {
+          "end_seconds": 1073.039,
+          "evidence_text": "사랑하는 거잖아 전복을",
+          "segment_index": 284,
+          "start_seconds": 1068.48,
+          "timestamp": "17:48"
+        },
+        {
+          "end_seconds": 1151.1589999999999,
+          "evidence_text": "되게 맛있다",
+          "segment_index": 291,
+          "start_seconds": 1145.32,
+          "timestamp": "19:05"
+        },
+        {
+          "end_seconds": 1155.2,
+          "evidence_text": "오랜만에 제 평은 곱배기",
+          "segment_index": 292,
+          "start_seconds": 1147.039,
+          "timestamp": "19:07"
+        },
+        {
+          "end_seconds": 1157.0800000000002,
+          "evidence_text": "시키세요 아 이게 먹으면서",
+          "segment_index": 293,
+          "start_seconds": 1151.159,
+          "timestamp": "19:11"
+        },
+        {
+          "end_seconds": 1161.36,
+          "evidence_text": "면도 너무 좋고",
+          "segment_index": 295,
+          "start_seconds": 1157.08,
+          "timestamp": "19:17"
+        },
+        {
+          "end_seconds": 1221.679,
+          "evidence_text": "먹고만 아 되게 맑다이 집은 어",
+          "segment_index": 302,
+          "start_seconds": 1212.52,
+          "timestamp": "20:12"
+        },
+        {
+          "end_seconds": 1221.679,
+          "evidence_text": "좋네 채수가 더 많은 거",
+          "segment_index": 303,
+          "start_seconds": 1217.799,
+          "timestamp": "20:17"
+        },
+        {
+          "end_seconds": 1228.6,
+          "evidence_text": "같아 해장이",
+          "segment_index": 304,
+          "start_seconds": 1221.799,
+          "timestamp": "20:21"
+        },
+        {
+          "end_seconds": 1228.6,
+          "evidence_text": "딱이네 헤비하지 않고",
+          "segment_index": 305,
+          "start_seconds": 1224.08,
+          "timestamp": "20:24"
+        },
+        {
+          "end_seconds": 1360.279,
+          "evidence_text": "아 근데 이렇게 고추 기름 향이",
+          "segment_index": 333,
+          "start_seconds": 1354.44,
+          "timestamp": "22:34"
+        },
+        {
+          "end_seconds": 1362.039,
+          "evidence_text": "세면서 국물은 맑고 요런 거",
+          "segment_index": 334,
+          "start_seconds": 1357.64,
+          "timestamp": "22:37"
+        },
+        {
+          "end_seconds": 1363.84,
+          "evidence_text": "좋아하시는 분들은 두꺼운 짬뽕 안",
+          "segment_index": 335,
+          "start_seconds": 1360.279,
+          "timestamp": "22:40"
+        },
+        {
+          "end_seconds": 1367.76,
+          "evidence_text": "좋아하시는 분들은 되게",
+          "segment_index": 336,
+          "start_seconds": 1362.039,
+          "timestamp": "22:42"
+        }
+      ]
+    },
+    {
+      "id": 616,
+      "before": "멸치젓을 처음 먹어 본 것 같다며 너무 맛있고, 파는 것이면 사고 싶다고까지 말합니다. 두루치기가 안 나와도 될 정도라는 반응도 있습니다.",
+      "after": "야, 나 처음 먹어 본 거 같아. 너무 맛있다. 이거 멸치 담그신 거죠? 파는 거면 사고 싶다. 야, 이거 너무 맛있다. 두루치기 안 나와도 돼.",
+      "source_quote": "야 나 처음 먹어 본 거 같아 젓갈 많지만 너무 맛있다 이거 멸치 담그신 거죠네 거예요 파는 거면 사 사고 싶다도 혹시 야 이거 너무 맛있다 혹시 이거 드릴게요습니다 너 맛있어 너무 맛있어 나는 맛있다 두루치기 안 나와도 돼 와 오래 들어 처음인 거 같아",
+      "why": "직접 발언을 요약·전달한 문장을 원문 말투와 평가로 복원",
+      "raw_reason": "야 나 처음 먹어 본 거 같아 젓갈 많지만 너무 맛있다 이거 멸치 담그신 거죠네 거예요 파는 거면 사 사고 싶다도 혹시 야 이거 너무 맛있다 혹시 이거 드릴게요습니다 너 맛있어 너무 맛있어 나는 맛있다 두루치기 안 나와도 돼 와 오래 들어 처음인 거 같아",
+      "evidence_text": "맛있다 이거 멸치 담그신 거죠네",
+      "supporting_evidence": [
+        {
+          "end_seconds": 433.4,
+          "evidence_text": "야 나 처음 먹어 본 거 같아 젓갈",
+          "segment_index": 114,
+          "start_seconds": 429.08,
+          "timestamp": "07:09"
+        },
+        {
+          "end_seconds": 441.28,
+          "evidence_text": "많지만 너무",
+          "segment_index": 116,
+          "start_seconds": 433.4,
+          "timestamp": "07:13"
+        },
+        {
+          "end_seconds": 449.72,
+          "evidence_text": "거예요 파는 거면 사 사고 싶다도",
+          "segment_index": 119,
+          "start_seconds": 444.68,
+          "timestamp": "07:24"
+        },
+        {
+          "end_seconds": 457.08,
+          "evidence_text": "혹시 야 이거 너무 맛있다 혹시 이거",
+          "segment_index": 120,
+          "start_seconds": 450.56,
+          "timestamp": "07:30"
+        },
+        {
+          "end_seconds": 465.039,
+          "evidence_text": "드릴게요습니다 너 맛있어 너무",
+          "segment_index": 122,
+          "start_seconds": 457.84,
+          "timestamp": "07:37"
+        },
+        {
+          "end_seconds": 467.639,
+          "evidence_text": "맛있어 나는",
+          "segment_index": 123,
+          "start_seconds": 462.56,
+          "timestamp": "07:42"
+        },
+        {
+          "end_seconds": 471.12,
+          "evidence_text": "맛있다 두루치기 안 나와도",
+          "segment_index": 124,
+          "start_seconds": 465.039,
+          "timestamp": "07:45"
+        },
+        {
+          "end_seconds": 474.759,
+          "evidence_text": "돼 와 오래 들어 처음인 거 같아",
+          "segment_index": 125,
+          "start_seconds": 467.639,
+          "timestamp": "07:47"
+        }
+      ]
+    },
+    {
+      "id": 865,
+      "before": "쌀떡인데 양념도 잘 배어 있고, 마늘은 맵지 않고 풍미가 느껴져요. 마늘 소스가 베이스라 입에 착착 감기고 계속 당겨요.",
+      "after": "그 마늘은 절대 맵지 않아요. 오히려 그 마늘의 풍미가 너무 느껴져. 마늘 소스가 그 베이스이기 때문에 입에 착착 감겨. 떡볶이가 더 계속 당겨.",
+      "source_quote": "떡볶이와 비슷한 거 같아요 약간 걸쭉 아 어쩐지 약간 부산 소스 같은 거야음 그 마늘은 절대 맵지 않아요 저는 마늘이 들어가 때서 약간 맛이 살아 있지 않을까는데 오히려 그 마늘의 풍미가 너무 느껴져 마늘 소스가 그 베이스이기 때문에 입에 착착 담겨 저 떡볶이를 더 계속 당겨",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "떡볶이와 비슷한 거 같아요 약간 걸쭉 아 어쩐지 약간 부산 소스 같은 거야음 그 마늘은 절대 맵지 않아요 저는 마늘이 들어가 때서 약간 맛이 살아 있지 않을까는데 오히려 그 마늘의 풍미가 너무 느껴져 마늘 소스가 그 베이스이기 때문에 입에 착착 담겨 저 떡볶이를 더 계속 당겨",
+      "evidence_text": "떡볶이와 비슷한 거 같아요 약간 걸쭉",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1311.96,
+          "evidence_text": "아 어쩐지 약간 부산 소스 같은",
+          "segment_index": 398,
+          "start_seconds": 1307.559,
+          "timestamp": "21:47"
+        },
+        {
+          "end_seconds": 1318.96,
+          "evidence_text": "거야음 그 마늘은 절대 맵지 않아요",
+          "segment_index": 399,
+          "start_seconds": 1313.039,
+          "timestamp": "21:53"
+        },
+        {
+          "end_seconds": 1320.4,
+          "evidence_text": "저는 마늘이 들어가 때서 약간 맛이",
+          "segment_index": 400,
+          "start_seconds": 1316.4,
+          "timestamp": "21:56"
+        },
+        {
+          "end_seconds": 1322.52,
+          "evidence_text": "살아 있지 않을까는데 오히려 그",
+          "segment_index": 401,
+          "start_seconds": 1318.96,
+          "timestamp": "21:58"
+        },
+        {
+          "end_seconds": 1324.2,
+          "evidence_text": "마늘의 풍미가 너무 느껴져 마늘",
+          "segment_index": 402,
+          "start_seconds": 1320.4,
+          "timestamp": "22:00"
+        },
+        {
+          "end_seconds": 1327.12,
+          "evidence_text": "소스가 그 베이스이기 때문에 입에",
+          "segment_index": 403,
+          "start_seconds": 1322.52,
+          "timestamp": "22:02"
+        },
+        {
+          "end_seconds": 1330.039,
+          "evidence_text": "착착 담겨 저 떡볶이를 더 계속 당겨",
+          "segment_index": 404,
+          "start_seconds": 1324.2,
+          "timestamp": "22:04"
+        }
+      ]
+    },
+    {
+      "id": 868,
+      "before": "안 먹고 갔으면 또 방문 특집으로 다시 와야 했을 맛이라고 했고, 양념불고기에 콩나물과 김치를 비비니 더 맛있으며 23년 단골 이유를 알겠다고 평가했다.",
+      "after": "와, 이거 안 먹고 갔으면 또또 방문 특집으로 왔어야 됐어. 비비니까 더 맛있어. 단짠단짠의 불고기 양념, 콩나물, 김치. 엄청 자극적이야.",
+      "source_quote": "볼게요음 와 이거 안 먹고 갔으면 또또 방문 특집으로 왔어야 됐어 오 전주는 모든 비벼야 된다 비비니까 더 맛있어 단짠단짠의 불고기의 양념 콩나물 김치 엄청 자극적이 근데 그 자극적인 맛이 진짜 제일 맛있는 맛인 거 아니죠 고기보다 더 맛있는데 오 와 아까 전에 그 여기를 소개시켜 주신 언니가 17살 때부터 지금 40이라고 하셨으니까 23년 된 또안 일이거든 23년에 왜 여기로 계속 오시는지 알 것 같아 알 수가 없다 아니 비가 왜 또 오는 거야 아니 햇빛이 쨍쨍한데 호랑이 뭐 장가가나 봐 오늘 야",
+      "why": "직접 발언을 요약·전달한 문장을 원문 말투와 평가로 복원",
+      "raw_reason": "볼게요음 와 이거 안 먹고 갔으면 또또 방문 특집으로 왔어야 됐어 오 전주는 모든 비벼야 된다 비비니까 더 맛있어 단짠단짠의 불고기의 양념 콩나물 김치 엄청 자극적이 근데 그 자극적인 맛이 진짜 제일 맛있는 맛인 거 아니죠 고기보다 더 맛있는데 오 와 아까 전에 그 여기를 소개시켜 주신 언니가 17살 때부터 지금 40이라고 하셨으니까 23년 된 또안 일이거든 23년에 왜 여기로 계속 오시는지 알 것 같아 알 수가 없다 아니 비가 왜 또 오는 거야 아니 햇빛이 쨍쨍한데 호랑이 뭐 장가가나 봐 오늘 야",
+      "evidence_text": "볼게요음 와 이거 안 먹고 갔으면",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1517.24,
+          "evidence_text": "또또 방문 특집으로 왔어야 됐어 오",
+          "segment_index": 504,
+          "start_seconds": 1512.48,
+          "timestamp": "25:12"
+        },
+        {
+          "end_seconds": 1520.96,
+          "evidence_text": "전주는 모든 비벼야 된다 비비니까 더",
+          "segment_index": 505,
+          "start_seconds": 1515.0,
+          "timestamp": "25:15"
+        },
+        {
+          "end_seconds": 1524.559,
+          "evidence_text": "맛있어 단짠단짠의 불고기의 양념",
+          "segment_index": 506,
+          "start_seconds": 1517.24,
+          "timestamp": "25:17"
+        },
+        {
+          "end_seconds": 1526.44,
+          "evidence_text": "콩나물 김치 엄청 자극적이 근데 그",
+          "segment_index": 507,
+          "start_seconds": 1520.96,
+          "timestamp": "25:20"
+        },
+        {
+          "end_seconds": 1530.36,
+          "evidence_text": "자극적인 맛이 진짜 제일 맛있는 맛인",
+          "segment_index": 508,
+          "start_seconds": 1524.559,
+          "timestamp": "25:24"
+        },
+        {
+          "end_seconds": 1533.3990000000001,
+          "evidence_text": "거 아니죠 고기보다 더 맛있는데 오",
+          "segment_index": 509,
+          "start_seconds": 1526.44,
+          "timestamp": "25:26"
+        },
+        {
+          "end_seconds": 1535.32,
+          "evidence_text": "와 아까 전에 그 여기를 소개시켜",
+          "segment_index": 510,
+          "start_seconds": 1530.36,
+          "timestamp": "25:30"
+        },
+        {
+          "end_seconds": 1538.32,
+          "evidence_text": "주신 언니가 17살 때부터 지금",
+          "segment_index": 511,
+          "start_seconds": 1533.399,
+          "timestamp": "25:33"
+        },
+        {
+          "end_seconds": 1539.6,
+          "evidence_text": "40이라고 하셨으니까 23년 된 또안",
+          "segment_index": 512,
+          "start_seconds": 1535.32,
+          "timestamp": "25:35"
+        },
+        {
+          "end_seconds": 1542.279,
+          "evidence_text": "일이거든",
+          "segment_index": 513,
+          "start_seconds": 1538.32,
+          "timestamp": "25:38"
+        },
+        {
+          "end_seconds": 1544.279,
+          "evidence_text": "23년에 왜 여기로 계속 오시는지 알",
+          "segment_index": 514,
+          "start_seconds": 1539.6,
+          "timestamp": "25:39"
+        },
+        {
+          "end_seconds": 1548.039,
+          "evidence_text": "것",
+          "segment_index": 515,
+          "start_seconds": 1542.279,
+          "timestamp": "25:42"
+        },
+        {
+          "end_seconds": 1549.88,
+          "evidence_text": "같아 알 수가 없다 아니 비가 왜 또",
+          "segment_index": 516,
+          "start_seconds": 1544.279,
+          "timestamp": "25:44"
+        },
+        {
+          "end_seconds": 1552.679,
+          "evidence_text": "오는 거야 아니 햇빛이 쨍쨍한데",
+          "segment_index": 517,
+          "start_seconds": 1548.039,
+          "timestamp": "25:48"
+        },
+        {
+          "end_seconds": 1555.2,
+          "evidence_text": "호랑이 뭐 장가가나 봐 오늘 야",
+          "segment_index": 518,
+          "start_seconds": 1549.88,
+          "timestamp": "25:49"
+        }
+      ]
+    },
+    {
+      "id": 871,
+      "before": "먹어본 피순대 중 제일 진하고 피비린내 없이 고소함만 살아 있으며, 새우젓을 넣지 않아도 맛있고 밥다운 국밥을 먹고 싶으면 무조건 와야 한다고 평가했다.",
+      "after": "와, 완전 진해. 내가 먹었던 피순대 중에 제일 진해. 너무 맛있어. 정말 밥다운 국밥을 드시고 싶으면 전주고 나발이고 무조건 와야 된다.",
+      "source_quote": "와 완전 진해 내가 먹었던 피순대 중에 제일 진해 와 약간 순대보다 선지 있지 지랑 고기 다짐육 있지 그거랑 섞어서 만든 거 같아 이것도 전주 편에 나왔으면 삐라도을 맛이야 얘 진 쳤다고 피에 맛이 너무 진해 가지고 뭐 피비린 데나 진하지 않을까 라는데 전혀 고소함만 살아있는 피수 되었다 우 밥 말아야지 밥 안 말고 가면 안 되잖 아씨 [음악] 아 여기는 이본 먹어야 돼 어떻 국밥 새우젓도 안고 아무것도 안 넣잖아데도 너무 [음악] 맛있어음 너무 맛있어 정말 밥다운 국밥을 드시고 싶으면은 전주고 나발이고 무조건 와야 된다 또 간집 또방문 특집 전주편",
+      "why": "직접 발언을 요약·전달한 문장을 원문 말투와 평가로 복원",
+      "raw_reason": "와 완전 진해 내가 먹었던 피순대 중에 제일 진해 와 약간 순대보다 선지 있지 지랑 고기 다짐육 있지 그거랑 섞어서 만든 거 같아 이것도 전주 편에 나왔으면 삐라도을 맛이야 얘 진 쳤다고 피에 맛이 너무 진해 가지고 뭐 피비린 데나 진하지 않을까 라는데 전혀 고소함만 살아있는 피수 되었다 우 밥 말아야지 밥 안 말고 가면 안 되잖 아씨 [음악] 아 여기는 이본 먹어야 돼 어떻 국밥 새우젓도 안고 아무것도 안 넣잖아데도 너무 [음악] 맛있어음 너무 맛있어 정말 밥다운 국밥을 드시고 싶으면은 전주고 나발이고 무조건 와야 된다 또 간집 또방문 특집 전주편",
+      "evidence_text": "와 완전 진해 내가 먹었던 피순대",
+      "supporting_evidence": [
+        {
+          "end_seconds": 2255.64,
+          "evidence_text": "중에 제일 진해 와 약간 순대보다",
+          "segment_index": 747,
+          "start_seconds": 2249.319,
+          "timestamp": "37:29"
+        },
+        {
+          "end_seconds": 2258.359,
+          "evidence_text": "선지 있지 지랑 고기 다짐육 있지",
+          "segment_index": 748,
+          "start_seconds": 2252.96,
+          "timestamp": "37:32"
+        },
+        {
+          "end_seconds": 2261.2,
+          "evidence_text": "그거랑 섞어서 만든 거 같아 이것도",
+          "segment_index": 749,
+          "start_seconds": 2255.64,
+          "timestamp": "37:35"
+        },
+        {
+          "end_seconds": 2265.5989999999997,
+          "evidence_text": "전주 편에 나왔으면 삐라도을 맛이야",
+          "segment_index": 750,
+          "start_seconds": 2258.359,
+          "timestamp": "37:38"
+        },
+        {
+          "end_seconds": 2267.72,
+          "evidence_text": "얘 진 쳤다고 피에 맛이 너무 진해",
+          "segment_index": 751,
+          "start_seconds": 2261.2,
+          "timestamp": "37:41"
+        },
+        {
+          "end_seconds": 2272.28,
+          "evidence_text": "가지고 뭐 피비린 데나 진하지 않을까",
+          "segment_index": 752,
+          "start_seconds": 2265.599,
+          "timestamp": "37:45"
+        },
+        {
+          "end_seconds": 2276.0,
+          "evidence_text": "라는데 전혀 고소함만 살아있는 피수",
+          "segment_index": 753,
+          "start_seconds": 2267.72,
+          "timestamp": "37:47"
+        },
+        {
+          "end_seconds": 2278.0,
+          "evidence_text": "되었다 우 밥 말아야지 밥 안 말고",
+          "segment_index": 754,
+          "start_seconds": 2272.28,
+          "timestamp": "37:52"
+        },
+        {
+          "end_seconds": 2281.0,
+          "evidence_text": "가면 안 되잖",
+          "segment_index": 755,
+          "start_seconds": 2276.0,
+          "timestamp": "37:56"
+        },
+        {
+          "end_seconds": 2281.0,
+          "evidence_text": "아씨",
+          "segment_index": 756,
+          "start_seconds": 2278.0,
+          "timestamp": "37:58"
+        },
+        {
+          "end_seconds": 2288.5589999999997,
+          "evidence_text": "[음악]",
+          "segment_index": 757,
+          "start_seconds": 2283.33,
+          "timestamp": "38:03"
+        },
+        {
+          "end_seconds": 2295.44,
+          "evidence_text": "아 여기는 이본 먹어야 돼 어떻 국밥",
+          "segment_index": 758,
+          "start_seconds": 2288.76,
+          "timestamp": "38:08"
+        },
+        {
+          "end_seconds": 2297.7200000000003,
+          "evidence_text": "새우젓도 안고 아무것도 안 넣잖아데도",
+          "segment_index": 759,
+          "start_seconds": 2293.119,
+          "timestamp": "38:13"
+        },
+        {
+          "end_seconds": 2297.7200000000003,
+          "evidence_text": "너무",
+          "segment_index": 760,
+          "start_seconds": 2295.44,
+          "timestamp": "38:15"
+        },
+        {
+          "end_seconds": 2303.44,
+          "evidence_text": "[음악]",
+          "segment_index": 761,
+          "start_seconds": 2298.5,
+          "timestamp": "38:18"
+        },
+        {
+          "end_seconds": 2310.64,
+          "evidence_text": "맛있어음 너무 맛있어",
+          "segment_index": 762,
+          "start_seconds": 2305.359,
+          "timestamp": "38:25"
+        },
+        {
+          "end_seconds": 2314.48,
+          "evidence_text": "정말 밥다운 국밥을 드시고 싶으면은",
+          "segment_index": 763,
+          "start_seconds": 2308.079,
+          "timestamp": "38:28"
+        },
+        {
+          "end_seconds": 2314.48,
+          "evidence_text": "전주고 나발이고 무조건 와야",
+          "segment_index": 764,
+          "start_seconds": 2310.64,
+          "timestamp": "38:30"
+        },
+        {
+          "end_seconds": 2321.8,
+          "evidence_text": "된다 또 간집 또방문 특집 전주편",
+          "segment_index": 765,
+          "start_seconds": 2314.8,
+          "timestamp": "38:34"
+        }
+      ]
+    },
+    {
+      "id": 913,
+      "before": "먹어본 라구 파스타 중 1등이라고 했고, 흔한 미트볼 맛이 아니라 이탈리아 요리 같으며 마팔디네 면과 고기, 토마토, 야채 조화가 정성스럽다고 평가했다.",
+      "after": "내가 먹은 라구파스타 중에 1등. 와, 그 흔하디흔한 미트볼 맛이 안 나네. 이건 그냥 이태리 그 자체야. 와, 요리다. 면 선택이 개쩌는 거 같아. 마팔디네 면으로 하셨잖아.",
+      "source_quote": "15,900원 1도 내가 먹은 라구파스타 중에 1등 와 그 흔하디 흔한 미트볼 맛이 안 나네 야 아니 내가 먹을라고 파스타는 약간 인스턴트 같았거든 이건 그냥 이태리 그 자체야 와 와 요리다 이거네면 선택이 개쩌는 거 같아 마팔디네 면으로 하셨잖아 쫀득쫀득 하자 그래 되나 그래서 어떻게 보면 약간 수세미 느낌이거든 개쩐다 고기 간 거에 토마토 맛에 야채들 이런 조화들 다 생각하고 다 일일이 뭔가 계산하는듯한 지극정성의 요리 같은 맛인 거 같아 내가 해방촌은 데이트의",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "15,900원 1도 내가 먹은 라구파스타 중에 1등 와 그 흔하디 흔한 미트볼 맛이 안 나네 야 아니 내가 먹을라고 파스타는 약간 인스턴트 같았거든 이건 그냥 이태리 그 자체야 와 와 요리다 이거네면 선택이 개쩌는 거 같아 마팔디네 면으로 하셨잖아 쫀득쫀득 하자 그래 되나 그래서 어떻게 보면 약간 수세미 느낌이거든 개쩐다 고기 간 거에 토마토 맛에 야채들 이런 조화들 다 생각하고 다 일일이 뭔가 계산하는듯한 지극정성의 요리 같은 맛인 거 같아 내가 해방촌은 데이트의",
+      "evidence_text": "15,900원 1도",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1655.36,
+          "evidence_text": "내가 먹은 라구파스타 중에 1등 와",
+          "segment_index": 555,
+          "start_seconds": 1649.12,
+          "timestamp": "27:29"
+        },
+        {
+          "end_seconds": 1657.3990000000001,
+          "evidence_text": "그 흔하디 흔한 미트볼 맛이 안 나네",
+          "segment_index": 556,
+          "start_seconds": 1652.919,
+          "timestamp": "27:32"
+        },
+        {
+          "end_seconds": 1659.559,
+          "evidence_text": "야 아니 내가 먹을라고 파스타는 약간",
+          "segment_index": 557,
+          "start_seconds": 1655.36,
+          "timestamp": "27:35"
+        },
+        {
+          "end_seconds": 1662.2399999999998,
+          "evidence_text": "인스턴트 같았거든 이건 그냥 이태리",
+          "segment_index": 558,
+          "start_seconds": 1657.399,
+          "timestamp": "27:37"
+        },
+        {
+          "end_seconds": 1662.24,
+          "evidence_text": "그 자체야",
+          "segment_index": 559,
+          "start_seconds": 1659.559,
+          "timestamp": "27:39"
+        },
+        {
+          "end_seconds": 1668.6,
+          "evidence_text": "와",
+          "segment_index": 560,
+          "start_seconds": 1663.36,
+          "timestamp": "27:43"
+        },
+        {
+          "end_seconds": 1670.36,
+          "evidence_text": "와 요리다 이거네면 선택이 개쩌는 거",
+          "segment_index": 561,
+          "start_seconds": 1665.36,
+          "timestamp": "27:45"
+        },
+        {
+          "end_seconds": 1672.32,
+          "evidence_text": "같아 마팔디네 면으로 하셨잖아",
+          "segment_index": 562,
+          "start_seconds": 1668.6,
+          "timestamp": "27:48"
+        },
+        {
+          "end_seconds": 1673.9189999999999,
+          "evidence_text": "쫀득쫀득 하자 그래 되나 그래서",
+          "segment_index": 563,
+          "start_seconds": 1670.36,
+          "timestamp": "27:50"
+        },
+        {
+          "end_seconds": 1677.12,
+          "evidence_text": "어떻게 보면 약간 수세미 느낌이거든",
+          "segment_index": 564,
+          "start_seconds": 1672.32,
+          "timestamp": "27:52"
+        },
+        {
+          "end_seconds": 1680.44,
+          "evidence_text": "개쩐다 고기 간 거에 토마토 맛에",
+          "segment_index": 565,
+          "start_seconds": 1673.919,
+          "timestamp": "27:53"
+        },
+        {
+          "end_seconds": 1683.4799999999998,
+          "evidence_text": "야채들 이런 조화들 다 생각하고 다",
+          "segment_index": 566,
+          "start_seconds": 1677.12,
+          "timestamp": "27:57"
+        },
+        {
+          "end_seconds": 1685.76,
+          "evidence_text": "일일이 뭔가 계산하는듯한 지극정성의",
+          "segment_index": 567,
+          "start_seconds": 1680.44,
+          "timestamp": "28:00"
+        },
+        {
+          "end_seconds": 1687.96,
+          "evidence_text": "요리 같은 맛인 거 같아 내가",
+          "segment_index": 568,
+          "start_seconds": 1683.48,
+          "timestamp": "28:03"
+        },
+        {
+          "end_seconds": 1690.96,
+          "evidence_text": "해방촌은 데이트의",
+          "segment_index": 569,
+          "start_seconds": 1685.76,
+          "timestamp": "28:05"
+        }
+      ]
+    },
+    {
+      "id": 1042,
+      "before": "처음 먹어봤잖아, 너무 맛있어. 밥을 씹는데 꼬들꼬들한 내장이 계속 씹히고, 밥과 이질감 없는 내장 선택이 중요해 보여요.",
+      "after": "처음 먹어 봤잖아, 너무 맛있어. 밥을 딱 씹는데 꼬들꼬들한 내장이 계속 씹히니까 너무 맛있네. 밥과 함께 먹었을 때 이질감이 없는 내장을 선택을 너무 잘하신 거 같아.",
+      "source_quote": "[음악] 볼게요 조사해야 되네 처음 먹어 봤잖아 너무 맛있어 그 우리가 아는 복밥 느낌이 아니야 밥을 딱 씹는데 꼬들꼬들한 내장이 계속 씹히니까 너무 맛있네 다른 국밥 집에서도 그면 이렇게 총총 쓰면이 맛이 나는 거 아닐까라는 생각을 해는데 결코 또 아닌 거야 밥과 함께 먹었을 때 이질감이 없는 내장을 선택을 너무 잘하신 거 같아이 내장 초이스가 진짜 중요할 것 같아 아까 그분이 울산에 넘어서 산지 이제 2년 정도 됐다고 얘기했는데 타지에서 살다 보면은 기댈 곳은 사실 맛집 밖에",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "[음악] 볼게요 조사해야 되네 처음 먹어 봤잖아 너무 맛있어 그 우리가 아는 복밥 느낌이 아니야 밥을 딱 씹는데 꼬들꼬들한 내장이 계속 씹히니까 너무 맛있네 다른 국밥 집에서도 그면 이렇게 총총 쓰면이 맛이 나는 거 아닐까라는 생각을 해는데 결코 또 아닌 거야 밥과 함께 먹었을 때 이질감이 없는 내장을 선택을 너무 잘하신 거 같아이 내장 초이스가 진짜 중요할 것 같아 아까 그분이 울산에 넘어서 산지 이제 2년 정도 됐다고 얘기했는데 타지에서 살다 보면은 기댈 곳은 사실 맛집 밖에",
+      "evidence_text": "[음악]",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1403.84,
+          "evidence_text": "볼게요 조사해야 되네 처음 먹어",
+          "segment_index": 464,
+          "start_seconds": 1398.52,
+          "timestamp": "23:18"
+        },
+        {
+          "end_seconds": 1406.679,
+          "evidence_text": "봤잖아 너무 맛있어 그 우리가 아는",
+          "segment_index": 465,
+          "start_seconds": 1401.4,
+          "timestamp": "23:21"
+        },
+        {
+          "end_seconds": 1406.6789999999999,
+          "evidence_text": "복밥 느낌이",
+          "segment_index": 466,
+          "start_seconds": 1403.84,
+          "timestamp": "23:23"
+        },
+        {
+          "end_seconds": 1409.88,
+          "evidence_text": "아니야",
+          "segment_index": 467,
+          "start_seconds": 1406.88,
+          "timestamp": "23:26"
+        },
+        {
+          "end_seconds": 1415.48,
+          "evidence_text": "밥을 딱 씹는데 꼬들꼬들한 내장이",
+          "segment_index": 468,
+          "start_seconds": 1410.679,
+          "timestamp": "23:30"
+        },
+        {
+          "end_seconds": 1417.039,
+          "evidence_text": "계속 씹히니까 너무 맛있네 다른 국밥",
+          "segment_index": 469,
+          "start_seconds": 1412.799,
+          "timestamp": "23:32"
+        },
+        {
+          "end_seconds": 1418.44,
+          "evidence_text": "집에서도 그면 이렇게 총총 쓰면이",
+          "segment_index": 470,
+          "start_seconds": 1415.48,
+          "timestamp": "23:35"
+        },
+        {
+          "end_seconds": 1420.8799999999999,
+          "evidence_text": "맛이 나는 거 아닐까라는 생각을",
+          "segment_index": 471,
+          "start_seconds": 1417.039,
+          "timestamp": "23:37"
+        },
+        {
+          "end_seconds": 1423.4,
+          "evidence_text": "해는데 결코 또 아닌 거야 밥과 함께",
+          "segment_index": 472,
+          "start_seconds": 1418.44,
+          "timestamp": "23:38"
+        },
+        {
+          "end_seconds": 1425.5200000000002,
+          "evidence_text": "먹었을 때 이질감이 없는 내장을",
+          "segment_index": 473,
+          "start_seconds": 1420.88,
+          "timestamp": "23:40"
+        },
+        {
+          "end_seconds": 1427.6000000000001,
+          "evidence_text": "선택을 너무 잘하신 거 같아이 내장",
+          "segment_index": 474,
+          "start_seconds": 1423.4,
+          "timestamp": "23:43"
+        },
+        {
+          "end_seconds": 1429.72,
+          "evidence_text": "초이스가 진짜 중요할 것 같아 아까",
+          "segment_index": 475,
+          "start_seconds": 1425.52,
+          "timestamp": "23:45"
+        },
+        {
+          "end_seconds": 1431.6,
+          "evidence_text": "그분이 울산에 넘어서 산지 이제 2년",
+          "segment_index": 476,
+          "start_seconds": 1427.6,
+          "timestamp": "23:47"
+        },
+        {
+          "end_seconds": 1434.2,
+          "evidence_text": "정도 됐다고 얘기했는데 타지에서 살다",
+          "segment_index": 477,
+          "start_seconds": 1429.72,
+          "timestamp": "23:49"
+        },
+        {
+          "end_seconds": 1437.36,
+          "evidence_text": "보면은 기댈 곳은 사실 맛집 밖에",
+          "segment_index": 478,
+          "start_seconds": 1431.6,
+          "timestamp": "23:51"
+        }
+      ]
+    },
+    {
+      "id": 1489,
+      "before": "처음 먹어본 메밀밥이 맛있고 메밀 향이 장난 아니라는 평가.",
+      "after": "와, 맛있다. 메밀밥은 처음 먹어. 밥에서 메밀 향도 장난 아닌데.",
+      "source_quote": ">> 와 맛있다. 이게 매밀밥은 처음 먹은 밥에서 매밀 해야도 장난 아닌데",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": ">> 와 맛있다. 이게 매밀밥은 처음 먹은 밥에서 매밀 해야도 장난 아닌데",
+      "evidence_text": ">> 와 맛있다. 이게 매밀밥은 처음 먹은",
+      "supporting_evidence": [
+        {
+          "end_seconds": 434.16,
+          "evidence_text": "밥에서 매밀 해야도 장난 아닌데",
+          "segment_index": 195,
+          "start_seconds": 429.8,
+          "timestamp": "07:09"
+        }
+      ]
+    },
+    {
+      "id": 1492,
+      "before": "똠얌쌀국수가 최고이고 1순위라는 직접 평가.",
+      "after": "똠얌쌀국수는 정말 최고예요. 저도 이게 1순위예요!",
+      "source_quote": "Tom Yum Noodle Soup is absolutely the best. The rice is also incredibly tasty. This is my number one too!",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원; 영어 원문은 화자 시점을 유지하는 한국어 직접 번역",
+      "raw_reason": "Tom Yum Noodle Soup is absolutely the best. The rice is also incredibly tasty. This is my number one too!",
+      "evidence_text": "Tom Yum Noodle Soup is absolutely the best.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 614.661,
+          "evidence_text": "The rice is also incredibly tasty.",
+          "segment_index": 231,
+          "start_seconds": 613.477,
+          "timestamp": "10:13"
+        },
+        {
+          "end_seconds": 616.599,
+          "evidence_text": "This is my number one too!",
+          "segment_index": 232,
+          "start_seconds": 615.197,
+          "timestamp": "10:15"
+        }
+      ]
+    },
+    {
+      "id": 1495,
+      "before": "국수와 굴 육수 모두 맛있고 추천된 메뉴라는 평가.",
+      "after": "이거 진짜 맛있지. 국수가 맛있어요. 추천, 추천. 아, 이거 육수 국물도 엄청 좋은데. 국물 맛있어.",
+      "source_quote": "거야? 이거 진짜 맛있지. 국수가 국수가 맛있어요. 아 근데 >> 추천 추천 >> 아 이거 욕수 국물도 엄청 좋은데 국물 맛있어",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "거야? 이거 진짜 맛있지. 국수가 국수가 맛있어요. 아 근데 >> 추천 추천 >> 아 이거 욕수 국물도 엄청 좋은데 국물 맛있어",
+      "evidence_text": "거야? 이거 진짜 맛있지.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 506.56,
+          "evidence_text": "국수가 국수가 맛있어요. 아 근데",
+          "segment_index": 194,
+          "start_seconds": 503.08,
+          "timestamp": "08:23"
+        },
+        {
+          "end_seconds": 510.24,
+          "evidence_text": ">> 추천 추천",
+          "segment_index": 196,
+          "start_seconds": 506.56,
+          "timestamp": "08:26"
+        },
+        {
+          "end_seconds": 650.422,
+          "evidence_text": ">> 아 이거 욕수 국물도 엄청 좋은데",
+          "segment_index": 243,
+          "start_seconds": 645.76,
+          "timestamp": "10:45"
+        },
+        {
+          "end_seconds": 651.76,
+          "evidence_text": "국물 맛있어",
+          "segment_index": 244,
+          "start_seconds": 648.0,
+          "timestamp": "10:48"
+        }
+      ]
+    },
+    {
+      "id": 1498,
+      "before": "새우완자탕면을 면까지 먹으면 진짜 맛있다는 평가.",
+      "after": "진짜 맛있다니까. 면까지 먹으면 진짜. 아, 너무 맛있다. 아, 진짜.",
+      "source_quote": "탕면 해 주는데 새우 완자까지 넣어 >> 진짜 맛있다니까. 면까지 먹으면 진짜 >> 아, 너무 맛있다. 아, 진짜.",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "탕면 해 주는데 새우 완자까지 넣어 >> 진짜 맛있다니까. 면까지 먹으면 진짜 >> 아, 너무 맛있다. 아, 진짜.",
+      "evidence_text": "탕면 해 주는데 새우 완자까지 넣어",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1168.799,
+          "evidence_text": ">> 진짜 맛있다니까. 면까지 먹으면 진짜",
+          "segment_index": 505,
+          "start_seconds": 1162.679,
+          "timestamp": "19:22"
+        },
+        {
+          "end_seconds": 1199.919,
+          "evidence_text": ">> 아, 너무 맛있다. 아, 진짜.",
+          "segment_index": 518,
+          "start_seconds": 1193.64,
+          "timestamp": "19:53"
+        }
+      ]
+    },
+    {
+      "id": 1501,
+      "before": "한국에서 먹어 본 아부라소바 중 제일 맛있고, 시초점의 감동도 느껴진다는 평가.",
+      "after": "저는 되게 기분 좋게 맛있게 먹어요. 저는 한국에서 먹어 본 것 중에 제일 맛있어요.",
+      "source_quote": ">> 저는 되게 기분 좋게 맛있게 먹어 >> 저는 한국에서 먹어 본 것 중에 제일 맛있어요. 그리고 시초점에서 느꼈던",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": ">> 저는 되게 기분 좋게 맛있게 먹어 >> 저는 한국에서 먹어 본 것 중에 제일 맛있어요. 그리고 시초점에서 느꼈던",
+      "evidence_text": ">> 저는 되게 기분 좋게 맛있게 먹어",
+      "supporting_evidence": [
+        {
+          "end_seconds": 737.24,
+          "evidence_text": ">> 저는 한국에서 먹어 본 것 중에 제일",
+          "segment_index": 354,
+          "start_seconds": 733.76,
+          "timestamp": "12:13"
+        },
+        {
+          "end_seconds": 738.6,
+          "evidence_text": "맛있어요. 그리고 시초점에서 느꼈던",
+          "segment_index": 355,
+          "start_seconds": 735.12,
+          "timestamp": "12:15"
+        }
+      ]
+    },
+    {
+      "id": 1504,
+      "before": "아구의 맛이 그대로 나고 깔끔하게 맛있다는 평가.",
+      "after": "너무 깔끔하고 너무 맛있는데요. 아구의 그 맛이 그대로 나고.",
+      "source_quote": ">> 너무 깔끔하고 너무 맛있는데요. 아구의 그 맛이 그대로 나고",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": ">> 너무 깔끔하고 너무 맛있는데요. 아구의 그 맛이 그대로 나고",
+      "evidence_text": ">> 너무 깔끔하고 너무 맛있는데요.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1231.64,
+          "evidence_text": "아구의 그 맛이 그대로 나고",
+          "segment_index": 632,
+          "start_seconds": 1227.48,
+          "timestamp": "20:27"
+        }
+      ]
+    },
+    {
+      "id": 1507,
+      "before": "광어회와 소금김밥을 싸 먹는 조합이 특별하고 맛있다는 평가.",
+      "after": "여기 광어회가 대박 맛있긴 한데, 이렇게 딱 싸 먹어도 맛있는데. 시키는 대로 먹어보면 특별한 맛이 있어. 그냥 일단 김밥만 먹어도 맛있어.",
+      "source_quote": "그러면 여기 광어 회가 대박 맛있긴 한데 [매니저] 이렇게 딱 싸 먹어도 맛있는데 시키는 대로 먹어보면 특별한 맛이 있어 그냥 일단 김밥만 먹어도 맛있어",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "그러면 여기 광어 회가 대박 맛있긴 한데 [매니저] 이렇게 딱 싸 먹어도 맛있는데 시키는 대로 먹어보면 특별한 맛이 있어 그냥 일단 김밥만 먹어도 맛있어",
+      "evidence_text": "그러면 여기 광어 회가 대박 맛있긴 한데",
+      "supporting_evidence": [
+        {
+          "end_seconds": 387.8,
+          "evidence_text": "[매니저] 이렇게 딱 싸 먹어도 맛있는데",
+          "segment_index": 218,
+          "start_seconds": 386.2,
+          "timestamp": "06:26"
+        },
+        {
+          "end_seconds": 397.011,
+          "evidence_text": "시키는 대로 먹어보면 특별한 맛이 있어",
+          "segment_index": 224,
+          "start_seconds": 395.711,
+          "timestamp": "06:35"
+        },
+        {
+          "end_seconds": 442.624,
+          "evidence_text": "그냥 일단 김밥만 먹어도 맛있어",
+          "segment_index": 249,
+          "start_seconds": 441.024,
+          "timestamp": "07:21"
+        }
+      ]
+    },
+    {
+      "id": 1510,
+      "before": "맑은 한방 국물이 좋고 닭 육수와 해물 육수가 잘 섞였다는 평가.",
+      "after": "한방 국물이 정말 좋아요. 국물이 맑아서 너무 좋아요.",
+      "source_quote": "The herbal broth is just so good. I love how clear the soup is. the chicken broth, it’s such a good mix.",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원; 영어 원문은 화자 시점을 유지하는 한국어 직접 번역",
+      "raw_reason": "The herbal broth is just so good. I love how clear the soup is. the chicken broth, it’s such a good mix.",
+      "evidence_text": "The herbal broth is just so good.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 285.553,
+          "evidence_text": "I love how clear the soup is.",
+          "segment_index": 108,
+          "start_seconds": 282.615,
+          "timestamp": "04:42"
+        },
+        {
+          "end_seconds": 420.014,
+          "evidence_text": "the chicken broth, it’s such a good mix.",
+          "segment_index": 160,
+          "start_seconds": 417.769,
+          "timestamp": "06:57"
+        }
+      ]
+    },
+    {
+      "id": 1513,
+      "before": "브리즈버거의 풍미와 고기 끝맛이 좋고 맛있다는 평가.",
+      "after": "섞인 느낌 되게 좋아. 너무 좋아. 맛있다.",
+      "source_quote": "소문의 브리즈버거 맞고 새보고 진짜 >> 처고기 끝하고 섞인 느낌 되게 좋아. 너무 좋아. 음. 이런 풍미는 같아. 맛있다.",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": "소문의 브리즈버거 맞고 새보고 진짜 >> 처고기 끝하고 섞인 느낌 되게 좋아. 너무 좋아. 음. 이런 풍미는 같아. 맛있다.",
+      "evidence_text": "소문의 브리즈버거 맞고 새보고 진짜",
+      "supporting_evidence": [
+        {
+          "end_seconds": 539.5999999999999,
+          "evidence_text": ">> 처고기 끝하고 섞인 느낌 되게 좋아.",
+          "segment_index": 181,
+          "start_seconds": 533.68,
+          "timestamp": "08:53"
+        },
+        {
+          "end_seconds": 567.88,
+          "evidence_text": "너무 좋아. 음. 이런 풍미는",
+          "segment_index": 193,
+          "start_seconds": 564.24,
+          "timestamp": "09:24"
+        },
+        {
+          "end_seconds": 572.92,
+          "evidence_text": "같아. 맛있다.",
+          "segment_index": 195,
+          "start_seconds": 567.88,
+          "timestamp": "09:27"
+        }
+      ]
+    },
+    {
+      "id": 1516,
+      "before": "설렁탕과 내장탕이 좋아 재방문했고, 모든 국물이 맛있다는 평가.",
+      "after": "설렁탕과 내장탕이 너무 맛있어서 그 뒤에 내장탕만 먹으러 다시 왔어요. 여기는 국물이 다 정말 맛있고, 수육도 좋아요.",
+      "source_quote": "Seolleongtang and offal soup were so good that I came back just for the offal soup after that. Here, all the soups are really tasty, and the suyuk is good too.",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원; 영어 원문은 화자 시점을 유지하는 한국어 직접 번역",
+      "raw_reason": "Seolleongtang and offal soup were so good that I came back just for the offal soup after that. Here, all the soups are really tasty, and the suyuk is good too.",
+      "evidence_text": "Seolleongtang and offal soup were so good",
+      "supporting_evidence": [
+        {
+          "end_seconds": 332.96700000000004,
+          "evidence_text": "that I came back just for the offal soup after that.",
+          "segment_index": 131,
+          "start_seconds": 331.475,
+          "timestamp": "05:31"
+        },
+        {
+          "end_seconds": 735.84,
+          "evidence_text": "Here, all the soups are really tasty, and the suyuk is good too.",
+          "segment_index": 285,
+          "start_seconds": 732.226,
+          "timestamp": "12:12"
+        }
+      ]
+    },
+    {
+      "id": 1519,
+      "before": "우니의 단맛과 향이 살아 진짜 맛있다는 평가.",
+      "after": "진짜, 와, 너무 맛있다.",
+      "source_quote": ">> 진짜 와 너무 맛있다. >> 간맛하고 향하고 >> 미소도 맛있다.",
+      "why": "직접 발언을 요약한 전달문을 원문 말투로 복원",
+      "raw_reason": ">> 진짜 와 너무 맛있다. >> 간맛하고 향하고 >> 미소도 맛있다.",
+      "evidence_text": ">> 진짜 와 너무 맛있다.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 883.5600000000001,
+          "evidence_text": ">> 간맛하고 향하고",
+          "segment_index": 461,
+          "start_seconds": 879.24,
+          "timestamp": "14:39"
+        },
+        {
+          "end_seconds": 884.36,
+          "evidence_text": ">> 미소도 맛있다.",
+          "segment_index": 462,
+          "start_seconds": 882.32,
+          "timestamp": "14:42"
+        }
+      ]
+    },
+    {
+      "id": 2374,
+      "before": "한우를 구워 먹은 돌판에다 찌개를 끓이면 풍미가 넉넉해집니다. 3년 숙성시킨 막장으로 끓인 막장찌개인 만큼 깊이가 남다릅니다.",
+      "after": "배가 불러도 막장찌개는 맛봐야죠. 자작하게 끓여 밥 말아 먹기도 딱 좋더군요. 3년 숙성시킨 막장으로 끓인 막장찌개인 만큼 깊이가 남다릅니다.",
+      "source_quote": ">> 앞만 배가 불러도 막장찌개는 맛 와야죠. 자작하게 끓여 밥 말아 먹기도 딱 좋더군요. 집에서 선수 3년 숙성시킨 막장으로 꾸린 막장찌개인만큼 깊이가 남다릅니다. 둥둥 고깃기름이 전혀 화하지 않고 맛에 극명한 차를 불러옵니다.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 앞만 배가 불러도 막장찌개는 맛 와야죠. 자작하게 끓여 밥 말아 먹기도 딱 좋더군요. 집에서 선수 3년 숙성시킨 막장으로 꾸린 막장찌개인만큼 깊이가 남다릅니다. 둥둥 고깃기름이 전혀 화하지 않고 맛에 극명한 차를 불러옵니다.",
+      "evidence_text": "집에서 선수 3년 숙성시킨 막장으로",
+      "supporting_evidence": [
+        {
+          "end_seconds": 402.19899999999996,
+          "evidence_text": ">> 앞만 배가 불러도 막장찌개는 맛",
+          "segment_index": 152,
+          "start_seconds": 397.4,
+          "timestamp": "06:37"
+        },
+        {
+          "end_seconds": 405.919,
+          "evidence_text": "와야죠. 자작하게 끓여 밥 말아",
+          "segment_index": 153,
+          "start_seconds": 399.639,
+          "timestamp": "06:39"
+        },
+        {
+          "end_seconds": 405.91900000000004,
+          "evidence_text": "먹기도 딱 좋더군요.",
+          "segment_index": 154,
+          "start_seconds": 402.199,
+          "timestamp": "06:42"
+        },
+        {
+          "end_seconds": 414.479,
+          "evidence_text": "꾸린 막장찌개인만큼 깊이가",
+          "segment_index": 156,
+          "start_seconds": 410.599,
+          "timestamp": "06:50"
+        },
+        {
+          "end_seconds": 417.19899999999996,
+          "evidence_text": "남다릅니다.",
+          "segment_index": 157,
+          "start_seconds": 412.84,
+          "timestamp": "06:52"
+        },
+        {
+          "end_seconds": 421.71999999999997,
+          "evidence_text": "둥둥 고깃기름이 전혀 화하지 않고",
+          "segment_index": 158,
+          "start_seconds": 414.479,
+          "timestamp": "06:54"
+        },
+        {
+          "end_seconds": 421.72,
+          "evidence_text": "맛에 극명한 차를 불러옵니다.",
+          "segment_index": 159,
+          "start_seconds": 417.199,
+          "timestamp": "06:57"
+        }
+      ]
+    },
+    {
+      "id": 2392,
+      "before": "이 집에 가면 무조건 주문해야 하는 넘버 메뉴로, 묵은지와 회 조합이 입맛을 살려주는 훌륭한 스타트 안주라고 평가했다.",
+      "after": "개인적으로는 이 집에 가셨으면 무조건 주문을 하셔야 하는 넘버 메뉴라고 보시면 되고. 입맛 제대로 살려주는 애피타이저, 훌륭한 스타트 술안주라고 볼 수 있습니다.",
+      "source_quote": "개인적으로는이 집에 가셨으면 무조건 주문을 하셔야 하는 넘버 메뉴라고 보시면 되고 요즘 같이 인정 사정 없는 푹폭지는 무도위에 입맛 제대로 살려주는 애피타이 훌륭한 스타트 술환주라고 볼 수 있습니다. 이어지는",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "개인적으로는이 집에 가셨으면 무조건 주문을 하셔야 하는 넘버 메뉴라고 보시면 되고 요즘 같이 인정 사정 없는 푹폭지는 무도위에 입맛 제대로 살려주는 애피타이 훌륭한 스타트 술환주라고 볼 수 있습니다. 이어지는",
+      "evidence_text": "개인적으로는이 집에 가셨으면 무조건",
+      "supporting_evidence": [
+        {
+          "end_seconds": 102.88,
+          "evidence_text": "주문을 하셔야 하는 넘버 메뉴라고",
+          "segment_index": 40,
+          "start_seconds": 98.439,
+          "timestamp": "01:38"
+        },
+        {
+          "end_seconds": 105.399,
+          "evidence_text": "보시면 되고 요즘 같이 인정 사정",
+          "segment_index": 41,
+          "start_seconds": 100.68,
+          "timestamp": "01:40"
+        },
+        {
+          "end_seconds": 108.0,
+          "evidence_text": "없는 푹폭지는 무도위에 입맛 제대로",
+          "segment_index": 42,
+          "start_seconds": 102.88,
+          "timestamp": "01:42"
+        },
+        {
+          "end_seconds": 110.04,
+          "evidence_text": "살려주는 애피타이 훌륭한 스타트",
+          "segment_index": 43,
+          "start_seconds": 105.399,
+          "timestamp": "01:45"
+        },
+        {
+          "end_seconds": 112.04,
+          "evidence_text": "술환주라고 볼 수 있습니다. 이어지는",
+          "segment_index": 44,
+          "start_seconds": 108.0,
+          "timestamp": "01:48"
+        }
+      ]
+    },
+    {
+      "id": 2395,
+      "before": "여기는 다른 메뉴보다 보말칼국수를 먹으면 되고, 일부러 방향을 꺾어 갈 만한 곳이며 모두가 먹어봤으면 좋겠다고 했다.",
+      "after": "그냥 다 필요 없고 여긴 그냥 와서 보말칼국수 드시면 돼요. 그걸 먹으러 일부러 거길 가느냐, 가던 방향을 꺾느냐. 난 여기가 그런 곳이라고 생각해요. 내가 아는 모든 사람이 이걸 먹어봤으면 좋겠어.",
+      "source_quote": ">> 하여튼 뭐 성개 칼카국수도 있고 고기 국수도 있고 한데 그냥 다 필요없고 여긴 그냥 와서 고화 칼카국수 드시면 돼요. 왜 그 미슐랭의 근거가 그걸 먹으러 일부러 거길 가느냐 가던 방향을 꺾느냐 난 여기가 그런 곳이라고 생각해요. 근데 저도 이렇게 >> 그까 내가 아는 모든 사람이 이걸 먹어봤으면 좋겠어.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 하여튼 뭐 성개 칼카국수도 있고 고기 국수도 있고 한데 그냥 다 필요없고 여긴 그냥 와서 고화 칼카국수 드시면 돼요. 왜 그 미슐랭의 근거가 그걸 먹으러 일부러 거길 가느냐 가던 방향을 꺾느냐 난 여기가 그런 곳이라고 생각해요. 근데 저도 이렇게 >> 그까 내가 아는 모든 사람이 이걸 먹어봤으면 좋겠어.",
+      "evidence_text": ">> 하여튼 뭐 성개 칼카국수도 있고 고기",
+      "supporting_evidence": [
+        {
+          "end_seconds": 183.07999999999998,
+          "evidence_text": "국수도 있고 한데 그냥 다 필요없고",
+          "segment_index": 75,
+          "start_seconds": 180.159,
+          "timestamp": "03:00"
+        },
+        {
+          "end_seconds": 186.599,
+          "evidence_text": "여긴 그냥 와서 고화 칼카국수 드시면",
+          "segment_index": 76,
+          "start_seconds": 181.599,
+          "timestamp": "03:01"
+        },
+        {
+          "end_seconds": 189.28,
+          "evidence_text": "돼요. 왜 그 미슐랭의 근거가 그걸",
+          "segment_index": 77,
+          "start_seconds": 183.08,
+          "timestamp": "03:03"
+        },
+        {
+          "end_seconds": 191.35999999999999,
+          "evidence_text": "먹으러 일부러 거길 가느냐 가던",
+          "segment_index": 78,
+          "start_seconds": 186.599,
+          "timestamp": "03:06"
+        },
+        {
+          "end_seconds": 193.959,
+          "evidence_text": "방향을 꺾느냐 난 여기가 그런",
+          "segment_index": 79,
+          "start_seconds": 189.28,
+          "timestamp": "03:09"
+        },
+        {
+          "end_seconds": 196.15900000000002,
+          "evidence_text": "곳이라고 생각해요. 근데 저도 이렇게",
+          "segment_index": 80,
+          "start_seconds": 191.36,
+          "timestamp": "03:11"
+        },
+        {
+          "end_seconds": 884.8,
+          "evidence_text": ">> 그까 내가 아는 모든 사람이 이걸",
+          "segment_index": 265,
+          "start_seconds": 880.16,
+          "timestamp": "14:40"
+        },
+        {
+          "end_seconds": 884.8000000000001,
+          "evidence_text": "먹어봤으면 좋겠어.",
+          "segment_index": 266,
+          "start_seconds": 881.36,
+          "timestamp": "14:41"
+        }
+      ]
+    },
+    {
+      "id": 2398,
+      "before": "소라 적꼬지는 처음 먹는 소라 산적이라며 진짜 맛있고, 구운 소라의 바다 맛이 씹을수록 좋다고 했다.",
+      "after": "소라 적꼬지입니다. 소라 산적이라면 나 처음인데. 진짜 맛있어요. 소라를 구우니까 이런 맛이 또 나네. 씹을수록 그 바다의 맛이 정말 맛있다.",
+      "source_quote": ">> 소라 적꽂지입니다. >> 나 조라 산적이라면은 나 처음에 진짜 맛있어요. 소라를 구으니까 이런 맛이 또 나네 씹을수록 [음악] 또 그 바다에서 맛이 정말 맛있다.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 소라 적꽂지입니다. >> 나 조라 산적이라면은 나 처음에 진짜 맛있어요. 소라를 구으니까 이런 맛이 또 나네 씹을수록 [음악] 또 그 바다에서 맛이 정말 맛있다.",
+      "evidence_text": ">> 소라 적꽂지입니다.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 481.75899999999996,
+          "evidence_text": ">> 나 조라 산적이라면은 나 처음에",
+          "segment_index": 165,
+          "start_seconds": 477.28,
+          "timestamp": "07:57"
+        },
+        {
+          "end_seconds": 486.44,
+          "evidence_text": "진짜 맛있어요.",
+          "segment_index": 167,
+          "start_seconds": 481.759,
+          "timestamp": "08:01"
+        },
+        {
+          "end_seconds": 509.08,
+          "evidence_text": "소라를 구으니까 이런 맛이 또 나네",
+          "segment_index": 173,
+          "start_seconds": 502.919,
+          "timestamp": "08:22"
+        },
+        {
+          "end_seconds": 513.72,
+          "evidence_text": "씹을수록 [음악] 또 그 바다에서",
+          "segment_index": 174,
+          "start_seconds": 506.319,
+          "timestamp": "08:26"
+        },
+        {
+          "end_seconds": 513.72,
+          "evidence_text": "맛이 정말 맛있다.",
+          "segment_index": 175,
+          "start_seconds": 509.08,
+          "timestamp": "08:29"
+        }
+      ]
+    },
+    {
+      "id": 2401,
+      "before": "시원한 자리돔 물회를 보약이라 소개하고, 제주식 된장물회에는 헤어나기 힘든 매력이 있다며 맛있다고 했다.",
+      "after": "아우, 진짜 맛있다. 동해식 고추장물회도 좋지만 제주식 된장물회도 헤어나기 힘든 매력이.",
+      "source_quote": "보약이라는 시원한 자리돔 물회에 아우 진짜 맛있다. 동해식 고추장물해도 좋지만 제주식 된장물에도 헤연하기 힘든 매력이 된장물에는 고추장물에보다",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "보약이라는 시원한 자리돔 물회에 아우 진짜 맛있다. 동해식 고추장물해도 좋지만 제주식 된장물에도 헤연하기 힘든 매력이 된장물에는 고추장물에보다",
+      "evidence_text": "보약이라는 시원한 자리돔 물회에",
+      "supporting_evidence": [
+        {
+          "end_seconds": 529.959,
+          "evidence_text": "아우 진짜 맛있다.",
+          "segment_index": 180,
+          "start_seconds": 526.279,
+          "timestamp": "08:46"
+        },
+        {
+          "end_seconds": 540.5600000000001,
+          "evidence_text": "동해식 고추장물해도 좋지만 제주식",
+          "segment_index": 181,
+          "start_seconds": 534.44,
+          "timestamp": "08:54"
+        },
+        {
+          "end_seconds": 543.5600000000001,
+          "evidence_text": "된장물에도 헤연하기 힘든 매력이",
+          "segment_index": 182,
+          "start_seconds": 537.839,
+          "timestamp": "08:57"
+        },
+        {
+          "end_seconds": 554.76,
+          "evidence_text": "된장물에는 고추장물에보다",
+          "segment_index": 185,
+          "start_seconds": 547.64,
+          "timestamp": "09:07"
+        }
+      ]
+    },
+    {
+      "id": 2404,
+      "before": "손칼국수는 맛있고 아주 좋으며, 고소한 국물과 가느다란 면발의 합이 좋고 곡물의 고소한 맛이 일품이라고 했다.",
+      "after": "맛있어. 아유, 아주 좋다. 고소한 국물과 가느다란 면발, 합이 좋습니다. 진짜 밀가루 맛이 다르네요.",
+      "source_quote": "맛있어. 아유. 아주 좋다. >> 고소한 국물과 [음악] 가느다한 면발 합이 좋습니다. >> 진짜 밀가는 맛이 다르네요. >> 고소 [음악] 한 맛은 1품이요 건강까지 챙겼으니이는 이품이요",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "맛있어. 아유. 아주 좋다. >> 고소한 국물과 [음악] 가느다한 면발 합이 좋습니다. >> 진짜 밀가는 맛이 다르네요. >> 고소 [음악] 한 맛은 1품이요 건강까지 챙겼으니이는 이품이요",
+      "evidence_text": "맛있어. 아유.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 148.519,
+          "evidence_text": "아주 좋다.",
+          "segment_index": 60,
+          "start_seconds": 142.16,
+          "timestamp": "02:22"
+        },
+        {
+          "end_seconds": 160.476,
+          "evidence_text": ">> 고소한 국물과 [음악] 가느다한 면발",
+          "segment_index": 64,
+          "start_seconds": 154.68,
+          "timestamp": "02:34"
+        },
+        {
+          "end_seconds": 161.68,
+          "evidence_text": "합이 좋습니다.",
+          "segment_index": 65,
+          "start_seconds": 157.28,
+          "timestamp": "02:37"
+        },
+        {
+          "end_seconds": 189.159,
+          "evidence_text": ">> 진짜 밀가는 맛이 다르네요.",
+          "segment_index": 79,
+          "start_seconds": 183.72,
+          "timestamp": "03:03"
+        },
+        {
+          "end_seconds": 403.0,
+          "evidence_text": ">> 고소 [음악] 한 맛은 1품이요",
+          "segment_index": 154,
+          "start_seconds": 396.08,
+          "timestamp": "06:36"
+        },
+        {
+          "end_seconds": 409.08000000000004,
+          "evidence_text": "건강까지 챙겼으니이는 이품이요",
+          "segment_index": 155,
+          "start_seconds": 398.759,
+          "timestamp": "06:38"
+        }
+      ]
+    },
+    {
+      "id": 2407,
+      "before": "청어조림은 어머님이 맛있는 걸 준다는 기대 뒤 맛있고 깊은 맛이 있으며, 산초로 비린 맛을 잡은 지혜가 담겼다고 했다.",
+      "after": "우리 어머님이 참 맛있는 걸 준다. 맛있네. 응. 생각보다 맛이 깊네.",
+      "source_quote": "우리 어머님이 참 맛있는 걸 준다 >> 맛있네. 응. >> 생각보다 맛이 깊네. 산처로 비린 맛까지 잡은 청어 조림은 바닷가 사람들의 지혜라 할 수",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "우리 어머님이 참 맛있는 걸 준다 >> 맛있네. 응. >> 생각보다 맛이 깊네. 산처로 비린 맛까지 잡은 청어 조림은 바닷가 사람들의 지혜라 할 수",
+      "evidence_text": "우리 어머님이 참 맛있는 걸 준다",
+      "supporting_evidence": [
+        {
+          "end_seconds": 138.0,
+          "evidence_text": ">> 맛있네. 응.",
+          "segment_index": 47,
+          "start_seconds": 134.2,
+          "timestamp": "02:14"
+        },
+        {
+          "end_seconds": 187.879,
+          "evidence_text": ">> 생각보다 맛이 깊네.",
+          "segment_index": 62,
+          "start_seconds": 185.879,
+          "timestamp": "03:05"
+        },
+        {
+          "end_seconds": 219.31900000000002,
+          "evidence_text": "산처로 비린 맛까지 잡은 청어 조림은",
+          "segment_index": 73,
+          "start_seconds": 214.68,
+          "timestamp": "03:34"
+        },
+        {
+          "end_seconds": 222.319,
+          "evidence_text": "바닷가 사람들의 지혜라 할 수",
+          "segment_index": 74,
+          "start_seconds": 217.28,
+          "timestamp": "03:37"
+        }
+      ]
+    },
+    {
+      "id": 2410,
+      "before": "녹두빈대떡은 진짜 맛있고 제대로 된 녹두이며, 촉촉하고 야채 씹히는 식감이 맛있다고 했다.",
+      "after": "아, 근데 진짜 맛있다. 너무 맛있다. 제대로 된 녹두빈대떡. 아, 촉촉하네. 야채가 씹히는 게 너무 맛있다.",
+      "source_quote": "주시고요. 그리고 빈대떡도 하나 아 근데 진짜 맛있다.음 >> 너무 맛있다. >> 맛있다. >> 제대로 된 녹두인데 떡 >> 아 촉촉하네. 너무 오랜만에 먹다. >> 야채가 다 씹히는게 너무 식감이 너무 >> 응. 야채가 씹히는게 너무 맛있다.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "주시고요. 그리고 빈대떡도 하나 아 근데 진짜 맛있다.음 >> 너무 맛있다. >> 맛있다. >> 제대로 된 녹두인데 떡 >> 아 촉촉하네. 너무 오랜만에 먹다. >> 야채가 다 씹히는게 너무 식감이 너무 >> 응. 야채가 씹히는게 너무 맛있다.",
+      "evidence_text": "주시고요. 그리고 빈대떡도 하나",
+      "supporting_evidence": [
+        {
+          "end_seconds": 914.24,
+          "evidence_text": "아 근데 진짜 맛있다.음",
+          "segment_index": 359,
+          "start_seconds": 910.639,
+          "timestamp": "15:10"
+        },
+        {
+          "end_seconds": 920.36,
+          "evidence_text": ">> 너무 맛있다.",
+          "segment_index": 360,
+          "start_seconds": 917.12,
+          "timestamp": "15:17"
+        },
+        {
+          "end_seconds": 924.8,
+          "evidence_text": ">> 맛있다.",
+          "segment_index": 361,
+          "start_seconds": 922.16,
+          "timestamp": "15:22"
+        },
+        {
+          "end_seconds": 926.72,
+          "evidence_text": ">> 제대로 된 녹두인데 떡",
+          "segment_index": 362,
+          "start_seconds": 923.36,
+          "timestamp": "15:23"
+        },
+        {
+          "end_seconds": 927.8389999999999,
+          "evidence_text": ">> 아 촉촉하네. 너무 오랜만에 먹다.",
+          "segment_index": 363,
+          "start_seconds": 924.8,
+          "timestamp": "15:24"
+        },
+        {
+          "end_seconds": 940.519,
+          "evidence_text": ">> 야채가 다 씹히는게 너무 식감이 너무",
+          "segment_index": 371,
+          "start_seconds": 938.12,
+          "timestamp": "15:38"
+        },
+        {
+          "end_seconds": 947.399,
+          "evidence_text": ">> 응. 야채가 씹히는게 너무 맛있다.",
+          "segment_index": 375,
+          "start_seconds": 942.72,
+          "timestamp": "15:42"
+        }
+      ]
+    },
+    {
+      "id": 2413,
+      "before": "대파피자는 100점이라는 반응과 함께 볶은 양파 같은 단맛이 지배하고 디테일을 기가 막히게 잡았다고 했다.",
+      "after": "100점. 100점. 달달한 대파맛이 지배를 해요. 양파 볶으면 양파 단맛 나는 거 있잖아요. 그거 같은 단맛이야. 이 대파피자가 디테일을 정말 기가 막히게 잡아놨어.",
+      "source_quote": ">> 100점. >> 100점. 와. >> 대파 필요라 그랬잖아요. >> 달한 대파맛이 지배를 해요. 왜 우리 양파 볶으면은 양파 단 만나는 거 있잖아요. 그거 같은 단맛이야. 어. 그래가지고이 대파 피자가 갑자기 디테일을 정말 기가 막히게 잡아놨어.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 100점. >> 100점. 와. >> 대파 필요라 그랬잖아요. >> 달한 대파맛이 지배를 해요. 왜 우리 양파 볶으면은 양파 단 만나는 거 있잖아요. 그거 같은 단맛이야. 어. 그래가지고이 대파 피자가 갑자기 디테일을 정말 기가 막히게 잡아놨어.",
+      "evidence_text": ">> 100점.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1124.0800000000002,
+          "evidence_text": ">> 100점. 와.",
+          "segment_index": 541,
+          "start_seconds": 1117.4,
+          "timestamp": "18:37"
+        },
+        {
+          "end_seconds": 1141.24,
+          "evidence_text": ">> 대파 필요라 그랬잖아요.",
+          "segment_index": 547,
+          "start_seconds": 1136.48,
+          "timestamp": "18:56"
+        },
+        {
+          "end_seconds": 1143.3600000000001,
+          "evidence_text": ">> 달한 대파맛이 지배를 해요. 왜 우리",
+          "segment_index": 548,
+          "start_seconds": 1138.4,
+          "timestamp": "18:58"
+        },
+        {
+          "end_seconds": 1145.24,
+          "evidence_text": "양파 볶으면은 양파 단 만나는 거",
+          "segment_index": 549,
+          "start_seconds": 1141.24,
+          "timestamp": "19:01"
+        },
+        {
+          "end_seconds": 1146.08,
+          "evidence_text": "있잖아요. 그거 같은 단맛이야.",
+          "segment_index": 550,
+          "start_seconds": 1143.36,
+          "timestamp": "19:03"
+        },
+        {
+          "end_seconds": 1166.72,
+          "evidence_text": "어. 그래가지고이 대파 피자가 갑자기",
+          "segment_index": 559,
+          "start_seconds": 1161.88,
+          "timestamp": "19:21"
+        },
+        {
+          "end_seconds": 1180.559,
+          "evidence_text": "디테일을 정말 기가 막히게 잡아놨어.",
+          "segment_index": 565,
+          "start_seconds": 1175.799,
+          "timestamp": "19:35"
+        }
+      ]
+    },
+    {
+      "id": 2425,
+      "before": "기름기를 싹 걷어낸 듯 담백하고, 국물도 진하다. 닭고기 잡내 없이 맛에 집중할 수 있다.",
+      "after": "담백해요. 부드러워요. 이렇게 쪽쪽 잘 찢어지면서. 닭고기 잡내, 이런 게 하나도 안 나요. 게다가 닭고기 자체의 맛에 집중할 수 있습니다.",
+      "source_quote": "이 국물 약간 기름기 싹 걷어내고 주전자에 담아서 내면 >> 약간 찬물인 줄 알 정도로 >> 아 >> 단백해요. 이게 지금 기름이 떠 있으니까 이게 육수인지 알지? 어, >> 약간 맛이 그래요. >> 부드러워요. 이렇게 쪽쪽 잘 찢어지면서. 음. 닭고기 잡네. 이런게 하나도 안 나요. 그냥 먹으러. 게다가 닭고기 자체의 맛에 집중할 수 있습니다.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "이 국물 약간 기름기 싹 걷어내고 주전자에 담아서 내면 >> 약간 찬물인 줄 알 정도로 >> 아 >> 단백해요. 이게 지금 기름이 떠 있으니까 이게 육수인지 알지? 어, >> 약간 맛이 그래요. >> 부드러워요. 이렇게 쪽쪽 잘 찢어지면서. 음. 닭고기 잡네. 이런게 하나도 안 나요. 그냥 먹으러. 게다가 닭고기 자체의 맛에 집중할 수 있습니다.",
+      "evidence_text": ">> 단백해요. 이게 지금 기름이 떠",
+      "supporting_evidence": [
+        {
+          "end_seconds": 337.84000000000003,
+          "evidence_text": "이 국물 약간",
+          "segment_index": 112,
+          "start_seconds": 334.16,
+          "timestamp": "05:34"
+        },
+        {
+          "end_seconds": 343.199,
+          "evidence_text": "기름기 싹 걷어내고 주전자에 담아서",
+          "segment_index": 113,
+          "start_seconds": 339.199,
+          "timestamp": "05:39"
+        },
+        {
+          "end_seconds": 345.479,
+          "evidence_text": "내면",
+          "segment_index": 114,
+          "start_seconds": 341.8,
+          "timestamp": "05:41"
+        },
+        {
+          "end_seconds": 346.319,
+          "evidence_text": ">> 약간 찬물인 줄 알 정도로",
+          "segment_index": 115,
+          "start_seconds": 343.199,
+          "timestamp": "05:43"
+        },
+        {
+          "end_seconds": 348.08,
+          "evidence_text": ">> 아",
+          "segment_index": 116,
+          "start_seconds": 345.479,
+          "timestamp": "05:45"
+        },
+        {
+          "end_seconds": 353.68,
+          "evidence_text": "있으니까 이게 육수인지 알지? 어,",
+          "segment_index": 118,
+          "start_seconds": 348.08,
+          "timestamp": "05:48"
+        },
+        {
+          "end_seconds": 356.28000000000003,
+          "evidence_text": ">> 약간 맛이 그래요.",
+          "segment_index": 119,
+          "start_seconds": 352.12,
+          "timestamp": "05:52"
+        },
+        {
+          "end_seconds": 488.03900000000004,
+          "evidence_text": ">> 부드러워요. 이렇게 쪽쪽 잘",
+          "segment_index": 163,
+          "start_seconds": 484.72,
+          "timestamp": "08:04"
+        },
+        {
+          "end_seconds": 490.159,
+          "evidence_text": "찢어지면서.",
+          "segment_index": 164,
+          "start_seconds": 486.52,
+          "timestamp": "08:06"
+        },
+        {
+          "end_seconds": 493.56,
+          "evidence_text": "음. 닭고기 잡네. 이런게 하나도 안",
+          "segment_index": 165,
+          "start_seconds": 488.039,
+          "timestamp": "08:08"
+        },
+        {
+          "end_seconds": 496.319,
+          "evidence_text": "나요. 그냥 먹으러.",
+          "segment_index": 166,
+          "start_seconds": 490.159,
+          "timestamp": "08:10"
+        },
+        {
+          "end_seconds": 499.319,
+          "evidence_text": "게다가 닭고기 자체의 맛에 집중할 수",
+          "segment_index": 167,
+          "start_seconds": 493.56,
+          "timestamp": "08:13"
+        },
+        {
+          "end_seconds": 499.319,
+          "evidence_text": "있습니다.",
+          "segment_index": 168,
+          "start_seconds": 496.319,
+          "timestamp": "08:16"
+        }
+      ]
+    },
+    {
+      "id": 2428,
+      "before": "시원칼칼보다 깊고 진한 민물매운탕. 메기살은 부드럽고 비린내가 전혀 없다.",
+      "after": "약간 시원칼칼보다는 깊고 진하고 좀 무겁다. 아, 괜찮은데. 너무 맛있다. 부모님도 민물고기 비려, 막 이렇게 말씀하시는데 전혀 모르겠는데요.",
+      "source_quote": "약간 시원 칼보다는 깊고 진하고 좀 무겁다. 바닷고기 매운 탕이 시원하고 깔끔하다면 민물고기 매운 탕은 묵직한 뒷맛을 선사한달까요? 아 괜찮은데. 음. >> 약간 매하면서도 거북스럽지 않고 민물 요렇게 매운 탕 같은 거 먹으면서 이런 생각을 한 적이 한 번도 없는데 깊은 맛이 >> 어 맞아요. 음. 너무 맛있다. [음악] >> 부들부들한 메기살. 뽀죽하면 메기를 민물의 황폐자라고 했을까요? 메기 살맛은 살집이 있는만큼 약간 폭한 느낌이 드는데 주식가 없는게 장점이야. 부모님도에 민물 그거 비려 막 이렇게 말씀하시는데 전혀 모르겠는데요.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "약간 시원 칼보다는 깊고 진하고 좀 무겁다. 바닷고기 매운 탕이 시원하고 깔끔하다면 민물고기 매운 탕은 묵직한 뒷맛을 선사한달까요? 아 괜찮은데. 음. >> 약간 매하면서도 거북스럽지 않고 민물 요렇게 매운 탕 같은 거 먹으면서 이런 생각을 한 적이 한 번도 없는데 깊은 맛이 >> 어 맞아요. 음. 너무 맛있다. [음악] >> 부들부들한 메기살. 뽀죽하면 메기를 민물의 황폐자라고 했을까요? 메기 살맛은 살집이 있는만큼 약간 폭한 느낌이 드는데 주식가 없는게 장점이야. 부모님도에 민물 그거 비려 막 이렇게 말씀하시는데 전혀 모르겠는데요.",
+      "evidence_text": "너무 맛있다.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 341.52,
+          "evidence_text": "약간 시원 칼보다는",
+          "segment_index": 117,
+          "start_seconds": 336.28,
+          "timestamp": "05:36"
+        },
+        {
+          "end_seconds": 343.8,
+          "evidence_text": "깊고 진하고",
+          "segment_index": 118,
+          "start_seconds": 338.6,
+          "timestamp": "05:38"
+        },
+        {
+          "end_seconds": 345.59999999999997,
+          "evidence_text": "좀 무겁다.",
+          "segment_index": 119,
+          "start_seconds": 341.52,
+          "timestamp": "05:41"
+        },
+        {
+          "end_seconds": 348.919,
+          "evidence_text": "바닷고기 매운 탕이 시원하고",
+          "segment_index": 120,
+          "start_seconds": 343.8,
+          "timestamp": "05:43"
+        },
+        {
+          "end_seconds": 352.44,
+          "evidence_text": "깔끔하다면 민물고기 매운 탕은 묵직한",
+          "segment_index": 121,
+          "start_seconds": 345.6,
+          "timestamp": "05:45"
+        },
+        {
+          "end_seconds": 352.44,
+          "evidence_text": "뒷맛을 선사한달까요?",
+          "segment_index": 122,
+          "start_seconds": 348.919,
+          "timestamp": "05:48"
+        },
+        {
+          "end_seconds": 359.319,
+          "evidence_text": "아 괜찮은데. 음.",
+          "segment_index": 123,
+          "start_seconds": 355.12,
+          "timestamp": "05:55"
+        },
+        {
+          "end_seconds": 365.639,
+          "evidence_text": ">> 약간 매하면서도",
+          "segment_index": 124,
+          "start_seconds": 361.039,
+          "timestamp": "06:01"
+        },
+        {
+          "end_seconds": 367.039,
+          "evidence_text": "거북스럽지 않고",
+          "segment_index": 125,
+          "start_seconds": 363.28,
+          "timestamp": "06:03"
+        },
+        {
+          "end_seconds": 369.199,
+          "evidence_text": "민물 요렇게 매운 탕 같은 거",
+          "segment_index": 126,
+          "start_seconds": 365.639,
+          "timestamp": "06:05"
+        },
+        {
+          "end_seconds": 371.96,
+          "evidence_text": "먹으면서 이런 생각을 한 적이 한",
+          "segment_index": 127,
+          "start_seconds": 367.039,
+          "timestamp": "06:07"
+        },
+        {
+          "end_seconds": 373.24,
+          "evidence_text": "번도 없는데 깊은 맛이",
+          "segment_index": 128,
+          "start_seconds": 369.199,
+          "timestamp": "06:09"
+        },
+        {
+          "end_seconds": 375.15999999999997,
+          "evidence_text": ">> 어 맞아요.",
+          "segment_index": 129,
+          "start_seconds": 371.96,
+          "timestamp": "06:11"
+        },
+        {
+          "end_seconds": 400.209,
+          "evidence_text": "음.",
+          "segment_index": 135,
+          "start_seconds": 396.479,
+          "timestamp": "06:36"
+        },
+        {
+          "end_seconds": 404.84000000000003,
+          "evidence_text": "[음악]",
+          "segment_index": 137,
+          "start_seconds": 400.209,
+          "timestamp": "06:40"
+        },
+        {
+          "end_seconds": 408.91900000000004,
+          "evidence_text": ">> 부들부들한 메기살. 뽀죽하면 메기를",
+          "segment_index": 138,
+          "start_seconds": 401.319,
+          "timestamp": "06:41"
+        },
+        {
+          "end_seconds": 410.919,
+          "evidence_text": "민물의 황폐자라고 했을까요?",
+          "segment_index": 139,
+          "start_seconds": 404.84,
+          "timestamp": "06:44"
+        },
+        {
+          "end_seconds": 413.15999999999997,
+          "evidence_text": "메기 살맛은",
+          "segment_index": 140,
+          "start_seconds": 408.919,
+          "timestamp": "06:48"
+        },
+        {
+          "end_seconds": 416.039,
+          "evidence_text": "살집이 있는만큼",
+          "segment_index": 141,
+          "start_seconds": 410.919,
+          "timestamp": "06:50"
+        },
+        {
+          "end_seconds": 419.319,
+          "evidence_text": "약간 폭한 느낌이 드는데 주식가",
+          "segment_index": 142,
+          "start_seconds": 413.16,
+          "timestamp": "06:53"
+        },
+        {
+          "end_seconds": 422.44,
+          "evidence_text": "없는게 장점이야.",
+          "segment_index": 143,
+          "start_seconds": 416.039,
+          "timestamp": "06:56"
+        },
+        {
+          "end_seconds": 424.599,
+          "evidence_text": "부모님도에 민물 그거 비려 막 이렇게",
+          "segment_index": 144,
+          "start_seconds": 419.319,
+          "timestamp": "06:59"
+        },
+        {
+          "end_seconds": 428.599,
+          "evidence_text": "말씀하시는데 전혀 모르겠는데요.",
+          "segment_index": 145,
+          "start_seconds": 422.44,
+          "timestamp": "07:02"
+        }
+      ]
+    },
+    {
+      "id": 2431,
+      "before": "묵은지가 들어가 시큼한 맛이 매력이고 속이 풀리는 곰치국. 부드러워서 잇몸으로도 먹을 수 있다.",
+      "after": "곰치국은 약간 시큼한 맛이 매력이. 묵은지가 들어가서 확실히. 야, 좀 속이 풀린다고 해야 되나요? 고기가 부드러우니까 그냥 후루룩 마시는 느낌.",
+      "source_quote": ">> 강쪽에서는 이제 묵은질을 넣더라고요. 그 약간 시큼은 맛이 아 >> 이게 이게 강원도 물 >> 곰치국은 약간 시크은 맛이 이게 매력이 묵은지가 들어가서 확실게 아 >> 야 좀 속이 풀린다고 해야 되나요? 아마 이게 야 >> 이쪽 사람들이 이게 해장고기였을 거. >> 결국은 이거는 >> 곰치가 없으면 이런 맛이 나올 수가 없지. 고기가 고기가 부드러우니까 그냥 푸르륵 마시는 느낌. >> 입에 들어가면 뭐 뭐 건데기가 들어갔나 뭐 이럴 정도로. 네, 맞아요. 나이든 분들이이 없어도 잇몸으로만도 [음악] 먹을 수 있는 응, >> 맞아요. 그런 것 같아요.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 강쪽에서는 이제 묵은질을 넣더라고요. 그 약간 시큼은 맛이 아 >> 이게 이게 강원도 물 >> 곰치국은 약간 시크은 맛이 이게 매력이 묵은지가 들어가서 확실게 아 >> 야 좀 속이 풀린다고 해야 되나요? 아마 이게 야 >> 이쪽 사람들이 이게 해장고기였을 거. >> 결국은 이거는 >> 곰치가 없으면 이런 맛이 나올 수가 없지. 고기가 고기가 부드러우니까 그냥 푸르륵 마시는 느낌. >> 입에 들어가면 뭐 뭐 건데기가 들어갔나 뭐 이럴 정도로. 네, 맞아요. 나이든 분들이이 없어도 잇몸으로만도 [음악] 먹을 수 있는 응, >> 맞아요. 그런 것 같아요.",
+      "evidence_text": "속이 풀린다고 해야 되나요?",
+      "supporting_evidence": [
+        {
+          "end_seconds": 214.35999999999999,
+          "evidence_text": ">> 강쪽에서는 이제 묵은질을 넣더라고요.",
+          "segment_index": 91,
+          "start_seconds": 209.879,
+          "timestamp": "03:29"
+        },
+        {
+          "end_seconds": 222.4,
+          "evidence_text": "그 약간 시큼은 맛이 아",
+          "segment_index": 92,
+          "start_seconds": 217.68,
+          "timestamp": "03:37"
+        },
+        {
+          "end_seconds": 224.28,
+          "evidence_text": ">> 이게 이게 강원도 물",
+          "segment_index": 93,
+          "start_seconds": 219.959,
+          "timestamp": "03:39"
+        },
+        {
+          "end_seconds": 227.72,
+          "evidence_text": ">> 곰치국은",
+          "segment_index": 94,
+          "start_seconds": 222.4,
+          "timestamp": "03:42"
+        },
+        {
+          "end_seconds": 232.72,
+          "evidence_text": "약간 시크은 맛이 이게 매력이",
+          "segment_index": 95,
+          "start_seconds": 224.28,
+          "timestamp": "03:44"
+        },
+        {
+          "end_seconds": 232.72,
+          "evidence_text": "묵은지가 들어가서 확실게 아",
+          "segment_index": 96,
+          "start_seconds": 227.72,
+          "timestamp": "03:47"
+        },
+        {
+          "end_seconds": 240.439,
+          "evidence_text": ">> 야 좀",
+          "segment_index": 97,
+          "start_seconds": 235.0,
+          "timestamp": "03:55"
+        },
+        {
+          "end_seconds": 244.0,
+          "evidence_text": "아마 이게 야",
+          "segment_index": 99,
+          "start_seconds": 240.439,
+          "timestamp": "04:00"
+        },
+        {
+          "end_seconds": 245.627,
+          "evidence_text": ">> 이쪽 사람들이 이게 해장고기였을 거.",
+          "segment_index": 100,
+          "start_seconds": 242.079,
+          "timestamp": "04:02"
+        },
+        {
+          "end_seconds": 249.48000000000002,
+          "evidence_text": ">> 결국은 이거는",
+          "segment_index": 103,
+          "start_seconds": 245.799,
+          "timestamp": "04:05"
+        },
+        {
+          "end_seconds": 251.56,
+          "evidence_text": ">> 곰치가 없으면 이런 맛이 나올 수가",
+          "segment_index": 104,
+          "start_seconds": 247.72,
+          "timestamp": "04:07"
+        },
+        {
+          "end_seconds": 254.76,
+          "evidence_text": "없지.",
+          "segment_index": 105,
+          "start_seconds": 249.48,
+          "timestamp": "04:09"
+        },
+        {
+          "end_seconds": 273.88,
+          "evidence_text": "고기가 고기가 부드러우니까 그냥",
+          "segment_index": 109,
+          "start_seconds": 268.36,
+          "timestamp": "04:28"
+        },
+        {
+          "end_seconds": 276.4,
+          "evidence_text": "푸르륵 마시는 느낌.",
+          "segment_index": 110,
+          "start_seconds": 271.88,
+          "timestamp": "04:31"
+        },
+        {
+          "end_seconds": 278.24,
+          "evidence_text": ">> 입에 들어가면 뭐 뭐 건데기가",
+          "segment_index": 111,
+          "start_seconds": 273.88,
+          "timestamp": "04:33"
+        },
+        {
+          "end_seconds": 280.63899999999995,
+          "evidence_text": "들어갔나 뭐 이럴 정도로. 네,",
+          "segment_index": 112,
+          "start_seconds": 276.4,
+          "timestamp": "04:36"
+        },
+        {
+          "end_seconds": 282.963,
+          "evidence_text": "맞아요.",
+          "segment_index": 113,
+          "start_seconds": 278.24,
+          "timestamp": "04:38"
+        },
+        {
+          "end_seconds": 283.72,
+          "evidence_text": "나이든 분들이이 없어도 잇몸으로만도",
+          "segment_index": 114,
+          "start_seconds": 280.639,
+          "timestamp": "04:40"
+        },
+        {
+          "end_seconds": 285.0,
+          "evidence_text": "[음악]",
+          "segment_index": 115,
+          "start_seconds": 282.963,
+          "timestamp": "04:42"
+        },
+        {
+          "end_seconds": 289.24,
+          "evidence_text": "먹을 수 있는 응,",
+          "segment_index": 116,
+          "start_seconds": 283.72,
+          "timestamp": "04:43"
+        },
+        {
+          "end_seconds": 289.24,
+          "evidence_text": ">> 맞아요. 그런 것 같아요.",
+          "segment_index": 117,
+          "start_seconds": 285.0,
+          "timestamp": "04:45"
+        }
+      ]
+    },
+    {
+      "id": 2434,
+      "before": "숙성회 하면 짠득짠득이 떠오르고, 광어도 속성으로 떠온 듯 달다.",
+      "after": "저는 숙성회 하면 딱 생각나는 단어가 있는데, 짠득짠득. 짠득짠득이 생각이 나요. 야, 달아. 정말 이렇게 달까? 회도 수없이 먹어봤지만 오늘은 유난히 달아.",
+      "source_quote": "저는 숙성해하면 딱 생각나는 단어가는데 짠득 짠득 짠득네 >> 짠득짠 짠득이 생각이 나요.음 >> 더 복신 복지는 살이음 >> 네 >> 그다음에 광어를 먹어보겠습니다. 탱글한 화로완 확실히 다르지요. 광어도 나 또 완전히 속성으로 더운 거야. 야, 달아. 정말 이렇게 단가 나 회도 수없이 [음악] 먹어봤지만 오늘은 유난이 다해 Yeah.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": "저는 숙성해하면 딱 생각나는 단어가는데 짠득 짠득 짠득네 >> 짠득짠 짠득이 생각이 나요.음 >> 더 복신 복지는 살이음 >> 네 >> 그다음에 광어를 먹어보겠습니다. 탱글한 화로완 확실히 다르지요. 광어도 나 또 완전히 속성으로 더운 거야. 야, 달아. 정말 이렇게 단가 나 회도 수없이 [음악] 먹어봤지만 오늘은 유난이 다해 Yeah.",
+      "evidence_text": ">> 짠득짠 짠득이 생각이 나요.음",
+      "supporting_evidence": [
+        {
+          "end_seconds": 501.72,
+          "evidence_text": "저는",
+          "segment_index": 187,
+          "start_seconds": 497.56,
+          "timestamp": "08:17"
+        },
+        {
+          "end_seconds": 503.639,
+          "evidence_text": "숙성해하면",
+          "segment_index": 188,
+          "start_seconds": 499.44,
+          "timestamp": "08:19"
+        },
+        {
+          "end_seconds": 506.759,
+          "evidence_text": "딱 생각나는",
+          "segment_index": 189,
+          "start_seconds": 501.72,
+          "timestamp": "08:21"
+        },
+        {
+          "end_seconds": 507.96000000000004,
+          "evidence_text": "단어가는데 짠득 짠득",
+          "segment_index": 190,
+          "start_seconds": 503.639,
+          "timestamp": "08:23"
+        },
+        {
+          "end_seconds": 510.91900000000004,
+          "evidence_text": "짠득네",
+          "segment_index": 191,
+          "start_seconds": 506.759,
+          "timestamp": "08:26"
+        },
+        {
+          "end_seconds": 514.68,
+          "evidence_text": ">> 더 복신 복지는 살이음",
+          "segment_index": 193,
+          "start_seconds": 510.919,
+          "timestamp": "08:30"
+        },
+        {
+          "end_seconds": 516.2,
+          "evidence_text": ">> 네",
+          "segment_index": 194,
+          "start_seconds": 513.32,
+          "timestamp": "08:33"
+        },
+        {
+          "end_seconds": 519.8389999999999,
+          "evidence_text": ">> 그다음에",
+          "segment_index": 195,
+          "start_seconds": 514.68,
+          "timestamp": "08:34"
+        },
+        {
+          "end_seconds": 519.839,
+          "evidence_text": "광어를 먹어보겠습니다.",
+          "segment_index": 196,
+          "start_seconds": 516.2,
+          "timestamp": "08:36"
+        },
+        {
+          "end_seconds": 524.9190000000001,
+          "evidence_text": "탱글한 화로완 확실히 다르지요.",
+          "segment_index": 197,
+          "start_seconds": 520.44,
+          "timestamp": "08:40"
+        },
+        {
+          "end_seconds": 533.8000000000001,
+          "evidence_text": "광어도",
+          "segment_index": 198,
+          "start_seconds": 529.72,
+          "timestamp": "08:49"
+        },
+        {
+          "end_seconds": 537.12,
+          "evidence_text": "나 또 완전히 속성으로 더운 거야.",
+          "segment_index": 199,
+          "start_seconds": 531.36,
+          "timestamp": "08:51"
+        },
+        {
+          "end_seconds": 539.16,
+          "evidence_text": "야, 달아. 정말 이렇게 단가 나",
+          "segment_index": 200,
+          "start_seconds": 533.8,
+          "timestamp": "08:53"
+        },
+        {
+          "end_seconds": 540.88,
+          "evidence_text": "회도 수없이 [음악] 먹어봤지만",
+          "segment_index": 201,
+          "start_seconds": 537.12,
+          "timestamp": "08:57"
+        },
+        {
+          "end_seconds": 544.6,
+          "evidence_text": "오늘은",
+          "segment_index": 202,
+          "start_seconds": 539.16,
+          "timestamp": "08:59"
+        },
+        {
+          "end_seconds": 544.6,
+          "evidence_text": "유난이 다해 Yeah.",
+          "segment_index": 203,
+          "start_seconds": 540.88,
+          "timestamp": "09:00"
+        }
+      ]
+    },
+    {
+      "id": 2446,
+      "before": "참새맛살은 기름이 중간중간 있어 고소하고, 참새보다 한 수 위라는 평가가 나온다.",
+      "after": "참새보다 한 수 위더군요.",
+      "source_quote": ">> 요게 참새맛살이 포함돼 있어 갖고 맛은 괜찮을 것 고소한 맛은 알 겁니다. 참새보다 한 수 위더군요.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 요게 참새맛살이 포함돼 있어 갖고 맛은 괜찮을 것 고소한 맛은 알 겁니다. 참새보다 한 수 위더군요.",
+      "evidence_text": "참새보다 한 수 위더군요.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 307.96000000000004,
+          "evidence_text": ">> 요게 참새맛살이",
+          "segment_index": 111,
+          "start_seconds": 305.36,
+          "timestamp": "05:05"
+        },
+        {
+          "end_seconds": 376.23999999999995,
+          "evidence_text": "포함돼 있어 갖고 맛은 괜찮을 것",
+          "segment_index": 141,
+          "start_seconds": 371.4,
+          "timestamp": "06:11"
+        },
+        {
+          "end_seconds": 383.03900000000004,
+          "evidence_text": "고소한 맛은 알 겁니다.",
+          "segment_index": 144,
+          "start_seconds": 378.72,
+          "timestamp": "06:18"
+        }
+      ]
+    },
+    {
+      "id": 2449,
+      "before": "여주식 추어탕은 다른 추어탕보다 국물이 다르고, 다른 곳에서 느끼지 못한 묵직한 맛이 있다.",
+      "after": "다른 추어탕보다 국물부터 차원이 다른 추어탕.",
+      "source_quote": ">> 자, 이것이 바로 여주일의 추어탕. >> 어 다른데 추워탕보다 이게 국물이 [음악] 다른 추어탕에서는 느끼지 >> 여기 뭘 넣어 갖고 다른 추어탕보다 국물부터 차원이 다른 추어탕.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 자, 이것이 바로 여주일의 추어탕. >> 어 다른데 추워탕보다 이게 국물이 [음악] 다른 추어탕에서는 느끼지 >> 여기 뭘 넣어 갖고 다른 추어탕보다 국물부터 차원이 다른 추어탕.",
+      "evidence_text": "[음악] 다른 추어탕에서는 느끼지",
+      "supporting_evidence": [
+        {
+          "end_seconds": 273.24,
+          "evidence_text": ">> 자, 이것이 바로 여주일의 추어탕.",
+          "segment_index": 110,
+          "start_seconds": 266.8,
+          "timestamp": "04:26"
+        },
+        {
+          "end_seconds": 295.84000000000003,
+          "evidence_text": ">> 어 다른데 추워탕보다 이게 국물이",
+          "segment_index": 116,
+          "start_seconds": 289.6,
+          "timestamp": "04:49"
+        },
+        {
+          "end_seconds": 313.12,
+          "evidence_text": ">> 여기 뭘 넣어 갖고 다른 추어탕보다",
+          "segment_index": 123,
+          "start_seconds": 307.919,
+          "timestamp": "05:07"
+        },
+        {
+          "end_seconds": 342.479,
+          "evidence_text": "국물부터 차원이 다른 추어탕.",
+          "segment_index": 134,
+          "start_seconds": 335.08,
+          "timestamp": "05:35"
+        }
+      ]
+    },
+    {
+      "id": 2452,
+      "before": "된장에 박아 둔 두부장아찌를 쌀밥, 참기름과 비비니 맛있다.",
+      "after": "쌀밥, 두부장아찌, 참기름의 오묘한 조합. 맛있네.",
+      "source_quote": ">> 두부 한모두 귀했던 시절 이렇게 된장에 두부를 박아두면 해를 넘겨도 >> 쌀밥 두부장아치 참기름의 오묘한 조합 된장찌개나 강된장에 비벼 먹는 것과는 맛있네.",
+      "why": "직접 발언을 비인칭 설명/전달 요약으로 바꾼 문구를 원문 표현과 어미로 복원",
+      "raw_reason": ">> 두부 한모두 귀했던 시절 이렇게 된장에 두부를 박아두면 해를 넘겨도 >> 쌀밥 두부장아치 참기름의 오묘한 조합 된장찌개나 강된장에 비벼 먹는 것과는 맛있네.",
+      "evidence_text": "맛있네.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 330.039,
+          "evidence_text": ">> 두부 한모두 귀했던 시절 이렇게",
+          "segment_index": 110,
+          "start_seconds": 324.88,
+          "timestamp": "05:24"
+        },
+        {
+          "end_seconds": 333.39799999999997,
+          "evidence_text": "된장에 두부를 박아두면 해를 넘겨도",
+          "segment_index": 111,
+          "start_seconds": 327.28,
+          "timestamp": "05:27"
+        },
+        {
+          "end_seconds": 369.199,
+          "evidence_text": ">> 쌀밥 두부장아치 참기름의 오묘한 조합",
+          "segment_index": 122,
+          "start_seconds": 362.039,
+          "timestamp": "06:02"
+        },
+        {
+          "end_seconds": 373.68,
+          "evidence_text": "된장찌개나 강된장에 비벼 먹는 것과는",
+          "segment_index": 123,
+          "start_seconds": 366.8,
+          "timestamp": "06:06"
+        }
+      ]
+    },
+    {
+      "id": 2461,
+      "before": "순대국밥 특유의 까끌함이 없고, 내장이 많아도 기름지지 않으며 맑은 국물에 진한 맛이 살아 있다고 평가했다.",
+      "after": "순대국밥이 가지고 있는 그 까끌까끌함이 일도 없네. 오히려 내장이 많이 들어서 기름질 것 같은데 그런 것도 없어.",
+      "source_quote": ">> 음. 순대국밥이 가지고 있는 그 까끌까끌함이 일도 없네. 오히려 내장에 많이 들었어 기름질 것 같은데 그런 것도 없어. 국물은 뭔가 큰나무쪽처럼 맑아. 근데 그 기품과 진나은 다 살아 있어.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 음. 순대국밥이 가지고 있는 그 까끌까끌함이 일도 없네. 오히려 내장에 많이 들었어 기름질 것 같은데 그런 것도 없어. 국물은 뭔가 큰나무쪽처럼 맑아. 근데 그 기품과 진나은 다 살아 있어.",
+      "evidence_text": ">> 음. 순대국밥이 가지고 있는 그",
+      "supporting_evidence": [
+        {
+          "end_seconds": 911.48,
+          "evidence_text": "까끌까끌함이 일도 없네. 오히려",
+          "segment_index": 394,
+          "start_seconds": 907.32,
+          "timestamp": "15:07"
+        },
+        {
+          "end_seconds": 913.5600000000001,
+          "evidence_text": "내장에 많이 들었어 기름질 것 같은데",
+          "segment_index": 395,
+          "start_seconds": 909.48,
+          "timestamp": "15:09"
+        },
+        {
+          "end_seconds": 917.0,
+          "evidence_text": "그런 것도 없어. 국물은 뭔가",
+          "segment_index": 396,
+          "start_seconds": 911.48,
+          "timestamp": "15:11"
+        },
+        {
+          "end_seconds": 919.5189999999999,
+          "evidence_text": "큰나무쪽처럼 맑아. 근데 그 기품과",
+          "segment_index": 397,
+          "start_seconds": 913.56,
+          "timestamp": "15:13"
+        },
+        {
+          "end_seconds": 923.24,
+          "evidence_text": "진나은 다 살아 있어. 내장이 많아",
+          "segment_index": 398,
+          "start_seconds": 917.0,
+          "timestamp": "15:17"
+        }
+      ]
+    },
+    {
+      "id": 2464,
+      "before": "철판 닭갈비와 달리 숯불닭갈비는 닭을 바베큐하는 느낌이라고 차이를 분명히 설명했다.",
+      "after": "철판 닭갈비하고 이런 숯불 닭갈비의 차이가 뭐냐면, 내가 먹어 보니까 이제 완벽하게 알겠어. 철판 닭갈비는 소스를 졸이면서 그 소스를 확 볶아낸 그게 철판 닭갈비인데, 이런 숯불 닭갈비 같은 경우에는 뭔가 닭을 바비큐하는 느낌이야.",
+      "source_quote": "이게 철판 닭갈비하고 여기 이런 숯불 닭갈비의 차이가 뭐냐면은 내가 먹어 보니까 이제 완벽하게 알겠어. 철판 닭갈비는 소스를 조리면서 그 소스를 확 볶아낸 그게 철판 닭갈비인데 이런 숯불 닭갈비 같은 경우에는 뭔가 닭을 바베큐하는 느낌이야.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "이게 철판 닭갈비하고 여기 이런 숯불 닭갈비의 차이가 뭐냐면은 내가 먹어 보니까 이제 완벽하게 알겠어. 철판 닭갈비는 소스를 조리면서 그 소스를 확 볶아낸 그게 철판 닭갈비인데 이런 숯불 닭갈비 같은 경우에는 뭔가 닭을 바베큐하는 느낌이야.",
+      "evidence_text": "이게 철판 닭갈비하고 여기 이런 숯불",
+      "supporting_evidence": [
+        {
+          "end_seconds": 707.92,
+          "evidence_text": "닭갈비의 차이가 뭐냐면은 내가 먹어",
+          "segment_index": 310,
+          "start_seconds": 704.0,
+          "timestamp": "11:44"
+        },
+        {
+          "end_seconds": 710.68,
+          "evidence_text": "보니까 이제 완벽하게 알겠어. 철판",
+          "segment_index": 311,
+          "start_seconds": 705.92,
+          "timestamp": "11:45"
+        },
+        {
+          "end_seconds": 713.7199999999999,
+          "evidence_text": "닭갈비는 소스를 조리면서 그 소스를",
+          "segment_index": 312,
+          "start_seconds": 707.92,
+          "timestamp": "11:47"
+        },
+        {
+          "end_seconds": 715.88,
+          "evidence_text": "확 볶아낸 그게 철판 닭갈비인데 이런",
+          "segment_index": 313,
+          "start_seconds": 710.68,
+          "timestamp": "11:50"
+        },
+        {
+          "end_seconds": 718.0790000000001,
+          "evidence_text": "숯불 닭갈비 같은 경우에는 뭔가 닭을",
+          "segment_index": 314,
+          "start_seconds": 713.72,
+          "timestamp": "11:53"
+        },
+        {
+          "end_seconds": 721.16,
+          "evidence_text": "바베큐하는 느낌이야. 근데 나는 사실",
+          "segment_index": 315,
+          "start_seconds": 715.88,
+          "timestamp": "11:55"
+        }
+      ]
+    },
+    {
+      "id": 2467,
+      "before": "김내집 부대찌개를 벽의 향기까지 맛있는 곳이라고 강하게 말했다.",
+      "after": "여러분들, 벽의 향기까지 맛있는 송탄 부대찌개 김내집이라고요?",
+      "source_quote": ">> 여러분들 벽의 향기까지 맛있는 송단 부대찌기 김내집이라고요?",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 여러분들 벽의 향기까지 맛있는 송단 부대찌기 김내집이라고요?",
+      "evidence_text": ">> 여러분들 벽의 향기까지 맛있는 송단",
+      "supporting_evidence": [
+        {
+          "end_seconds": 4991.4400000000005,
+          "evidence_text": "부대찌기 김내집이라고요?",
+          "segment_index": 2507,
+          "start_seconds": 4987.88,
+          "timestamp": "1:23:07"
+        }
+      ]
+    },
+    {
+      "id": 2470,
+      "before": "부대찌개가 육개장처럼 묵직하면서도 파맛이 끌어올리는 독특한 맛이라고 평가했다.",
+      "after": "딱 진짜로 육개장과 부대찌개의 하이브리드야. 먹어 보면 되게 묵직하거든. 근데 파맛이 이 맛들을 싹 위로 한 겹 떠올려 놨어요.",
+      "source_quote": "딱 진짜로음 육괴상과 부대찌개의 하이브리드야. 먹어 보면은 되게 묵직하거든. 근데 파맛이이 맛들을 싹 위로 한 겹떠올려 놨어요. 떠올려",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "딱 진짜로음 육괴상과 부대찌개의 하이브리드야. 먹어 보면은 되게 묵직하거든. 근데 파맛이이 맛들을 싹 위로 한 겹떠올려 놨어요. 떠올려",
+      "evidence_text": "딱 진짜로음 육괴상과 부대찌개의",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1074.679,
+          "evidence_text": "하이브리드야. 먹어 보면은 되게",
+          "segment_index": 573,
+          "start_seconds": 1067.72,
+          "timestamp": "17:47"
+        },
+        {
+          "end_seconds": 1076.679,
+          "evidence_text": "묵직하거든. 근데 파맛이이 맛들을 싹",
+          "segment_index": 574,
+          "start_seconds": 1070.24,
+          "timestamp": "17:50"
+        },
+        {
+          "end_seconds": 1079.679,
+          "evidence_text": "위로 한 겹떠올려 놨어요. 떠올려",
+          "segment_index": 575,
+          "start_seconds": 1074.679,
+          "timestamp": "17:54"
+        }
+      ]
+    },
+    {
+      "id": 2473,
+      "before": "전기구이통닭은 껍질 맛이 좋아 소금만으로 충분하다고 평가했다.",
+      "after": "껍질 맛이 너무 좋아서. 껍질만 먹어도 맛있어요. 전기구이 통닭은 소금이면 돼.",
+      "source_quote": "도 껍질 맛이 너무 좋아서 >> 껍질만 먹어도 맛있어요. >> 응. 전기주기 통장한 소금이면 돼.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "도 껍질 맛이 너무 좋아서 >> 껍질만 먹어도 맛있어요. >> 응. 전기주기 통장한 소금이면 돼.",
+      "evidence_text": "도 껍질 맛이 너무 좋아서",
+      "supporting_evidence": [
+        {
+          "end_seconds": 3682.9199999999996,
+          "evidence_text": ">> 껍질만 먹어도 맛있어요.",
+          "segment_index": 1296,
+          "start_seconds": 3676.24,
+          "timestamp": "1:01:16"
+        },
+        {
+          "end_seconds": 3682.92,
+          "evidence_text": ">> 응. 전기주기 통장한 소금이면 돼.",
+          "segment_index": 1297,
+          "start_seconds": 3677.64,
+          "timestamp": "1:01:17"
+        }
+      ]
+    },
+    {
+      "id": 2476,
+      "before": "사장이 최고로 잘하는 메뉴가 약밥닭이라고 직접 설명했다.",
+      "after": "우리가 최고로 잘하는 메뉴가 약밥닭인데.",
+      "source_quote": ">> 이거 어디다 쓰는 거예요? 약밥에 우리 닭에 우리가 최고로 잘하는 메뉴가 약밥 닭인데",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 이거 어디다 쓰는 거예요? 약밥에 우리 닭에 우리가 최고로 잘하는 메뉴가 약밥 닭인데",
+      "evidence_text": ">> 이거 어디다 쓰는 거예요? 약밥에",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1719.1200000000001,
+          "evidence_text": "우리 닭에 우리가 최고로 잘하는",
+          "segment_index": 581,
+          "start_seconds": 1714.72,
+          "timestamp": "28:34"
+        },
+        {
+          "end_seconds": 1721.72,
+          "evidence_text": "메뉴가 약밥 닭인데",
+          "segment_index": 582,
+          "start_seconds": 1717.279,
+          "timestamp": "28:37"
+        }
+      ]
+    },
+    {
+      "id": 3100,
+      "before": "시래기 맛은 살리고 아삭한 식감을 더해요. 진짜 부드러워요.",
+      "after": "진짜 부드럽고. 아, 이것만 먹고 살면 건강하겠다라는 기분이 드는 거.",
+      "source_quote": ">> 진짜 부드럽고 >> 아 이것만 먹고 살면 건강하겠다라는 기분이 드는 거",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 진짜 부드럽고 >> 아 이것만 먹고 살면 건강하겠다라는 기분이 드는 거",
+      "evidence_text": ">> 진짜 부드럽고",
+      "supporting_evidence": [
+        {
+          "end_seconds": 852.72,
+          "evidence_text": ">> 아 이것만 먹고 살면 건강하겠다라는",
+          "segment_index": 311,
+          "start_seconds": 846.88,
+          "timestamp": "14:06"
+        },
+        {
+          "end_seconds": 852.7199999999999,
+          "evidence_text": "기분이 드는 거",
+          "segment_index": 312,
+          "start_seconds": 849.16,
+          "timestamp": "14:09"
+        }
+      ]
+    },
+    {
+      "id": 3283,
+      "before": "국물이 입에 착 달라붙고 아주 고소해요. 수제비도 부드러워요.",
+      "after": "아주 비율이 좋아 가지고 고소하다.",
+      "source_quote": "아주 비율이 좋아 가지고 고소다.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "아주 비율이 좋아 가지고 고소다.",
+      "evidence_text": "아주 비율이 좋아 가지고 고소다.",
+      "supporting_evidence": []
+    },
+    {
+      "id": 3514,
+      "before": "먹어 본 들기름막국수 중 제일 맛있는 것 같습니다. 느끼하지 않고 궁채와 소스의 밸런스도 좋으며 면을 잘 씻으셨습니다.",
+      "after": "솔직히 내가 뭐 들기름막국수 얼마나 먹어 봤겠냐만 그중에 제일 맛있는 거 같아. 그지? 완성도가 되게 좋은. 밸런스 좋게 궁채도 들어 있고 소스도 딱 좋게 잘 있는 거 같고 면을 되게 잘 씻으셔 가지고.",
+      "source_quote": "막걸리 아니고 이거는 소주랑 먹어야 될 것 같아. 솔직히 내가 뭐 들기는 맛국수 얼마나 먹어 봤겠냐만 그중에 제일 맛있는 거 같아. 그지? 완성도가 되게 좋은 [콧방귀] >> 아까 들기라만 먹었을 때 약간 느끼하면 어떻게 하지는데 전혀 그게 없게 밸런스 좋게 궁채도 들어 있고 소스도 딱 좋게 잘 있는 거 같고 면을 되게 잘 씻으셔 가지고",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "막걸리 아니고 이거는 소주랑 먹어야 될 것 같아. 솔직히 내가 뭐 들기는 맛국수 얼마나 먹어 봤겠냐만 그중에 제일 맛있는 거 같아. 그지? 완성도가 되게 좋은 [콧방귀] >> 아까 들기라만 먹었을 때 약간 느끼하면 어떻게 하지는데 전혀 그게 없게 밸런스 좋게 궁채도 들어 있고 소스도 딱 좋게 잘 있는 거 같고 면을 되게 잘 씻으셔 가지고",
+      "evidence_text": "제일 맛있는 거 같아. 그지?",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1648.4399999999998,
+          "evidence_text": "막걸리 아니고 이거는 소주랑 먹어야",
+          "segment_index": 520,
+          "start_seconds": 1643.36,
+          "timestamp": "27:23"
+        },
+        {
+          "end_seconds": 1651.0,
+          "evidence_text": "될 것 같아. 솔직히 내가 뭐 들기는",
+          "segment_index": 521,
+          "start_seconds": 1645.48,
+          "timestamp": "27:25"
+        },
+        {
+          "end_seconds": 1653.52,
+          "evidence_text": "맛국수 얼마나 먹어 봤겠냐만 그중에",
+          "segment_index": 522,
+          "start_seconds": 1648.44,
+          "timestamp": "27:28"
+        },
+        {
+          "end_seconds": 1659.6,
+          "evidence_text": "완성도가 되게 좋은 [콧방귀]",
+          "segment_index": 524,
+          "start_seconds": 1653.52,
+          "timestamp": "27:33"
+        },
+        {
+          "end_seconds": 1661.24,
+          "evidence_text": ">> 아까 들기라만 먹었을 때 약간",
+          "segment_index": 525,
+          "start_seconds": 1657.2,
+          "timestamp": "27:37"
+        },
+        {
+          "end_seconds": 1663.1999999999998,
+          "evidence_text": "느끼하면 어떻게 하지는데 전혀 그게",
+          "segment_index": 526,
+          "start_seconds": 1659.6,
+          "timestamp": "27:39"
+        },
+        {
+          "end_seconds": 1665.6,
+          "evidence_text": "없게 밸런스 좋게 궁채도 들어 있고",
+          "segment_index": 527,
+          "start_seconds": 1661.24,
+          "timestamp": "27:41"
+        },
+        {
+          "end_seconds": 1670.2,
+          "evidence_text": "소스도 딱 좋게 잘 있는 거 같고",
+          "segment_index": 528,
+          "start_seconds": 1663.2,
+          "timestamp": "27:43"
+        },
+        {
+          "end_seconds": 1670.1999999999998,
+          "evidence_text": "면을 되게 잘 씻으셔 가지고",
+          "segment_index": 529,
+          "start_seconds": 1665.6,
+          "timestamp": "27:45"
+        }
+      ]
+    },
+    {
+      "id": 3520,
+      "before": "부추전은 익숙하고 정겨운 맛이라 혀에 착착 감기는 감칠맛이 있습니다. 맛있습니다.",
+      "after": "그 정겨운 맛. 이거는 그냥 우리 입에 굉장히 익숙한 맛이라 더 혀에 착착 감기는 감칠맛 있는 그런 부추전. 맛있다. 이거 맛있는데요.",
+      "source_quote": "더할라위 없는 탄수화물과 기름의 조화. 인신만큼이나 맛도 수준금입니다. >> 음. 맛이 틀리죠. 아까워. >> 그 정겨운 맛. >> 음. >> 아까 건 그까 재료 본연의 맛에 엄청 충실한 건강한 맛이었다면 이거는 그냥 우리 입에 굉장히 익숙한 맛이라 더 혀에 착착 감기는 감칠맛 있는 그런 부추점.이 >> 학생들 술 한잔하고 뭐 이럴 때는 안주로. 네. >> 네. >> 맛있다. 이집 파전 >> 이거 맛있는데요.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "더할라위 없는 탄수화물과 기름의 조화. 인신만큼이나 맛도 수준금입니다. >> 음. 맛이 틀리죠. 아까워. >> 그 정겨운 맛. >> 음. >> 아까 건 그까 재료 본연의 맛에 엄청 충실한 건강한 맛이었다면 이거는 그냥 우리 입에 굉장히 익숙한 맛이라 더 혀에 착착 감기는 감칠맛 있는 그런 부추점.이 >> 학생들 술 한잔하고 뭐 이럴 때는 안주로. 네. >> 네. >> 맛있다. 이집 파전 >> 이거 맛있는데요.",
+      "evidence_text": "우리 입에 굉장히 익숙한 맛이라 더",
+      "supporting_evidence": [
+        {
+          "end_seconds": 192.879,
+          "evidence_text": "더할라위 없는 탄수화물과 기름의",
+          "segment_index": 80,
+          "start_seconds": 187.84,
+          "timestamp": "03:07"
+        },
+        {
+          "end_seconds": 195.879,
+          "evidence_text": "조화. 인신만큼이나 맛도",
+          "segment_index": 81,
+          "start_seconds": 190.04,
+          "timestamp": "03:10"
+        },
+        {
+          "end_seconds": 195.879,
+          "evidence_text": "수준금입니다.",
+          "segment_index": 82,
+          "start_seconds": 192.879,
+          "timestamp": "03:12"
+        },
+        {
+          "end_seconds": 199.48,
+          "evidence_text": ">> 음.",
+          "segment_index": 83,
+          "start_seconds": 196.28,
+          "timestamp": "03:16"
+        },
+        {
+          "end_seconds": 200.72,
+          "evidence_text": "맛이 틀리죠. 아까워.",
+          "segment_index": 84,
+          "start_seconds": 198.12,
+          "timestamp": "03:18"
+        },
+        {
+          "end_seconds": 201.84,
+          "evidence_text": ">> 그 정겨운 맛.",
+          "segment_index": 85,
+          "start_seconds": 199.48,
+          "timestamp": "03:19"
+        },
+        {
+          "end_seconds": 204.56,
+          "evidence_text": ">> 음.",
+          "segment_index": 86,
+          "start_seconds": 200.72,
+          "timestamp": "03:20"
+        },
+        {
+          "end_seconds": 207.519,
+          "evidence_text": ">> 아까 건 그까 재료 본연의 맛에 엄청",
+          "segment_index": 87,
+          "start_seconds": 201.84,
+          "timestamp": "03:21"
+        },
+        {
+          "end_seconds": 210.84,
+          "evidence_text": "충실한 건강한 맛이었다면 이거는 그냥",
+          "segment_index": 88,
+          "start_seconds": 204.56,
+          "timestamp": "03:24"
+        },
+        {
+          "end_seconds": 215.439,
+          "evidence_text": "혀에 착착 감기는 감칠맛 있는 그런",
+          "segment_index": 90,
+          "start_seconds": 210.84,
+          "timestamp": "03:30"
+        },
+        {
+          "end_seconds": 218.0,
+          "evidence_text": "부추점.이",
+          "segment_index": 91,
+          "start_seconds": 214.04,
+          "timestamp": "03:34"
+        },
+        {
+          "end_seconds": 218.72,
+          "evidence_text": ">> 학생들 술 한잔하고 뭐 이럴 때는",
+          "segment_index": 92,
+          "start_seconds": 215.439,
+          "timestamp": "03:35"
+        },
+        {
+          "end_seconds": 221.36,
+          "evidence_text": "안주로. 네.",
+          "segment_index": 93,
+          "start_seconds": 218.0,
+          "timestamp": "03:38"
+        },
+        {
+          "end_seconds": 222.72,
+          "evidence_text": ">> 네.",
+          "segment_index": 94,
+          "start_seconds": 218.72,
+          "timestamp": "03:38"
+        },
+        {
+          "end_seconds": 223.519,
+          "evidence_text": ">> 맛있다. 이집 파전",
+          "segment_index": 95,
+          "start_seconds": 221.36,
+          "timestamp": "03:41"
+        },
+        {
+          "end_seconds": 224.159,
+          "evidence_text": ">> 이거 맛있는데요.",
+          "segment_index": 96,
+          "start_seconds": 222.72,
+          "timestamp": "03:42"
+        }
+      ]
+    },
+    {
+      "id": 3547,
+      "before": "육즙이 풍부한 조지아 만두 힌칼리는 꼭 먹어야 한다고 권합니다.",
+      "after": "육즙 폭발하는 만두 힌칼리는 꼭 먹어야 되고.",
+      "source_quote": "다음은 여기 기억나지? 조지야 음식 전문점 환치. 내보도 정말 깔끔하고 종업원들이 메뉴별 역사 이야기까지 해주는 서비스가 있는 집이야. 육주 폭발하는 만두 흰칼리는 꼭 먹어야 되고 조지아가 인류 최초 와인 발상지",
+      "why": "직접 발언을 요약·전달한 문장을 원문 말투와 평가로 복원",
+      "raw_reason": "다음은 여기 기억나지? 조지야 음식 전문점 환치. 내보도 정말 깔끔하고 종업원들이 메뉴별 역사 이야기까지 해주는 서비스가 있는 집이야. 육주 폭발하는 만두 흰칼리는 꼭 먹어야 되고 조지아가 인류 최초 와인 발상지",
+      "evidence_text": "폭발하는 만두 흰칼리는 꼭 먹어야",
+      "supporting_evidence": [
+        {
+          "end_seconds": 28.32,
+          "evidence_text": "다음은 여기 기억나지? 조지야 음식",
+          "segment_index": 10,
+          "start_seconds": 23.519,
+          "timestamp": "00:23"
+        },
+        {
+          "end_seconds": 30.439,
+          "evidence_text": "전문점 환치. 내보도 정말 깔끔하고",
+          "segment_index": 11,
+          "start_seconds": 25.76,
+          "timestamp": "00:25"
+        },
+        {
+          "end_seconds": 32.399,
+          "evidence_text": "종업원들이 메뉴별 역사 이야기까지",
+          "segment_index": 12,
+          "start_seconds": 28.32,
+          "timestamp": "00:28"
+        },
+        {
+          "end_seconds": 34.52,
+          "evidence_text": "해주는 서비스가 있는 집이야. 육주",
+          "segment_index": 13,
+          "start_seconds": 30.439,
+          "timestamp": "00:30"
+        },
+        {
+          "end_seconds": 38.64,
+          "evidence_text": "되고 조지아가 인류 최초 와인 발상지",
+          "segment_index": 15,
+          "start_seconds": 34.52,
+          "timestamp": "00:34"
+        }
+      ]
+    },
+    {
+      "id": 3550,
+      "before": "몽골 음식 특유의 향을 좋아한다면 양국밥 한 그릇을 추천한다고 했습니다.",
+      "after": "특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데, 취향이라면 푸짐한 양국밥 한 그릇을 추천할게.",
+      "source_quote": "좀 하러 왔어. 몽골 음식 전문점 루스 양국이 특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데 취향이라면 푸지만 양국밥 한글을 추천할게",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "좀 하러 왔어. 몽골 음식 전문점 루스 양국이 특유의 향이 아주 진하게 나는 음식들이 줄을 이루는데 취향이라면 푸지만 양국밥 한글을 추천할게",
+      "evidence_text": "추천할게 마무리는 다시 한국이야 조방",
+      "supporting_evidence": [
+        {
+          "end_seconds": 56.359,
+          "evidence_text": "좀 하러 왔어. 몽골 음식 전문점",
+          "segment_index": 23,
+          "start_seconds": 51.719,
+          "timestamp": "00:51"
+        },
+        {
+          "end_seconds": 58.160000000000004,
+          "evidence_text": "루스 양국이 특유의 향이 아주 진하게",
+          "segment_index": 24,
+          "start_seconds": 53.92,
+          "timestamp": "00:53"
+        },
+        {
+          "end_seconds": 60.359,
+          "evidence_text": "나는 음식들이 줄을 이루는데",
+          "segment_index": 25,
+          "start_seconds": 56.359,
+          "timestamp": "00:56"
+        },
+        {
+          "end_seconds": 62.919999999999995,
+          "evidence_text": "취향이라면 푸지만 양국밥 한글을",
+          "segment_index": 26,
+          "start_seconds": 58.16,
+          "timestamp": "00:58"
+        }
+      ]
+    },
+    {
+      "id": 3553,
+      "before": "간장 양념과 다른 매운 꼬리찜. 뼈에 붙은 살이 야들야들하고 매운 양념이 인상적이라고 했습니다.",
+      "after": "소꼬리 뼈에 붙은 야들야들한 살점. 아주 비싼 속세의 맛대로 느껴집니다. 이건 너무나도 황송한 맛이라고 볼 수 있고.",
+      "source_quote": "올려 줍니다. 이번에는 부추와 함께 콤비네이션으로 집어들 올려 주는데 소고리 뼈에 붙은 야들야들한 살점 아주 비싼 속세의 맛대로 느껴집니다. 이건 너무나도 황송한 맛이라고 볼 수 있고 여기의 막깔난 맵한 [음악] 양념을 아주 혼몸으로 흡수하고 싶어",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "올려 줍니다. 이번에는 부추와 함께 콤비네이션으로 집어들 올려 주는데 소고리 뼈에 붙은 야들야들한 살점 아주 비싼 속세의 맛대로 느껴집니다. 이건 너무나도 황송한 맛이라고 볼 수 있고 여기의 막깔난 맵한 [음악] 양념을 아주 혼몸으로 흡수하고 싶어",
+      "evidence_text": "소고리 뼈에 붙은 야들야들한 살점",
+      "supporting_evidence": [
+        {
+          "end_seconds": 122.75899999999999,
+          "evidence_text": "올려 줍니다. 이번에는 부추와 함께",
+          "segment_index": 49,
+          "start_seconds": 118.32,
+          "timestamp": "01:58"
+        },
+        {
+          "end_seconds": 125.64,
+          "evidence_text": "콤비네이션으로 집어들 올려 주는데",
+          "segment_index": 50,
+          "start_seconds": 120.64,
+          "timestamp": "02:00"
+        },
+        {
+          "end_seconds": 130.64,
+          "evidence_text": "아주 비싼 속세의 맛대로 느껴집니다.",
+          "segment_index": 52,
+          "start_seconds": 125.64,
+          "timestamp": "02:05"
+        },
+        {
+          "end_seconds": 132.87900000000002,
+          "evidence_text": "이건 너무나도 황송한 맛이라고 볼 수",
+          "segment_index": 53,
+          "start_seconds": 128.479,
+          "timestamp": "02:08"
+        },
+        {
+          "end_seconds": 135.27999999999997,
+          "evidence_text": "있고 여기의 막깔난 맵한 [음악]",
+          "segment_index": 54,
+          "start_seconds": 130.64,
+          "timestamp": "02:10"
+        },
+        {
+          "end_seconds": 137.07999999999998,
+          "evidence_text": "양념을 아주 혼몸으로 흡수하고 싶어",
+          "segment_index": 55,
+          "start_seconds": 132.879,
+          "timestamp": "02:12"
+        }
+      ]
+    },
+    {
+      "id": 3556,
+      "before": "오징어회와 멍게·해삼을 푸짐하게 담은 세트입니다. 가격에 비해 잘 먹었다고 평가하며 오징어의 쫀쫀한 식감을 칭찬했습니다.",
+      "after": "아주 씹는 맛이 일품인 쫀쫀한 오징어 살점 한번 보십시오.",
+      "source_quote": "이는 상당히 튼실한 오징어가 해엄을 아주 활기차게 하고 있는 기념에서 오징어에다 멍게와 해삼이 들어가 있는 세트리 모두 만주로 다 주문해 봤고요. 가격은 5만 양. 요즘에 진짜 빈말이 아니고 오징어 한 마리가 무려 3, 4만 원은 가는 시대에서 이런 튼실한 사이즈의 오징어 회에다가 싱싱한 멍화 해삼이 푸짐하게 한 소쿠리가 들어가 있는데 이거 5만 원이면 상당히 잘 사 먹었다고 볼 수 있고요. 아주 씹는 맛이 일품인 쫀쫀한 오징어 살짝 한번 보십시오. 요즘 시대에서는 너무나도 귀한",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "이는 상당히 튼실한 오징어가 해엄을 아주 활기차게 하고 있는 기념에서 오징어에다 멍게와 해삼이 들어가 있는 세트리 모두 만주로 다 주문해 봤고요. 가격은 5만 양. 요즘에 진짜 빈말이 아니고 오징어 한 마리가 무려 3, 4만 원은 가는 시대에서 이런 튼실한 사이즈의 오징어 회에다가 싱싱한 멍화 해삼이 푸짐하게 한 소쿠리가 들어가 있는데 이거 5만 원이면 상당히 잘 사 먹었다고 볼 수 있고요. 아주 씹는 맛이 일품인 쫀쫀한 오징어 살짝 한번 보십시오. 요즘 시대에서는 너무나도 귀한",
+      "evidence_text": "원이면 상당히 잘 사 먹었다고 볼 수",
+      "supporting_evidence": [
+        {
+          "end_seconds": 77.88,
+          "evidence_text": "이는 상당히 튼실한 오징어가 해엄을",
+          "segment_index": 28,
+          "start_seconds": 73.24,
+          "timestamp": "01:13"
+        },
+        {
+          "end_seconds": 80.479,
+          "evidence_text": "아주 활기차게 하고 있는 기념에서",
+          "segment_index": 29,
+          "start_seconds": 75.84,
+          "timestamp": "01:15"
+        },
+        {
+          "end_seconds": 82.52,
+          "evidence_text": "오징어에다 멍게와 해삼이 들어가 있는",
+          "segment_index": 30,
+          "start_seconds": 77.88,
+          "timestamp": "01:17"
+        },
+        {
+          "end_seconds": 84.84,
+          "evidence_text": "세트리 모두 만주로 다 주문해",
+          "segment_index": 31,
+          "start_seconds": 80.479,
+          "timestamp": "01:20"
+        },
+        {
+          "end_seconds": 87.15899999999999,
+          "evidence_text": "봤고요. 가격은 5만 양. 요즘에",
+          "segment_index": 32,
+          "start_seconds": 82.52,
+          "timestamp": "01:22"
+        },
+        {
+          "end_seconds": 89.119,
+          "evidence_text": "진짜 빈말이 아니고 오징어 한 마리가",
+          "segment_index": 33,
+          "start_seconds": 84.84,
+          "timestamp": "01:24"
+        },
+        {
+          "end_seconds": 91.64,
+          "evidence_text": "무려 3, 4만 원은 가는 시대에서",
+          "segment_index": 34,
+          "start_seconds": 87.159,
+          "timestamp": "01:27"
+        },
+        {
+          "end_seconds": 94.119,
+          "evidence_text": "이런 튼실한 사이즈의 오징어 회에다가",
+          "segment_index": 35,
+          "start_seconds": 89.119,
+          "timestamp": "01:29"
+        },
+        {
+          "end_seconds": 96.119,
+          "evidence_text": "싱싱한 멍화 해삼이 푸짐하게 한",
+          "segment_index": 36,
+          "start_seconds": 91.64,
+          "timestamp": "01:31"
+        },
+        {
+          "end_seconds": 98.68,
+          "evidence_text": "소쿠리가 들어가 있는데 이거 5만",
+          "segment_index": 37,
+          "start_seconds": 94.119,
+          "timestamp": "01:34"
+        },
+        {
+          "end_seconds": 102.92,
+          "evidence_text": "있고요. 아주 씹는 맛이 일품인",
+          "segment_index": 39,
+          "start_seconds": 98.68,
+          "timestamp": "01:38"
+        },
+        {
+          "end_seconds": 105.0,
+          "evidence_text": "쫀쫀한 오징어 살짝 한번 보십시오.",
+          "segment_index": 40,
+          "start_seconds": 100.92,
+          "timestamp": "01:40"
+        },
+        {
+          "end_seconds": 106.92,
+          "evidence_text": "요즘 시대에서는 너무나도 귀한",
+          "segment_index": 41,
+          "start_seconds": 102.92,
+          "timestamp": "01:42"
+        }
+      ]
+    },
+    {
+      "id": 3559,
+      "before": "옛 방식으로 짭조름하게 담근 간장게장입니다. 밥과 함께 먹기 좋은 간이며, 꽃게를 먹기 편하게 손질한 점까지 칭찬했습니다.",
+      "after": "어, 간간하네. 근데 너무 맛있게 간간하잖아. 오, 이거 밥하고 먹어야 되네. 그 옛날에 살짝 짭조름하게 담그던 그 간장게장 있잖아요. 얘는 정말로 짭조름함이 너무 맛있어요.",
+      "source_quote": "어 간간하네. 근데 너무 맛있게 간간하잖아. 오 이거 밥하고 먹어야 되네. 예. >> 여러분,이 집 간장계장은 요즘 우리가 먹는 다이크하면서 [음악] 아주 심심한 간장계장이 2026년이라고 하면은요 간장계장 스타일은 1980년대, 90년대쯤에 머물러 있어요. 응. 그 옛날에 살짝 짭조럼하게 담그던 그 간장 계장 있잖아요. 음. >> 석천형이랑 저랑도 참 심심한 간장계장 레시피가 있거든요. 근데 얘는 정말로 짭조름만이 너무 맛있어요. 그래서 얘를 이게 개딱집 여기에 있는 입 같은 거, 내장 같은 것들도 다 걷어내 가지고 정말 먹기 편하게 이렇게 손질 다 해 주시거든요.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "어 간간하네. 근데 너무 맛있게 간간하잖아. 오 이거 밥하고 먹어야 되네. 예. >> 여러분,이 집 간장계장은 요즘 우리가 먹는 다이크하면서 [음악] 아주 심심한 간장계장이 2026년이라고 하면은요 간장계장 스타일은 1980년대, 90년대쯤에 머물러 있어요. 응. 그 옛날에 살짝 짭조럼하게 담그던 그 간장 계장 있잖아요. 음. >> 석천형이랑 저랑도 참 심심한 간장계장 레시피가 있거든요. 근데 얘는 정말로 짭조름만이 너무 맛있어요. 그래서 얘를 이게 개딱집 여기에 있는 입 같은 거, 내장 같은 것들도 다 걷어내 가지고 정말 먹기 편하게 이렇게 손질 다 해 주시거든요.",
+      "evidence_text": "어 간간하네. 근데 너무 맛있게",
+      "supporting_evidence": [
+        {
+          "end_seconds": 431.319,
+          "evidence_text": "간간하잖아.",
+          "segment_index": 207,
+          "start_seconds": 427.56,
+          "timestamp": "07:07"
+        },
+        {
+          "end_seconds": 434.28,
+          "evidence_text": "오 이거 밥하고 먹어야 되네. 예.",
+          "segment_index": 208,
+          "start_seconds": 429.08,
+          "timestamp": "07:09"
+        },
+        {
+          "end_seconds": 436.23400000000004,
+          "evidence_text": ">> 여러분,이 집 간장계장은",
+          "segment_index": 209,
+          "start_seconds": 431.319,
+          "timestamp": "07:11"
+        },
+        {
+          "end_seconds": 440.0,
+          "evidence_text": "요즘 우리가 먹는 다이크하면서",
+          "segment_index": 210,
+          "start_seconds": 434.28,
+          "timestamp": "07:14"
+        },
+        {
+          "end_seconds": 442.52,
+          "evidence_text": "[음악] 아주 심심한 간장계장이",
+          "segment_index": 211,
+          "start_seconds": 436.234,
+          "timestamp": "07:16"
+        },
+        {
+          "end_seconds": 445.52,
+          "evidence_text": "2026년이라고 하면은요 간장계장",
+          "segment_index": 212,
+          "start_seconds": 440.0,
+          "timestamp": "07:20"
+        },
+        {
+          "end_seconds": 448.44,
+          "evidence_text": "스타일은 1980년대,",
+          "segment_index": 213,
+          "start_seconds": 442.52,
+          "timestamp": "07:22"
+        },
+        {
+          "end_seconds": 451.35999999999996,
+          "evidence_text": "90년대쯤에 머물러 있어요. 응. 그",
+          "segment_index": 214,
+          "start_seconds": 445.52,
+          "timestamp": "07:25"
+        },
+        {
+          "end_seconds": 453.319,
+          "evidence_text": "옛날에 살짝 짭조럼하게 담그던 그",
+          "segment_index": 215,
+          "start_seconds": 448.44,
+          "timestamp": "07:28"
+        },
+        {
+          "end_seconds": 456.595,
+          "evidence_text": "간장 계장 있잖아요. 음.",
+          "segment_index": 216,
+          "start_seconds": 451.36,
+          "timestamp": "07:31"
+        },
+        {
+          "end_seconds": 813.0,
+          "evidence_text": ">> 석천형이랑 저랑도 참 심심한 간장계장",
+          "segment_index": 361,
+          "start_seconds": 807.48,
+          "timestamp": "13:27"
+        },
+        {
+          "end_seconds": 814.959,
+          "evidence_text": "레시피가 있거든요. 근데 얘는 정말로",
+          "segment_index": 362,
+          "start_seconds": 810.68,
+          "timestamp": "13:30"
+        },
+        {
+          "end_seconds": 818.079,
+          "evidence_text": "짭조름만이 너무 맛있어요. 그래서",
+          "segment_index": 363,
+          "start_seconds": 813.0,
+          "timestamp": "13:33"
+        },
+        {
+          "end_seconds": 819.8389999999999,
+          "evidence_text": "얘를 이게 개딱집 여기에 있는 입",
+          "segment_index": 364,
+          "start_seconds": 814.959,
+          "timestamp": "13:34"
+        },
+        {
+          "end_seconds": 822.04,
+          "evidence_text": "같은 거, 내장 같은 것들도 다",
+          "segment_index": 365,
+          "start_seconds": 818.079,
+          "timestamp": "13:38"
+        },
+        {
+          "end_seconds": 824.0400000000001,
+          "evidence_text": "걷어내 가지고 정말 먹기 편하게",
+          "segment_index": 366,
+          "start_seconds": 819.839,
+          "timestamp": "13:39"
+        },
+        {
+          "end_seconds": 826.959,
+          "evidence_text": "이렇게 손질 다 해 주시거든요.",
+          "segment_index": 367,
+          "start_seconds": 822.04,
+          "timestamp": "13:42"
+        }
+      ]
+    },
+    {
+      "id": 3562,
+      "before": "먹어 본 짜장면 중 손꼽는 맛이라고 했습니다. 매콤한 맛이 느끼함을 덜어 주고 기존 간짜장과 다른 스타일이라고 평가했습니다.",
+      "after": "이 집 짜장면 뭐야? 내가 먹은 짜장면 중에 톱 쓰리. 그래, 매콤이 있어. 야, 이렇게 먹으니까 느끼함이라는 게 한 90% 떨어지네. 이거 대관원 간짜장이랑 완전 스타일 다른데.",
+      "source_quote": "이집 짜장면 뭐야? 내가 먹은 짜장면 중에 탑쓰. 그래 매콤이 있어. 음. 음. 야, 이렇게 먹으니까 느끼함이라는게 [음악] 한 90% 떨어지네. 아,이 집 사장님 뭐야? 와. 와, 이거 대관원 간짜장이랑 완전 스타일 다른데 용어상박이다. >> 느낌이 확 다는데 >> 대관원 간짜장은 >> 사장님 말씀대로 호불로가 있어. 여기 간자은 [음악] 여태껏 우리가 먹고 잘 이게 잘하면서 먹었던 간짜장에 플러스",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "이집 짜장면 뭐야? 내가 먹은 짜장면 중에 탑쓰. 그래 매콤이 있어. 음. 음. 야, 이렇게 먹으니까 느끼함이라는게 [음악] 한 90% 떨어지네. 아,이 집 사장님 뭐야? 와. 와, 이거 대관원 간짜장이랑 완전 스타일 다른데 용어상박이다. >> 느낌이 확 다는데 >> 대관원 간짜장은 >> 사장님 말씀대로 호불로가 있어. 여기 간자은 [음악] 여태껏 우리가 먹고 잘 이게 잘하면서 먹었던 간짜장에 플러스",
+      "evidence_text": "이집 짜장면 뭐야? 내가 먹은 짜장면",
+      "supporting_evidence": [
+        {
+          "end_seconds": 32.15,
+          "evidence_text": "중에 탑쓰.",
+          "segment_index": 8,
+          "start_seconds": 27.119,
+          "timestamp": "00:27"
+        },
+        {
+          "end_seconds": 1057.96,
+          "evidence_text": "그래 매콤이 있어.",
+          "segment_index": 490,
+          "start_seconds": 1051.48,
+          "timestamp": "17:31"
+        },
+        {
+          "end_seconds": 1057.96,
+          "evidence_text": "음.",
+          "segment_index": 491,
+          "start_seconds": 1054.96,
+          "timestamp": "17:34"
+        },
+        {
+          "end_seconds": 1062.799,
+          "evidence_text": "음. 야, 이렇게 먹으니까",
+          "segment_index": 492,
+          "start_seconds": 1058.679,
+          "timestamp": "17:38"
+        },
+        {
+          "end_seconds": 1069.0,
+          "evidence_text": "느끼함이라는게",
+          "segment_index": 493,
+          "start_seconds": 1063.84,
+          "timestamp": "17:43"
+        },
+        {
+          "end_seconds": 1072.4399999999998,
+          "evidence_text": "[음악] 한 90% 떨어지네.",
+          "segment_index": 494,
+          "start_seconds": 1065.697,
+          "timestamp": "17:45"
+        },
+        {
+          "end_seconds": 1077.32,
+          "evidence_text": "아,이 집 사장님 뭐야?",
+          "segment_index": 495,
+          "start_seconds": 1069.0,
+          "timestamp": "17:49"
+        },
+        {
+          "end_seconds": 1081.64,
+          "evidence_text": "와. 와, 이거 대관원 간짜장이랑",
+          "segment_index": 496,
+          "start_seconds": 1072.44,
+          "timestamp": "17:52"
+        },
+        {
+          "end_seconds": 1083.84,
+          "evidence_text": "완전 스타일 다른데 용어상박이다.",
+          "segment_index": 497,
+          "start_seconds": 1077.32,
+          "timestamp": "17:57"
+        },
+        {
+          "end_seconds": 1085.88,
+          "evidence_text": ">> 느낌이 확 다는데",
+          "segment_index": 498,
+          "start_seconds": 1081.64,
+          "timestamp": "18:01"
+        },
+        {
+          "end_seconds": 1089.48,
+          "evidence_text": ">> 대관원 간짜장은",
+          "segment_index": 499,
+          "start_seconds": 1083.84,
+          "timestamp": "18:03"
+        },
+        {
+          "end_seconds": 1091.0,
+          "evidence_text": ">> 사장님 말씀대로 호불로가 있어.",
+          "segment_index": 500,
+          "start_seconds": 1085.88,
+          "timestamp": "18:05"
+        },
+        {
+          "end_seconds": 1093.679,
+          "evidence_text": "여기 간자은 [음악]",
+          "segment_index": 501,
+          "start_seconds": 1089.48,
+          "timestamp": "18:09"
+        },
+        {
+          "end_seconds": 1096.2,
+          "evidence_text": "여태껏 우리가 먹고 잘 이게 잘하면서",
+          "segment_index": 502,
+          "start_seconds": 1091.0,
+          "timestamp": "18:11"
+        },
+        {
+          "end_seconds": 1098.799,
+          "evidence_text": "먹었던 간짜장에",
+          "segment_index": 503,
+          "start_seconds": 1093.679,
+          "timestamp": "18:13"
+        },
+        {
+          "end_seconds": 1101.559,
+          "evidence_text": "플러스",
+          "segment_index": 504,
+          "start_seconds": 1096.2,
+          "timestamp": "18:16"
+        }
+      ]
+    },
+    {
+      "id": 3565,
+      "before": "도가니 수육은 양이 만족스럽고, 국물을 더해 소주와 천천히 먹다가 칼국수를 넣어 마무리하기 좋다고 했습니다. 다른 메뉴보다 도가니를 추천했습니다.",
+      "after": "도가니 수육이 이 정도 양을 이렇게 만족스럽게 주는 게 생각보다 많이 없어. 이거는 진짜 천천히 국물 추가하면서 소주 먹다가 나중에 칼국수 넣는 그런 음식이니까. 추천은 이제 요겁니다.",
+      "source_quote": ">> 도가니 수육이이 정도 양을 이렇게 만족스럽게 주는게 생각보다 많이 없어. 희한하게. 이거를 뭐 둘이서 막 30분 만에 다 먹고 더 주세요 하는 양이야. 이거는 진짜 천천히 국물 추가하면서 소주 먹다가 나중에 칼국수 넣는 그런 음식이니까 소개하기 좋겠다라는 생각이 들어가지고 근데 저의 추천은 어쨌건 솔직한 얘기로 육전이나 오징어순데보단 여기는 어 전골이나 도관이 드시고 아니면 식사라서 그냥 이런 칼만 떡만 두고 이런 건 괜찮은데 뭐 전혀 맛없진 않은데 추천은 이제 요겁니다.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 도가니 수육이이 정도 양을 이렇게 만족스럽게 주는게 생각보다 많이 없어. 희한하게. 이거를 뭐 둘이서 막 30분 만에 다 먹고 더 주세요 하는 양이야. 이거는 진짜 천천히 국물 추가하면서 소주 먹다가 나중에 칼국수 넣는 그런 음식이니까 소개하기 좋겠다라는 생각이 들어가지고 근데 저의 추천은 어쨌건 솔직한 얘기로 육전이나 오징어순데보단 여기는 어 전골이나 도관이 드시고 아니면 식사라서 그냥 이런 칼만 떡만 두고 이런 건 괜찮은데 뭐 전혀 맛없진 않은데 추천은 이제 요겁니다.",
+      "evidence_text": "어 전골이나 도관이",
+      "supporting_evidence": [
+        {
+          "end_seconds": 677.1600000000001,
+          "evidence_text": ">> 도가니 수육이이 정도 양을 이렇게",
+          "segment_index": 177,
+          "start_seconds": 671.44,
+          "timestamp": "11:11"
+        },
+        {
+          "end_seconds": 680.279,
+          "evidence_text": "만족스럽게 주는게 생각보다 많이",
+          "segment_index": 178,
+          "start_seconds": 674.88,
+          "timestamp": "11:14"
+        },
+        {
+          "end_seconds": 681.68,
+          "evidence_text": "없어. 희한하게. 이거를 뭐 둘이서",
+          "segment_index": 179,
+          "start_seconds": 677.16,
+          "timestamp": "11:17"
+        },
+        {
+          "end_seconds": 683.16,
+          "evidence_text": "막 30분 만에 다 먹고 더 주세요",
+          "segment_index": 180,
+          "start_seconds": 680.279,
+          "timestamp": "11:20"
+        },
+        {
+          "end_seconds": 686.3199999999999,
+          "evidence_text": "하는 양이야. 이거는 진짜 천천히",
+          "segment_index": 181,
+          "start_seconds": 681.68,
+          "timestamp": "11:21"
+        },
+        {
+          "end_seconds": 688.88,
+          "evidence_text": "국물 추가하면서 소주 먹다가 나중에",
+          "segment_index": 182,
+          "start_seconds": 683.16,
+          "timestamp": "11:23"
+        },
+        {
+          "end_seconds": 690.5600000000001,
+          "evidence_text": "칼국수 넣는 그런 음식이니까",
+          "segment_index": 183,
+          "start_seconds": 686.32,
+          "timestamp": "11:26"
+        },
+        {
+          "end_seconds": 692.12,
+          "evidence_text": "소개하기 좋겠다라는 생각이 들어가지고",
+          "segment_index": 184,
+          "start_seconds": 688.88,
+          "timestamp": "11:28"
+        },
+        {
+          "end_seconds": 1365.6,
+          "evidence_text": "근데 저의 추천은 어쨌건 솔직한",
+          "segment_index": 358,
+          "start_seconds": 1359.52,
+          "timestamp": "22:39"
+        },
+        {
+          "end_seconds": 1368.48,
+          "evidence_text": "얘기로 육전이나 오징어순데보단 여기는",
+          "segment_index": 359,
+          "start_seconds": 1361.52,
+          "timestamp": "22:41"
+        },
+        {
+          "end_seconds": 1376.4,
+          "evidence_text": "드시고 아니면 식사라서 그냥 이런",
+          "segment_index": 361,
+          "start_seconds": 1368.48,
+          "timestamp": "22:48"
+        },
+        {
+          "end_seconds": 1378.88,
+          "evidence_text": "칼만 떡만 두고 이런 건 괜찮은데",
+          "segment_index": 362,
+          "start_seconds": 1373.0,
+          "timestamp": "22:53"
+        },
+        {
+          "end_seconds": 1381.88,
+          "evidence_text": "뭐 전혀 맛없진 않은데 추천은 이제",
+          "segment_index": 363,
+          "start_seconds": 1376.4,
+          "timestamp": "22:56"
+        },
+        {
+          "end_seconds": 1381.88,
+          "evidence_text": "요겁니다.",
+          "segment_index": 364,
+          "start_seconds": 1378.88,
+          "timestamp": "22:58"
+        }
+      ]
+    },
+    {
+      "id": 3568,
+      "before": "먹어 본 셀프 주먹밥 중 가장 맛있다고 평가하며 고소한 기름 풍미를 짚었습니다.",
+      "after": "내가 먹어본 셀프 주먹밥 중에 제일 맛있어. 내가 볼 땐 기름인 거 같아.",
+      "source_quote": ">> 나만 그런 거 내가 먹어본 셀프 주먹 녹밥 중에 제일 맛있어. 뭔가 >> 내가 볼땐 기름인 거 같아. >> 시장 방학관한 기름인 거 같아.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 나만 그런 거 내가 먹어본 셀프 주먹 녹밥 중에 제일 맛있어. 뭔가 >> 내가 볼땐 기름인 거 같아. >> 시장 방학관한 기름인 거 같아.",
+      "evidence_text": ">> 나만 그런 거 내가 먹어본 셀프 주먹",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1285.32,
+          "evidence_text": "녹밥 중에 제일 맛있어. 뭔가",
+          "segment_index": 452,
+          "start_seconds": 1280.72,
+          "timestamp": "21:20"
+        },
+        {
+          "end_seconds": 1287.8799999999999,
+          "evidence_text": ">> 내가 볼땐 기름인 거 같아.",
+          "segment_index": 453,
+          "start_seconds": 1283.799,
+          "timestamp": "21:23"
+        },
+        {
+          "end_seconds": 1289.6789999999999,
+          "evidence_text": ">> 시장 방학관한 기름인 거 같아.",
+          "segment_index": 454,
+          "start_seconds": 1285.32,
+          "timestamp": "21:25"
+        }
+      ]
+    },
+    {
+      "id": 3571,
+      "before": "가장 저렴한 메뉴인 그라탕도 정말 맛있다며, 마음에 들어 자신의 레시피로도 만들어 봤다고 했습니다.",
+      "after": "여기 그라탕 진짜 맛있습니다. 여기 그라탕이 너무 맛있어 갖고 내가 우리 레시피에서 그라탕을 한번 한 적도 있어.",
+      "source_quote": "데고 온 사람 다 성공한음 다 너무 맛있다고 하고 파스타 너무 맛있고 요리 다 맛있는데 제일 싼 메뉴인 그라탕을 하나 시켰어요. 여기 그라탕 진짜 맛있습니다. 여기 그라탕이 너무 맛있어 갖고 내가 우리 레시피에서 그라탕을 한번 한 적도 있어.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "데고 온 사람 다 성공한음 다 너무 맛있다고 하고 파스타 너무 맛있고 요리 다 맛있는데 제일 싼 메뉴인 그라탕을 하나 시켰어요. 여기 그라탕 진짜 맛있습니다. 여기 그라탕이 너무 맛있어 갖고 내가 우리 레시피에서 그라탕을 한번 한 적도 있어.",
+      "evidence_text": "하나 시켰어요. 여기 그라탕 진짜",
+      "supporting_evidence": [
+        {
+          "end_seconds": 45.038999999999994,
+          "evidence_text": "데고 온 사람 다 성공한음 다 너무",
+          "segment_index": 16,
+          "start_seconds": 40.48,
+          "timestamp": "00:40"
+        },
+        {
+          "end_seconds": 48.52,
+          "evidence_text": "맛있다고 하고 파스타 너무 맛있고",
+          "segment_index": 17,
+          "start_seconds": 42.96,
+          "timestamp": "00:42"
+        },
+        {
+          "end_seconds": 50.039,
+          "evidence_text": "요리 다 맛있는데 제일 싼 메뉴인",
+          "segment_index": 18,
+          "start_seconds": 45.039,
+          "timestamp": "00:45"
+        },
+        {
+          "end_seconds": 51.32,
+          "evidence_text": "그라탕을",
+          "segment_index": 19,
+          "start_seconds": 48.52,
+          "timestamp": "00:48"
+        },
+        {
+          "end_seconds": 54.32,
+          "evidence_text": "맛있습니다. 여기 그라탕이 너무",
+          "segment_index": 21,
+          "start_seconds": 51.32,
+          "timestamp": "00:51"
+        },
+        {
+          "end_seconds": 55.64,
+          "evidence_text": "맛있어 갖고 내가 우리 레시피에서",
+          "segment_index": 22,
+          "start_seconds": 53.039,
+          "timestamp": "00:53"
+        },
+        {
+          "end_seconds": 57.76,
+          "evidence_text": "그라탕을 한번 한 적도 있어.",
+          "segment_index": 23,
+          "start_seconds": 54.32,
+          "timestamp": "00:54"
+        }
+      ]
+    },
+    {
+      "id": 3574,
+      "before": "파전이 아주 맛있다며 반죽법까지 묻고, 마지막에 꼭 먹어 보라고 직접 권했습니다.",
+      "after": "야, 파전 너무 맛있잖아. 파전 너무 맛있어. 이거 반죽을 어떻게 하는 거예요? 오늘 먹은 거 그냥 다 꼭 먹었으면 좋겠어. 파전은 꼭 먹었으면 좋겠고.",
+      "source_quote": ">> 잘해줘. >> 야 파전 너무 맛있잖아. >> 파전 너무 맛있어. 명 이거 반죽을 어떻게 하는 거예요? 오늘 먹은 거 그냥 다 꼭 먹었으면 좋겠어. 파전은 꼭 먹었으면 좋겠고 >> 파전",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 잘해줘. >> 야 파전 너무 맛있잖아. >> 파전 너무 맛있어. 명 이거 반죽을 어떻게 하는 거예요? 오늘 먹은 거 그냥 다 꼭 먹었으면 좋겠어. 파전은 꼭 먹었으면 좋겠고 >> 파전",
+      "evidence_text": "좋겠어. 파전은 꼭 먹었으면 좋겠고",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1002.279,
+          "evidence_text": ">> 잘해줘.",
+          "segment_index": 373,
+          "start_seconds": 997.72,
+          "timestamp": "16:37"
+        },
+        {
+          "end_seconds": 1005.8000000000001,
+          "evidence_text": ">> 야 파전 너무 맛있잖아.",
+          "segment_index": 374,
+          "start_seconds": 1000.6,
+          "timestamp": "16:40"
+        },
+        {
+          "end_seconds": 1005.8,
+          "evidence_text": ">> 파전 너무 맛있어.",
+          "segment_index": 375,
+          "start_seconds": 1002.279,
+          "timestamp": "16:42"
+        },
+        {
+          "end_seconds": 1013.36,
+          "evidence_text": "명 이거 반죽을 어떻게 하는 거예요?",
+          "segment_index": 376,
+          "start_seconds": 1010.48,
+          "timestamp": "16:50"
+        },
+        {
+          "end_seconds": 1521.4799999999998,
+          "evidence_text": "오늘 먹은 거 그냥 다 꼭 먹었으면",
+          "segment_index": 560,
+          "start_seconds": 1518.12,
+          "timestamp": "25:18"
+        },
+        {
+          "end_seconds": 1524.08,
+          "evidence_text": ">> 파전",
+          "segment_index": 562,
+          "start_seconds": 1521.48,
+          "timestamp": "25:21"
+        }
+      ]
+    },
+    {
+      "id": 3577,
+      "before": "족발에 곁들이는 어묵탕은 꼭 시키라고 직접 권했습니다.",
+      "after": "오뎅탕은 꼭 시키세요.",
+      "source_quote": ">> 아, 이게 이런 집이 동대면 신상동정동 쪽에도 하나 있거든요. 근데 >> 아예 비교도 안 되고 >> 오뎅탕은 꼭 시키세요. 약간 >> 몰라. 벌써 한 명 다 먹었어.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": ">> 아, 이게 이런 집이 동대면 신상동정동 쪽에도 하나 있거든요. 근데 >> 아예 비교도 안 되고 >> 오뎅탕은 꼭 시키세요. 약간 >> 몰라. 벌써 한 명 다 먹었어.",
+      "evidence_text": ">> 오뎅탕은 꼭 시키세요. 약간",
+      "supporting_evidence": [
+        {
+          "end_seconds": 957.759,
+          "evidence_text": ">> 아, 이게 이런 집이 동대면",
+          "segment_index": 373,
+          "start_seconds": 954.6,
+          "timestamp": "15:54"
+        },
+        {
+          "end_seconds": 959.6,
+          "evidence_text": "신상동정동 쪽에도 하나 있거든요.",
+          "segment_index": 374,
+          "start_seconds": 956.44,
+          "timestamp": "15:56"
+        },
+        {
+          "end_seconds": 961.72,
+          "evidence_text": "근데",
+          "segment_index": 375,
+          "start_seconds": 957.759,
+          "timestamp": "15:57"
+        },
+        {
+          "end_seconds": 966.0,
+          "evidence_text": ">> 아예 비교도 안 되고",
+          "segment_index": 376,
+          "start_seconds": 959.6,
+          "timestamp": "15:59"
+        },
+        {
+          "end_seconds": 968.04,
+          "evidence_text": ">> 몰라. 벌써 한 명 다 먹었어.",
+          "segment_index": 378,
+          "start_seconds": 966.0,
+          "timestamp": "16:06"
+        }
+      ]
+    },
+    {
+      "id": 3580,
+      "before": "가리비회의 단맛과 바다 향에 독특한 고소한 소스가 더해져 처음 먹는 맛이라며 감탄했습니다.",
+      "after": "와, 너무 맛있다. 이거 좀 신기해. 관자의 단맛과 바다 향. 그걸로 먹는 게 가리비회인데 가리비가 이런 맛도 나는구나. 이런 재미가 있구나를 또 느끼실 수 있을 것 같아. 진짜 고소해. 와, 맛있습니다.",
+      "source_quote": "와. 와. 너무 맛있다. 이거 좀 신기해. 난 진짜 신기해. 가리비 회를 좋아하시는 분들은 알 거야. 어떤 맛으로 먹는지. 관자의 [음악] 단맛과 바다향. 그걸로 먹는게 가리비 회인데 가리비가 이런 맛도 나는구나. 이런 재미가 있구나를 또 느끼실 수 있을 것 같아. 어, 가이 달라고 하는데 뒤에 갑자기 뭔가 이게 마늘가루 같기도 하고 마요네즈 같은 것 같기도 하고 콩가루 같은 거 올라가 있어. 요게 탁 입에 오면서 모든 것들을 고소함으로 싹 바꾸는 거야. 탈 바꾸면 싹 하네. 굉장히 꼬소하게 만들어. 진짜 꼬소해. 와, 맛있습니다.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "와. 와. 너무 맛있다. 이거 좀 신기해. 난 진짜 신기해. 가리비 회를 좋아하시는 분들은 알 거야. 어떤 맛으로 먹는지. 관자의 [음악] 단맛과 바다향. 그걸로 먹는게 가리비 회인데 가리비가 이런 맛도 나는구나. 이런 재미가 있구나를 또 느끼실 수 있을 것 같아. 어, 가이 달라고 하는데 뒤에 갑자기 뭔가 이게 마늘가루 같기도 하고 마요네즈 같은 것 같기도 하고 콩가루 같은 거 올라가 있어. 요게 탁 입에 오면서 모든 것들을 고소함으로 싹 바꾸는 거야. 탈 바꾸면 싹 하네. 굉장히 꼬소하게 만들어. 진짜 꼬소해. 와, 맛있습니다.",
+      "evidence_text": "와. 너무 맛있다. 이거 좀 신기해.",
+      "supporting_evidence": [
+        {
+          "end_seconds": 1651.2,
+          "evidence_text": "와.",
+          "segment_index": 760,
+          "start_seconds": 1648.2,
+          "timestamp": "27:28"
+        },
+        {
+          "end_seconds": 1657.44,
+          "evidence_text": "난 진짜 신기해. 가리비 회를",
+          "segment_index": 762,
+          "start_seconds": 1654.24,
+          "timestamp": "27:34"
+        },
+        {
+          "end_seconds": 1658.8799999999999,
+          "evidence_text": "좋아하시는 분들은 알 거야. 어떤",
+          "segment_index": 763,
+          "start_seconds": 1656.08,
+          "timestamp": "27:36"
+        },
+        {
+          "end_seconds": 1661.679,
+          "evidence_text": "맛으로 먹는지. 관자의 [음악]",
+          "segment_index": 764,
+          "start_seconds": 1657.44,
+          "timestamp": "27:37"
+        },
+        {
+          "end_seconds": 1664.0,
+          "evidence_text": "단맛과 바다향. 그걸로 먹는게 가리비",
+          "segment_index": 765,
+          "start_seconds": 1658.88,
+          "timestamp": "27:38"
+        },
+        {
+          "end_seconds": 1666.1200000000001,
+          "evidence_text": "회인데 가리비가 이런 맛도 나는구나.",
+          "segment_index": 766,
+          "start_seconds": 1661.679,
+          "timestamp": "27:41"
+        },
+        {
+          "end_seconds": 1668.519,
+          "evidence_text": "이런 재미가 있구나를 또 느끼실 수",
+          "segment_index": 767,
+          "start_seconds": 1664.0,
+          "timestamp": "27:44"
+        },
+        {
+          "end_seconds": 1670.2399999999998,
+          "evidence_text": "있을 것 같아. 어, 가이 달라고",
+          "segment_index": 768,
+          "start_seconds": 1666.12,
+          "timestamp": "27:46"
+        },
+        {
+          "end_seconds": 1672.519,
+          "evidence_text": "하는데 뒤에 갑자기 뭔가 이게",
+          "segment_index": 769,
+          "start_seconds": 1668.519,
+          "timestamp": "27:48"
+        },
+        {
+          "end_seconds": 1674.32,
+          "evidence_text": "마늘가루 같기도 하고 마요네즈 같은",
+          "segment_index": 770,
+          "start_seconds": 1670.24,
+          "timestamp": "27:50"
+        },
+        {
+          "end_seconds": 1676.48,
+          "evidence_text": "것 같기도 하고 콩가루 같은 거",
+          "segment_index": 771,
+          "start_seconds": 1672.519,
+          "timestamp": "27:52"
+        },
+        {
+          "end_seconds": 1678.399,
+          "evidence_text": "올라가 있어. 요게 탁 입에 오면서",
+          "segment_index": 772,
+          "start_seconds": 1674.32,
+          "timestamp": "27:54"
+        },
+        {
+          "end_seconds": 1681.3600000000001,
+          "evidence_text": "모든 것들을 고소함으로 싹 바꾸는",
+          "segment_index": 773,
+          "start_seconds": 1676.48,
+          "timestamp": "27:56"
+        },
+        {
+          "end_seconds": 1683.8799999999999,
+          "evidence_text": "거야. 탈 바꾸면 싹 하네. 굉장히",
+          "segment_index": 774,
+          "start_seconds": 1678.399,
+          "timestamp": "27:58"
+        },
+        {
+          "end_seconds": 1686.12,
+          "evidence_text": "꼬소하게 만들어. 진짜 꼬소해. 와,",
+          "segment_index": 775,
+          "start_seconds": 1681.36,
+          "timestamp": "28:01"
+        },
+        {
+          "end_seconds": 1688.159,
+          "evidence_text": "맛있습니다.",
+          "segment_index": 776,
+          "start_seconds": 1683.88,
+          "timestamp": "28:03"
+        }
+      ]
+    },
+    {
+      "id": 3583,
+      "before": "간장게장은 달지 않아 좋고, 양념게장은 적당히 달고 매콤해 감칠맛이 좋다고 했습니다.",
+      "after": "안 달아서 좋다. 간장게장 진짜 단 거 진짜 달잖아. 안 달아, 좋아. 여기 양념게장 양념 진짜 맛있는 거예요. 적당히 달고 적당히 매콤하고 입에 쫙 감기는 감칠맛이 있는 소스인 거 같아요. 너무 맛있어.",
+      "source_quote": "보니까 암꽃계장은 이렇게 반반인데 15,000원이고 생선구이 백반 같은 안 달아서 좋다. 간장계장 진짜 단 거 진짜 달잖아. 안 달아 좋아. >> 음. 아, 진짜 계장 진짜 좋아하거든. 여기 양념계장 양념 진짜 맛있는 거예요. 사실 계장이 보실 때 큰 꽃개장이 있고 요렇게 뭔가 돌계장 느낌에 조그만한 계장이 있거든. 오히려 이런 작은 계장에 제일 중요한게 뭔지 알아? 양념이야. 판용 그런 소스 맛이 아니야. 양념과 그 살의 그 조합으로 먹기 때문에 적당히 달고 적당히 매콤하고 [음악] 입에 쫙 감기는 감칠맛이 있는 소스인 거 같아요. 너무 맛있어.",
+      "why": "직접 발언을 전달문/새 설명으로 정리한 문구를 원문 말투와 표현으로 복원",
+      "raw_reason": "보니까 암꽃계장은 이렇게 반반인데 15,000원이고 생선구이 백반 같은 안 달아서 좋다. 간장계장 진짜 단 거 진짜 달잖아. 안 달아 좋아. >> 음. 아, 진짜 계장 진짜 좋아하거든. 여기 양념계장 양념 진짜 맛있는 거예요. 사실 계장이 보실 때 큰 꽃개장이 있고 요렇게 뭔가 돌계장 느낌에 조그만한 계장이 있거든. 오히려 이런 작은 계장에 제일 중요한게 뭔지 알아? 양념이야. 판용 그런 소스 맛이 아니야. 양념과 그 살의 그 조합으로 먹기 때문에 적당히 달고 적당히 매콤하고 [음악] 입에 쫙 감기는 감칠맛이 있는 소스인 거 같아요. 너무 맛있어.",
+      "evidence_text": "여기 양념계장 양념 진짜 맛있는",
+      "supporting_evidence": [
+        {
+          "end_seconds": 647.72,
+          "evidence_text": "보니까 암꽃계장은 이렇게 반반인데",
+          "segment_index": 327,
+          "start_seconds": 642.32,
+          "timestamp": "10:42"
+        },
+        {
+          "end_seconds": 649.5600000000001,
+          "evidence_text": "15,000원이고 생선구이 백반 같은",
+          "segment_index": 328,
+          "start_seconds": 645.12,
+          "timestamp": "10:45"
+        },
+        {
+          "end_seconds": 822.8000000000001,
+          "evidence_text": "안 달아서 좋다. 간장계장 진짜 단",
+          "segment_index": 388,
+          "start_seconds": 818.36,
+          "timestamp": "13:38"
+        },
+        {
+          "end_seconds": 825.519,
+          "evidence_text": "거 진짜 달잖아. 안 달아 좋아.",
+          "segment_index": 389,
+          "start_seconds": 820.72,
+          "timestamp": "13:40"
+        },
+        {
+          "end_seconds": 859.1199999999999,
+          "evidence_text": ">> 음.",
+          "segment_index": 399,
+          "start_seconds": 855.959,
+          "timestamp": "14:15"
+        },
+        {
+          "end_seconds": 860.6800000000001,
+          "evidence_text": "아, 진짜 계장 진짜 좋아하거든.",
+          "segment_index": 400,
+          "start_seconds": 857.48,
+          "timestamp": "14:17"
+        },
+        {
+          "end_seconds": 866.3599999999999,
+          "evidence_text": "거예요. 사실 계장이 보실 때 큰",
+          "segment_index": 402,
+          "start_seconds": 860.68,
+          "timestamp": "14:20"
+        },
+        {
+          "end_seconds": 868.7199999999999,
+          "evidence_text": "꽃개장이 있고 요렇게 뭔가 돌계장",
+          "segment_index": 403,
+          "start_seconds": 864.199,
+          "timestamp": "14:24"
+        },
+        {
+          "end_seconds": 870.5600000000001,
+          "evidence_text": "느낌에 조그만한 계장이 있거든.",
+          "segment_index": 404,
+          "start_seconds": 866.36,
+          "timestamp": "14:26"
+        },
+        {
+          "end_seconds": 874.12,
+          "evidence_text": "오히려 이런 작은 계장에 제일",
+          "segment_index": 405,
+          "start_seconds": 868.72,
+          "timestamp": "14:28"
+        },
+        {
+          "end_seconds": 876.399,
+          "evidence_text": "중요한게 뭔지 알아? 양념이야. 판용",
+          "segment_index": 406,
+          "start_seconds": 870.56,
+          "timestamp": "14:30"
+        },
+        {
+          "end_seconds": 878.759,
+          "evidence_text": "그런 소스 맛이 아니야. 양념과 그",
+          "segment_index": 407,
+          "start_seconds": 874.12,
+          "timestamp": "14:34"
+        },
+        {
+          "end_seconds": 881.92,
+          "evidence_text": "살의 그 조합으로 먹기 때문에 적당히",
+          "segment_index": 408,
+          "start_seconds": 876.399,
+          "timestamp": "14:36"
+        },
+        {
+          "end_seconds": 883.88,
+          "evidence_text": "달고 적당히 매콤하고 [음악] 입에",
+          "segment_index": 409,
+          "start_seconds": 878.759,
+          "timestamp": "14:38"
+        },
+        {
+          "end_seconds": 887.68,
+          "evidence_text": "쫙 감기는 감칠맛이 있는 소스인 거",
+          "segment_index": 410,
+          "start_seconds": 881.92,
+          "timestamp": "14:41"
+        },
+        {
+          "end_seconds": 887.68,
+          "evidence_text": "같아요. 너무 맛있어.",
+          "segment_index": 411,
+          "start_seconds": 883.88,
+          "timestamp": "14:43"
+        }
+      ]
+    }
+  ],
+  "doubtful": [
+    {
+      "id": 940,
+      "why": "손으로 직접 하면 잘 못 한다는 꼬리는 raw/evidence pack에 없음. 요약문 드리프트보다 원문 범위 문제여서 별도 확인 필요.",
+      "before": "냄새 뭐예요, 개맛있는 냄새 나는데. 수제비 너무 맛있다. 손으로 직접 하면 잘 못 하는데.",
+      "raw_reason": "30 어머니가 30년 하신 거예요 와 냄새 뭐예요 개맛있는 냄새 나는데 와 볼까 칼제비를 맛이 수제비 와 수제비 너무 맛있다 손으로"
+    },
+    {
+      "id": 970,
+      "why": "제주도로 왜 가느냐는 직접 발언이 제공된 팩에는 없음. 나머지 구어체는 충실하여 별도 확인 필요.",
+      "before": "오늘 갈치를 먹으러 제주도로 왜 가지. 갈치조림의 칼칼함과 짭조름함이 배가 되는 느낌이야. 딱 먹었는데 통통하고 너무 맛있어.",
+      "raw_reason": "갈등 와 끝났다 나 토영 살래 이렇게 육수가 있으면 사실 약간 싱거울 수도 있겠다라고 생각하지만 절대 그렇지 않아요 갈치 조리미 가지고 있는 그 칼칼함 그리고 그 짭조름함 배가 되는 느낌이야 아니나 달러 가짜 딱 먹었는데 통 통하고 너무 맛있고 육수를 쪽 빨아먹어 가지고 더 발로 개 맛있다"
+    },
+    {
+      "id": 1000,
+      "why": "낚시배에서 바로 써는 신선함 비유가 제공된 팩에 없음. 구어체는 유지했지만 추가 비유는 별도 확인 필요.",
+      "before": "여기 자체가 회가 미쳤는데요. 낚시배에서 바로 썰어 먹는 정도의 신선함. 근데 숙성회 맛이 나요. 생선 기름의 고소함과 숙성 특유의 쫄깃함이 있어.",
+      "raw_reason": "여기?음 미쳤다. 아까 그 언니가 파어해예요. 근데 숙성해 맛이 나요. 그 말을 왜 했는지 알 거 같아.이 깊음이 있어. 여기서 나오는 그 생선 기름의 꼬소함이 엄청 진해요. 또플러스 그 숙성의 특유의 그 더 쫄깃함이이 지금이 우럭에 있어 정말 약간 하루앤데 숙성에 같다. 야 실림 해 먹으러 오겠다."
+    },
+    {
+      "id": 1198,
+      "why": "고춧가루 향과 재료 향 설명이 제공된 팩에 없음. 나머지 직접 발언은 충실하여 추가 절만 별도 확인 필요.",
+      "before": "많이 먹다 보면 맛있어. 처음에 맛이 없는데 먹다 보면 맛있어. 진짜 계속 들어가고 오묘하다. 고춧가루 향과 재료 향이 느껴지는 맛, 중독이야. 집에 가면 생각나. 밀떡을 완벽하게 느낄 수 있어요.",
+      "raw_reason": "맛있어. >> 그래요? 처음에 맛이 없는데 먹다 보면 맛있어. 네. 아니, 근데 진짜 계속 들어가. 응. >> 뭔가 잘 날 끌어들려. >> 이렇게 신기한 맛은 처음이에요. 오묘하다. >> 와 진짜 특이하다. 아 어떻게 중독성 있다. 응 >> 중독. >> 중독이야. >> 집에 가면 생각나. >> 요게 집에 가서 누울 때쯤 다시 생각 같은 느낌. >> 예. 근데 여기도 밀떡을 완벽하게 느낄 수 있어요. 이걸 먹으니까. 그래서 중독점 있게 먹은게 떡 먹는 맛이 너무 좋아."
+    },
+    {
+      "id": 1216,
+      "why": "우리가 모르는 부위/육향 지대로다는 제공된 팩과 명확히 대응하지 않음. 나머지 발언은 충실해 추측 교정하지 않음.",
+      "before": "우리가 모르는 부위였는데 다르네. 갈비살이랑 살치살을 섞은 느낌, 부드러운데 너무 좋아요. 육향 지대로다.",
+      "raw_reason": "뭐야 보니까 다르네 완전 살치살은 아예 너무 녹아서 좀 호러 걸리잖아요요 갈비살이랑 치살 좀 떡은 느낌 부드러운데 완전 그냥 그 너무 좋아요 그래서 와 아 근데 왜 왜 왜 맛이 이런 와 식감도 있고 부드럽기도 하고지 장기 받치고 있는 것들은 그 무슨 무슨 향이라 그러죠 꼬리 탄 거 꼬리 [음악] 고소해 고기 맛있은 어땠습니까 아 너무 맛있습니다 아니 너무 맛있어서 서울에서 먹은면 토시살 맛이 달라 달 스 드시고 오시면 있는데 이런 말"
+    },
+    {
+      "id": 1252,
+      "why": "찍어야 맛있어/고소함 극대화 부분이 제공된 팩에 없음. 구어체를 요약문으로 단정하기 어려워 별도 확인 필요.",
+      "before": "스지무침도 맛있을 것 같지 않아요. 더 시키는 건 오늘이 처음인 것 같아. 여기는 진짜 난 무조건. 스지가 너무 상태가 좋아서. 찍어야 맛있어. 스지의 씹을 때 나오는 고소함이 더 극대화되는 느낌.",
+      "raw_reason": "스지 무침도 맛있을 것 같지 않아요 어도 같 먹으면 진짜 맛있 같아 네가 뭘 더 시키는 건 오늘이 처음인 거 같아 아니 여기는 여기는 진짜 난 무조고 당님 스지 무침 작은 거 하나 또 줘 보실래요 무침 스지 무침 스지 무침 걸네네네 스지가 너무 상태가 좋아서 맛있어 먹어봐 맛있어 그만큼 하다 얘기예요음 나는 근데 왜 빨갛게 안 하시는지 알 거 같아 수지가 너무 훌륭하니까 양념에 묻혀 버릴까 봐"
+    },
+    {
+      "id": 1276,
+      "why": "고기보다 더 감동인데는 잘린 raw 꼬리 고기보다 더를 해석해 완성했을 수 있음. 요약문과 달라 추측 교정하지 않음.",
+      "before": "된장찌개 맛있 꼭 드세요. 그것도 맛있어. 된장에 라면사리, 좋다. 완벽한 시래기 된장. 이거 너무 맛있어요. 고기보다 더 감동인데.",
+      "raw_reason": "맛이 들지 않았어요 안거미 안미 일단 참고하겠습니다 된장찌개 맛있 꼭으세요 서비스예요 못 먹고 갈 뻔했네 그니까 그거 한번 드셔 보세요 그것도 맛있어 일단은 라면사리를 하나 넣어서 하나 여기 또 특매 그게 된장에 라면 살 오 좋다 진짜 맛있겠다 자 많이 맛있는데 야 이거 김치 다가음 완전 다른 하면 기 기다 어 이거 맛있다 아 어 완벽한 실레기 된지 않고 완벽한 이거 너무 맛있어요 어 진짜 맛있다 된장 고기 이거 어떡하지 와 미쳤어 이거 방송 보고 다 된장국만 먹으러 오는 거 아니야 고기보다 더"
+    },
+    {
+      "id": 1408,
+      "why": "양념이 너무 맛있고 생새우와 잘 어울림/계속 들어가는 중독성은 제공된 팩에 없음. 원문에는 맵다는 반응과 별미 표현이 있어 별도 확인 필요.",
+      "before": "새우도 감동인데 양념이 너무 맛있고 생새우랑 잘 어울리네. 계속 들어가는 중독성, 비린내도 없고 부드러워요.",
+      "raw_reason": "동해에서만 잡히는 새우라고 들었는데, 이게 원래 껍질이 좀 이렇게 부드러워요? 네. 보리새우만 그래요. 얘만. 오. 하. 아니, 근데 새우도 감동인데 양념이 너무 맵다고 느낄 수도 있을 것 같아. 맵긴 해요. 음. 안 맵진 않아. 아, 어떻게 이런 걸 만드실 수가 음. 아, 별미다. 이 양념 진짜 알고 싶네. 이거는 그 새우 비린내도 없고"
+    },
+    {
+      "id": 1441,
+      "why": "감칠맛이 폭발이네는 제공된 팩에 없음. 나머지 직접 발언은 충실하므로 별도 확인 필요.",
+      "before": "끝맛 미쳤다. 낙지 진짜 부드럽다. 재료가 진짜 좋다. 감칠맛이 폭발이네.",
+      "raw_reason": ">> [콧방귀] >> 와, 끝맛 미쳤다. 와. >> 아, 그냥 바닷물 떠다 마시는 거 음. 음. 낙치 진짜 부드럽다. 야, 재료가 진짜 좋다. 와, 끝맛 미쳤다. 와,칼래. 그 엄청 칼해요."
+    },
+    {
+      "id": 2572,
+      "why": "육회를 싸 먹으면 정말 좋습니다는 원문의 비유를 짧게 합친 문장. 원문 화자 평가가 존재하고 전달문은 아니어서 유지.",
+      "before": "차돌박이부터 퀄리티가 다르다는 느낌이었어요. 육회를 싸 먹으면 정말 좋습니다.",
+      "raw_reason": "이 집을 가셨다면 차돌박이 까지는 박상철 입니다 가치가 줘야 돼요 bkl 부터가 야 이거 중 책들과는 다르게 상당히 퀄리티가 있다는 느낌을 받았습니다 지금부터 컴비네이션 들어갑니다 차돌박이 로 육회를 싸 먹는다 이게 입 안으로 들어가면 둘이서 죽어가는 패스가 그 의사 by 네스타 이제 1 3 제대로 올려보겠습니다 뜨겁게 구워진 쫀쫀한 차돌박이 에 맛깔나게 양념이 버무려진 시원한 6회 에다가 부추는 여기서 거의 마담뚜 라 보시면 됩니다"
+    },
+    {
+      "id": 2581,
+      "why": "두툼한 광어와 부드러운 연어 발언을 한 인용으로 합쳤으나 원문 발언은 존재. 부위별 범위는 별도 검토 가능.",
+      "before": "정말 기가 막히게 숙성이 잘 되어 있었는데요. 한 점이 두툼하고 아주 부드럽게 넘어갑니다.",
+      "raw_reason": "하겠어 라는 숙성이 가다 왔읍니다 먹을게 별로 없는데 라고 생각하시면 따라 또 날에 따라 해외 종류는 바뀌는데요 왜 한 자 환자 미 오지게 두툼합니다 한점 사이즈가 다른 집 3 4 점은 나오는 크기에요 앞으로 얘는 정말 기가 막히게 차리게 속성이 잘 되어 있었는데요 거기에 상추 대신할 배추를 주는 점이 정말 맘에 들었습니다 고추의 마늘까지 한쌈 5 그리고 연어는 기름지고 부드러운 뱃살 부위로 주셨는데요 식감 증말 살 바라게 속성 잘 되었구요 아주 부드럽게 잘 넘어갔습니다 이거는 한점에 소주 2잔 사이징 광어 인 다니 만원도 안하는 가격으로 오지게 시란 숙성의 부터 사이드로 나온 안주까지 걸을 게 없이 증말 옹골차게 먹고 나온 집입니다"
+    },
+    {
+      "id": 2821,
+      "why": "치즈/튀김/총평을 압축했으나 원문에 직접 평가가 있고 격식체도 원문과 같아 유지.",
+      "before": "이 가격에 구성과 맛이 상당히 만족스러웠습니다. 치즈는 고소하고 튀김은 바삭해요.",
+      "raw_reason": "소개해 드리고자 모듬 갓을 지켜보겠습니다 지금 대한민국을 돈까스에 적당히 신 52p 크리라 무로 만든 짠지 입니다 우성이 진짜 온 몰 찹니다 모든 가스 에서는 먼저 치즈 가스 부터 입에 집어넣었습니다 왜냐면 이거 아껴 먹다가 체 주구 들까봐 시 돈으로 출발했습니다 낫은 상당히 고소하고 이 판에 치즈가 가득 흘러 내려서 시동 좋아하시면 불어가 없다고 으 음 신카 스 입니다 걔는 이 깔끔해서 그런지 튀김이 담백하고 바삭함이 확실히 좋았습니다 다음에는 반드시 안심 가스도 먹어보겠습니다 돈까스 지 많이 다녀봤지만 이 가격대로 는 상당히 만족한 구성과 맛이었습니다 앞으로도 김 사오리 최소 재방 물 이상 해본 서울맛집 뜰로"
+    },
+    {
+      "id": 2995,
+      "why": "정말 맛있어요는 볶음밥 전문점 사장님도 감탄한다는 원문 표현을 압축. 화자 직접 형식 유지라 단정적 교정하지 않음.",
+      "before": "양념은 절대 못 버립니다. 참기름과 김가루를 넣어 볶으니 정말 맛있어요.",
+      "raw_reason": "이유가 1타 3피 입니다 첫째는 고개를 드실 수 있는 점 그리고 동시에 곡물 요리까지 즐길 수 있는지요 셋째는 뜻이고 밥까지 볶아 되실 수 있는 교자 플러스 회자 상품입니다 절대 양념은 못 버립니다 참기름 각 김가루 솔솔 뿌린 볶음밥으로 마무리 했구요 진짜 하 있질 전문점 사장님 더 여기와서 드시면 간단 하실겁니다"
+    },
+    {
+      "id": 3085,
+      "why": "먹은 갈비 중 최상급입니다는 제공된 raw/팩에서 확인되지 않는 등급 평가일 수 있어 별도 확인 필요.",
+      "before": "고기가 달아요. 간이 강하지 않고 부드러워요. 먹은 갈비 중 최상급입니다.",
+      "raw_reason": "음. 달다 고기가 달아. 정말 고기가 단데요. 아, 정말한테 훌륭한데요. 부드럽게 간이 강하지 않고 단맛도"
+    },
+    {
+      "id": 3118,
+      "why": "맑은 느낌/입에 맞아요는 제공된 raw/팩에 없음. 국물 더 요청하는 직접 인용은 충실하여 별도 확인 필요.",
+      "before": "맑은 느낌이 들고 입에 맞아요. 국물 좀만 더 주세요.",
+      "raw_reason": ">> 국물 좀만 더 주세요, 사장님."
+    },
+    {
+      "id": 3121,
+      "why": "계속 먹게 돼요는 잘린 원문을 완성한 것으로 보이나 요약문은 아님. 추가 맥락 없이 수정하지 않음.",
+      "before": "너무 맛있어 가지고 계속 먹게 돼요.",
+      "raw_reason": ">> 선생님 먹다 올리지 마세요. 너무 맛있어 가지고"
+    },
+    {
+      "id": 3142,
+      "why": "깨끗하고는 제공된 raw/팩에 없으나 나머지 격식체는 원문 그대로여서 유지 후 별도 확인 필요.",
+      "before": "깨끗하고 맛이 아주 근사합니다.",
+      "raw_reason": "맛이 아주 근사합니다."
+    },
+    {
+      "id": 3253,
+      "why": "지금 기준 1등을 지금까지 먹은 것 중 1등으로 넓혔을 수 있으나 직접 말투는 충실. 평가 범위는 별도 확인 필요.",
+      "before": "진짜 맛있어. 지금까지 먹은 것 중 1등인 것 같아.",
+      "raw_reason": "지금 기준 1등인 거 같아. 맛있어."
+    },
+    {
+      "id": 3256,
+      "why": "육수와 오징어 조화의 직접 평가를 대화체로 축약한 문장이라 유지. 원문 자체도 일부 ASR 불확실.",
+      "before": "매콤하고 시원한 육수와 오징어가 잘 어울려요.",
+      "raw_reason": "시원한 육수를 만났으니 한결 맛이 풍성해진 것은 물론이고요. 오징어 배 국물이 아주 조화롭습니다."
+    },
+    {
+      "id": 3361,
+      "why": "국물의 궁합으로 보정했으나 raw 짧고 불명확. 팩에는 갈치국 극찬이 존재하므로 섣불리 수정하지 않음.",
+      "before": "갈치와 국물의 궁합이 맞아요. 맛있어요.",
+      "raw_reason": "맛있대 궁합이 맞대요. 갈치하고"
+    },
+    {
+      "id": 3379,
+      "why": "콩알이 톡톡 씹힌다는 묘사가 제공된 raw/팩에 없음. 나머지 직접 극찬은 충실하여 별도 확인 필요.",
+      "before": "콩알이 톡톡 씹히고 정말 맛있다.",
+      "raw_reason": "오, 정말 맛있다.요"
+    },
+    {
+      "id": 3403,
+      "why": "아삭함/풀 향 묘사는 제공된 raw/팩에 없음. 제가 반했습니다 외 맥락이 없어 추측 교정하지 않음.",
+      "before": "이렇게 아삭한 곤드레밥은 처음이에요. 풀 향이 살아 있어 반했어요.",
+      "raw_reason": ">> 제가 반했습니다."
+    },
+    {
+      "id": 3442,
+      "why": "된장찌개 같다는 비교는 제공된 raw/팩에 없음. 깔끔하네는 충실하여 별도 확인 필요.",
+      "before": "깔끔한 된장찌개 같네요. 맛이 깔끔하네.",
+      "raw_reason": "아, 되게 이것도 깔끔하네. 맛이"
+    },
+    {
+      "id": 3478,
+      "why": "묵은지/시래기/맛이 없을 수 없다는 설명을 제공된 매우 짧은 raw/팩에서 확인할 수 없음. 말투 드리프트와 원문 범위 문제를 구별하기 어려워 별도 확인 필요.",
+      "before": "맛이 없을 수가 없잖아. 묵은지와 시래기가 적절히 들어가 있어요.",
+      "raw_reason": "아니고요 하이브리드처럼 적절이 딱 들어가 있는데 마지막 끝맛은 곱창"
+    }
+  ],
+  "controls": [
+    {
+      "id": 88,
+      "before": "",
+      "raw_reason": "근데 고기가 대박이야"
+    },
+    {
+      "id": 91,
+      "before": "",
+      "raw_reason": "이거 진짜 똥집이다. 맛있는"
+    },
+    {
+      "id": 1186,
+      "before": "좋아하는 생선구이로 꼽힌 조기구이. 촉촉하고 짭조름해서 술안주로 더할 나위 없었습니다.",
+      "raw_reason": "이번엔 조기 추구 회원들이 뽑은 가장 좋아하는 생성 고이 1위에 등극한 조기 고기가 나와줬고요. 촉촉의 짭자로만 살죠. 술한주로 잡수기에는 덜 나위가 없었습니다. 이어지는 술잔"
+    },
+    {
+      "id": 1189,
+      "before": "가리비찜 씨알이 좋고, 한 점 한 점 해산물 퀄리티가 대박. 꽉 차게 들어오는 살점이 너무 좋았습니다.",
+      "raw_reason": "가리비찜 씨알 보십시오. 단순히 코스의 구성만 다체로운게 아니라 한 점 한점 해산물들의 퀄리티가 완전히 이동국씨 아들 대박입니다.이 꽉 차게 들어오는 살점이 너무나도 좋았고요."
+    },
+    {
+      "id": 1525,
+      "before": "가격 대비 퀄리티가 미쳤습니다. 웬만한 중국집 탕수육보다 훨씬 바삭하고, 고기 살점도 꽉 차 있어요. 단돈 만 원으로 느낄 수 있는 극락의 술안주입니다.",
+      "raw_reason": "가격 대비의 퀄리티 미쳤습니다. 볼 수 있고요. 진짜 허지간한 중국집 당수육보다도 훨씬 더 상해하는 바삭함의 정도며 소스에 마시면이 집 높습니다. 고개의 살점 꽉 차게 들어 있는 거 보십시오. 이런 탕수이야말로 시불맛 제대로 납니다. 한 돈 만 원으로 느낄 수 있는 극락의 술환주라고 볼 수 있고요.이어서"
+    },
+    {
+      "id": 1819,
+      "before": ">> 똑같은 고기를 수백 번 구워 먹었는데 어떻게 이런 맛을 놓치고 있었어? 삼겹살도 맛이 있지만 뼈 삼겹살은 진짜 한수 위입니다. 네. >> 음. [음악] >> 맛있지? >> 어.이 입안 가득 진짜 어우이 풍미가 그리고 막 그 기름하고이 살고기하고 막 조화가 신상해. >> 과장이 아니라 고기에 대한 생각이 바뀔 정도입니다. >> 부드러우면서도 쫄깃하고 구수하면서도 감칠맛도 가득하달까요?",
+      "raw_reason": ">> 똑같은 고기를 수백 번 구워 먹었는데 어떻게 이런 맛을 놓치고 있었어? 삼겹살도 맛이 있지만 뼈 삼겹살은 진짜 한수 위입니다. 네. >> 음. [음악] >> 맛있지? >> 어.이 입안 가득 진짜 어우이 풍미가 그리고 막 그 기름하고이 살고기하고 막 조화가 신상해. >> 과장이 아니라 고기에 대한 생각이 바뀔 정도입니다. >> 부드러우면서도 쫄깃하고 구수하면서도 감칠맛도 가득하달까요?"
+    },
+    {
+      "id": 2485,
+      "before": "이어서 돼지머리 수육 소자도 시켜봤는데, 머리통을 통째로 썰어 주셨나 싶게 실하게 내어 주십니다. 진짜 셋이서 양껏 집어 먹었고, 살점이 부드럽고 촉촉합니다.",
+      "raw_reason": "되고요.이어서 돼지 머리 수육 소자도 시켜봤는데 머리통을 통째로 썰어 주셨나? 호지게 실하게내어 주신 거 보십시오. 진짜 셋시서 양껏 집어 먹었다고 보시면 되는데 살점이 납드럽고 촉촉한지"
+    },
+    {
+      "id": 2506,
+      "before": "이것이야말로 이날의 클라이맥스 정점에 다다른 술안주였습니다. 알이 꽉 찬 암게살 맛이 어마어마하고, 버터 양념이 어찌나 달달한지 새우가 완전히 다시 태어났다고 볼 수 있습니다.",
+      "raw_reason": "이것이야말로 이날의 클라이스 정점에 다다른 소란주였습니다. 지금 알이 꽉 차게 들어찬 암게 살시 맛이 어마어마하다고 보시면 되고 여기에 버터 양념이 어찌나 달달한지 새우가 완전히 다시 태어났다고 볼 수 있습니다."
+    },
+    {
+      "id": 2518,
+      "before": "칼칼한 국물에 탱글하고 쫄깃하게 씹히는 고기가 극락입니다. 국물은 상당히 진하고 깊은 데다 은은한 단맛이 어우러집니다.",
+      "raw_reason": "식감도 너무나도 좋은 데다. 칼칼한 국물에 탱글하고 쫄깃하게 씹히는 고기가 극락입니다. 소주가 정말 거침이 없이 들어간다고 볼 수 있고요. 여기서 뜨끈한 쌀밥에 국물 살짝 적셔서 묵직하게 밀어 넣어 주는 광경. 국물이 상당히 진하고 깊은 데다 은은하게 느껴지는 단맛이"
+    },
+    {
+      "id": 2647,
+      "before": "오징어통찜은 제가 올타임 최고로 꼽는 술안주라고 볼 수 있고요. 녹진하면서 부드럽게 입안으로 들어오는 게 너무나도 좋았고요.",
+      "raw_reason": "이거 실라입니까? 사실상 오징어 통찜. 이거 한 마리만 해도 다른데 가면 2만 원은 갑니다. 도무지 계산이 안 되는 구성이라고 보시면 되고이 오징어 통증 같은 경우는 저 김사원이 올타임 넘버 꼽는 최고의 술환주라고 볼 수 있고요. 상당히 녹진하면서 부드럽게 입안으로 들어오는게 너무나도 좋았고요. 회집에"
+    },
+    {
+      "id": 2743,
+      "before": "생태탕은 냉동이 아닌 생물을 써서 살점이 탱탱하고 부드럽습니다. 비린내 없이 국물이 개운했고요.",
+      "raw_reason": "있겠습니까 이어지는 메뉴는 생물 생태탕 있니다 우리가 흔히 접할 수 있는 냉동이 아닌 무려 생물이라는 점에서 너무나도 귀하다고 볼 수 있고요 위에 쑥갓이 올라가서 향긋하고 좋았습니다 여기에 아주 토실토실한 살점에 우러나오는 비린맛 없이 아주 깔끔한 국물맛이 아주 개운합니다 식당 이름을 대운 식당이 아니라 개운 식당이라고 하는게 맞고요 확실히 생태라는 이제 동태 하는 달리 살점이 좀 더 탱탱하고 부드럽긴 합니다만"
+    },
+    {
+      "id": 2863,
+      "before": "이 집 수육은 독특하게 수육인데도 한편에서 족발 맛이 납니다. 수육의 담백함과 족발의 쫄깃함을 동시에 느낄 수 있는 매력적인 맛입니다.",
+      "raw_reason": "융기 해서 흘러내리는 이 아들 야들아 이거 맛 만지니 돌았습니다 예 집 수육은 상당히 독특한게 수육 인데도 한켠에서 족발 맛이 납니다 수육에 담백한 가져가면서 동시에 족발의 조기 탕 까지 느낄 수 있는 4 상당히 매력적인 맛이 없구요 살코기 부위와 비계 부위가 좌로 게임 이루어져 아주 환장 에 맛을 낸다고 보시면 됩니다"
+    },
+    {
+      "id": 2908,
+      "before": "맛집이 되려면 고기나 김치 둘 중 하나가 맛있기도 쉽지 않은데, 여기는 둘 다 만족합니다. 삼겹살은 비계와 살코기의 배합이 상당히 적절합니다.",
+      "raw_reason": "비주얼이라고 볼 수 있고요 제가 봤을 때는 맛집이 되려면 고기가 맛이 있거나 김치가 맛있거나 사실은 둘 중에 하나이기도 쉽지가 않습니다만 여기는 고기와 김치 둘 다 만족한다고 볼 수 있습니다 지금 삼겹살에 자태를 보시면 완전히 시골 삼겹살 비계와 살코기의 배합이 상당히 적절 그냥 무지개 마시는 삼겹살이라고 보시면 됩니다"
+    },
+    {
+      "id": 3043,
+      "before": "감칠맛이 훌륭하고 비린 맛이 없어 질리지 않고 맛있게 먹었어요.",
+      "raw_reason": "꽃게탕 더 나아 보머 많이 나오네요 근데 양념게장 이나 간장게장에 쓰이는게 는 돌게장 인데요 돌 개가 꽃게의 비하면 많이 작은 개 이지만 맛은 좋아요 돌 개가 아주 먹기 좋은 크기 인데다가 예 집에서 쓰는 돌게 된 살도 많고 인데 2장 감칠 맛도 아주 훌륭 했구요 무엇보다 비린 맛이 느껴지지 않았기 때문에 질리지 않게 아주 맛있게 먹을 수 있었습니다 정말 지금 당장 꽃게를 먹을래 돌기를 먹을래 누가 묻는다면 예 말에 망설임 없이 저는 숨도 안쉬고 깨를 고르게 습니다 아까 얘기 했을 텐데요"
+    },
+    {
+      "id": 3511,
+      "before": "수제만두 튀김은 비비고 저리 가라 싶었습니다. 고기를 씹는 건지 만두를 씹는 건지, 바삭한 튀김에 육향을 진하게 느낄 수 있었습니다.",
+      "raw_reason": "수가 있고요.이어서 이번엔 수제만두 튀김도 집어들어 봤고요. 이거 완전히 비비고 저리가라입니다. 이거 속살 보십시오. 고기를 씹는 건지 만두를 씹는 건지 바삭한 튀김에다가 육향을 호지게 느낄 수가 있었고요.이어서"
+    },
+    {
+      "id": 3517,
+      "before": "소금만 살짝 찍어도 풍미가 터집니다. 삼겹살도 맛있지만 뼈삼겹살은 한 수 위이고, 부드러우면서 쫄깃하고 구수하면서 감칠맛도 가득합니다.",
+      "raw_reason": ">> 클래식은 영원한 법이지요. 소금만 살짝 찍어도 풍미가 터집니다. >> 짜증난다. >> 사장님 짜증나. [음악] 똑같은 고기를 수백 번 구워 먹었는데 어떻게 이런 맛을 놓치고 있었어? >> 삼겹살도 맛이 있지만 뼈 삼겹살은 진짜 한수 위입니다. >> 맛있죠? 어데 이반 가득 진짜 어우이 리미가 그리고 막 그 기름하고이 팔고기하고 막 조화가 불쌍해. >> 과장이 아니라 고기에 대한 생각이 바뀔 정도입니다. >> 부드러우면서도 쫄깃하고 구수하면서도 감칠맛도 가득하달까요?"
+    },
+    {
+      "id": 3593,
+      "before": "와, 진짜 맛있는 닭갈비인데. 여기는 칼칼하고 개운한 맛이 있어. 치즈의 짭짤함과 너무 잘 어울려. 여기서는 치즈는 무조건 추가하시는 걸 추천드리겠습니다.",
+      "raw_reason": ">> 와. 진짜 맛있는 닭갈비인데 여기가 왜 맛있는 닭갈비인줄 알아? 약간 나는 철판 닭갈비하면 달짝은 하고 짭조르한 맛이 먼저 떠오르거든. 여기는 칼하고 그 개운한 맛이 있어. 와. 그래서 그게 좀 다른 거 같아. 진짜 이건 닭갈비가 아니라 약간 불닭갈비 같은데. 불닭갈비. 우와. 아, 근데 나는 이렇게 뭔가 매콤하고 이렇게 게운한 철판닭이라 못 먹어 본 거 같아. 맛있네. 야, 여기만의 치즈 맛이 워낙 세니까. 근데 여기는 닭갈비 자체가 되게 칼하고 양념 자체가 좀 세거든. 근데 그게 치즈의 뽀송함과 짭짤함과 너무 잘 어울려. 그래서 난 여기서는 치즈는 무조건 추가하시는 걸 추천드리겠습니다. 와이"
+    },
+    {
+      "id": 3596,
+      "before": "진짜 맛있다. 면이 이렇게 두꺼운데 국물을 어떻게 다 빨아들이고 이렇게 조합이 잘 맞지? 육수 진짜 미쳤어요. 씹으면 씹을수록 고소한 면발. 여기 칼국수 진짜 잘한다.",
+      "raw_reason": ">> 진짜 맛있다. 우와 이것도 뭔 맛이냐 이게? 면이 이렇게 두꺼운데 국물을 어떻게 다 이렇게 빨아들이고 국물이랑 이렇게 조합이 잘 맞지? 맛있어.면 자체가 너무 맛있는 >> 아우 술 진짜 잔뜩 먹고 한번 와 보고 싶다. 육수봅니다. 와 육수 진짜 미쳤어요. 정말 고운 각 한 마리의 국물을 먹는 거 같았어. 고양이 되면서 몸에서 희가 갑자기 확 도는 그런 진짜 진한 맛. 면이 진짜 투박해. 엄청 굵어. 우동면보다 굵은 거 같아. 밀가루 맛이 일전한다. 밀가루의 맛보다 씹으면 씹을수록 고소한 맛있는 떡을 먹는듯한 그런 면발이었어. 여기 칼구스 진짜 잘한다. 와 너무 맛있다. 아이 정도"
+    },
+    {
+      "id": 3599,
+      "before": "와, 너무 맛있다. 부추랑 매콤한 소스가 너무 잘 어울려. 오리 주물럭이 이렇게 맛있는 거야? 이 집 오리 주물럭은 담백해. 고기 식감이 탱글탱글해서 너무 맛있다.",
+      "raw_reason": "와! 와! 존나 맛있다. >> 미친 너무 맛있어. [웃음] 와 너무 맛있다. 야 그리고이 부추 소스에 먹는게 또 매력 [음악] 있어. 이게 매운 겨자 소스야.이 지금 부추라이 매콤한 소스랑 너무 잘 어울려. 와우 아니 너무 못 맛있는데. 사실 오리 기름이 많잖아. 오리 고기 자체가 담백하다고 생각들지는 않아. 근데이 집 오리 주물려고 딱 먹었는데 담백해. 해어나 있을 맛을 또 깨끗함으로 잡아주어. 고기의 식감이 진짜 되. 이게 오리고기인데 얼마나 땡글땡글하냐면 닭동집 같은 그 땡글땡글함이 느껴지더라고. 너무 맛있다. 내장 유명하다며. 단풍놀이"
+    },
+    {
+      "id": 3602,
+      "before": "국물이 생각했던 것보다 깔끔해. 냄새가 하나도 안 나. 진하고 뽀얗고 깊은데 군더더기가 없어요. 야, 이게 부산 국밥이지.",
+      "raw_reason": ">> 뭐야? 너무 맛있지? 너무 맛있는데. >> 어? 새우장이랑 이거 간을 안 했는데도 다른 맛이 나타나네. 야 딱 먹었는데 어 국밥 박 특이 상 없는 국밥 이런데 맛이 특이 사항이 많은데 뭐 지금 >> 어 깔끔하네 어와 >> 국물이 생각했던 거보다 깔끔해 냄새 일도 안 난다. 그 맛있다. 와, 냄새가 안 나.이 >> 정도면은 약간 부산국밥에서 그래도 인정하고 괜찮아. 생각이 괜찮아. 오 국밥 먹었을 때 너무 진해서 un섭한 느낌이게 있는데 여기는 깔끔해 잠내나 이런 거 없이 진하고 뽀얗고 깊은 정말 군더덕이 없어요. 야 이게 보상국밥이지 딱 그런 국밥이야 이거는."
+    }
+  ]
+}
