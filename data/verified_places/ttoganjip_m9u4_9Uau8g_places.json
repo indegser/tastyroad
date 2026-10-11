@@ -1,0 +1,60 @@
+{
+  "source": "또간집",
+  "verified_at": "2026-10-11",
+  "items": [
+    {
+      "video_id": "m9u4_9Uau8g",
+      "resolved_name": "주문진 막국수",
+      "display_name": "주문진 막국수",
+      "local_name": "주문진 막국수",
+      "country_code": "KR",
+      "region": "부산 동래구",
+      "address": "부산광역시 동래구 사직로58번길 8",
+      "phone": "051-501-7856",
+      "category": "막국수",
+      "map_provider": "naver_map",
+      "naver_map_id": "11831717",
+      "map_url": "https://map.naver.com/p/entry/place/11831717?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=m9u4_9Uau8g&t=495s",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "EP107 전체 자막에서 해당 식당명을 직접 발언하고 촬영·주문 구간이 이어지며, 네이버 장소명과 사직구장 인근 주소가 일치함."
+    },
+    {
+      "video_id": "m9u4_9Uau8g",
+      "resolved_name": "쌍둥이돼지국밥",
+      "display_name": "쌍둥이돼지국밥",
+      "local_name": "쌍둥이돼지국밥",
+      "country_code": "KR",
+      "region": "부산 동래구",
+      "address": "부산광역시 동래구 아시아드대로 147",
+      "phone": "051-502-0995",
+      "category": "국밥",
+      "map_provider": "naver_map",
+      "naver_map_id": "11665562",
+      "map_url": "https://map.naver.com/p/entry/place/11665562?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=m9u4_9Uau8g&t=1413s",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "EP107 전체 자막에서 해당 식당명을 직접 발언하고 촬영·주문 구간이 이어지며, 네이버 장소명과 사직구장 인근 주소가 일치함."
+    },
+    {
+      "video_id": "m9u4_9Uau8g",
+      "resolved_name": "삼천포횟집",
+      "display_name": "삼천포횟집",
+      "local_name": "삼천포횟집",
+      "country_code": "KR",
+      "region": "부산 동래구",
+      "address": "부산광역시 동래구 사직로 50",
+      "phone": "0507-1367-3544",
+      "category": "생선회",
+      "map_provider": "naver_map",
+      "naver_map_id": "16524421",
+      "map_url": "https://map.naver.com/p/entry/place/16524421?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=m9u4_9Uau8g&t=1901s",
+      "confidence": 0.99,
+      "status": "verified",
+      "notes": "EP107 전체 자막에서 해당 식당명을 직접 발언하고 촬영·주문 구간이 이어지며, 네이버 장소명과 사직구장 인근 주소가 일치함."
+    }
+  ]
+}
