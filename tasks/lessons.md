@@ -1,5 +1,24 @@
 # Lessons
 
+## 2026-10-05
+
+- Trigger: The Threads openings became elaborate around subtitle reactions, while the user wanted the trusted YouTube channel selection to be the main appeal.
+  Rule: For Tastyroad social copy, lead plainly with the verified channel-backed restaurant selection and follow the user's latest requested post structure, including its exact division between the first post and replies.
+- Trigger: Copy about having organized subtitle and map links sounded like an agent's work report rather than a Threads post, and prior AI reviewer feedback was described too broadly.
+  Rule: Name the actual channels and restaurants in public copy; remove process narration such as "정리했습니다" or "엄선했습니다" unless the user wants it, and state clearly which draft version AI reviewers saw.
+
+## 2026-10-11
+
+- Trigger: The user replaced the one-post format with a first post containing restaurant 1 and one reply per remaining restaurant, using the website card as the restaurant-description reference.
+  Rule: Mirror the site's displayed name, source, address, menu, timestamp, and display copy for each restaurant; keep one restaurant per connected post. Distinguish repaired display copy from verbatim captions during verification.
+- Trigger: Full YouTube video titles made the restaurant posts too dense; the user asked for `number restaurant - channel` with address and map immediately below.
+  Rule: Omit the full video title in Threads copy, put the restaurant and channel on one line, and retain a visible YouTube URL because Threads does not provide an arbitrary linked-label field in its text-post API.
+- Trigger: The user found the ungrouped restaurant details and alternating menu quotes hard to scan and supplied a labeled `위치/영상/메뉴평` example.
+  Rule: In Threads restaurant drafts, visually group location and video link above a separate menu-review section; use restaurant numbers for posts and bullets for menu items, with each preserved quotation on its own line.
+- Trigger: The user approved the revised layout and explicitly removed map links from the final Threads format.
+  Rule: Use the fixed `번호 식당명 - 채널명 / 위치 / 영상 / 메뉴평` format for future Threads restaurant drafts, without Naver Map URLs unless the user later changes it.
+
+
 Durable lessons for future coding agents in this repository.
 
 Add an entry when the user corrects the agent or when a repeated mistake pattern is discovered. Keep lessons actionable, dated, and specific enough to change future behavior.
