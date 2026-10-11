@@ -30,6 +30,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--sqlite", type=Path, default=DEFAULT_SQLITE)
     parser.add_argument("--source-name", required=True)
+    parser.add_argument("--video-id", action="append", default=[], help="Limit to these YouTube video IDs. Repeatable.")
     parser.add_argument("--output-dir", type=Path, default=DEFAULT_OUTPUT_DIR)
     parser.add_argument("--batch-size", type=positive_int, default=3)
     parser.add_argument(
@@ -64,6 +65,7 @@ def fetch_pairs(
     connection: sqlite3.Connection,
     source_name: str,
     include_existing: bool,
+    video_ids: list[str] | None = None,
 ) -> list[dict[str, Any]]:
     where_missing = ""
     if not include_existing:
@@ -75,6 +77,8 @@ def fetch_pairs(
               and v.restaurant_id = r.id
           )
         """
+    scoped_ids = sorted(set(video_ids or []))
+    video_filter = f"and yv.video_id in ({','.join('?' for _ in scoped_ids)})" if scoped_ids else ""
     rows = connection.execute(
         f"""
         select
@@ -95,10 +99,11 @@ def fetch_pairs(
         join preferred_youtube_transcripts pt on pt.youtube_video_id = yv.id
         where s.name = ?
           and coalesce(r.naver_map_id, '') != ''
+          {video_filter}
           {where_missing}
         order by yv.published_at desc, yv.id desc, r.id
         """,
-        (source_name,),
+        (source_name, *scoped_ids),
     ).fetchall()
     return [
         {
@@ -157,7 +162,7 @@ def main() -> int:
 
     connection = sqlite3.connect(args.sqlite)
     connection.row_factory = sqlite3.Row
-    pairs = fetch_pairs(connection, args.source_name, args.include_existing)
+    pairs = fetch_pairs(connection, args.source_name, args.include_existing, args.video_id)
     excluded_pair_count = 0
     if args.exclude_pairs_file:
         excluded_rows = [

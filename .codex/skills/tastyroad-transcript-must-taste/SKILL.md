@@ -132,6 +132,8 @@ python3 .codex/skills/tastyroad-transcript-must-taste/scripts/plan_must_taste_ba
 
 This writes `manifest.json`, `pairs.json`, optional `videos.json`, and `batch_001.json` style worker inputs. Without `--group-by-video`, each batch item is one restaurant-video pair. With `--group-by-video`, each batch item is one video plus a `restaurants` list. Use `--include-existing` only when intentionally re-running already stored pairs.
 
+For an exact collection run, repeat `--video-id <youtube_id>` for each collected video to keep historical source backlog out of the plan.
+
 For incremental ingest while an earlier batch still has intentionally
 insufficient pairs, pass its `pairs.json` with `--exclude-pairs-file`. This
 plans only newly transcript-eligible pairs instead of repeating already

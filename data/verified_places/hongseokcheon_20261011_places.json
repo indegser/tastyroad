@@ -1,0 +1,42 @@
+{
+  "source": "홍석천이원일",
+  "verified_at": "2026-10-11",
+  "items": [
+    {
+      "video_id": "UHPhUWrTREA",
+      "resolved_name": "진미식당",
+      "display_name": "진미식당",
+      "local_name": "진미식당",
+      "country_code": "KR",
+      "region": "서울 마포구",
+      "address": "서울특별시 마포구 마포대로 186-6",
+      "phone": "02-3211-4468",
+      "category": "게요리",
+      "map_provider": "naver_map",
+      "naver_map_id": "19862126",
+      "map_url": "https://map.naver.com/p/entry/place/19862126?placePath=%2Fhome",
+      "evidence_url": "https://m.map.naver.com/search2/search.naver?query=%EC%A7%84%EB%AF%B8%EC%8B%9D%EB%8B%B9+%EB%A7%88%ED%8F%AC+%EA%B0%84%EC%9E%A5%EA%B2%8C%EC%9E%A5",
+      "confidence": 0.98,
+      "status": "metadata_verified",
+      "notes": "Naver mobile search matched candidate address for `진미식당` from video metadata; match score 95."
+    },
+    {
+      "video_id": "WqBZRPzZicI",
+      "resolved_name": "강동원",
+      "display_name": "강동원",
+      "local_name": "강동원",
+      "country_code": "KR",
+      "region": "서울 마포구",
+      "address": "서울 마포구 망원로 3",
+      "phone": "",
+      "category": "중식당",
+      "map_provider": "naver_map",
+      "naver_map_id": "1835965631",
+      "map_url": "https://map.naver.com/p/entry/place/1835965631?placePath=%2Fhome",
+      "evidence_url": "https://www.youtube.com/watch?v=WqBZRPzZicI",
+      "confidence": 0.99,
+      "status": "metadata_verified",
+      "notes": "Video description says 망원동 강동원; same place and address as existing verified restaurant 759."
+    }
+  ]
+}
