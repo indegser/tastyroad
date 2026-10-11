@@ -1,5 +1,133 @@
 # Task Log
 
+## Follow-up - 2026-10-11 - Publish the three approved Threads series
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Recheck the exact three draft bodies, hashes, post lengths, and target account.
+- [x] Publish each connected three-post series sequentially with the approved draft hash.
+- [x] Verify each published series, reply links, and local publication ledger; record URLs.
+
+Scope: Publish the three prepared restaurant series to `@indegs_er` following the user's explicit request.
+
+Review/result: Published all three series (nine posts) and verified every exact text body, parent reply, root post, public permalink, and `complete` ledger state through the Threads API. Flower-crab/crab: https://www.threads.com/@indegs_er/post/DeUkoTmmUqz (replies DeUkqGxmWbK, DeUksJaGcV4). Mushroom broth: https://www.threads.com/@indegs_er/post/DeUkueGmXHp (replies DeUkwGkGXfs, DeUkyHKGSuD). Sundae-guk: https://www.threads.com/@indegs_er/post/DeUk8aJGS0P (replies DeUk9tjmexi, DeUk_0_mZbM). The mushroom third container initially failed at publish with Meta code 24; after verifying that the post was absent and the container was `FINISHED`, published that same container once and completed the ledger. No duplicates found.
+
+## Follow-up - 2026-10-11 - Diagnose Threads API block
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Confirm the failure on read-only profile and recent-post endpoints without exposing the saved token.
+- [x] Inspect the signed-in Meta developer account and identify the required recovery step.
+- [x] Preserve the verification page for the account owner and record the publishing impact.
+
+Review/result: Both `/me` and `/me/threads` returned HTTP 400, `OAuthException` code 200, `API access blocked`, with `WWW-Authenticate` reporting `access_denied`. The signed-in Meta for Developers page says unusual activity was detected on the developer account and account verification is required. Its checkpoint shows an email code verification for the account owner. The owner must complete that checkpoint before API access can be rechecked. No Threads post was created or published.
+
+Follow-up after owner verification: Meta checkpoint displayed that developer access was restored, the app dashboard loaded, and `threads_publish.py status` succeeded for `@indegs_er` (ID `38816013971379182`). The recent-post API returned two posts; none matches the first post of the crab, mushroom, or sundae-guk drafts. The three series remain ready for review; none was published.
+
+## Follow-up - 2026-10-11 - Prepare three Threads series for publication
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Inspect nine verified restaurant-video pairs and website display copy against stored transcript reasons.
+- [x] Write three connected three-post JSON drafts using the approved format, without map links.
+- [x] Check exact post text, character limits, source URLs, local duplicates, and account status.
+- [x] Open the complete review file and record the final publishing blocker.
+
+Scope: Prepare up to publication; do not publish until the user reviews the exact drafts.
+
+Review/result: Prepared flower-crab/crab, mushroom broth, and sundae-guk series as three JSON arrays plus a complete nine-post review file. Replaced poorly transcribed recommended candidates with cleaner source-backed restaurants; the sundae-guk series reuses the previously reviewed trio. `threads_publish.py check` passed all three arrays at 367/314/159, 183/179/144, and 262/160/350 characters, with hashes recorded in the review file. Nine JSON bodies exactly match the review file; all restaurant-video mappings are verified and every post has one YouTube link, no map link, and menu quotes from the stored display field. The local publication history has no matching hash. `git diff --check` passed. Account status returned Threads API HTTP 400 `API access blocked`, preventing account confirmation and remote duplicate checking. No post was published.
+
+## Follow-up - 2026-10-11 - Finalize Threads text format
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Remove only the Naver Map link lines from the six posts and weekly template.
+- [x] Record the approved post structure as the default format.
+- [x] Recheck post bodies, lengths, and diff.
+
+Scope: Drafts only. No Threads publication.
+
+Review/result: Removed all eight map-link lines (six ready posts and two weekly template blocks). The approved order is now restaurant/channel, location, YouTube URL, blank line, and menu-review bullets with preserved display quotes. Both connected three-post arrays passed `threads_publish.py check` at 288/171/233 and 262/160/350 characters. `git diff --check` passed. No post was published.
+
+## Follow-up - 2026-10-11 - Threads text layout review
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Read the user's revised example and the current six post bodies.
+- [x] Gather independent AI reviewer advice on visual hierarchy and plain-text layout.
+- [x] Apply one consistent layout to both topics and the weekly template without changing wording or links.
+- [x] Verify content preservation, character limits, and the final draft.
+
+Scope: Drafts only. No Threads publication.
+
+Review/result: Three independent AI reviewers recommended the same plain-text hierarchy: restaurant numbering, labeled location/map/video lines, a blank line, then menu bullets with quotations on their own lines. Applied it to both ready topics and the weekly template without changing restaurant details, menu names, display copy, or URLs. The two connected three-post series passed `threads_publish.py check` at 337/222/282 and 311/209/399 characters. `git diff --check` passed. No post was published.
+
+## Follow-up - 2026-10-11 - Shorten Threads restaurant cards
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Check current Threads link formatting against Meta's publishing documentation.
+- [x] Remove video titles and format each heading as `번호 식당명 - 채널명`.
+- [x] Put the address and Naver Map URL directly below each heading; retain the YouTube URL per restaurant.
+- [x] Recheck all six posts and update draft notes.
+
+Scope: Drafts only. No Threads publication.
+
+Review/result: Removed video titles from all six posts and the weekly template. Each heading now combines number, restaurant, and channel; the address and direct Naver URL follow it, with the timestamped YouTube URL at the bottom. Meta's current Threads text-post API accepts URLs and a separate link attachment but exposes no arbitrary linked-label field, so the draft keeps the channel name plain and the video URL visible. `threads_publish.py check` passed both series at 312/207/257 and 291/194/379 characters; `git diff --check` passed. No post was published.
+
+## Follow-up - 2026-10-11 - Threads post and two replies
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Compare the screenshot with the site card renderer and its SQLite display fields.
+- [x] Rewrite each ready topic as one first post with restaurant 1, then two restaurant replies; keep both links per restaurant.
+- [x] Use the site's menu names, timestamps, and display text; check post lengths and source links.
+- [x] Update the weekly template, record any content limits, and verify the final draft.
+
+Scope: Drafts only. No Threads publication.
+
+Review/result: Rewrote the Seoul Jung-gu and sundae-guk drafts into three connected texts each. The first text has the topic title plus restaurant 1; replies 1 and 2 each have one restaurant. Website card fields were matched to the connected SQLite rows. Replaced Wangseong Sikdang with Sogong Bajirak Kalguksu because the former's site copy contains subtitle artifacts. Both three-post arrays passed `threads_publish.py check` at 335/245/283 and 317/244/476 characters, respectively. The weekly structure remains unfilled pending three verified current-week restaurants. These are site display texts; several are edited or summarized from captions, so verbatim audio review remains pending. No post was published.
+
+## Current Task - 2026-10-05 - Threads restaurant drafts
+
+Worktree: `/Users/indegser/Github/tastyroad-worktrees/threads-content-drafts`
+Branch: `codex/threads-content-drafts`
+
+- [x] Read repository guidance, posting skill, and transcript evidence rules.
+- [x] Confirm stored data freshness and quote-bearing restaurant records.
+- [x] Draft two four-post Threads series, each with exactly three restaurants and source-linked subtitle quotes.
+- [x] Prepare the current-week structure and record why a factual three-restaurant draft cannot yet be filled.
+- [x] Validate quote text, video timestamps, restaurant mapping, and post lengths; record result.
+
+Scope: Drafts only. No Threads publication, deployment, or Naver saved-list writes.
+
+Review/result: Seoul Jung-gu and sundae-guk drafts each contain 4 posts and 3 restaurant quotes. Every quoted string appears in the stored raw subtitle reason for its restaurant-video pair, every pair has a verified mapping and numeric Naver ID, and all posts are below 500 characters. `git diff --check` passed. The Oct 5–11 roundup remains a template because the refreshed collection found zero videos published in that period; Sept 28–Oct 4 yielded 23 new videos, but none had a quote-ready mapped transcript at the time of review. Posting and voice-level quote verification remain pending.
+
+Follow-up 2026-10-05: Added labeled YouTube timestamp and direct Naver Map place URLs to all six restaurant replies and to the weekly template. Rechecked each video/place ID pair and exact subtitle quote in SQLite; all six replies remain under 500 characters.
+
+Follow-up 2026-10-05 — opening review:
+
+- [x] Collect three independent opening critiques from growth, food editorial, and credibility perspectives.
+- [x] Revise both ready first posts and the weekly template without changing verified quote or place details.
+- [x] Run a fourth independent review of the revised openings and make final edits.
+- [x] Verify post length, facts, and diff; record review result.
+
+Review/result at that stage: Three independent AI reviews agreed the openings were generic and the old 순댓국 국물 대비 lacked evidence. A fourth review of the revision flagged awkward wording and an overread of the 생태탕 quote; both were corrected. The interim openings led with raw-subtitle fragments; all six fragments were rechecked against stored raw subtitle reasons. The user then changed the desired angle below. No posting occurred.
+
+User correction 2026-10-05: Replaced quote-led openings with plain copy emphasizing three restaurants selected from well-known YouTube channels. Kept subtitle quotations and both URLs in the three restaurant replies. Weekly opening remains a template pending actual current-week videos.
+
+Follow-up 2026-10-05: Consolidated each ready series into one self-contained Threads post with exactly three restaurants, three exact subtitle excerpts, and three timestamped YouTube plus three Naver Map URLs. Removed the reply-chain structure, shortened only to source-matching quote excerpts, and kept the current-week post as an unfilled single-post template. `threads_publish.py check` accepted the two drafts at 424 and 430 characters. SQLite checks matched all six video/place/quote combinations. No post was published.
+
+User correction 2026-10-05: Replaced report-like copy with simple channel-name openings. Clarified that the four reviewers were AI agents and that they reviewed the earlier quote-led version, not the later report-like wording. Rechecked the one-post drafts and kept all restaurant quotes and links.
+
+
 Use this file for active non-trivial work. Keep entries short and checkable.
 
 ## Current Task - 2026-09-06 - Regular source maintenance run
