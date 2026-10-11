@@ -3156,7 +3156,9 @@ Scope: audit all 3,223 stored menu quotes across video formats; repair only adde
 - [x] Audit every display quote and source-check suspected voice drift; review the first repair sample before scaling.
 - [x] Independently review proposed repairs and preservation controls; resolve disputed cases.
 - [x] Dry-run and sequentially apply only reviewed display-field replacements; verify all unrelated data unchanged.
-- [ ] Build, check Supabase availability, integrate intended commit into remote main and verify production deployment/API.
-- [ ] Record full audit/release evidence and clean the published task worktree safely.
+- [x] Build, check Supabase availability, integrate intended commit into remote main and verify production deployment/API.
+- [x] Record full audit/release evidence and clean the published task worktree safely.
 
 Repair verification: All 3,223 menu rows audited; 161 display repairs across 94 videos/119 restaurants accepted after independent review. All 3,062 unaffected rows and all other tables/columns/evidence fields match the baseline exactly. Nine focused tests, skill validator, SQLite integrity, helper dry-run/sequential apply, and pnpm production build passed. Fourteen unnecessary proposed changes were rejected to preserve existing direct speech. Versioned audit, before/after manifest and review report: `data/experiments/must_taste_quote_style_20261011/repair/`.
+
+Production result: Repair commit `e7fc36b41122756a81370a25a5341d2baa1551f3` was fast-forwarded to GitHub `main`. Vercel production deployment `https://tastyroad-ri0i77yyx-jaekwon-hans-projects.vercel.app` reached READY and serves `https://taste.indegser.com`. The home page and restaurants API returned HTTP 200. All 19 API pages/1,826 public restaurants matched the local public DB, including all 154 currently visible repaired quotes and Tsujihan. Seven repaired historical menu rows are stored but not selected by the existing latest-video public projection. Supabase was Available before maintenance and release. Release evidence is saved in `repair/production_verification.json`; the clean task worktree is removed after the documentation follow-up is published and verified. Shared main checkout changes were preserved.

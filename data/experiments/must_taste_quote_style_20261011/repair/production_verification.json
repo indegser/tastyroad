@@ -1,0 +1,15 @@
+{
+  "alias": "https://taste.indegser.com",
+  "http_status": 200,
+  "api_pages": 19,
+  "public_restaurants_matched": 1826,
+  "all_public_menu_arrays_match_local_build": true,
+  "visible_repairs_matched": 154,
+  "tsujihan_verified": true,
+  "home_http_status": 200,
+  "commit": "e7fc36b41122756a81370a25a5341d2baa1551f3",
+  "deployment": "https://tastyroad-ri0i77yyx-jaekwon-hans-projects.vercel.app",
+  "state": "READY",
+  "target": "production",
+  "source": "GitHub integration"
+}
