@@ -138,10 +138,13 @@ Branch: `codex/refresh-all-youtube-20261011`
 - [x] Verify the collected data, release prerequisites, and production build.
 - [x] Commit the intended collection changes, integrate into `main`, and verify the GitHub-triggered production deployment.
 - [x] Audit all 159 new videos for mapping, transcript, and taste-menu eligibility.
-- [ ] Finish place review for the remaining 139 new videos and taste review for the remaining 16 verified video-place pairs.
-- [ ] Verify the final exact results and document unresolved items.
+- [x] Finish transcript-grounded taste review for all 33 verified video-place pairs.
+- [x] Verify the exact results, database, and production build; document unresolved mapping.
+- [ ] Resolve 139 new videos without a verified place match, including 122 broadcast clips.
 
 Review/result so far: Collection commit `ca6ce7d5c013af57ea7f91c0ff11e883b8879dc3` was pushed to production `main`; Vercel deployment `https://tastyroad-l0fyulwp5-jaekwon-hans-projects.vercel.app` is READY and the production restaurants API returned HTTP 200 with an `items` array. The Supabase integration was Available before and immediately before release; local `pnpm run build`, SQLite integrity, and foreign-key checks passed. All 159 new videos now have stored transcripts after retries. Five verified-place files promoted 33 video-place pairs across 20 videos. Transcript-grounded review covered 17 pairs: 16 pairs produced 24 menu items across 11 videos, and one pair was explicitly insufficient. The remaining 16 mapped pairs and 139 unmapped videos are still open. SQLite integrity is `ok`, and foreign-key check is empty. The exact-scope planner flag was verified on three expected pairs and its five unit tests passed. Parallel review stopped when delegated agent usage reached its account limit; no unverified Baekban clip was auto-linked from an episode date.
+
+Follow-up result: Reviewed the remaining 16 mapped pairs using whole-video transcript contexts and pair-level evidence. Exact new-video scope now has 48 taste items across 32 of 33 mapped pairs; one previously reviewed pair remains evidence-insufficient. All six final pair artifacts passed dry-run validation before apply. SQLite integrity is `ok`, foreign-key check is empty, and `pnpm run build` passed. Supabase Marketplace resource `supabase-aqua-engine` is Available. The 139 videos without a verified place are 122 백반기행, 12 최자로드, 3 홍석천이원일, 1 또간집, and 1 성시경의 먹을텐데; they require clip-level place verification before publication.
 
 ## Current Task - 2026-10-11 - Refresh all YouTube sources
 
